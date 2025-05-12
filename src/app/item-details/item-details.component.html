@@ -15,7 +15,7 @@
         </a>
       </p>
     </div>
-    <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'" [class.head-margin]="item.text">
+    <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'">
       <p *ngIf="hasUrl">
         <a class="title" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
         {{item.title}}
@@ -49,7 +49,8 @@
         <div class="pollBar" [ngStyle]="{'width': pollResult.points/item.poll_votes_count*100+'%'}"></div>
       </div>
     </div>
-    <p class="subject" [innerHTML]="item.content"></p>
+    <!-- Content property not available in Story model -->
+    <p class="subject"></p>
     <ul class="comment-list">
       <li *ngFor="let comment of item.comments" >
         <app-comment [comment]="comment"></app-comment>

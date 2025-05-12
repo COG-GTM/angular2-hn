@@ -45,7 +45,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
+              "extractStyles": true,
               "namedChunks": true,
               "aot": true,
               "extractLicenses": true,

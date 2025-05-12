@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { routing } from './app.routes';
 
@@ -18,6 +19,7 @@ import { SettingsService } from './shared/services/settings.service';
     declarations: [AppComponent, FeedComponent, ItemComponent],
     imports: [
         BrowserModule,
+        RouterModule,
         routing,
         CoreModule,
         SharedComponentsModule,

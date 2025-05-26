@@ -9,7 +9,12 @@
   transition: opacity .2s ease;
   box-sizing: border-box;
   padding: 8px 0;
+  padding-top: 74px; /* Header height + padding */
   z-index: 0;
+
+  @media #{$mobile-only} {
+    padding-top: 8px; /* Keep existing mobile behavior since it has fixed item headers */
+  }
 }
 
 .item {

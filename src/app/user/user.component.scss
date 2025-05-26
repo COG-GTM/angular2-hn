@@ -7,6 +7,11 @@
 
 .profile {
   padding: 30px;
+  padding-top: 104px; /* Header height + original padding */
+
+  @media #{$mobile-only} {
+    padding: 110px 15px 0 15px; /* Keep existing mobile spacing */
+  }
 }
 
 @media #{$mobile-only} {

@@ -28,8 +28,10 @@ ol {
 }
 
 .list-margin {
+  margin-top: 8px; /* Reduce since main-content now has padding */
+  
   @media #{$mobile-only} {
-    margin-top: 55px;
+    margin-top: 5px; /* Adjust for mobile */
   }
 }
 
@@ -41,7 +43,12 @@ ol {
   transition: opacity .2s ease;
   box-sizing: border-box;
   padding: 8px 0;
+  padding-top: 74px; /* Header height + padding */
   z-index: 0;
+
+  @media #{$mobile-only} {
+    padding-top: 58px; /* Mobile header height + padding */
+  }
 }
 
 .post {

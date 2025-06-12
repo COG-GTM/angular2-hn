@@ -1,13 +1,22 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
+:host {
+  display: block;
+}
+
+header {
+  display: block;
+}
+
 #header {
   color: #fff;
   padding: 6px 0;
   line-height: 18px;
   vertical-align: middle;
-  position: relative;
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
 
   @media #{$mobile-only} {

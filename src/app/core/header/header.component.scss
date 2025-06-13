@@ -3,6 +3,14 @@
 
 :host {
   display: block;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  
+  @media #{$mobile-only} {
+    position: fixed;
+    top: 0;
+  }
 }
 
 header {
@@ -14,15 +22,10 @@ header {
   padding: 6px 0;
   line-height: 18px;
   vertical-align: middle;
-  position: sticky;
-  top: 0;
-  z-index: 10;
   width: 100%;
 
   @media #{$mobile-only} {
     height: 50px;
-    position: fixed;
-    top: 0;
   }
 
   a {

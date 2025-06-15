@@ -1,19 +1,31 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  
+  @media #{$mobile-only} {
+    position: fixed;
+    top: 0;
+  }
+}
+
+header {
+  display: block;
+}
+
 #header {
   color: #fff;
   padding: 6px 0;
   line-height: 18px;
   vertical-align: middle;
-  position: relative;
-  z-index: 1;
   width: 100%;
 
   @media #{$mobile-only} {
     height: 50px;
-    position: fixed;
-    top: 0;
   }
 
   a {

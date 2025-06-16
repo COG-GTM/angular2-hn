@@ -14,13 +14,13 @@
 
 .item {
   box-sizing: border-box;
-  padding: 10px 40px 0 40px;
+  padding: 110px 40px 0 40px;
   z-index: 0;
 }
 
 @media #{$tablet-only} {
   .item {
-    padding: 10px 20px 0 40px;
+    padding: 110px 20px 0 40px;
   }
 }
 

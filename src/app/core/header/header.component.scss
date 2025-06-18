@@ -1,6 +1,18 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+
+  @media #{$mobile-only} {
+    position: fixed;
+    top: 0;
+  }
+}
+
 #header {
   color: #fff;
   padding: 6px 0;
@@ -12,8 +24,6 @@
 
   @media #{$mobile-only} {
     height: 50px;
-    position: fixed;
-    top: 0;
   }
 
   a {

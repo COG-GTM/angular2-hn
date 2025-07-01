@@ -121,6 +121,27 @@ h1 {
   }
 }
 
+// Black/White theme specific header nav styles
+.blackwhite {
+  .header-nav {
+    a {
+      color: rgba(0,0,0,0.8) !important;
+
+      &:hover {
+        color: #000 !important;
+      }
+    }
+
+    .active {
+      color: #000 !important;
+    }
+  }
+
+  h1 a {
+    color: #000 !important;
+  }
+}
+
 .info {
   position: absolute;
   top: 0;

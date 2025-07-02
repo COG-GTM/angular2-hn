@@ -71,13 +71,30 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
+## Migration in Progress
+
+🚧 **This repository is currently being migrated from Angular 9 to React 18.** 🚧
+
+See [MIGRATION.md](./MIGRATION.md) for detailed migration progress and instructions.
+
+### Running the Angular App (Original)
+ - Clone or download the repo
+ - `npm install`
+ - `export NODE_OPTIONS=--openssl-legacy-provider && npm start` to run the application with webpack-dev-server
+ - Open http://localhost:4200
+
+### Running the React App (New - Phase 1)
+ - `cd react-app`
+ - `npm install`
+ - `npm run dev` to run the React development server
+ - Open http://localhost:5173
+
 ## Build process
 
 Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+For the Angular app:
+ - `npm build` to kick off a fresh build and update the output directory (`dist/`)
 
 Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
  - `npm build`

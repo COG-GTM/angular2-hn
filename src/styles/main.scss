@@ -1,0 +1,464 @@
+@import './variables';
+
+// Base styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+// Theme styles
+.theme-default {
+  background-color: $background-default;
+  color: $text-default;
+}
+
+.theme-night {
+  background-color: $background-night;
+  color: $text-night;
+}
+
+.theme-black {
+  background-color: $background-black;
+  color: $text-black;
+}
+
+// App layout
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: $spacing-md;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+// Header styles
+.header {
+  background-color: $primary-color;
+  color: white;
+  padding: $spacing-sm $spacing-md;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  
+  .nav {
+    display: flex;
+    gap: $spacing-md;
+    
+    a {
+      color: white;
+      text-decoration: none;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      
+      &:hover, &.active {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+  
+  .settings-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: $spacing-xs;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// Feed styles
+.feed {
+  .feed-header {
+    margin-bottom: $spacing-lg;
+    
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      text-transform: capitalize;
+    }
+  }
+  
+  .feed-item {
+    display: flex;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid;
+    
+    .theme-default & {
+      border-color: $border-default;
+    }
+    
+    .theme-night & {
+      border-color: $border-night;
+    }
+    
+    .theme-black & {
+      border-color: $border-black;
+    }
+    
+    .item-rank {
+      color: #999;
+      font-size: 0.9rem;
+      min-width: 30px;
+      text-align: right;
+    }
+    
+    .item-content {
+      flex: 1;
+    }
+    
+    .item-title {
+      margin: 0 0 $spacing-xs 0;
+      font-size: 1rem;
+      line-height: 1.4;
+      
+      a {
+        text-decoration: none;
+        
+        .theme-default & {
+          color: $text-default;
+        }
+        
+        .theme-night & {
+          color: $text-night;
+        }
+        
+        .theme-black & {
+          color: $text-black;
+        }
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      
+      .item-domain {
+        color: #999;
+        font-size: 0.85rem;
+      }
+    }
+    
+    .item-meta {
+      font-size: 0.85rem;
+      color: #999;
+    }
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-lg;
+    padding: $spacing-md 0;
+    
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Settings styles
+.settings-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.settings-panel {
+  background: white;
+  border-radius: 8px;
+  padding: $spacing-lg;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  
+  .theme-night & {
+    background: $background-night;
+    color: $text-night;
+  }
+  
+  .theme-black & {
+    background: $background-black;
+    color: $text-black;
+  }
+  
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    
+    h2 {
+      margin: 0;
+    }
+    
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+  
+  .setting-group {
+    margin-bottom: $spacing-md;
+    
+    label {
+      display: block;
+      margin-bottom: $spacing-xs;
+      font-weight: 500;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: $spacing-xs;
+      border: 1px solid;
+      border-radius: 4px;
+      font-size: 1rem;
+      
+      .theme-default & {
+        border-color: $border-default;
+        background: white;
+        color: $text-default;
+      }
+      
+      .theme-night & {
+        border-color: $border-night;
+        background: $background-night;
+        color: $text-night;
+      }
+      
+      .theme-black & {
+        border-color: $border-black;
+        background: $background-black;
+        color: $text-black;
+      }
+    }
+    
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: $spacing-xs;
+    }
+  }
+}
+
+// Item details styles
+.item-details {
+  .item-header {
+    margin-bottom: $spacing-md;
+    
+    h1 {
+      margin: 0 0 $spacing-xs 0;
+      font-size: 1.5rem;
+      line-height: 1.3;
+    }
+    
+    .item-url {
+      color: $primary-color;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .item-meta {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: $spacing-lg;
+  }
+  
+  .item-content {
+    margin-bottom: $spacing-lg;
+    line-height: 1.6;
+  }
+  
+  .comments {
+    h3 {
+      margin-bottom: $spacing-md;
+    }
+    
+    .comment {
+      margin-bottom: $spacing-md;
+      padding: $spacing-sm;
+      border-left: 2px solid;
+      
+      .theme-default & {
+        border-color: $border-default;
+      }
+      
+      .theme-night & {
+        border-color: $border-night;
+      }
+      
+      .theme-black & {
+        border-color: $border-black;
+      }
+      
+      .comment-meta {
+        font-size: 0.85rem;
+        color: #999;
+        margin-bottom: $spacing-xs;
+        
+        .comment-user {
+          font-weight: 500;
+        }
+      }
+      
+      .comment-content {
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+// User profile styles
+.user-profile {
+  .user-header {
+    margin-bottom: $spacing-lg;
+    
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+  }
+  
+  .user-stat {
+    display: flex;
+    margin-bottom: $spacing-sm;
+    
+    .stat-label {
+      font-weight: 500;
+      min-width: 80px;
+    }
+    
+    .stat-value {
+      margin-left: $spacing-sm;
+    }
+  }
+  
+  .user-about {
+    margin-top: $spacing-lg;
+    
+    h3 {
+      margin-bottom: $spacing-sm;
+    }
+  }
+}
+
+// Utility styles
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  font-size: 1.1rem;
+  color: #999;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  color: #d32f2f;
+  font-size: 1.1rem;
+}
+
+// Mobile responsive
+@media (max-width: $mobile) {
+  .header {
+    .header-content {
+      flex-direction: column;
+      gap: $spacing-sm;
+    }
+    
+    .nav {
+      gap: $spacing-sm;
+    }
+  }
+  
+  .main-content {
+    padding: $spacing-sm;
+  }
+  
+  .feed-item {
+    flex-direction: column;
+    gap: $spacing-xs;
+    
+    .item-rank {
+      min-width: auto;
+      text-align: left;
+    }
+  }
+  
+  .settings-panel {
+    margin: $spacing-md;
+    width: calc(100% - #{$spacing-lg * 2});
+  }
+}

@@ -1,0 +1,42 @@
+/* Theme styles */
+.default {
+  background-color: #f6f6ef;
+  color: #000;
+}
+
+.night {
+  background-color: #1a1a1a;
+  color: #ddd;
+}
+
+.black {
+  background-color: #000;
+  color: #fff;
+}
+
+.body-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Override Tailwind for theme backgrounds */
+.default .wrapper {
+  background-color: #f6f6ef;
+}
+
+.night .wrapper {
+  background-color: #1a1a1a;
+}
+
+.black .wrapper {
+  background-color: #000;
+}

@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Angular 2 HN</title>
+  <title>React HN</title>
   <base href="/">
 
-	<meta name="description" content="A Hacker News client built with Angular CLI, RxJS and Webpack"/>
+	<meta name="description" content="A Hacker News client built with React and TypeScript"/>
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@hdjirdeh">
-	<meta name="twitter:title" content="Angular 2 HN">
-	<meta name="twitter:description" content="A Hacker News client built with Angular CLI, RxJS and Webpack">
+	<meta name="twitter:title" content="React HN">
+	<meta name="twitter:description" content="A Hacker News client built with React and TypeScript">
 	<meta name="twitter:creator" content="@hdjirdeh">
 	<meta name="twitter:image" content="assets/images/logo-loading.png">
 
-	<meta property="og:title" content="Angular 2 HN"/>
+	<meta property="og:title" content="React HN"/>
 	<meta property="og:type" content="website"/>
 	<meta property="og:url" content="https://angular2-hn.firebaseapp.com/"/>
 	<meta property="og:image" content="assets/images/logo-loading.png"/>
-	<meta property="og:description" content="A Hacker News client built with Angular CLI, RxJS and Webpack"/>
-	<meta property="og:site_name" content="Angular 2 HN"/>
+	<meta property="og:description" content="A Hacker News client built with React and TypeScript"/>
+	<meta property="og:site_name" content="React HN"/>
 	<meta property="fb:admins" content="10202985971279760"/>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,12 +48,10 @@
     #skip a {  position:absolute;  left:-10000px;  top:auto;  width:1px;  height:1px;  overflow:hidden;  }
     #skip a:focus {  position:static;  width:auto;  height:auto;  }
   </style>
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
 </head>
 <body>
   <div id="skip"><a href="#content">skip to navigation</a></div>
-  <app-root></app-root>
+  <div id="root"></div>
 
   <div class="app-loader" id="content">
     <img class="logo" src="assets/images/logo.svg" alt="Logo">
@@ -74,5 +72,6 @@
     ga('create', 'UA-66348622-3', 'auto');
 
   </script>
+  <script type="module" src="src/main.tsx"></script>
 </body>
 </html>

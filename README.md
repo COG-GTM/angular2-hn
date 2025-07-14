@@ -58,11 +58,15 @@ With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN i
 Built in theme engine!
 
 Current themes:
-* Default
+* Default (updated with white header and black text)
 * Night
 * Black (AMOLED)
 
 More to come!
+
+## Recent Updates
+
+* **Header Design Update**: Updated the default theme header to use a white background with black text for improved readability and modern appearance, matching the latest design specifications.
 
 ## Areas of improvement
 

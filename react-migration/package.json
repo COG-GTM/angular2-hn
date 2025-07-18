@@ -1,0 +1,25 @@
+{
+  "name": "angular-to-react-migration",
+  "version": "1.0.0",
+  "description": "React TypeScript equivalents of Angular Tier 1 components",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1"
+  },
+  "keywords": ["react", "typescript", "angular-migration", "components"],
+  "author": "Devin AI",
+  "license": "MIT"
+}

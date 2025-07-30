@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { FeedComponent } from './feeds/feed/feed.component';
+import { NewLandingPageComponent } from './new-landing-page/new-landing-page.component';
 
 const feedRoutes = [{
   path: ':page',
@@ -8,6 +9,7 @@ const feedRoutes = [{
 }];
 
 const routes: Routes = [
+  {path: 'new-landing-page', component: NewLandingPageComponent},
   {path: '', redirectTo: 'news/1', pathMatch: 'full'},
   {
     path: 'news',

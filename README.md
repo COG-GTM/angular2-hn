@@ -53,12 +53,22 @@ With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN i
   <img src = "http://i.imgur.com/1RaaNkr.png">
 </p>
 
+## Header Design
+
+Updated header design that matches modern Figma specifications:
+
+:art: **Modern Design:** Clean white header background with optimized typography and contrast for better readability
+
+:paintbrush: **Figma Integration:** Header design precisely matches provided Figma specifications for consistent visual identity
+
+:responsive: **Theme Compatible:** Seamlessly integrates with existing theme system while maintaining accessibility standards
+
 ## Themes
 
 Built in theme engine!
 
 Current themes:
-* Default
+* Default (with updated white header design)
 * Night
 * Black (AMOLED)
 

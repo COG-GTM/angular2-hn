@@ -89,7 +89,6 @@ h1 {
 .left {
   position: absolute;
   left: 60px;
-  font-size: 16px;
 
   @media #{$mobile-only} {
     width: 100%;
@@ -106,10 +105,12 @@ h1 {
   }
 
   a {
-    color: hsla(0,0%,100%,.9);
+    color: #fff;
     text-decoration: none;
     margin: 0 5px;
-    letter-spacing: 1.8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
 
     &:hover {
       color: #fff;

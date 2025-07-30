@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>React CommentComponent Test</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f6f6ef;
+    }
+    #root {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+    
+    const styles = {
+      meta: {
+        fontSize: '13px',
+        color: '#696969',
+        fontWeight: 'bold',
+        letterSpacing: '0.5px',
+        marginBottom: '8px'
+      },
+      metaCollapse: {
+        marginBottom: '20px'
+      },
+      deletedMeta: {
+        fontSize: '12px',
+        fontWeight: 'bold',
+        letterSpacing: '0.5px',
+        margin: '30px 0'
+      },
+      collapse: {
+        fontSize: '13px',
+        letterSpacing: '2px',
+        cursor: 'pointer'
+      },
+      commentTree: {
+        marginLeft: '24px'
+      },
+      commentText: {
+        fontSize: '15px',
+        marginTop: '0',
+        marginBottom: '20px',
+        wordWrap: 'break-word',
+        lineHeight: '1.5em'
+      },
+      subtree: {
+        marginLeft: '0',
+        padding: '0',
+        listStyleType: 'none'
+      },
+      time: {
+        paddingLeft: '5px'
+      }
+    };
+
+    const CommentComponent = ({ comment }) => {
+      const [collapse, setCollapse] = useState(false);
+
+      const toggleCollapse = () => {
+        setCollapse(!collapse);
+      };
+
+      if (comment.deleted) {
+        return (
+          <div>
+            <div style={styles.deletedMeta}>
+              <span style={styles.collapse}>[deleted]</span> | Comment Deleted
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div>
+          <div style={{...styles.meta, ...(collapse ? styles.metaCollapse : {})}}>
+            <span style={styles.collapse} onClick={toggleCollapse}>
+              [{collapse ? '+' : '-'}]
+            </span>{' '}
+            <a href={`/user/${comment.user}`} style={{textDecoration: 'none', fontWeight: 'bold'}}>
+              {comment.user}
+            </a>
+            <span style={styles.time}>{comment.time_ago}</span>
+          </div>
+          <div style={styles.commentTree}>
+            {!collapse && (
+              <div>
+                <p 
+                  style={styles.commentText}
+                  dangerouslySetInnerHTML={{ __html: comment.content }}
+                />
+                <ul style={styles.subtree}>
+                  {comment.comments.map((subComment) => (
+                    <li key={subComment.id}>
+                      <CommentComponent comment={subComment} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const sampleComment = {
+      id: 1,
+      level: 0,
+      user: "testuser",
+      time: 1640995200,
+      time_ago: "2 hours ago",
+      content: "This is a sample comment with <strong>HTML content</strong>. It demonstrates the React CommentComponent functionality.",
+      deleted: false,
+      comments: [
+        {
+          id: 2,
+          level: 1,
+          user: "replyuser",
+          time: 1640998800,
+          time_ago: "1 hour ago",
+          content: "This is a nested reply comment.",
+          deleted: false,
+          comments: [
+            {
+              id: 3,
+              level: 2,
+              user: "nesteduser",
+              time: 1641002400,
+              time_ago: "30 minutes ago",
+              content: "This is a deeply nested comment to test recursive rendering.",
+              deleted: false,
+              comments: []
+            }
+          ]
+        },
+        {
+          id: 4,
+          level: 1,
+          user: "deleteduser",
+          time: 1641006000,
+          time_ago: "15 minutes ago",
+          content: "",
+          deleted: true,
+          comments: []
+        }
+      ]
+    };
+
+    const App = () => {
+      return (
+        <div>
+          <h1>React CommentComponent Test</h1>
+          <p>This page tests the migrated React CommentComponent with sample data.</p>
+          <hr />
+          <CommentComponent comment={sampleComment} />
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

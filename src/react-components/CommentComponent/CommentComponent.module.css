@@ -1,0 +1,71 @@
+.meta {
+  font-size: 13px;
+  color: #696969;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.meta a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.meta a:hover {
+  text-decoration: underline;
+}
+
+.time {
+  padding-left: 5px;
+}
+
+.metaCollapse {
+  margin-bottom: 20px;
+}
+
+.deletedMeta {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 30px 0;
+}
+
+.collapse {
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.commentTree {
+  margin-left: 24px;
+}
+
+.commentText {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  line-height: 1.5em;
+}
+
+.subtree {
+  margin-left: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@media (max-width: 768px) {
+  .meta {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .time {
+    padding: 0;
+    float: right;
+  }
+  
+  .commentTree {
+    margin-left: 8px;
+  }
+}

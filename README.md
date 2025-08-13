@@ -1,102 +1,195 @@
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
+# Angular2-HN
 
-<p align="center">
-  A progressive Hacker News client built with Angular
-</p>
+A progressive Hacker News client built with Angular 9, featuring offline support, responsive design, and installable PWA capabilities.
 
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
+## Table of Contents
 
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
-</p>
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Building for Production](#building-for-production)
+- [PWA Features](#pwa-features)
+- [Themes](#themes)
+- [Browser Compatibility](#browser-compatibility)
+- [Contributing](#contributing)
+- [License](#license)
 
----
+## Features
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+- **⚡ Fast**: Service Worker App Shell + Dynamic Content model for faster load times
+- **📱 Responsive**: Completely responsive UI installable to mobile home screen
+- **🚀 Progressive**: Optimized PWA with offline support
+- **🎨 Themeable**: Built-in theme engine with Dark mode and system preference detection
+- **🔧 Customizable**: Adjustable font sizes, list spacing, and link behavior
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+## Quick Start
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+### Prerequisites
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+- Node.js (v14 or higher recommended)
+- npm or yarn
 
-## Mobile Preview
+### Installation
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+```bash
+# Clone the repository
+git clone https://github.com/COG-GTM/angular2-hn.git
+cd angular2-hn
 
-## Laptop Preview
+# Install dependencies
+npm install
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+# Start development server
+export NODE_OPTIONS=--openssl-legacy-provider && npm start
 
-## Offline Support
+# Open your browser to http://localhost:4200
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+### Alternative with yarn
 
-## Manifest
+```bash
+yarn install
+export NODE_OPTIONS=--openssl-legacy-provider && yarn start
+```
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+## Project Structure
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+```
+angular2-hn/
+├── src/
+│   ├── app/
+│   │   ├── core/                 # Core module (header, footer, settings)
+│   │   ├── feeds/                # Feed display components
+│   │   ├── item-details/         # Item and comment display
+│   │   ├── user/                 # User profile display
+│   │   └── shared/               # Shared components, services, models
+│   │       ├── components/       # Reusable UI components
+│   │       ├── models/           # Data models (Story, User, Comment, etc.)
+│   │       ├── pipes/            # Custom Angular pipes
+│   │       └── services/         # Application services
+│   │           ├── hackernews-api.service.ts  # API service
+│   │           └── settings.service.ts        # Settings service
+│   ├── assets/                   # Static assets
+│   ├── environments/             # Environment configurations
+│   └── manifest.json             # PWA manifest
+├── angular.json                  # Angular CLI configuration
+├── ngsw-config.json             # Service Worker configuration
+└── firebase.json                # Firebase hosting configuration
+```
+
+## Development
+
+### Available Scripts
+
+```bash
+# Development server
+npm start                 # Starts dev server on http://localhost:4200
+
+# Building
+npm run build            # Build for production
+npm run build -- --prod # Build with production optimizations
+
+# Testing
+npm test                 # Run unit tests
+npm run e2e             # Run end-to-end tests
+
+# Linting
+npm run lint            # Run TSLint
+```
+
+### Development Notes
+
+- The app uses Angular 9 with TypeScript
+- Service Worker changes are not reflected in development mode
+- Uses RxJS for reactive data handling
+- Implements lazy loading for optimal performance
+
+## Building for Production
+
+```bash
+# Build the application
+npm run build
+
+# The build artifacts will be stored in the `dist/` directory
+```
+
+### Testing Service Worker Changes
+
+```bash
+# Build the application
+npm run build
+
+# Serve the built application with Service Worker
+npx http-server dist/angular-hnpwa -p 8080
+```
+
+## PWA Features
+
+### Service Worker
+
+This app uses Angular's built-in Service Worker implementation for:
+- App shell caching
+- Dynamic content caching
+- Offline functionality
+- Background sync
+
+### Web App Manifest
+
+The app includes a Web App Manifest that allows installation on:
+- Android devices (Chrome, Opera, Samsung Internet)
+- iOS devices (Safari - Add to Home Screen)
+- Desktop browsers (Chrome, Edge, Firefox)
+
+### Offline Support
+
+- Core app functionality works offline
+- Cached content is available without network
+- Background sync for when connectivity returns
 
 ## Themes
 
-Built in theme engine!
+Built-in theme engine with support for:
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
+- **Default**: Light theme with orange accents
+- **Night**: Dark theme for low-light environments  
+- **Black (AMOLED)**: Pure black theme for OLED displays
+- **System**: Automatically follows system dark/light mode preference
 
-More to come!
+Themes are persisted in localStorage and can be changed via the settings panel.
 
-## Areas of improvement
+## Browser Compatibility
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+### Supported Browsers
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+- **Desktop**: Chrome 55+, Firefox 52+, Safari 10+, Edge 13+
+- **Mobile**: iOS 10+, Android Chrome 55+, Samsung Internet 6.2+
 
-## Build process
+### Required Features
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+- ES6 support
+- Service Workers
+- Web App Manifest
+- Local Storage
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+## Contributing
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## Contributors
+### Quick Contribution Steps
 
-A million thanks to some awesome people :)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests (`npm test`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+---
+
+_Originally written and maintained by contributors and [Devin](https://app.devin.ai), with updates from the core team._

@@ -25,6 +25,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({
   return (
     <header>
       <div id="header">
+        {/* TODO: Replace with React Router Link components */}
         <a className="home-link" href="/news/1" onClick={scrollTop}>
           <div className="logo-inner"></div>
           <img className="logo" src="assets/images/logo.svg" alt="Logo" />
@@ -32,6 +33,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({
         <div className="header-text">
           <div className="left">
             <span className="header-nav">
+              {/* TODO: Replace href with React Router navigation */}
               <a href="/newest/1" onClick={scrollTop}>new</a>
               |
               <a href="/show/1" onClick={scrollTop}>show</a>
@@ -51,6 +53,7 @@ export const HeaderComponent: React.FC<HeaderComponentProps> = ({
           />
         </div>
       </div>
+      {/* TODO: Replace with React Settings component */}
       {settings.showSettings && <div>TODO: Settings component</div>}
     </header>
   )

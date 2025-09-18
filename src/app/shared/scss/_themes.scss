@@ -238,6 +238,21 @@
   $theme-amoledblack-secondary-color
 );
 
+@include theme(
+  white-header,
+  $theme-white-header-body-background-color,
+  $theme-white-header-wrapper-background-color,
+  $theme-white-header-wrapper-mobile-background-color,
+  $theme-white-header-text-color,
+  $theme-white-header-text-color,
+  $theme-white-header-subtext-color,
+  $theme-white-header-header-background-color,
+  $theme-white-header-subtext-color,
+  $theme-white-header-secondary-color,
+  $theme-white-header-logo-inner,
+  $theme-white-header-border
+);
+
 /* ----------------------------------
 
   Include your new theme here as well as the settings component

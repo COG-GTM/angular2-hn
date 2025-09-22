@@ -75,6 +75,7 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({ item, settings }) 
           <div className="details">
             <span className="name">
               <a href={`/user/${item.user}`}>{item.user}</a>
+              {/* TODO: Replace with React Router Link component */}
             </span>
             <span className="right">{item.points} ★</span>
           </div>
@@ -94,6 +95,7 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({ item, settings }) 
           <span>
             {item.points} points by{' '}
             <a href={`/user/${item.user}`}>{item.user}</a>
+            {/* TODO: Replace with React Router Link component */}
           </span>
         )}
         <span className={item.type !== 'job' ? 'item-details' : ''}>
@@ -104,6 +106,7 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({ item, settings }) 
               <a href={`/item/${item.id}`}>
                 {formatCommentCount(item.comments_count)}
               </a>
+              {/* TODO: Replace with React Router Link component */}
             </span>
           )}
         </span>

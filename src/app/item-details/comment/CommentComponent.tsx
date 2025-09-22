@@ -42,6 +42,7 @@ export const CommentComponent: React.FC<CommentComponentProps> = ({ comment }) =
         <span className="collapse" onClick={handleCollapseToggle}>
           [{collapse ? '+' : '-'}]
         </span>{' '}
+        {/* TODO: Replace with React Router Link component when available */}
         <a href={`/user/${comment.user}`}>{comment.user}</a>
         <span className="time">{comment.time_ago}</span>
       </div>

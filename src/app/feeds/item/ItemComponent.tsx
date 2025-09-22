@@ -43,5 +43,71 @@ export const ItemComponent: React.FC<ItemComponentProps> = ({ item, settings }) 
   const hasUrl = item.url.indexOf('http') === 0;
 
 
-  return null;
+  return (
+    <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+      {hasUrl && (
+        <p>
+          <a 
+            className="title" 
+            style={{ fontSize: `${settings.titleFontSize}px` }}
+            href={item.url}
+            target={settings.openLinkInNewTab ? '_blank' : undefined}
+            rel={settings.openLinkInNewTab ? 'noopener' : undefined}
+          >
+            {item.title}
+          </a>
+          {item.domain && <span className="domain">({item.domain})</span>}
+        </p>
+      )}
+      {!hasUrl && (
+        <p>
+          <a 
+            className="title" 
+            style={{ fontSize: `${settings.titleFontSize}px` }}
+            href={`/item/${item.id}`}
+          >
+            {item.title}
+          </a>
+        </p>
+      )}
+      <div className="subtext-palm">
+        {item.type !== 'job' && (
+          <div className="details">
+            <span className="name">
+              <a href={`/user/${item.user}`}>{item.user}</a>
+            </span>
+            <span className="right">{item.points} ★</span>
+          </div>
+        )}
+        <div className="details">
+          {item.time_ago}
+          {item.type !== 'job' && (
+            <a href={`/item/${item.id}`} className="comment-number">
+              {' • '}
+              {formatCommentCount(item.comments_count)}
+            </a>
+          )}
+        </div>
+      </div>
+      <div className="subtext-laptop">
+        {item.type !== 'job' && (
+          <span>
+            {item.points} points by{' '}
+            <a href={`/user/${item.user}`}>{item.user}</a>
+          </span>
+        )}
+        <span className={item.type !== 'job' ? 'item-details' : ''}>
+          {item.time_ago}
+          {item.type !== 'job' && (
+            <span>
+              {' | '}
+              <a href={`/item/${item.id}`}>
+                {formatCommentCount(item.comments_count)}
+              </a>
+            </span>
+          )}
+        </span>
+      </div>
+    </div>
+  );
 };

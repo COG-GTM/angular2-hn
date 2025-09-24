@@ -1,4 +1,4 @@
-@import "./app/shared/scss/themes";
+@use "./app/shared/scss/themes" as *;
 
 html {
   height: 100%;

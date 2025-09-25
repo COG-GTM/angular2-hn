@@ -1,0 +1,231 @@
+.app {
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f6f6f0;
+  color: #333;
+}
+
+.nav {
+  background: #ff6600;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feed-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: #f6f6f0;
+  border-radius: 4px;
+}
+
+.controls label {
+  font-weight: bold;
+}
+
+.controls select,
+.controls input {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+}
+
+.feed-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.feed-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.feed-list li {
+  margin-bottom: 0.5rem;
+}
+
+.feed-list button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #333;
+}
+
+.feed-list button:hover {
+  background: #f0f0f0;
+}
+
+.feed-list button.selected {
+  background: #ff6600;
+  color: white;
+}
+
+.item-details {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.error {
+  color: #d73a49;
+  font-weight: bold;
+}
+
+.settings-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.settings-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.setting-group {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+}
+
+.setting-group h3 {
+  margin-top: 0;
+}
+
+.setting-group label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.setting-group input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.settings-preview {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.preview-content {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.localStorage-info {
+  padding: 1rem;
+  background: #f6f6f0;
+  border-radius: 4px;
+}
+
+.localStorage-info pre {
+  background: white;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.user-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-info {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.sample-users {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.sample-users button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #333;
+}
+
+.sample-users button:hover {
+  background: #f0f0f0;
+}
+
+[data-theme="night"] {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+[data-theme="night"] .setting-group,
+[data-theme="night"] .user-info,
+[data-theme="night"] .item-details {
+  background-color: #2d2d2d;
+  border-color: #444;
+  color: #fff;
+}
+
+[data-theme="amoled"] {
+  background-color: #000;
+  color: #fff;
+}
+
+[data-theme="amoled"] .setting-group,
+[data-theme="amoled"] .user-info,
+[data-theme="amoled"] .item-details {
+  background-color: #111;
+  border-color: #333;
+  color: #fff;
+}

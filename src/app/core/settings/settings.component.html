@@ -49,6 +49,18 @@
                             Black (AMOLED)
                         </label>
                     </div>
+                    <div>
+                        <label>
+                        <input 
+                            #white 
+                            name="theme" 
+                            type="radio" 
+                            value="white" 
+                            [checked]="settings.theme === white.value"
+                            (click)="selectTheme(white.value)" />
+                            White
+                        </label>
+                    </div>
                 </div>
                 <div class="control-section">
                     <h2>Change Font</h2>

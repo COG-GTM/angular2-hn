@@ -94,9 +94,12 @@ export const useUser = (id: string) => {
       try {
         setLoading(true)
         setError('')
+        console.log(`Fetching user: ${id}`)
         const userData = await fetchData<User>(`${BASE_URL}/user/${id}`)
+        console.log(`User data received:`, userData)
         setUser(userData)
       } catch (err) {
+        console.error('User fetch error:', err)
         setError(`Could not load user ${id}.`)
         setUser(null)
       } finally {

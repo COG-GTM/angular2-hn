@@ -44,6 +44,11 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     const savedTheme = localStorage.getItem("theme")
     if (savedTheme) {
       setSettings(prev => ({ ...prev, theme: savedTheme }))
+      if (savedTheme === 'night') {
+        document.body.setAttribute('data-theme', 'night')
+      } else {
+        document.body.removeAttribute('data-theme')
+      }
     } else {
       const theme = darkColorSchemeMedia.matches ? 'night' : 'default'
       setTheme(theme)
@@ -74,6 +79,12 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
   const setTheme = (theme: string) => {
     setSettings(prev => ({ ...prev, theme }))
     localStorage.setItem("theme", theme)
+    
+    if (theme === 'night') {
+      document.body.setAttribute('data-theme', 'night')
+    } else {
+      document.body.removeAttribute('data-theme')
+    }
   }
 
   const setFont = (fontSize: string) => {

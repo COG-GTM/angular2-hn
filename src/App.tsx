@@ -6,6 +6,7 @@ import ItemDetailsPage from './pages/ItemDetailsPage'
 import UserPage from './pages/UserPage'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
+import Settings from './components/Settings/Settings'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <Settings />
       </div>
     </SettingsProvider>
   )

@@ -9,7 +9,7 @@ export class SettingsService {
   settings: Settings = {
     showSettings : false,
     openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
-    theme: 'default',
+    theme: 'white',
     titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
     listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
   };
@@ -30,7 +30,7 @@ export class SettingsService {
     if (event.matches) {
       theme = 'night';
     } else {
-      theme = 'default';
+      theme = 'white';
     }
     this.setTheme(theme);
   }

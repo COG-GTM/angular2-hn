@@ -23,15 +23,13 @@ const Feed: React.FC<FeedProps> = ({ items, feedType, pageNum }) => {
             </p>
           )}
           
-          {feedType !== 'newest' && (
-            <ol className={feedType !== 'jobs' ? 'list-margin' : ''} start={listStart}>
-              {items.map((item) => (
-                <li key={item.id} className="post">
-                  <Item item={item} className="item-block" />
-                </li>
-              ))}
-            </ol>
-          )}
+          <ol className={feedType !== 'jobs' ? 'list-margin' : ''} start={listStart}>
+            {items.map((item) => (
+              <li key={item.id} className="post">
+                <Item item={item} className="item-block" />
+              </li>
+            ))}
+          </ol>
           
           <div className="nav">
             {listStart !== 1 && (

@@ -21,9 +21,12 @@ export const useFeed = (feedType: string, page: number) => {
       try {
         setLoading(true)
         setError('')
+        console.log(`Fetching ${feedType} page ${page}`)
         const data = await fetchData<Story[]>(`${BASE_URL}/${feedType}?page=${page}`)
-        setItems(data)
+        console.log(`Received ${data?.length || 0} items for ${feedType}`)
+        setItems(data || [])
       } catch (err) {
+        console.error('Feed fetch error:', err)
         setError(`Could not load ${feedType} stories.`)
         setItems([])
       } finally {

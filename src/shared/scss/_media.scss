@@ -1,0 +1,32 @@
+@media (max-width: 767px) {
+  .subtext-laptop {
+    display: none !important;
+  }
+  
+  .subtext-palm {
+    display: block !important;
+  }
+  
+  .nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .main-content {
+    padding: 0 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .subtext-palm {
+    display: none !important;
+  }
+  
+  .subtext-laptop {
+    display: block !important;
+  }
+  
+  .main-content {
+    padding: 0 20px;
+  }
+}

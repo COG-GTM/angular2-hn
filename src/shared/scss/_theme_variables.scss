@@ -1,0 +1,21 @@
+:root {
+  --background-color: #f6f6ef;
+  --text-color: #000;
+  --text-color-light: #828282;
+  --link-color: #000;
+  --header-background: #ff6600;
+  --border-color: #ff6600;
+  --error-color: #ff0000;
+  --job-header-background: #ffffcc;
+}
+
+[data-theme="night"] {
+  --background-color: #0d1117;
+  --text-color: #c9d1d9;
+  --text-color-light: #8b949e;
+  --link-color: #58a6ff;
+  --header-background: #21262d;
+  --border-color: #30363d;
+  --error-color: #f85149;
+  --job-header-background: #21262d;
+}

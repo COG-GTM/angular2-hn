@@ -62,4 +62,83 @@ describe('UserComponent', () => {
     component.goBack();
     expect(mockLocation.back).toHaveBeenCalled();
   });
+
+  it('should fetch user with all profile fields', () => {
+    const mockUser = {
+      id: 'testuser',
+      created: '2020-01-01',
+      karma: 1500,
+      about: 'Test user bio',
+      avg: 0.5
+    };
+    mockHNService.fetchUser.and.returnValue(of(mockUser as any));
+    
+    component.ngOnInit();
+    
+    expect(component.user).toEqual(mockUser as any);
+    expect(component.user.karma).toBe(1500);
+    expect(component.user.about).toBe('Test user bio');
+  });
+
+  it('should handle user without karma', () => {
+    const mockUser = {
+      id: 'newuser',
+      created: '2024-01-01',
+      karma: 0
+    };
+    mockHNService.fetchUser.and.returnValue(of(mockUser as any));
+    
+    component.ngOnInit();
+    
+    expect(component.user.karma).toBe(0);
+  });
+
+  it('should handle user without about section', () => {
+    const mockUser = {
+      id: 'testuser',
+      created: '2020-01-01',
+      karma: 100,
+      about: ''
+    };
+    mockHNService.fetchUser.and.returnValue(of(mockUser as any));
+    
+    component.ngOnInit();
+    
+    expect(component.user.about).toBe('');
+  });
+
+  it('should handle different route parameters', () => {
+    mockActivatedRoute = {
+      params: of({ id: 'anotheruser' })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(UserComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    const mockUser = { id: 'anotheruser', created: '2021-01-01', karma: 50 };
+    mockHNService.fetchUser.and.returnValue(of(mockUser as any));
+    
+    newComponent.ngOnInit();
+    
+    expect(mockHNService.fetchUser).toHaveBeenCalledWith('anotheruser');
+    expect(newComponent.user.id).toBe('anotheruser');
+  });
+
+  it('should include username in error message', () => {
+    const username = 'nonexistent';
+    mockActivatedRoute = {
+      params: of({ id: username })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(UserComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    mockHNService.fetchUser.and.returnValue(throwError(() => new Error('Not found')));
+    
+    newComponent.ngOnInit();
+    
+    expect(newComponent.errorMessage).toContain(username);
+  });
 });

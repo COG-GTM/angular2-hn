@@ -74,4 +74,84 @@ describe('ItemDetailsComponent', () => {
     component.goBack();
     expect(mockLocation.back).toHaveBeenCalled();
   });
+
+  it('should fetch item with comments', () => {
+    const mockItem = {
+      id: 123,
+      title: 'Test Item',
+      url: 'https://example.com',
+      comments: [
+        { id: 1, user: 'user1', content: 'Comment 1', comments: [] },
+        { id: 2, user: 'user2', content: 'Comment 2', comments: [] }
+      ]
+    };
+    mockHNService.fetchItemContent.and.returnValue(of(mockItem as any));
+    
+    component.ngOnInit();
+    
+    expect(component.item).toEqual(mockItem as any);
+    expect(component.item.comments.length).toBe(2);
+  });
+
+  it('should handle item without comments', () => {
+    const mockItem = {
+      id: 123,
+      title: 'Test Item',
+      url: 'https://example.com',
+      comments: []
+    };
+    mockHNService.fetchItemContent.and.returnValue(of(mockItem as any));
+    
+    component.ngOnInit();
+    
+    expect(component.item.comments).toEqual([]);
+  });
+
+  it('should handle poll items', () => {
+    const mockItem = {
+      id: 123,
+      title: 'Poll Question',
+      type: 'poll',
+      poll: [
+        { text: 'Option 1', points: 10 },
+        { text: 'Option 2', points: 20 }
+      ]
+    };
+    mockHNService.fetchItemContent.and.returnValue(of(mockItem as any));
+    
+    component.ngOnInit();
+    
+    expect(component.item.type).toBe('poll');
+    expect(component.item.poll.length).toBe(2);
+  });
+
+  it('should handle different route parameters', () => {
+    mockActivatedRoute = {
+      params: of({ id: '456' })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(ItemDetailsComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    const mockItem = { id: 456, title: 'Different Item' };
+    mockHNService.fetchItemContent.and.returnValue(of(mockItem as any));
+    
+    newComponent.ngOnInit();
+    
+    expect(mockHNService.fetchItemContent).toHaveBeenCalledWith(456);
+  });
+
+  it('should clear previous item data before fetching new item', () => {
+    const firstItem = { id: 123, title: 'First Item' };
+    const secondItem = { id: 456, title: 'Second Item' };
+    
+    mockHNService.fetchItemContent.and.returnValue(of(firstItem as any));
+    component.ngOnInit();
+    expect(component.item).toEqual(firstItem as any);
+    
+    mockHNService.fetchItemContent.and.returnValue(of(secondItem as any));
+    component.ngOnInit();
+    expect(component.item).toEqual(secondItem as any);
+  });
 });

@@ -79,4 +79,109 @@ describe('ItemComponent', () => {
     } as unknown as Story;
     expect(component.hasUrl).toBe(false);
   });
+
+  it('should handle item with empty url', () => {
+    component.item = {
+      url: '',
+      id: 1,
+      title: 'Test',
+      points: 10,
+      user: 'testuser',
+      time: 1234567890,
+      time_ago: 1,
+      comments_count: 5,
+      type: 'story',
+      domain: '',
+      comments: [],
+      poll: [],
+      poll_votes_count: 0,
+      deleted: false,
+      dead: false
+    } as unknown as Story;
+    expect(component.hasUrl).toBe(false);
+  });
+
+  it('should handle item with relative url', () => {
+    component.item = {
+      url: '/relative/path',
+      id: 1,
+      title: 'Test',
+      points: 10,
+      user: 'testuser',
+      time: 1234567890,
+      time_ago: 1,
+      comments_count: 5,
+      type: 'story',
+      domain: '',
+      comments: [],
+      poll: [],
+      poll_votes_count: 0,
+      deleted: false,
+      dead: false
+    } as unknown as Story;
+    expect(component.hasUrl).toBe(false);
+  });
+
+  it('should handle item with https url', () => {
+    component.item = {
+      url: 'https://example.com',
+      id: 1,
+      title: 'Test',
+      points: 10,
+      user: 'testuser',
+      time: 1234567890,
+      time_ago: 1,
+      comments_count: 5,
+      type: 'link',
+      domain: 'example.com',
+      comments: [],
+      poll: [],
+      poll_votes_count: 0,
+      deleted: false,
+      dead: false
+    } as unknown as Story;
+    expect(component.hasUrl).toBe(true);
+  });
+
+  it('should handle deleted item', () => {
+    component.item = {
+      url: '',
+      id: 1,
+      title: '[deleted]',
+      points: 0,
+      user: '',
+      time: 1234567890,
+      time_ago: 1,
+      comments_count: 0,
+      type: 'story',
+      domain: '',
+      comments: [],
+      poll: [],
+      poll_votes_count: 0,
+      deleted: true,
+      dead: false
+    } as unknown as Story;
+    expect(component.item.deleted).toBe(true);
+  });
+
+  it('should handle dead item', () => {
+    component.item = {
+      url: '',
+      id: 1,
+      title: '[dead]',
+      points: 0,
+      user: '',
+      time: 1234567890,
+      time_ago: 1,
+      comments_count: 0,
+      type: 'story',
+      domain: '',
+      comments: [],
+      poll: [],
+      poll_votes_count: 0,
+      deleted: false,
+      dead: true
+    } as unknown as Story;
+    expect(component.item.dead).toBe(true);
+  });
 });

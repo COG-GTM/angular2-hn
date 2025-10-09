@@ -41,4 +41,20 @@ describe('HeaderComponent', () => {
     component.toggleSettings();
     expect(mockSettingsService.toggleSettings).toHaveBeenCalled();
   });
+
+  it('should initialize on ngOnInit', () => {
+    expect(() => component.ngOnInit()).not.toThrow();
+  });
+
+  it('should update settings when SettingsService changes', () => {
+    mockSettingsService.settings.theme = 'night';
+    expect(component.settings.theme).toBe('night');
+  });
+
+  it('should have showSettings property from settings', () => {
+    expect(component.settings.showSettings).toBe(false);
+    
+    mockSettingsService.settings.showSettings = true;
+    expect(component.settings.showSettings).toBe(true);
+  });
 });

@@ -64,4 +64,97 @@ describe('FeedComponent', () => {
     
     expect(component.errorMessage).toBeTruthy();
   });
+
+  it('should subscribe to route data and set feedType', () => {
+    mockActivatedRoute = {
+      data: of({ feedType: 'newest' }),
+      params: of({ page: '1' })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(FeedComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    mockHNService.fetchFeed.and.returnValue(of([]));
+    newComponent.ngOnInit();
+    
+    expect(newComponent.feedType).toBe('newest');
+  });
+
+  it('should default to page 1 when no page param is provided', () => {
+    mockActivatedRoute = {
+      data: of({ feedType: 'news' }),
+      params: of({})
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(FeedComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    mockHNService.fetchFeed.and.returnValue(of([]));
+    newComponent.ngOnInit();
+    
+    expect(newComponent.pageNum).toBe(1);
+  });
+
+  it('should calculate listStart correctly on successful fetch', (done) => {
+    const mockStories = [{ id: 1, title: 'Test' }];
+    mockHNService.fetchFeed.and.returnValue(of(mockStories as any));
+    
+    spyOn(window, 'scrollTo');
+    
+    component.ngOnInit();
+    
+    setTimeout(() => {
+      expect(component.listStart).toBe(1);
+      expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
+      done();
+    }, 100);
+  });
+
+  it('should calculate listStart correctly for page 2', () => {
+    mockActivatedRoute = {
+      data: of({ feedType: 'news' }),
+      params: of({ page: '2' })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(FeedComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    mockHNService.fetchFeed.and.returnValue(of([]));
+    spyOn(window, 'scrollTo');
+    
+    newComponent.ngOnInit();
+    
+    setTimeout(() => {
+      expect(newComponent.listStart).toBe(31);
+    }, 100);
+  });
+
+  it('should handle empty feed results', () => {
+    mockHNService.fetchFeed.and.returnValue(of([]));
+    
+    component.ngOnInit();
+    
+    expect(component.items).toEqual([]);
+    expect(component.errorMessage).toBe('');
+  });
+
+  it('should set error message with feed type in error', () => {
+    mockActivatedRoute = {
+      data: of({ feedType: 'show' }),
+      params: of({ page: '1' })
+    };
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    
+    const newFixture = TestBed.createComponent(FeedComponent);
+    const newComponent = newFixture.componentInstance;
+    
+    mockHNService.fetchFeed.and.returnValue(throwError(() => new Error('API Error')));
+    
+    newComponent.ngOnInit();
+    
+    expect(newComponent.errorMessage).toBe('Could not load show stories.');
+  });
 });

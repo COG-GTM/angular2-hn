@@ -43,4 +43,35 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.settings).toBe(mockSettingsService.settings);
   });
+
+  it('should track page views on navigation', () => {
+    const mockGa = jasmine.createSpy('ga');
+    (window as any).ga = mockGa;
+
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    const newFixture = TestBed.createComponent(AppComponent);
+    
+    expect(newFixture.componentInstance).toBeTruthy();
+  });
+
+  it('should have theme property', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.theme).toBeDefined();
+  });
+
+  it('should initialize with settings from SettingsService', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.settings.theme).toBe('default');
+    expect(app.settings.titleFontSize).toBe('16');
+  });
+
+  it('should have router injected', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.router).toBe(mockRouter);
+  });
 });

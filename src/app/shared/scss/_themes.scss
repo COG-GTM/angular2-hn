@@ -1,5 +1,6 @@
-@import "./media";
-@import "./theme_variables";
+@use "./media" as *;
+@use "./theme_variables" as *;
+@use "sass:color";
 
 /* ----------------------------------
 
@@ -142,10 +143,10 @@
               }
 
               &:before {
-                border-top: $skull-size / 8 solid $wrapper-background-color;
+                border-top: calc($skull-size / 8) solid $wrapper-background-color;
 
                 @media #{$mobile-only} {
-                  border-top: $skull-size / 8 solid $wrapper-mobile-background-color;
+                  border-top: calc($skull-size / 8) solid $wrapper-mobile-background-color;
                 }
               }
             }
@@ -230,7 +231,7 @@
   $theme-amoledblack-body-background-color,
   $theme-amoledblack-text-color,
   $theme-amoledblack-text-color,
-  darken($theme-amoledblack-text-color, 33%),
+  color.scale($theme-amoledblack-text-color, $lightness: -33%),
   $theme-amoledblack-body-background-color,
   $theme-amoledblack-subtext-color,
   $theme-amoledblack-secondary-color,

@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +20,7 @@
     "@angular/router": "^18.2.14",
     "@angular/service-worker": "^18.2.14",
     "node-fetch": "^2.6.0",
-    "rxjs": "~6.5.4",
-    "rxjs-compat": "^6.5.2",
+    "rxjs": "^7.8.0",
     "tslib": "^2.0.0",
     "unfetch": "^4.1.0",
     "zone.js": "~0.14.10"
@@ -43,7 +41,6 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~5.4.5"

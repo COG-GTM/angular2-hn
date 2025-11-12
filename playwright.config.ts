@@ -71,5 +71,8 @@ export default defineConfig({
     url: 'http://localhost:4200',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
+    env: {
+      NODE_OPTIONS: '--openssl-legacy-provider'
+    },
   },
 });

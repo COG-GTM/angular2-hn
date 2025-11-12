@@ -4,8 +4,11 @@
     "outDir": "../out-tsc/selenium",
     "module": "commonjs",
     "target": "es2018",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "types": [
       "node",
+      "mocha",
       "selenium-webdriver"
     ]
   },

@@ -38,15 +38,15 @@ yarn install
 
 ### Overview
 
-Selenium tests are located in the `selenium-tests/` directory. They use Selenium WebDriver with ChromeDriver for browser automation.
+Selenium tests are located in the `selenium-tests/` directory. They use Selenium WebDriver with ChromeDriver for browser automation and Mocha as the test runner. Tests are written in JavaScript for compatibility with the project's older TypeScript version.
 
 ### Directory Structure
 
 ```
 selenium-tests/
 ├── selenium.config.js    # Selenium configuration
-├── tsconfig.json         # TypeScript configuration for Selenium tests
-└── example.spec.ts       # Sample Selenium test
+├── tsconfig.json         # TypeScript configuration (for reference)
+└── example.spec.js       # Sample Selenium test (JavaScript)
 ```
 
 ### Configuration
@@ -57,13 +57,23 @@ The Selenium configuration (`selenium-tests/selenium.config.js`) includes:
 - Timeout: 30 seconds
 - Chrome options: Headless mode, no sandbox, window size 1920x1080
 
+**Important:** The ChromeDriver version must match your installed Chrome version. If you encounter version mismatch errors, update the chromedriver package:
+
+```bash
+# Check your Chrome version
+google-chrome --version
+
+# Install matching ChromeDriver (replace 138 with your Chrome major version)
+yarn add -D chromedriver@138.0.0
+```
+
 ### Running Selenium Tests
 
 To run Selenium tests, you need to:
 
 1. Start the Angular development server:
    ```bash
-   yarn start
+   export NODE_OPTIONS=--openssl-legacy-provider && yarn start
    ```
 
 2. In a separate terminal, run the Selenium tests:
@@ -73,31 +83,37 @@ To run Selenium tests, you need to:
 
 ### Writing Selenium Tests
 
-Example Selenium test structure:
+Example Selenium test structure (JavaScript with Mocha):
 
-```typescript
-import { Builder, By, until, WebDriver } from 'selenium-webdriver';
+```javascript
+const { Builder, By, until } = require('selenium-webdriver');
+const assert = require('assert').strict;
 const SELENIUM_CONFIG = require('./selenium.config');
 
 describe('My Test Suite', () => {
-    let driver: WebDriver;
+    let driver;
 
-    beforeAll(async () => {
+    before(async function() {
+        this.timeout(30000);
         driver = await SELENIUM_CONFIG.buildDriver();
     });
 
-    afterAll(async () => {
+    after(async () => {
         if (driver) {
             await driver.quit();
         }
     });
 
-    test('should do something', async () => {
+    it('should do something', async () => {
         await driver.get(SELENIUM_CONFIG.baseUrl);
         // Your test logic here
+        const title = await driver.getTitle();
+        assert.ok(title, 'Title should exist');
     });
 });
 ```
+
+**Note:** Selenium tests are written in JavaScript (not TypeScript) due to compatibility issues with the project's TypeScript 3.7.5 version and modern @types/selenium-webdriver packages.
 
 ## Playwright Tests
 

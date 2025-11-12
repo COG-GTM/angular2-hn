@@ -1,10 +1,4 @@
 <p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
-
-<p align="center">
   A progressive Hacker News client built with Angular
 </p>
 
@@ -25,22 +19,6 @@
 
 :rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
-
-## Mobile Preview
-
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
-
-## Laptop Preview
-
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
-
 ## Offline Support
 
 This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
@@ -49,20 +27,18 @@ This app uses [Workbox](https://workboxjs.org/) to generate a service worker as 
 
 With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
-
 ## Themes
 
 Built in theme engine!
 
 Current themes:
-* Default
+* Default (with white header and black text)
 * Night
 * Black (AMOLED)
 
 More to come!
+
+**Note:** The default theme features a clean white header with black text for improved readability and modern aesthetics. Night and Black themes maintain their original dark header styling.
 
 ## Areas of improvement
 

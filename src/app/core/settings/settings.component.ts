@@ -37,4 +37,8 @@ export class SettingsComponent implements OnInit {
   changeSpacing(val){
     this._settingsService.setSpacing(val);
   }
+
+  toggleRealtimeUpdates() {
+    this._settingsService.toggleRealtimeUpdates();
+  }
 }

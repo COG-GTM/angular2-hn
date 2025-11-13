@@ -8,21 +8,17 @@ import { Settings } from '../models/settings';
 export class SettingsService {
   settings: Settings = {
     showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
+    openLinkInNewTab: localStorage.getItem('openLinkInNewTab') ? JSON.parse(localStorage.getItem('openLinkInNewTab')) : false,
     theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
+    titleFontSize: localStorage.getItem('titleFontSize') ? localStorage.getItem('titleFontSize') : '16',
+    listSpacing: localStorage.getItem('listSpacing') ? localStorage.getItem('listSpacing') : '0',
+    realtimeUpdates: localStorage.getItem('realtimeUpdates') ? JSON.parse(localStorage.getItem('realtimeUpdates')) : false,
   };
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
   constructor() {
     this.subscribeToSystemPreferredColorScheme();
     this.initTheme();
-  }
-  
-  ngOnDestroy() {
-    this.unSubscribeToSystemPrefferedColorScheme();
   }
 
   handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
@@ -34,7 +30,7 @@ export class SettingsService {
     }
     this.setTheme(theme);
   }
-  
+
   subscribeToSystemPreferredColorScheme() {
     this.darkColorSchemeMedia.addEventListener(
       'change',
@@ -43,7 +39,7 @@ export class SettingsService {
   }
 
   initTheme() {
-    const savedTheme = localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       this.settings.theme = savedTheme;
     } else {
@@ -69,21 +65,30 @@ export class SettingsService {
 
   toggleOpenLinksInNewTab() {
     this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
+    localStorage.setItem('openLinkInNewTab', JSON.stringify(this.settings.openLinkInNewTab));
   }
 
   setTheme(theme) {
     this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
+    localStorage.setItem('theme', this.settings.theme);
   }
 
-  setFont(fontSize){
+  setFont(fontSize) {
     this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
+    localStorage.setItem('titleFontSize', this.settings.titleFontSize);
   }
 
-  setSpacing(listSpace){
+  setSpacing(listSpace) {
     this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
+    localStorage.setItem('listSpacing', this.settings.listSpacing);
+  }
+
+  toggleRealtimeUpdates() {
+    this.settings.realtimeUpdates = !this.settings.realtimeUpdates;
+    localStorage.setItem('realtimeUpdates', JSON.stringify(this.settings.realtimeUpdates));
+  }
+
+  getRealtimeUpdates(): boolean {
+    return this.settings.realtimeUpdates;
   }
 }

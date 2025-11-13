@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
+import { RealtimeUpdatesService } from '../../shared/services/realtime-updates.service';
+import { SettingsService } from '../../shared/services/settings.service';
 import { Story } from '../../shared/models/story';
 
 @Component({
@@ -12,9 +14,10 @@ import { Story } from '../../shared/models/story';
   styleUrls: ['./feed.component.scss']
 })
 
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnDestroy {
   typeSub: Subscription;
   pageSub: Subscription;
+  realtimeSub: Subscription;
   items: Story[];
   feedType: string;
   pageNum: number;
@@ -23,6 +26,8 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
+    private _realtimeUpdatesService: RealtimeUpdatesService,
+    private _settingsService: SettingsService,
     private route: ActivatedRoute
   ) { }
 
@@ -37,7 +42,10 @@ export class FeedComponent implements OnInit {
       this.pageNum = params['page'] ? +params['page'] : 1;
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
         .subscribe(
-          items => this.items = items,
+          items => {
+            this.items = items;
+            this.setupRealtimeUpdates();
+          },
           error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
           () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
@@ -45,5 +53,41 @@ export class FeedComponent implements OnInit {
           }
         );
     });
+  }
+
+  setupRealtimeUpdates() {
+    if (this.realtimeSub) {
+      this.realtimeSub.unsubscribe();
+    }
+
+    if (this._settingsService.settings.realtimeUpdates && this.pageNum === 1) {
+      this.realtimeSub = this._realtimeUpdatesService.subscribeToFeed(this.feedType)
+        .subscribe(
+          (newStory: Story) => {
+            if (this.items && !this.items.find(item => item.id === newStory.id)) {
+              this.items.unshift(newStory);
+              if (this.items.length > 30) {
+                this.items.pop();
+              }
+            }
+          },
+          (error) => {
+            console.error('Realtime update error:', error);
+          }
+        );
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.typeSub) {
+      this.typeSub.unsubscribe();
+    }
+    if (this.pageSub) {
+      this.pageSub.unsubscribe();
+    }
+    if (this.realtimeSub) {
+      this.realtimeSub.unsubscribe();
+    }
+    this._realtimeUpdatesService.unsubscribeAll();
   }
 }

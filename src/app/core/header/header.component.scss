@@ -2,13 +2,15 @@
 @import "../../shared/scss/theme_variables";
 
 #header {
-  color: #fff;
+  color: #000;
+  background-color: #fff;
   padding: 6px 0;
   line-height: 18px;
   vertical-align: middle;
   position: relative;
   z-index: 1;
   width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media #{$mobile-only} {
     height: 50px;
@@ -59,7 +61,7 @@ h1 {
   font-size: 16px;
 
   a {
-    color: #fff;
+    color: #000;
     text-decoration: none;
   }
 }
@@ -106,18 +108,19 @@ h1 {
   }
 
   a {
-    color: hsla(0,0%,100%,.9);
+    color: rgba(0, 0, 0, 0.7);
     text-decoration: none;
     margin: 0 5px;
     letter-spacing: 1.8px;
 
     &:hover {
-      color: #fff;
+      color: #000;
     }
   }
 
   .active {
-    color: #fff;
+    color: #000;
+    font-weight: 600;
   }
 }
 

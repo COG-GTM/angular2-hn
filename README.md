@@ -64,9 +64,35 @@ Current themes:
 
 More to come!
 
+## Realtime Mode
+
+The app now supports optional realtime updates using the Firebase SDK. When enabled in Settings, the app subscribes to Hacker News updates via Firebase and automatically displays new stories without requiring a page refresh.
+
+### How to Enable
+
+1. Click the settings icon in the header
+2. Check the "Enable realtime updates" checkbox
+3. Close the settings panel
+
+New stories will now appear at the top of the feed automatically as they are posted to Hacker News. This feature only works on the first page of each feed and requires an active internet connection.
+
+### Compatibility
+
+Realtime mode is fully compatible with the Service Worker and offline functionality. When offline, the app will continue to use cached content from the Service Worker. Realtime updates only function when online and do not interfere with offline reads.
+
+### Testing
+
+To test the realtime updates feature, run the end-to-end test script:
+
+```bash
+npm start  # Start the development server
+node e2e/realtime-updates.e2e.js  # Run the E2E test in another terminal
+```
+
+The test verifies that new stories can appear in the feed without triggering a page reload.
+
 ## Areas of improvement
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
  - Server side rendering
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.

@@ -64,9 +64,31 @@ Current themes:
 
 More to come!
 
+## Realtime Mode
+
+Angular 2 HN now supports realtime story updates via the Firebase SDK! When enabled in Settings, the app subscribes to the official Hacker News Firebase API and automatically updates the story list when new stories are posted without requiring a page refresh.
+
+### Features
+
+* **Live Updates**: New stories appear at the top of the feed automatically as they're posted to Hacker News
+* **Firebase Integration**: Uses the official Hacker News Firebase API for realtime data synchronization
+* **Seamless Experience**: Updates happen without page reloads or user interaction
+* **Offline Compatible**: Service Worker continues to provide offline support for cached content
+* **Optional**: Can be toggled on/off in Settings based on user preference
+
+### How to Enable
+
+1. Click the Settings icon in the app
+2. Check the "Enable realtime story updates via Firebase" option
+3. Navigate to the first page of any feed (news, newest, show, ask, jobs)
+4. New stories will automatically appear at the top as they're posted
+
+### Technical Details
+
+Realtime updates only work on the first page of feeds and require an active internet connection. The feature uses Firebase Realtime Database to subscribe to story updates and automatically fetches new story details as they become available. The Service Worker continues to cache content for offline access, ensuring the app works even without connectivity.
+
 ## Areas of improvement
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
  - Server side rendering
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.

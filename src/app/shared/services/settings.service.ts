@@ -12,15 +12,16 @@ export class SettingsService {
     theme: 'default',
     titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
     listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
+    realtimeUpdates: localStorage.getItem("realtimeUpdates") ? JSON.parse(localStorage.getItem("realtimeUpdates")) : false,
   };
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
+
   constructor() {
     this.subscribeToSystemPreferredColorScheme();
     this.initTheme();
   }
-  
+
   ngOnDestroy() {
     this.unSubscribeToSystemPrefferedColorScheme();
   }
@@ -34,7 +35,7 @@ export class SettingsService {
     }
     this.setTheme(theme);
   }
-  
+
   subscribeToSystemPreferredColorScheme() {
     this.darkColorSchemeMedia.addEventListener(
       'change',
@@ -85,5 +86,10 @@ export class SettingsService {
   setSpacing(listSpace){
     this.settings.listSpacing = listSpace;
     localStorage.setItem("listSpacing", this.settings.listSpacing);
+  }
+
+  toggleRealtimeUpdates() {
+    this.settings.realtimeUpdates = !this.settings.realtimeUpdates;
+    localStorage.setItem("realtimeUpdates", JSON.stringify(this.settings.realtimeUpdates));
   }
 }

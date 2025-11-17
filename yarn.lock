@@ -170,10 +170,10 @@
     source-map "^0.6.1"
     yargs "13.1.0"
 
-"@angular/compiler@~9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.1.tgz#19b6f83026a2b2771b7ef1b9be20bbe8828d8be9"
-  integrity sha512-ldamsPzIx+FLT/IYBqwsFL6qbP3BDgvPQa4Y3F/gFXDsoe+VTY5qwJfhr2iLbtF+fYomwOgY2kSL42BVQL873Q==
+"@angular/compiler@~9.1.13":
+  version "9.1.13"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.1.13.tgz#ec835a4ccae80d90cc163ce84da026407c63ad89"
+  integrity sha512-9MLB1Xx7odKuxDoybVwiOB1ZEUZpL8FurYm4RVuW39ntsUt0IMC9Hb8UagZLTAWhaWSHydkD/KBQVVobGqd0lA==
 
 "@angular/core@~9.0.1":
   version "9.0.1"

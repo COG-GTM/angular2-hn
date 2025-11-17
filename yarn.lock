@@ -148,10 +148,10 @@
     universal-analytics "^0.4.20"
     uuid "^3.3.2"
 
-"@angular/common@~9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.0.1.tgz#78457633a447c49bcc0e0bd8049cc2adbb016484"
-  integrity sha512-40jbKdCb4xi6NTzLt1kE0V/X7JxCLLo8eUEr3Z34Z9Ljnd4LC+/CkuThPdQJ3HW1Z8r5SWXj+rES+sn75YNVmA==
+"@angular/common@~9.1.13":
+  version "9.1.13"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-9.1.13.tgz#5201212a6964d0596c89c45806d792bc2a1f4bf3"
+  integrity sha512-QACUhJWlly/nfHUmjopVS1p6ayxxa/NqjyftdCeBJaoyM2YohqWixP/n/keu1K/srJ96aFpUNsZQgmgoRv5SOQ==
 
 "@angular/compiler-cli@~9.0.1":
   version "9.0.1"

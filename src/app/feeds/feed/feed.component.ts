@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
@@ -12,9 +12,8 @@ import { Story } from '../../shared/models/story';
   styleUrls: ['./feed.component.scss']
 })
 
-export class FeedComponent implements OnInit {
-  typeSub: Subscription;
-  pageSub: Subscription;
+export class FeedComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   items: Story[];
   feedType: string;
   pageNum: number;
@@ -27,23 +26,32 @@ export class FeedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.typeSub = this.route
+    this.route
       .data
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.feedType = (data as any).feedType;
       });
 
-    this.pageSub = this.route.params.subscribe(params => {
-      this.pageNum = params['page'] ? +params['page'] : 1;
-      this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
-        .subscribe(
-          items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
-          () => {
-            this.listStart = ((this.pageNum - 1) * 30) + 1;
-            window.scrollTo(0, 0);
-          }
-        );
-    });
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        this.pageNum = params['page'] ? +params['page'] : 1;
+        this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            items => this.items = items,
+            error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
+            () => {
+              this.listStart = ((this.pageNum - 1) * 30) + 1;
+              window.scrollTo(0, 0);
+            }
+          );
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

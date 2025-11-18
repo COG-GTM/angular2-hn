@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
@@ -14,8 +15,8 @@ import { Settings } from '../shared/models/settings';
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.scss']
 })
-export class ItemDetailsComponent implements OnInit {
-  sub: Subscription;
+export class ItemDetailsComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   item: Story;
   errorMessage = '';
   settings: Settings;
@@ -30,13 +31,22 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
-        this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
-    });
+    this.route.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        const itemID = +params['id'];
+        this._hackerNewsAPIService.fetchItemContent(itemID)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(item => {
+            this.item = item;
+          }, error => this.errorMessage = 'Could not load item comments.');
+      });
     window.scrollTo(0, 0);
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   goBack() {

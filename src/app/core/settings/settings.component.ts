@@ -26,6 +26,10 @@ export class SettingsComponent implements OnInit {
     this._settingsService.toggleOpenLinksInNewTab();
   }
 
+  toggleFirebaseSDK() {
+    this._settingsService.toggleFirebaseSDK();
+  }
+
   selectTheme(theme) {
     this._settingsService.setTheme(theme);
   }

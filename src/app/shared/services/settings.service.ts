@@ -1,26 +1,45 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { Settings } from '../models/settings';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
+export class SettingsService implements OnDestroy {
   settings: Settings = {
     showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
+    openLinkInNewTab: this.getFromLocalStorage('openLinkInNewTab', false),
     theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
+    titleFontSize: this.getFromLocalStorage('titleFontSize', '16'),
+    listSpacing: this.getFromLocalStorage('listSpacing', '0'),
+    useFirebaseSDK: this.getFromLocalStorage('useFirebaseSDK', false),
   };
 
-  darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  constructor() {
-    this.subscribeToSystemPreferredColorScheme();
-    this.initTheme();
+  darkColorSchemeMedia: MediaQueryList;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+      this.subscribeToSystemPreferredColorScheme();
+      this.initTheme();
+    }
   }
-  
+
+  private getFromLocalStorage(key: string, defaultValue: any): any {
+    if (isPlatformBrowser(this.platformId)) {
+      const value = localStorage.getItem(key);
+      if (value) {
+        try {
+          return JSON.parse(value);
+        } catch (e) {
+          return value;
+        }
+      }
+    }
+    return defaultValue;
+  }
+
   ngOnDestroy() {
     this.unSubscribeToSystemPrefferedColorScheme();
   }
@@ -34,7 +53,7 @@ export class SettingsService {
     }
     this.setTheme(theme);
   }
-  
+
   subscribeToSystemPreferredColorScheme() {
     this.darkColorSchemeMedia.addEventListener(
       'change',
@@ -43,7 +62,7 @@ export class SettingsService {
   }
 
   initTheme() {
-    const savedTheme = localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       this.settings.theme = savedTheme;
     } else {
@@ -69,21 +88,36 @@ export class SettingsService {
 
   toggleOpenLinksInNewTab() {
     this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('openLinkInNewTab', JSON.stringify(this.settings.openLinkInNewTab));
+    }
   }
 
   setTheme(theme) {
     this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('theme', this.settings.theme);
+    }
   }
 
-  setFont(fontSize){
+  setFont(fontSize) {
     this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('titleFontSize', this.settings.titleFontSize);
+    }
   }
 
-  setSpacing(listSpace){
+  setSpacing(listSpace) {
     this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('listSpacing', this.settings.listSpacing);
+    }
+  }
+
+  toggleFirebaseSDK() {
+    this.settings.useFirebaseSDK = !this.settings.useFirebaseSDK;
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('useFirebaseSDK', JSON.stringify(this.settings.useFirebaseSDK));
+    }
   }
 }

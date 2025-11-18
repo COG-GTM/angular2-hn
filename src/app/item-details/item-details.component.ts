@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 
-import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
+import { APIService } from '../shared/services/api.service';
 import { SettingsService } from '../shared/services/settings.service';
 
 import { Story } from '../shared/models/story';
@@ -21,7 +21,7 @@ export class ItemDetailsComponent implements OnInit {
   settings: Settings;
 
   constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
+    private _apiService: APIService,
     private _settingsService: SettingsService,
     private route: ActivatedRoute,
     private _location: Location
@@ -32,7 +32,7 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
+      this._apiService.fetchItemContent(itemID).subscribe(item => {
         this.item = item;
       }, error => this.errorMessage = 'Could not load item comments.');
     });

@@ -51,16 +51,15 @@ export class FirebaseService {
                     points: item.score || 0,
                     user: item.by || '',
                     time: item.time || 0,
-                    time_ago: this.timeAgo(item.time),
+                    time_ago: this.secondsAgo(item.time),
                     comments_count: item.descendants || 0,
                     type: item.type || 'story',
                     url: item.url || '',
                     domain: item.url ? this.extractDomain(item.url) : '',
                     comments: [],
-                    content: item.text || '',
                     deleted: item.deleted || false,
                     dead: item.dead || false,
-                    poll: item.parts || [],
+                    poll: [],
                     poll_votes_count: 0
                 };
 
@@ -70,8 +69,9 @@ export class FirebaseService {
                     });
                 }
 
-                if (story.type === 'poll' && story.poll.length > 0) {
-                    story.poll.forEach((pollId, index) => {
+                if (story.type === 'poll' && item.parts && item.parts.length > 0) {
+                    const pollIds: number[] = item.parts;
+                    pollIds.forEach((pollId, index) => {
                         this.fetchPollContent(pollId).subscribe(pollResult => {
                             story.poll[index] = pollResult;
                             story.poll_votes_count += pollResult.points;
@@ -91,8 +91,7 @@ export class FirebaseService {
                     return null;
                 }
                 return {
-                    id: item.id,
-                    text: item.text || '',
+                    content: item.text || '',
                     points: item.score || 0
                 };
             })
@@ -107,10 +106,11 @@ export class FirebaseService {
                 }
                 return {
                     id: user.id,
-                    created: user.created,
-                    karma: user.karma,
-                    about: user.about || '',
-                    created_time: this.timeAgo(user.created)
+                    crated_time: this.secondsAgo(user.created),
+                    created: this.timeAgo(user.created),
+                    karma: user.karma || 0,
+                    avg: 0,
+                    about: user.about || ''
                 };
             })
         );
@@ -153,9 +153,13 @@ export class FirebaseService {
         );
     }
 
-    private timeAgo(timestamp: number): string {
+    private secondsAgo(timestamp: number): number {
         const now = Math.floor(Date.now() / 1000);
-        const diff = now - timestamp;
+        return now - timestamp;
+    }
+
+    private timeAgo(timestamp: number): string {
+        const diff = this.secondsAgo(timestamp);
 
         if (diff < 60) {
             return 'just now';

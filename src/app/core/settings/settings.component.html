@@ -12,6 +12,14 @@
                     (change)="toggleOpenLinksInNewTab()" />
                     Open links in a new tab
             </div>
+            <div class="control-section">
+                <h2>Data Source</h2>
+                <input 
+                    type="checkbox" 
+                    [checked]="settings.useFirebaseSDK" 
+                    (change)="toggleFirebaseSDK()" />
+                    Use Firebase SDK (realtime updates)
+            </div>
             <div class="theme-controls">
                 <div class="control-section">
                     <h2>Select a theme</h2>

@@ -6,24 +6,35 @@ import {map } from 'rxjs/operators';
 import { Story } from '../models/story';
 import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
+import { SettingsService } from './settings.service';
+import { FirebaseService } from './firebase.service';
 
 // wrap fetch in observable so we can keep it chill
 @Injectable()
 export class HackerNewsAPIService {
   baseUrl: string;
 
-  constructor() {
+  constructor(
+    private settingsService: SettingsService,
+    private firebaseService: FirebaseService
+  ) {
     this.baseUrl = 'https://node-hnapi.herokuapp.com';
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
+    if (this.settingsService.settings.useFirebaseSDK) {
+      return this.firebaseService.fetchFeed(feedType, page);
+    }
     return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
   }
 
   fetchItemContent(id: number): Observable<Story> {
+    if (this.settingsService.settings.useFirebaseSDK) {
+      return this.firebaseService.fetchItemContent(id);
+    }
     return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
       if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
           this.fetchPollContent(story.id + i).subscribe(pollResults => {
@@ -37,10 +48,16 @@ export class HackerNewsAPIService {
   }
 
   fetchPollContent(id: number): Observable<PollResult> {
+    if (this.settingsService.settings.useFirebaseSDK) {
+      return this.firebaseService.fetchPollContent(id);
+    }
     return lazyFetch(`${this.baseUrl}/item/${id}`);
   }
 
   fetchUser(id: string): Observable<User> {
+    if (this.settingsService.settings.useFirebaseSDK) {
+      return this.firebaseService.fetchUser(id);
+    }
     return lazyFetch(`${this.baseUrl}/user/${id}`);
   }
 }

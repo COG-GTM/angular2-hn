@@ -30,11 +30,15 @@ export class SettingsComponent implements OnInit {
     this._settingsService.setTheme(theme);
   }
 
-  changeTitleFont(val){
+  changeTitleFont(val) {
     this._settingsService.setFont(val);
   }
 
-  changeSpacing(val){
+  changeSpacing(val) {
     this._settingsService.setSpacing(val);
+  }
+
+  toggleFirebaseSDK() {
+    this._settingsService.toggleFirebaseSDK();
   }
 }

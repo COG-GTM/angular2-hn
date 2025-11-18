@@ -1,14 +1,14 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.25.0
 ignore:
-  GHSA-3wf4-68gx-mph8:
-    - firebase:
+  SNYK-JS-FIREBASEAUTH-8383231:
+    - '*':
         reason: >-
           Read-only Hacker News client with no Firebase Authentication usage.
           Angular 9 constraint requires @angular/fire@6.x which depends on firebase@^8.0.0.
           Upgrading to firebase@10.9.0+ requires Angular 12+ and @angular/fire@7.x+.
-          The vulnerability relates to auth token manipulation which is not applicable
-          as this app only uses Firebase Realtime Database for read-only public data access.
+          The XSS vulnerability is in @firebase/auth module which is NOT imported or used.
+          This app only uses Firebase Realtime Database for read-only public data access.
           Follow-up task: Upgrade Angular -> @angular/fire -> firebase in future PR.
         expires: 2026-02-28T00:00:00.000Z
         created: 2025-11-18T23:24:00.000Z

@@ -142,41 +142,41 @@ export class FirebaseService {
     }
 
     private formatStory(firebaseStory: any): Story {
-        return {
-            id: firebaseStory.id,
-            title: firebaseStory.title,
-            points: firebaseStory.score,
-            user: firebaseStory.by,
-            time: firebaseStory.time,
-            time_ago: this.getTimeAgo(firebaseStory.time),
-            comments_count: firebaseStory.descendants || 0,
-            type: firebaseStory.type,
-            url: firebaseStory.url,
-            domain: firebaseStory.url ? this.extractDomain(firebaseStory.url) : '',
-            comments: firebaseStory.kids ? this.formatComments(firebaseStory.kids) : [],
-            content: firebaseStory.text || '',
-            poll: firebaseStory.parts || [],
-            poll_votes_count: 0
-        };
+        const story = new Story();
+        story.id = firebaseStory.id;
+        story.title = firebaseStory.title;
+        story.points = firebaseStory.score;
+        story.user = firebaseStory.by;
+        story.time = firebaseStory.time;
+        story.time_ago = firebaseStory.time;
+        story.comments_count = firebaseStory.descendants || 0;
+        story.type = firebaseStory.type;
+        story.url = firebaseStory.url;
+        story.domain = firebaseStory.url ? this.extractDomain(firebaseStory.url) : '';
+        story.comments = firebaseStory.kids ? this.formatComments(firebaseStory.kids) : [];
+        story.poll = firebaseStory.parts || [];
+        story.poll_votes_count = 0;
+        story.deleted = firebaseStory.deleted || false;
+        story.dead = firebaseStory.dead || false;
+        return story;
     }
 
     private formatPollResult(firebasePoll: any): PollResult {
-        return {
-            id: firebasePoll.id,
-            points: firebasePoll.score,
-            text: firebasePoll.text,
-            time_ago: this.getTimeAgo(firebasePoll.time)
-        };
+        const pollResult = new PollResult();
+        pollResult.points = firebasePoll.score;
+        pollResult.content = firebasePoll.text;
+        return pollResult;
     }
 
     private formatUser(firebaseUser: any): User {
-        return {
-            id: firebaseUser.id,
-            created: firebaseUser.created,
-            karma: firebaseUser.karma,
-            about: firebaseUser.about || '',
-            submitted: firebaseUser.submitted || []
-        };
+        const user = new User();
+        user.id = firebaseUser.id;
+        user.created = new Date(firebaseUser.created * 1000).toISOString();
+        user.crated_time = firebaseUser.created;
+        user.karma = firebaseUser.karma;
+        user.about = firebaseUser.about || '';
+        user.avg = 0;
+        return user;
     }
 
     private formatComments(kids: number[]): any[] {
@@ -192,21 +192,4 @@ export class FirebaseService {
         }
     }
 
-    private getTimeAgo(timestamp: number): string {
-        const now = Math.floor(Date.now() / 1000);
-        const diff = now - timestamp;
-
-        if (diff < 60) {
-            return 'just now';
-        } else if (diff < 3600) {
-            const minutes = Math.floor(diff / 60);
-            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-        } else if (diff < 86400) {
-            const hours = Math.floor(diff / 3600);
-            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-        } else {
-            const days = Math.floor(diff / 86400);
-            return `${days} day${days > 1 ? 's' : ''} ago`;
-        }
-    }
 }

@@ -64,6 +64,29 @@ Current themes:
 
 More to come!
 
+## Realtime Mode
+
+The app now supports optional realtime updates using the Firebase SDK. When enabled in Settings, the app subscribes to the official Hacker News Firebase API and automatically displays new stories as they are posted without requiring a page refresh.
+
+### Features
+
+* **Live Updates**: New stories appear automatically at the top of the feed when realtime mode is enabled
+* **Firebase Integration**: Uses the official Hacker News Firebase Realtime Database API
+* **Settings Toggle**: Easy on/off control in the Settings panel
+* **Offline Compatible**: Service Worker continues to provide offline support for cached content
+* **Page-Specific**: Only active on the first page of feeds to optimize performance
+
+### Usage
+
+1. Open the Settings panel (gear icon)
+2. Check the "Enable realtime story updates" checkbox
+3. Return to the home feed
+4. New stories will appear automatically without refreshing the page
+
+### Technical Details
+
+The realtime mode uses Firebase SDK to subscribe to story updates from `https://hacker-news.firebaseio.com/v0/`. When a new story is detected, it fetches the full story details and prepends it to the current feed. The feature is designed to work alongside the existing Service Worker implementation, ensuring offline reads remain functional.
+
 ## Areas of improvement
 
  - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)

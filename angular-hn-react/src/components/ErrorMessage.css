@@ -1,0 +1,9 @@
+.error-message {
+  padding: 20px;
+  text-align: center;
+  color: #ff0000;
+}
+
+.error-message p {
+  margin: 0;
+}

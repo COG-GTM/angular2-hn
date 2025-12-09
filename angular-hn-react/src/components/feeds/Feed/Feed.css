@@ -1,0 +1,36 @@
+.main-content {
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feed-list {
+    padding-left: 30px;
+    margin: 0;
+}
+
+.loader {
+    text-align: center;
+    padding: 40px;
+    color: #828282;
+}
+
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #ff6600;
+}
+
+.pagination {
+    padding: 20px 0;
+    text-align: center;
+}
+
+.pagination a {
+    color: #828282;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}

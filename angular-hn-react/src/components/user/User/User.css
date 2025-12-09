@@ -1,0 +1,48 @@
+.user-profile {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #828282;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+.user-name {
+    margin: 0 0 20px 0;
+    color: #ff6600;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    color: #828282;
+}
+
+.user-about {
+    border-top: 1px solid #e6e6e6;
+    padding-top: 20px;
+}
+
+.user-about h2 {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #828282;
+}
+
+.user-about a {
+    color: #0066cc;
+}

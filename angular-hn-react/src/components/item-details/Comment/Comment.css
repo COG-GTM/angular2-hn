@@ -1,0 +1,54 @@
+.comment {
+    padding: 10px 0;
+    border-top: 1px solid #e6e6e6;
+}
+
+.comment-meta {
+    font-size: 12px;
+    color: #828282;
+    margin-bottom: 5px;
+}
+
+.comment-meta a {
+    color: #828282;
+    text-decoration: none;
+}
+
+.comment-meta a:hover {
+    text-decoration: underline;
+}
+
+.collapse-btn {
+    background: none;
+    border: none;
+    color: #828282;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.time-ago {
+    margin-left: 5px;
+}
+
+.comment-text {
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.comment-text a {
+    color: #0066cc;
+}
+
+.comment-text pre {
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.comment-text code {
+    background-color: #f6f6f6;
+    padding: 2px 4px;
+    border-radius: 3px;
+}

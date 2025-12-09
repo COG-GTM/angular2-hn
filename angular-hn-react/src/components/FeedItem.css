@@ -1,0 +1,90 @@
+.feed-item {
+  padding: 4px 0;
+}
+
+.feed-item p {
+  margin: 0 0 4px 0;
+}
+
+.feed-item .title {
+  color: #000;
+  text-decoration: none;
+}
+
+.feed-item .title:visited {
+  color: #828282;
+}
+
+.feed-item .title:hover {
+  text-decoration: underline;
+}
+
+.feed-item .domain {
+  font-size: 11px;
+  color: #828282;
+  margin-left: 4px;
+}
+
+.feed-item .details {
+  font-size: 11px;
+  color: #828282;
+}
+
+.feed-item .details a {
+  color: #828282;
+  text-decoration: none;
+}
+
+.feed-item .details a:hover {
+  text-decoration: underline;
+}
+
+.feed-item .name {
+  margin-right: 8px;
+}
+
+.feed-item .right {
+  color: #ff6600;
+}
+
+.feed-item .comment-number {
+  margin-left: 4px;
+}
+
+.subtext-palm {
+  display: none;
+}
+
+.subtext-laptop {
+  font-size: 11px;
+  color: #828282;
+}
+
+.subtext-laptop a {
+  color: #828282;
+  text-decoration: none;
+}
+
+.subtext-laptop a:hover {
+  text-decoration: underline;
+}
+
+.subtext-laptop .item-details {
+  margin-left: 8px;
+}
+
+@media (max-width: 600px) {
+  .subtext-palm {
+    display: block;
+  }
+  
+  .subtext-laptop {
+    display: none;
+  }
+  
+  .feed-item .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

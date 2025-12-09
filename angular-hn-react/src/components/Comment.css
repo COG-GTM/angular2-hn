@@ -1,0 +1,86 @@
+.comment {
+  margin-bottom: 16px;
+}
+
+.meta {
+  font-size: 12px;
+  color: #828282;
+  margin-bottom: 4px;
+}
+
+.meta-collapse {
+  opacity: 0.6;
+}
+
+.meta .collapse {
+  cursor: pointer;
+  user-select: none;
+  color: #828282;
+}
+
+.meta .collapse:hover {
+  color: #ff6600;
+}
+
+.meta a {
+  color: #828282;
+  text-decoration: none;
+}
+
+.meta a:hover {
+  text-decoration: underline;
+}
+
+.meta .time {
+  margin-left: 8px;
+}
+
+.comment-tree {
+  padding-left: 16px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.comment-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 8px 0;
+  word-wrap: break-word;
+}
+
+.comment-text a {
+  color: #ff6600;
+}
+
+.comment-text pre {
+  overflow-x: auto;
+  background: #f6f6f6;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.comment-text code {
+  background: #f6f6f6;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.subtree {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+}
+
+.subtree li {
+  margin-bottom: 0;
+}
+
+.deleted-comment {
+  margin-bottom: 16px;
+}
+
+.deleted-meta {
+  font-size: 12px;
+  color: #828282;
+  font-style: italic;
+}

@@ -1,0 +1,135 @@
+@import 'media';
+@import 'theme_variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+header {
+  background: var(--header-bg);
+  position: relative;
+  z-index: 10;
+
+  @media #{$mobile-only} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.domain {
+  color: var(--subtext-color);
+}
+
+.subtext,
+.subtext-laptop,
+.subtext-palm {
+  color: var(--subtext-color);
+
+  a {
+    color: var(--subtext-color);
+  }
+}
+
+.post {
+  border-bottom-color: var(--border-color);
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: var(--loader-color);
+}
+
+.skull {
+  .head {
+    background: var(--skull-head-bg);
+
+    &:before,
+    &:after {
+      background: var(--skull-head-eye);
+    }
+
+    .crack {
+      background: var(--skull-head-bg);
+
+      &:before {
+        border-top: calc($skull-size / 5) solid var(--skull-head-bg);
+      }
+    }
+  }
+
+  .mouth {
+    background: var(--skull-mouth-bg);
+
+    &:before {
+      background: var(--skull-mouth-before);
+    }
+
+    .teeth,
+    .teeth:before,
+    .teeth:after {
+      background: var(--skull-teeth-bg);
+    }
+  }
+}
+
+.pollBar {
+  background: var(--poll-bar-bg);
+}
+
+#footer {
+  a {
+    color: var(--footer-link-color);
+  }
+}
+
+.popup {
+  background: var(--header-bg);
+}
+
+@media #{$mobile-only} {
+  .item-header {
+    background-color: var(--item-header-bg);
+  }
+
+  .back-button {
+    border-top: 2px solid var(--back-button-border);
+    border-right: 2px solid var(--back-button-border);
+  }
+}
+
+.nested-comments {
+  border-left-color: var(--border-color);
+}
+
+.comment-meta .time {
+  color: var(--subtext-color);
+}
+
+.deleted {
+  color: var(--subtext-color);
+}

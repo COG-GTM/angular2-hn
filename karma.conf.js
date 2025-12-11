@@ -25,7 +25,13 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+        browsers: ['ChromeCI'],
+        customLaunchers: {
+          ChromeCI: {
+            base: 'Chrome',
+            flags: ['--no-sandbox', '--disable-gpu', '--disable-translate', '--disable-extensions']
+          }
+        },
     singleRun: false,
     restartOnFileChange: true
   });

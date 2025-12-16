@@ -1,0 +1,75 @@
+@import "../../styles/media";
+
+.profile {
+  padding: 20px 40px;
+
+  @media #{$mobile-only} {
+    padding: 110px 15px 0 15px;
+  }
+}
+
+.item-header {
+  padding-bottom: 10px;
+}
+
+@media #{$mobile-only} {
+  .item-header {
+    padding: 10px 0 10px 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 62px;
+  }
+}
+
+.title-block {
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 75px;
+}
+
+@media #{$mobile-only} {
+  .back-button {
+    position: absolute;
+    top: 52%;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: transparent;
+    box-shadow: 0 0 0 lightgray;
+    transition: all 200ms ease;
+    left: 4%;
+    transform: translate3d(0, -50%, 0) rotate(-135deg);
+    cursor: pointer;
+  }
+}
+
+@media #{$laptop-only} {
+  .mobile {
+    display: none;
+  }
+}
+
+.main-details {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding-bottom: 10px;
+
+  .right {
+    float: right;
+  }
+
+  .age {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 10px;
+  }
+}
+
+.other-details {
+  font-size: 15px;
+  line-height: 1.5em;
+  word-wrap: break-word;
+}

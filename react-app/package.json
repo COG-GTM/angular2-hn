@@ -1,0 +1,31 @@
+{
+  "name": "react-hn",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "keywords": ["react", "hacker-news", "pwa"],
+  "author": "",
+  "license": "ISC",
+  "description": "React Hacker News PWA Client",
+    "dependencies": {
+      "react": "^19.2.3",
+      "react-dom": "^19.2.3",
+      "react-router-dom": "^7.10.1"
+    },
+  "devDependencies": {
+    "@types/node": "^25.0.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "sass": "^1.97.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-window": "^7.4.0"
+  }
+}

@@ -1,0 +1,123 @@
+@import "../../styles/scss/media";
+@import "../../styles/scss/theme_variables";
+
+.error-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 20px;
+
+  .strong {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  p {
+    max-width: 400px;
+    line-height: 1.5;
+  }
+}
+
+.skull {
+  position: relative;
+  width: $skull-size;
+  height: $skull-size;
+  margin: 0 auto;
+}
+
+.head {
+  position: absolute;
+  width: $skull-size;
+  height: calc($skull-size * 0.85);
+  border-radius: 50%;
+  top: 0;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc($skull-size / 4);
+    height: calc($skull-size / 4);
+    border-radius: 50%;
+    top: calc($skull-size / 3);
+  }
+
+  &:before {
+    left: calc($skull-size / 5);
+  }
+
+  &:after {
+    right: calc($skull-size / 5);
+  }
+}
+
+.crack {
+  position: absolute;
+  width: calc($skull-size / 16);
+  height: calc($skull-size / 4);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: calc($skull-size / 16) solid transparent;
+    border-right: calc($skull-size / 16) solid transparent;
+    bottom: calc(-1 * $skull-size / 8);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.mouth {
+  position: absolute;
+  width: calc($skull-size * 0.6);
+  height: calc($skull-size / 4);
+  border-radius: 0 0 calc($skull-size / 4) calc($skull-size / 4);
+  bottom: calc($skull-size * 0.1);
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: calc($skull-size * 0.5);
+    height: calc($skull-size / 8);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.teeth {
+  position: absolute;
+  width: calc($skull-size / 8);
+  height: calc($skull-size / 8);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: calc($skull-size / 8);
+    height: calc($skull-size / 8);
+    top: 0;
+  }
+
+  &:before {
+    left: calc(-1 * $skull-size / 6);
+  }
+
+  &:after {
+    right: calc(-1 * $skull-size / 6);
+  }
+}

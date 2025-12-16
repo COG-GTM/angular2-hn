@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import fetch from 'unfetch';
 import { Story, User, PollResult } from '../models';
 
 const BASE_URL = 'https://node-hnapi.herokuapp.com';

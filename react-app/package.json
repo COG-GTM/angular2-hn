@@ -12,12 +12,11 @@
   "author": "",
   "license": "ISC",
   "description": "React Hacker News PWA Client",
-  "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-router-dom": "^7.10.1",
-    "unfetch": "^5.0.0"
-  },
+    "dependencies": {
+      "react": "^19.2.3",
+      "react-dom": "^19.2.3",
+      "react-router-dom": "^7.10.1"
+    },
   "devDependencies": {
     "@types/node": "^25.0.2",
     "@types/react": "^19.2.7",

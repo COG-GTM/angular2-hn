@@ -1,0 +1,72 @@
+@import '../styles/media';
+
+.title {
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.domain {
+  font-size: 0.85em;
+  margin-left: 0.5rem;
+}
+
+.subtext-palm {
+  display: none;
+
+  @media #{$mobile-only} {
+    display: block;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .name a {
+        text-decoration: none;
+      }
+
+      .right {
+        font-weight: 500;
+      }
+
+      .comment-number {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.subtext-laptop {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+
+  @media #{$mobile-only} {
+    display: none;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .item-details {
+    &::before {
+      content: '| ';
+    }
+  }
+}
+
+p {
+  margin: 0 0 0.25rem 0;
+}

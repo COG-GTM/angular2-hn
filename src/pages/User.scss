@@ -1,0 +1,79 @@
+@import '../styles/media';
+
+.profile {
+  .mobile {
+    display: none;
+
+    @media #{$mobile-only} {
+      display: block;
+    }
+  }
+
+  .item-header {
+    padding: 0.75rem;
+    border-bottom: 2px solid;
+  }
+
+  .title-block {
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    .back-button {
+      width: 12px;
+      height: 12px;
+      border-top: 3px solid;
+      border-right: 3px solid;
+      transform: rotate(-135deg);
+      margin-right: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+  }
+
+  .main-details {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+
+    @media #{$mobile-only} {
+      padding: 0.75rem;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .right {
+      margin-left: auto;
+      font-size: 1.2rem;
+    }
+
+    .age {
+      width: 100%;
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+
+  .other-details {
+    padding: 0 1rem 1rem;
+
+    @media #{$mobile-only} {
+      padding: 0 0.75rem 0.75rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin: 0;
+
+      a {
+        word-break: break-all;
+      }
+    }
+  }
+}

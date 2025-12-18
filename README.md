@@ -1,3 +1,5 @@
+# Angular Hacker News
+
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
     <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
@@ -18,6 +20,8 @@
 </p>
 
 ---
+
+## Features
 
 :zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
 

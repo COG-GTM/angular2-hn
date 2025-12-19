@@ -1,0 +1,26 @@
+$mobile-only: "only screen and (max-width : 768px)";
+
+#footer {
+  padding: 20px 15px;
+  text-align: center;
+  border-top: 2px solid #b92b27;
+  margin-top: 20px;
+
+  @media #{$mobile-only} {
+    padding: 15px 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  a {
+    color: #b92b27;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

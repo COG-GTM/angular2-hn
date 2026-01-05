@@ -16,6 +16,7 @@
   $item-a-color,
   $item-a-visited-color,
   $header-background-color,
+  $header-text-color,
   $subtext-color,
   $secondary-link-color,
   $logo-inner-color,
@@ -49,6 +50,20 @@
       #header {
         background: $header-background-color;
         border-bottom: $border;
+        color: $header-text-color;
+
+        .header-nav a {
+          color: $header-text-color;
+          opacity: 0.7;
+
+          &:hover, &.active {
+            opacity: 1;
+          }
+        }
+
+        h1 a {
+          color: $header-text-color;
+        }
       }
 
       .logo-inner {
@@ -202,6 +217,7 @@
   $theme-day-text-color,
   $theme-day-subtext-color,
   $theme-day-header-background-color,
+  $theme-day-header-text-color,
   $theme-day-subtext-color,
   $theme-day-secondary-color,
   $theme-day-logo-inner,
@@ -217,6 +233,7 @@
   $theme-night-text-color,
   $theme-night-subtext-color,
   $theme-night-header-background-color,
+  $theme-night-header-text-color,
   $theme-night-subtext-color,
   $theme-night-secondary-color,
   $theme-night-logo-inner,
@@ -232,6 +249,7 @@
   $theme-amoledblack-text-color,
   darken($theme-amoledblack-text-color, 33%),
   $theme-amoledblack-body-background-color,
+  $theme-amoledblack-header-text-color,
   $theme-amoledblack-subtext-color,
   $theme-amoledblack-secondary-color,
   $theme-amoledblack-body-background-color,

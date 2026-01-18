@@ -9,16 +9,16 @@ import { Story } from '../../shared/models/story';
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+  styleUrls: ['./feed.component.scss'],
+  standalone: false
 })
-
 export class FeedComponent implements OnInit {
-  typeSub: Subscription;
-  pageSub: Subscription;
-  items: Story[];
-  feedType: string;
-  pageNum: number;
-  listStart: number;
+  typeSub!: Subscription;
+  pageSub!: Subscription;
+  items: Story[] = [];
+  feedType: string = '';
+  pageNum: number = 1;
+  listStart: number = 1;
   errorMessage = '';
 
   constructor(

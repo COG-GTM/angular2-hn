@@ -6,7 +6,8 @@ import { Settings } from '../../shared/models/settings';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
+  standalone: false
 })
 export class SettingsComponent implements OnInit {
   settings: Settings;
@@ -26,15 +27,15 @@ export class SettingsComponent implements OnInit {
     this._settingsService.toggleOpenLinksInNewTab();
   }
 
-  selectTheme(theme) {
+  selectTheme(theme: string) {
     this._settingsService.setTheme(theme);
   }
 
-  changeTitleFont(val){
+  changeTitleFont(val: string) {
     this._settingsService.setFont(val);
   }
 
-  changeSpacing(val){
+  changeSpacing(val: string) {
     this._settingsService.setSpacing(val);
   }
 }

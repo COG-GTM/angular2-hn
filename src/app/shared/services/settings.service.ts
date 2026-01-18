@@ -8,10 +8,10 @@ import { Settings } from '../models/settings';
 export class SettingsService {
   settings: Settings = {
     showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
+    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab") || 'false') : false,
     theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
+    titleFontSize: localStorage.getItem("titleFontSize") || '16',
+    listSpacing: localStorage.getItem("listSpacing") || '0',
   };
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
@@ -26,7 +26,7 @@ export class SettingsService {
   }
 
   handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
+    let theme: string;
     if (event.matches) {
       theme = 'night';
     } else {
@@ -72,17 +72,17 @@ export class SettingsService {
     localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
   }
 
-  setTheme(theme) {
+  setTheme(theme: string) {
     this.settings.theme = theme;
     localStorage.setItem("theme", this.settings.theme);
   }
 
-  setFont(fontSize){
+  setFont(fontSize: string) {
     this.settings.titleFontSize = fontSize;
     localStorage.setItem("titleFontSize", this.settings.titleFontSize);
   }
 
-  setSpacing(listSpace){
+  setSpacing(listSpace: string) {
     this.settings.listSpacing = listSpace;
     localStorage.setItem("listSpacing", this.settings.listSpacing);
   }

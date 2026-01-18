@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { User } from '../shared/models/user';
@@ -9,11 +9,12 @@ import { User } from '../shared/models/user';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  standalone: false
 })
 export class UserComponent implements OnInit {
-  sub: Subscription;
-  user: User;
+  sub!: Subscription;
+  user!: User;
   errorMessage = '';
 
   constructor(

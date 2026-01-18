@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'comment',
-  pure: true
+  pure: true,
+  standalone: false
 })
 export class CommentPipe implements PipeTransform {
   transform(comment: number): string {

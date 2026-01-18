@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
@@ -12,11 +12,12 @@ import { Settings } from '../shared/models/settings';
 @Component({
   selector: 'app-item-details',
   templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.scss']
+  styleUrls: ['./item-details.component.scss'],
+  standalone: false
 })
 export class ItemDetailsComponent implements OnInit {
-  sub: Subscription;
-  item: Story;
+  sub!: Subscription;
+  item!: Story;
   errorMessage = '';
   settings: Settings;
 

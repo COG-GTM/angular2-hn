@@ -1,0 +1,74 @@
+<div class="tracker-container">
+  <div class="tracker-header">
+    <h1>Usage Metrics</h1>
+    <button class="clear-btn" (click)="clearData()">Clear Data</button>
+  </div>
+
+  <div class="metrics-grid" *ngIf="metrics">
+    <div class="metric-card">
+      <h3>Overview</h3>
+      <table>
+        <tr><td>Total Page Views</td><td>{{metrics.totalPageViews}}</td></tr>
+        <tr><td>Total Story Clicks</td><td>{{metrics.totalStoryClicks}}</td></tr>
+        <tr><td>Total User Profile Views</td><td>{{metrics.totalUserViews}}</td></tr>
+        <tr><td>Sessions</td><td>{{metrics.sessionCount}}</td></tr>
+        <tr><td>Tracking Since</td><td>{{formatDate(metrics.firstVisit)}}</td></tr>
+      </table>
+    </div>
+
+    <div class="metric-card">
+      <h3>Page Views by Type</h3>
+      <table *ngIf="metrics.pageViewsByType.length">
+        <tr *ngFor="let pv of metrics.pageViewsByType">
+          <td>{{pv.name}}</td>
+          <td>{{pv.count}}</td>
+        </tr>
+      </table>
+      <p *ngIf="!metrics.pageViewsByType.length" class="no-data">No data yet</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Average Time per Page (seconds)</h3>
+      <table *ngIf="metrics.avgTimeByPage.length">
+        <tr *ngFor="let avg of metrics.avgTimeByPage">
+          <td>{{avg.page}}</td>
+          <td>{{avg.avgTime}}s</td>
+        </tr>
+      </table>
+      <p *ngIf="!metrics.avgTimeByPage.length" class="no-data">No data yet</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Top 10 Clicked Stories</h3>
+      <table *ngIf="metrics.topStories.length">
+        <tr *ngFor="let story of metrics.topStories">
+          <td class="story-title">{{story.title}}</td>
+          <td>{{story.count}}</td>
+        </tr>
+      </table>
+      <p *ngIf="!metrics.topStories.length" class="no-data">No data yet</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Top 10 Viewed Users</h3>
+      <table *ngIf="metrics.topUsers.length">
+        <tr *ngFor="let user of metrics.topUsers">
+          <td>{{user.name}}</td>
+          <td>{{user.count}}</td>
+        </tr>
+      </table>
+      <p *ngIf="!metrics.topUsers.length" class="no-data">No data yet</p>
+    </div>
+
+    <div class="metric-card wide">
+      <h3>Activity by Hour</h3>
+      <div class="hour-chart">
+        <div class="hour-bar" *ngFor="let h of metrics.activityByHour" 
+             [style.height.%]="metrics.totalPageViews ? (h.count / metrics.totalPageViews * 100) : 0">
+          <span class="hour-label">{{formatHour(h.hour)}}</span>
+          <span class="hour-count">{{h.count}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

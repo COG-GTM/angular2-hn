@@ -1,0 +1,146 @@
+.tracker-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    color: #ff6600;
+  }
+}
+
+.clear-btn {
+  background: #ff6600;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &:hover {
+    background: #e55c00;
+  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.metric-card {
+  background: var(--item-bg, #f6f6ef);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 16px;
+
+  &.wide {
+    grid-column: 1 / -1;
+  }
+
+  h3 {
+    margin: 0 0 12px 0;
+    color: #ff6600;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 1px solid var(--border-color, #eee);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 8px 4px;
+      font-size: 14px;
+
+      &:last-child {
+        text-align: right;
+        font-weight: bold;
+        color: #ff6600;
+      }
+
+      &.story-title {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.no-data {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.hour-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+  padding-top: 20px;
+}
+
+.hour-bar {
+  flex: 1;
+  background: #ff6600;
+  margin: 0 2px;
+  min-height: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2px 2px 0 0;
+
+  .hour-label {
+    position: absolute;
+    bottom: -20px;
+    font-size: 10px;
+    color: #666;
+  }
+
+  .hour-count {
+    position: absolute;
+    top: -18px;
+    font-size: 10px;
+    color: #ff6600;
+    font-weight: bold;
+  }
+}
+
+:host-context(.night) {
+  .metric-card {
+    background: #1a1a1a;
+    border-color: #333;
+
+    table tr {
+      border-color: #333;
+    }
+  }
+
+  .no-data {
+    color: #666;
+  }
+
+  .hour-bar .hour-label {
+    color: #999;
+  }
+}

@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
+import { TrackerService } from '../shared/services/tracker.service';
 import { User } from '../shared/models/user';
 
 @Component({
@@ -18,13 +19,16 @@ export class UserComponent implements OnInit {
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
+    private _trackerService: TrackerService,
     private route: ActivatedRoute,
     private _location: Location
   ) {}
 
   ngOnInit() {
+    this._trackerService.trackPageView('user-profile');
     this.sub = this.route.params.subscribe(params => {
       let userID = params['id'];
+      this._trackerService.trackUserView(userID);
       this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
         this.user = data;
       }, error => this.errorMessage = 'Could not load user ' + userID + '.');

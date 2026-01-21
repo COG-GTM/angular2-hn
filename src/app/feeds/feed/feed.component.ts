@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
+import { TrackerService } from '../../shared/services/tracker.service';
 import { Story } from '../../shared/models/story';
 
 @Component({
@@ -23,6 +24,7 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
+    private _trackerService: TrackerService,
     private route: ActivatedRoute
   ) { }
 
@@ -31,6 +33,7 @@ export class FeedComponent implements OnInit {
       .data
       .subscribe(data => {
         this.feedType = (data as any).feedType;
+        this._trackerService.trackPageView(this.feedType);
       });
 
     this.pageSub = this.route.params.subscribe(params => {

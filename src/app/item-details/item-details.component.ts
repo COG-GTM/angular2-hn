@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
+import { TrackerService } from '../shared/services/tracker.service';
 
 import { Story } from '../shared/models/story';
 import { Settings } from '../shared/models/settings';
@@ -23,6 +24,7 @@ export class ItemDetailsComponent implements OnInit {
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
     private _settingsService: SettingsService,
+    private _trackerService: TrackerService,
     private route: ActivatedRoute,
     private _location: Location
   ) {
@@ -30,6 +32,7 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._trackerService.trackPageView('item-details');
     this.sub = this.route.params.subscribe(params => {
       let itemID = +params['id'];
       this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {

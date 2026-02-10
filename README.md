@@ -25,6 +25,8 @@
 
 :rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
 
+> This is a dummy test change to verify PR creation workflow.
+
 <p align="center">
   <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
 </p>

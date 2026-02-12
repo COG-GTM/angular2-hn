@@ -1,3 +1,7 @@
+// Feed component — displays a paginated list of Hacker News stories.
+// Accepts a feedType prop (e.g. 'news', 'newest', 'show', 'ask', 'jobs')
+// and reads the current page from the URL via React Router.
+// Migrated from Angular's FeedComponent (src/app/feeds/feed/feed.component.ts).
 import { useParams } from 'react-router-dom';
 import { useEffect, useReducer } from 'react';
 import { Item } from './Item';

@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "react:dev": "vite --config vite.config.ts",
+    "react:build": "vite build --config vite.config.ts",
+    "react:preview": "vite preview --config vite.config.ts"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +24,8 @@
     "@angular/router": "~9.0.1",
     "@angular/service-worker": "~9.0.1",
     "node-fetch": "^2.6.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.10.0",
@@ -34,7 +39,10 @@
     "@angular/language-service": "~9.0.1",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
+    "@types/node": "^20.19.33",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.7.0",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -46,7 +54,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "vite": "^5.4.21"
   },
   "prettier": {
     "trailingComma": "es5",

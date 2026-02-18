@@ -1,0 +1,108 @@
+.main-content {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    transition: opacity 0.2s ease;
+    box-sizing: border-box;
+    padding: 8px 0;
+    z-index: 0;
+}
+
+.main-content a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main-content a:hover {
+    text-decoration: underline;
+}
+
+.main-content ol {
+    padding: 0 40px;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .main-content ol {
+        box-sizing: border-box;
+        list-style: none;
+        padding: 0 10px;
+    }
+}
+
+.main-content .list-margin {
+    margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .main-content .list-margin {
+        margin-top: 55px;
+    }
+}
+
+.main-content .post {
+    padding: 10px 0 10px 5px;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #cececb;
+}
+
+.main-content .item-block {
+    display: block;
+}
+
+.main-content .nav {
+    padding: 10px 40px;
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+@media screen and (max-width: 768px) {
+    .main-content .nav {
+        margin: 20px 0;
+        text-align: center;
+        padding: 10px 80px;
+        height: 20px;
+    }
+}
+
+.main-content .nav .prev {
+    padding-right: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .main-content .nav .prev {
+        float: left;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-content .nav .more {
+        float: right;
+    }
+}
+
+.main-content .job-header {
+    font-size: 15px;
+    padding: 0 40px 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .main-content .job-header {
+        padding: 60px 15px 25px 15px;
+    }
+}
+
+.main-content .loader {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #666;
+}
+
+.main-content .error-message {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #d32f2f;
+}

@@ -1,0 +1,69 @@
+.item-root p.item-title-row {
+    margin: 2px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .item-root p.item-title-row {
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+}
+
+.item-root a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.item-root .title {
+    font-size: 16px;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.item-root .subtext-laptop {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.item-root .subtext-laptop a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .item-root .subtext-laptop {
+        display: none;
+    }
+}
+
+.item-root .subtext-palm {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.item-root .subtext-palm a:hover {
+    text-decoration: underline;
+}
+
+.item-root .subtext-palm .details {
+    margin-top: 5px;
+}
+
+.item-root .subtext-palm .details .right {
+    float: right;
+}
+
+@media screen and (min-width: 769px) {
+    .item-root .subtext-palm {
+        display: none;
+    }
+}
+
+.item-root .domain {
+    color: #696969;
+    letter-spacing: 0.5px;
+}
+
+.item-root .item-details {
+    padding: 10px;
+}

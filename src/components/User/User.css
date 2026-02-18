@@ -1,0 +1,99 @@
+.user-profile pre {
+  white-space: pre-wrap;
+}
+
+.user-profile {
+  padding: 30px;
+}
+
+.user-profile .mobile.item-header {
+  display: none;
+}
+
+.user-profile .main-details .name {
+  font-weight: bold;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.user-profile .main-details .age {
+  font-weight: bold;
+  color: #696969;
+  padding-bottom: 0;
+}
+
+.user-profile .main-details .right {
+  float: right;
+  font-weight: bold;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.user-profile .other-details {
+  word-wrap: break-word;
+}
+
+.user-loading,
+.user-error {
+  padding: 30px;
+  text-align: center;
+}
+
+.user-error {
+  color: #b00020;
+}
+
+@media screen and (max-width: 768px) {
+  .user-profile {
+    padding: 110px 15px 0 15px;
+  }
+
+  .user-profile .mobile.item-header {
+    display: block;
+    padding-bottom: 10px;
+    background-color: #fff;
+    padding: 10px 0 10px 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 62px;
+    height: 20px;
+  }
+
+  .user-profile .title-block {
+    font-size: 15px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 75px;
+  }
+
+  .user-profile .back-button {
+    position: absolute;
+    top: 52%;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: transparent;
+    border-top: 2px solid #333;
+    border-left: 2px solid #333;
+    box-shadow: 0 0 0 lightgray;
+    transition: all 200ms ease;
+    left: 4%;
+    transform: translate3d(0, -50%, 0) rotate(-45deg);
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .user-profile .main-details {
+    margin-top: 20px;
+  }
+
+  .user-profile .main-details .name {
+    font-size: 18px;
+  }
+
+  .user-profile .main-details .right {
+    font-size: 18px;
+  }
+}

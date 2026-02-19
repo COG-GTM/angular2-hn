@@ -1,28 +1,22 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { SettingsPanel } from './SettingsPanel';
 import './Header.scss';
 
 export function Header() {
     const { settings, toggleSettings } = useSettings();
-    const navigate = useNavigate();
 
     const scrollTop = () => {
         window.scrollTo(0, 0);
     };
 
-    const handleNavClick = (path: string) => {
-        scrollTop();
-        navigate(path);
-    };
-
     return (
         <header>
             <div id="header">
-                <a className="home-link" onClick={() => handleNavClick('/news/1')} href="#/">
+                <NavLink className="home-link" to="/news/1" onClick={scrollTop}>
                     <div className="logo-inner"></div>
                     <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
-                </a>
+                </NavLink>
                 <div className="header-text">
                     <div className="left">
                         <span className="header-nav">

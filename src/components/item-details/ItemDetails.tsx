@@ -24,17 +24,23 @@ export default function ItemDetails() {
 
     useEffect(() => {
         if (!id) return;
+        let ignore = false;
         setItem(null);
         setErrorMessage('');
 
         fetchItemContent(+id)
             .then((data) => {
-                setItem(data);
+                if (!ignore) {
+                    setItem(data);
+                }
             })
             .catch(() => {
-                setErrorMessage('Could not load item comments.');
+                if (!ignore) {
+                    setErrorMessage('Could not load item comments.');
+                }
             });
         window.scrollTo(0, 0);
+        return () => { ignore = true; };
     }, [id]);
 
     const goBack = () => {

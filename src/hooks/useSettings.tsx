@@ -37,6 +37,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
 
     const handleChange = (event: MediaQueryListEvent) => {
+      if (localStorage.getItem('userExplicitTheme') === 'true') {
+        return;
+      }
       const theme = event.matches ? 'night' : 'default';
       setSettings(prev => ({ ...prev, theme }));
       localStorage.setItem('theme', theme);
@@ -62,6 +65,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const setTheme = useCallback((theme: string) => {
     setSettings(prev => ({ ...prev, theme }));
     localStorage.setItem('theme', theme);
+    localStorage.setItem('userExplicitTheme', 'true');
   }, []);
 
   const setFont = useCallback((fontSize: string) => {

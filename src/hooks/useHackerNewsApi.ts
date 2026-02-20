@@ -59,13 +59,15 @@ export function useItemContent(id: number) {
               pollResults.push(result);
               pollVotesCount += result.points;
             } catch {
-              // skip failed poll fetches
+              if (controller.signal.aborted) break;
             }
           }
           story.poll = pollResults;
           story.poll_votes_count = pollVotesCount;
         }
-        setItem(story);
+        if (!controller.signal.aborted) {
+          setItem(story);
+        }
       })
       .catch(err => {
         if (!controller.signal.aborted) {

@@ -40,9 +40,14 @@
 
       a {
         color: $item-a-color;
+        transition: color 0.15s ease;
 
         &:visited {
             color: $item-a-visited-color;
+        }
+
+        &:hover {
+            color: $secondary-link-color;
         }
       }
 

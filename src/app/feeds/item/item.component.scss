@@ -13,6 +13,7 @@ p {
   a {
     cursor: pointer;
     text-decoration: none;
+    transition: color 0.15s ease;
   }
 
   .title {
@@ -59,7 +60,7 @@ p {
   }
 
   .domain {
-    color: #696969;
+    color: #6b7280;
     letter-spacing: 0.5px;
   }
 

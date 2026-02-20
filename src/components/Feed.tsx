@@ -18,17 +18,23 @@ export default function Feed() {
   const listStart = ((pageNum - 1) * 30) + 1;
 
   useEffect(() => {
+    let ignore = false;
     setItems(null);
     setErrorMessage('');
 
     fetchFeed(feedType, pageNum)
       .then(data => {
-        setItems(data);
-        window.scrollTo(0, 0);
+        if (!ignore) {
+          setItems(data);
+          window.scrollTo(0, 0);
+        }
       })
       .catch(() => {
-        setErrorMessage('Could not load ' + feedType + ' stories.');
+        if (!ignore) {
+          setErrorMessage('Could not load ' + feedType + ' stories.');
+        }
       });
+    return () => { ignore = true; };
   }, [feedType, pageNum]);
 
   return (

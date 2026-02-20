@@ -18,11 +18,13 @@ export default function ItemDetails() {
 
   useEffect(() => {
     if (!id) return;
+    let ignore = false;
     const itemID = parseInt(id, 10);
     fetchItemContent(itemID)
-      .then(data => setItem(data))
-      .catch(() => setErrorMessage('Could not load item comments.'));
+      .then(data => { if (!ignore) setItem(data); })
+      .catch(() => { if (!ignore) setErrorMessage('Could not load item comments.'); });
     window.scrollTo(0, 0);
+    return () => { ignore = true; };
   }, [id]);
 
   const goBack = () => {

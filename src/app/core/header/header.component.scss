@@ -110,9 +110,11 @@ h1 {
     text-decoration: none;
     margin: 0 5px;
     letter-spacing: 1.8px;
+    transition: color 0.15s ease, opacity 0.15s ease;
 
     &:hover {
       color: #fff;
+      opacity: 1;
     }
   }
 

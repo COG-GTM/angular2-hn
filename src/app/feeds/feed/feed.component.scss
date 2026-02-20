@@ -4,9 +4,11 @@
 a {
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.15s ease;
 
   &:hover {
     text-decoration: underline;
+    text-underline-offset: 2px;
   };
 }
 
@@ -47,10 +49,10 @@ ol {
 .post {
   padding: 10px 0 10px 5px;
   transition: background-color 0.2s ease;
-  border-bottom: 1px solid #CECECB;
+  border-bottom: 1px solid #e2e8f0;
 
   .itemNum {
-    color: #696969;
+    color: #6b7280;
     position: absolute;
     width: 30px;
     text-align: right;

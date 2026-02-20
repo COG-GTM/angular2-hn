@@ -47,6 +47,7 @@ p {
 a {
   cursor: pointer;
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 @media #{$mobile-only} {

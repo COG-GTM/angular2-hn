@@ -5,23 +5,27 @@
   a {
     font-weight: bold;
     text-decoration: none;
+    transition: color 0.15s ease;
     &:hover {
       text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
 }
 
 .meta {
   font-size: 13px;
-  color: #696969;
+  color: #6b7280;
   font-weight: bold;
   letter-spacing: 0.5px;
   margin-bottom: 8px;
   a {
     text-decoration: none;
+    transition: color 0.15s ease;
 
     &:hover {
       text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
   .time {

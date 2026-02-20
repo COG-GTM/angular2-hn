@@ -11,9 +11,11 @@
   a {
   	font-weight: bold;
   	text-decoration: none;
+  	transition: color 0.15s ease;
 
     &:hover {
       text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
 

@@ -1,16 +1,10 @@
-import { useEffect, Suspense, lazy } from 'react';
+import { useEffect, Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useSettings } from '../hooks/useSettings';
 import Header from './Header';
 import Footer from './Footer';
 import Loader from './Loader';
 import './App.scss';
-
-const _ItemDetails = lazy(() => import('./ItemDetails'));
-const _UserProfile = lazy(() => import('./UserProfile'));
-
-void _ItemDetails;
-void _UserProfile;
 
 declare function ga(...args: unknown[]): void;
 

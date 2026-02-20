@@ -51,12 +51,13 @@ function lazyFetch<T>(url, options?) {
     fetch(url, options)
       .then(res => {
         if (!cancelToken) {
-          res.json()
+          return res.json()
             .then(data => {
               fetchObserver.next(data);
               fetchObserver.complete();
             });
         }
+        return undefined;
       }).catch(err => fetchObserver.error(err));
     return () => {
       cancelToken = true;

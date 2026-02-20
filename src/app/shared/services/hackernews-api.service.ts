@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
 
@@ -57,6 +57,7 @@ function lazyFetch<T>(url, options?) {
               fetchObserver.complete();
             });
         }
+        return undefined;
       }).catch(err => fetchObserver.error(err));
     return () => {
       cancelToken = true;

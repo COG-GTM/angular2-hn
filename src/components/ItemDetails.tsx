@@ -19,6 +19,8 @@ export default function ItemDetails() {
   useEffect(() => {
     if (!id) return;
     let ignore = false;
+    setItem(null);
+    setErrorMessage('');
     const itemID = parseInt(id, 10);
     fetchItemContent(itemID)
       .then(data => { if (!ignore) setItem(data); })

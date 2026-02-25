@@ -1,0 +1,48 @@
+/* Item */
+.title {
+  font-size: 16px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.subtext-laptop {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.subtext-laptop a:hover {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 768px) {
+  .subtext-laptop {
+    display: none;
+  }
+}
+
+.subtext-palm {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.subtext-palm a:hover {
+  text-decoration: underline;
+}
+.subtext-palm .details {
+  margin-top: 5px;
+}
+.subtext-palm .details .right {
+  float: right;
+}
+@media only screen and (min-width: 769px) {
+  .subtext-palm {
+    display: none;
+  }
+}
+
+.domain {
+  color: #696969;
+  letter-spacing: 0.5px;
+}
+
+.item-details {
+  padding: 10px;
+}

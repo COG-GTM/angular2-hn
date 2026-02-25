@@ -1,0 +1,321 @@
+/* ===== Global Styles ===== */
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+/* ===== Body Cover ===== */
+.body-cover {
+  width: 100%;
+  z-index: 0;
+  position: fixed;
+  height: 100%;
+}
+
+/* ===== Wrapper ===== */
+.wrapper {
+  position: relative;
+  width: 85%;
+  min-height: 80px;
+  margin: 0 auto;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 15px;
+  height: 100%;
+  line-height: 1.3;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+
+/* =============================================
+   THEME: Default (Day)
+   ============================================= */
+.default .body-cover {
+  background: #fff;
+}
+@media only screen and (max-width: 768px) {
+  .default .body-cover { background: #fff; }
+}
+.default .wrapper {
+  background: #f5f5f5;
+  color: #000;
+}
+@media only screen and (max-width: 768px) {
+  .default .wrapper { background: #fff; }
+}
+.default .wrapper a {
+  color: #000;
+}
+.default .wrapper a:visited {
+  color: #696969;
+}
+.default .wrapper #header {
+  background: #b92b27;
+  border-bottom: 2px solid #b92b27;
+}
+.default .wrapper .logo-inner {
+  background: #fff;
+}
+.default .wrapper .nav a {
+  color: #b92b27;
+}
+@media only screen and (max-width: 768px) {
+  .default .wrapper .nav a { color: #b92b27; }
+}
+.default .wrapper #footer {
+  border-top: 2px solid #b92b27;
+}
+.default .wrapper #footer a {
+  color: #b92b27;
+}
+.default .wrapper .subtext,
+.default .wrapper .subtext-palm,
+.default .wrapper .subtext-laptop,
+.default .wrapper .domain,
+.default .wrapper .meta,
+.default .wrapper .deleted-meta {
+  color: #696969;
+}
+.default .wrapper .subtext a,
+.default .wrapper .subtext-palm a,
+.default .wrapper .subtext-laptop a,
+.default .wrapper .domain a,
+.default .wrapper .meta a,
+.default .wrapper .deleted-meta a {
+  color: #b92b27;
+}
+.default .wrapper .popup {
+  background: #b92b27;
+}
+.default .wrapper .item-header {
+  border-bottom: 2px solid #b92b27;
+}
+@media only screen and (max-width: 768px) {
+  .default .wrapper .item-header { background: #fff; }
+}
+.default .wrapper .pollContent .pollBar {
+  background: #b92b27;
+}
+.default .wrapper .loader {
+  color: #b92b27;
+  background: #b92b27;
+}
+.default .wrapper .loader:before,
+.default .wrapper .loader:after {
+  background: #b92b27;
+}
+.default .wrapper .job-header {
+}
+@media only screen and (max-width: 768px) {
+  .default .wrapper .job-header { border-bottom: 2px solid #b92b27; }
+}
+.default .wrapper .back-button {
+}
+@media only screen and (max-width: 768px) {
+  .default .wrapper .back-button {
+    border-top: .3rem solid #b92b27;
+    border-right: .3rem solid #b92b27;
+  }
+}
+.default .wrapper .main-details .name {
+  color: #b92b27;
+}
+.default .wrapper .main-details .right {
+  color: #b92b27;
+}
+
+/* =============================================
+   THEME: Night
+   ============================================= */
+.night .body-cover {
+  background: #37474F;
+}
+@media only screen and (max-width: 768px) {
+  .night .body-cover { background: #263238; }
+}
+.night .wrapper {
+  background: #263238;
+  color: rgba(255, 255, 255, 0.7);
+}
+@media only screen and (max-width: 768px) {
+  .night .wrapper { background: #263238; }
+}
+.night .wrapper a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.night .wrapper a:visited {
+  color: #999;
+}
+.night .wrapper #header {
+  background: #263238;
+  border-bottom: 2px solid #00c0ff;
+}
+.night .wrapper .logo-inner {
+  background: #263238;
+}
+.night .wrapper .nav a {
+  color: #00c0ff;
+}
+@media only screen and (max-width: 768px) {
+  .night .wrapper .nav a { color: #00c0ff; }
+}
+.night .wrapper #footer {
+  border-top: 2px solid #00c0ff;
+}
+.night .wrapper #footer a {
+  color: #00c0ff;
+}
+.night .wrapper .subtext,
+.night .wrapper .subtext-palm,
+.night .wrapper .subtext-laptop,
+.night .wrapper .domain,
+.night .wrapper .meta,
+.night .wrapper .deleted-meta {
+  color: #999;
+}
+.night .wrapper .subtext a,
+.night .wrapper .subtext-palm a,
+.night .wrapper .subtext-laptop a,
+.night .wrapper .domain a,
+.night .wrapper .meta a,
+.night .wrapper .deleted-meta a {
+  color: #00c0ff;
+}
+.night .wrapper .popup {
+  background: #263238;
+}
+.night .wrapper .item-header {
+  border-bottom: 2px solid #00c0ff;
+}
+@media only screen and (max-width: 768px) {
+  .night .wrapper .item-header { background: #263238; }
+}
+.night .wrapper .pollContent .pollBar {
+  background: #00c0ff;
+}
+.night .wrapper .loader {
+  color: #00c0ff;
+  background: #00c0ff;
+}
+.night .wrapper .loader:before,
+.night .wrapper .loader:after {
+  background: #00c0ff;
+}
+@media only screen and (max-width: 768px) {
+  .night .wrapper .job-header { border-bottom: 2px solid #00c0ff; }
+}
+@media only screen and (max-width: 768px) {
+  .night .wrapper .back-button {
+    border-top: .3rem solid #00c0ff;
+    border-right: .3rem solid #00c0ff;
+  }
+}
+.night .wrapper .main-details .name {
+  color: #00c0ff;
+}
+.night .wrapper .main-details .right {
+  color: #00c0ff;
+}
+
+/* =============================================
+   THEME: AMOLED Black
+   ============================================= */
+.amoledblack .body-cover {
+  background: #000;
+}
+@media only screen and (max-width: 768px) {
+  .amoledblack .body-cover { background: #000; }
+}
+.amoledblack .wrapper {
+  background: #000;
+  color: rgba(255, 255, 255, 0.75);
+}
+@media only screen and (max-width: 768px) {
+  .amoledblack .wrapper { background: #000; }
+}
+.amoledblack .wrapper a {
+  color: rgba(255, 255, 255, 0.75);
+}
+.amoledblack .wrapper a:visited {
+  color: rgba(255, 255, 255, 0.42);
+}
+.amoledblack .wrapper #header {
+  background: #000;
+  border-bottom: none;
+}
+.amoledblack .wrapper .logo-inner {
+  background: #000;
+}
+.amoledblack .wrapper .nav a {
+  color: rgba(255, 255, 255, 0.6);
+}
+@media only screen and (max-width: 768px) {
+  .amoledblack .wrapper .nav a { color: rgba(255, 255, 255, 0.6); }
+}
+.amoledblack .wrapper #footer {
+  border-top-color: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper #footer a {
+  color: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper .subtext,
+.amoledblack .wrapper .subtext-palm,
+.amoledblack .wrapper .subtext-laptop,
+.amoledblack .wrapper .domain,
+.amoledblack .wrapper .meta,
+.amoledblack .wrapper .deleted-meta {
+  color: rgba(255, 255, 255, 0.5);
+}
+.amoledblack .wrapper .subtext a,
+.amoledblack .wrapper .subtext-palm a,
+.amoledblack .wrapper .subtext-laptop a,
+.amoledblack .wrapper .domain a,
+.amoledblack .wrapper .meta a,
+.amoledblack .wrapper .deleted-meta a {
+  color: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper .popup {
+  background: #000;
+}
+.amoledblack .wrapper .item-header {
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+}
+@media only screen and (max-width: 768px) {
+  .amoledblack .wrapper .item-header { background: #000; }
+}
+.amoledblack .wrapper .pollContent .pollBar {
+  background: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper .loader {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper .loader:before,
+.amoledblack .wrapper .loader:after {
+  background: rgba(255, 255, 255, 0.6);
+}
+@media only screen and (max-width: 768px) {
+  .amoledblack .wrapper .back-button {
+    border-top: .3rem solid rgba(255, 255, 255, 0.6);
+    border-right: .3rem solid rgba(255, 255, 255, 0.6);
+  }
+}
+.amoledblack .wrapper .main-details .name {
+  color: rgba(255, 255, 255, 0.6);
+}
+.amoledblack .wrapper .main-details .right {
+  color: rgba(255, 255, 255, 0.6);
+}

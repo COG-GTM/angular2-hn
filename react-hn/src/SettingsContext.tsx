@@ -27,7 +27,7 @@ function loadSettings(): Settings {
     openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
     titleFontSize: titleFontSize || '16',
     listSpacing: listSpacing || '0',
-    theme: theme || '',
+    theme: theme || 'default',
   };
 }
 
@@ -52,8 +52,6 @@ const SettingsContext = createContext<SettingsContextType>({
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<Settings>(loadSettings);
 
-  const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-
   const setTheme = useCallback((theme: string) => {
     setSettings(prev => ({ ...prev, theme }));
     localStorage.setItem('theme', theme);
@@ -61,6 +59,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Initialize theme from system preference if no saved theme
   useEffect(() => {
+    const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
     const savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
       setTheme(darkColorSchemeMedia.matches ? 'night' : 'default');
@@ -72,7 +71,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     darkColorSchemeMedia.addEventListener('change', handler);
     return () => darkColorSchemeMedia.removeEventListener('change', handler);
-  }, [darkColorSchemeMedia, setTheme]);
+  }, [setTheme]);
 
   const toggleSettings = () => {
     setSettings(prev => ({ ...prev, showSettings: !prev.showSettings }));

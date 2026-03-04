@@ -9,7 +9,7 @@ export default defineConfig({
             registerType: 'autoUpdate',
             manifest: {
                 name: 'Angular 2 HN',
-                short_name: 'Hacker News',
+                short_name: 'Angular 2 HN',
                 theme_color: '#b92b27',
                 background_color: '#ffffff',
                 display: 'standalone',

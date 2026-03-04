@@ -41,6 +41,9 @@ yarn-error.log
 testem.log
 /typings
 
+# Vite
+*.local
+
 # System Files
 .DS_Store
 Thumbs.db

@@ -1,0 +1,32 @@
+@import 'theme_variables';
+@import 'themes';
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.wrapper {
+  position: relative;
+  width: 85%;
+  min-height: 80px;
+  margin: 0 auto;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 15px;
+  height: 100%;
+  line-height: 1.3;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+}

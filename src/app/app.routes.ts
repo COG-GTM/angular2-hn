@@ -8,11 +8,11 @@ const feedRoutes = [{
 }];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'news/1', pathMatch: 'full'},
+  {path: '', redirectTo: 'news-feed/1', pathMatch: 'full'},
   {
-    path: 'news',
+    path: 'news-feed',
     children: feedRoutes,
-    data: {feedType: 'news'}
+    data: {feedType: 'news', urlPath: 'news-feed'}
   },
   {
     path: 'newest',

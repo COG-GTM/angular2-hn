@@ -17,6 +17,7 @@ export class FeedComponent implements OnInit {
   pageSub: Subscription;
   items: Story[];
   feedType: string;
+  urlPath: string;
   pageNum: number;
   listStart: number;
   errorMessage = '';
@@ -31,6 +32,7 @@ export class FeedComponent implements OnInit {
       .data
       .subscribe(data => {
         this.feedType = (data as any).feedType;
+        this.urlPath = (data as any).urlPath || (data as any).feedType;
       });
 
     this.pageSub = this.route.params.subscribe(params => {

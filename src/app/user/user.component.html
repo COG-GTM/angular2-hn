@@ -16,4 +16,8 @@
   <div class="other-details" *ngIf="user.about">
     <p [innerHTML]="user.about"></p>
   </div>
+  <div class="external-links">
+    <a href="https://news.ycombinator.com/submitted?id={{user.id}}" target="_blank" rel="noopener">View submissions on HN</a>
+    <a href="https://news.ycombinator.com/favorites?id={{user.id}}" target="_blank" rel="noopener">View favorites on HN</a>
+  </div>
 </div>

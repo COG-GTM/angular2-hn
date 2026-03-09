@@ -1,66 +1,36 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import fetch from 'unfetch';
-import {map } from 'rxjs/operators';
-
 import { Story } from '../models/story';
 import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
 
-// wrap fetch in observable so we can keep it chill
-@Injectable()
-export class HackerNewsAPIService {
-  baseUrl: string;
+const BASE_URL = 'https://node-hnapi.herokuapp.com';
 
-  constructor() {
-    this.baseUrl = 'https://node-hnapi.herokuapp.com';
-  }
+export function fetchFeed(feedType: string, page: number, signal?: AbortSignal): Promise<Story[]> {
+    return fetch(`${BASE_URL}/${feedType}?page=${page}`, { signal }).then((res) => res.json());
+}
 
-  fetchFeed(feedType: string, page: number): Observable<Story[]> {
-    return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
-  }
-
-  fetchItemContent(id: number): Observable<Story> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
-      if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
+    const story: Story = await fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) => res.json());
+    if (story.type === 'poll') {
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
+        const pollPromises = [];
         for (let i = 1; i <= numberOfPollOptions; i++) {
-          this.fetchPollContent(story.id + i).subscribe(pollResults => {
-            story.poll[i - 1] = pollResults;
-            story.poll_votes_count += pollResults.points;
-          });
+            pollPromises.push(
+                fetchPollContent(story.id + i).then((pollResult) => {
+                    story.poll[i - 1] = pollResult;
+                    story.poll_votes_count += pollResult.points;
+                })
+            );
         }
-      }
-      return story;
-    }));
-  }
-
-  fetchPollContent(id: number): Observable<PollResult> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`);
-  }
-
-  fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
-  }
+        await Promise.all(pollPromises);
+    }
+    return story;
 }
 
-function lazyFetch<T>(url, options?) {
-  return new Observable<T>(fetchObserver => {
-    let cancelToken = false;
-    fetch(url, options)
-      .then(res => {
-        if (!cancelToken) {
-          return res.json()
-            .then(data => {
-              fetchObserver.next(data);
-              fetchObserver.complete();
-            });
-        }
-      }).catch(err => fetchObserver.error(err));
-    return () => {
-      cancelToken = true;
-    };
-  });
+export function fetchPollContent(id: number, signal?: AbortSignal): Promise<PollResult> {
+    return fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) => res.json());
 }
 
+export function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
+    return fetch(`${BASE_URL}/user/${id}`, { signal }).then((res) => res.json());
+}

@@ -2,13 +2,13 @@ import { Comment } from './comment';
 import { FeedType } from './feed-type.type';
 import { PollResult } from './poll-result';
 
-export class Story {
+export interface Story {
     id: number;
     title: string;
     points: number;
     user: string;
     time: number;
-    time_ago: number;
+    time_ago: string;
     type: FeedType;
     url: string;
     domain: string;
@@ -18,4 +18,6 @@ export class Story {
     poll_votes_count: number;
     deleted: boolean;
     dead: boolean;
+    content: string;
+    text: string;
 }

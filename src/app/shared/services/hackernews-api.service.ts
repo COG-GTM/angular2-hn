@@ -4,12 +4,21 @@ import { PollResult } from '../models/poll-result';
 
 const BASE_URL = 'https://node-hnapi.herokuapp.com';
 
+function handleResponse<T>(res: Response): Promise<T> {
+    if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+    }
+    return res.json();
+}
+
 export function fetchFeed(feedType: string, page: number, signal?: AbortSignal): Promise<Story[]> {
-    return fetch(`${BASE_URL}/${feedType}?page=${page}`, { signal }).then((res) => res.json());
+    return fetch(`${BASE_URL}/${feedType}?page=${page}`, { signal }).then((res) => handleResponse<Story[]>(res));
 }
 
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
-    const story: Story = await fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) => res.json());
+    const story: Story = await fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) =>
+        handleResponse<Story>(res)
+    );
     if (story.type === 'poll') {
         const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
@@ -28,9 +37,9 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
 }
 
 export function fetchPollContent(id: number, signal?: AbortSignal): Promise<PollResult> {
-    return fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) => res.json());
+    return fetch(`${BASE_URL}/item/${id}`, { signal }).then((res) => handleResponse<PollResult>(res));
 }
 
 export function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
-    return fetch(`${BASE_URL}/user/${id}`, { signal }).then((res) => res.json());
+    return fetch(`${BASE_URL}/user/${id}`, { signal }).then((res) => handleResponse<User>(res));
 }

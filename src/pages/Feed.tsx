@@ -62,20 +62,18 @@ export default function Feed() {
                             <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
                         </p>
                     )}
-                    {feedType !== 'jobs' && (
-                        <ol
-                            className={feedType !== 'jobs' ? 'list-margin' : ''}
-                            start={listStart}
-                        >
-                            {items.map((item) => (
-                                <li key={item.id} className="post">
-                                    <div className="item-block">
-                                        <Item item={item} />
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>
-                    )}
+                    <ol
+                        className={feedType !== 'jobs' ? 'list-margin' : ''}
+                        start={listStart}
+                    >
+                        {items.map((item) => (
+                            <li key={item.id} className="post">
+                                <div className="item-block">
+                                    <Item item={item} />
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
                     <div className="nav">
                         {listStart !== 1 && (
                             <Link to={`/${feedType}/${pageNum - 1}`} className="prev">

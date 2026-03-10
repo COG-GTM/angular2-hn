@@ -53,7 +53,7 @@ export default function Feed() {
             {loading && <Loader />}
             {!loading && !items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
-            {items && (
+            {!loading && items && (
                 <div>
                     {feedType === 'jobs' && (
                         <p className="job-header">
@@ -62,7 +62,7 @@ export default function Feed() {
                             <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
                         </p>
                     )}
-                    {feedType !== 'new' && (
+                    {feedType !== 'jobs' && (
                         <ol
                             className={feedType !== 'jobs' ? 'list-margin' : ''}
                             start={listStart}

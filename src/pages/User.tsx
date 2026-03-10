@@ -46,7 +46,7 @@ export default function UserPage() {
             {loading && <Loader />}
             {!loading && !user && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
-            {user && (
+            {!loading && user && (
                 <div className="profile">
                     <div className="mobile item-header">
                         <p className="title-block">

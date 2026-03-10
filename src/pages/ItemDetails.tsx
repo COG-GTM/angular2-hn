@@ -55,7 +55,7 @@ export default function ItemDetails() {
                 {loading && <Loader />}
                 {!loading && !item && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
-                {item && (
+                {!loading && item && (
                     <div className="item">
                         <div className="mobile item-header">
                             <p className="title-block">

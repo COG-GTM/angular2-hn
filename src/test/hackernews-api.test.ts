@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { fetchFeed, fetchItemContent, fetchUser } from '../services/hackernews-api';
 
 const mockFetch = vi.fn();
-global.fetch = mockFetch;
+(globalThis as Record<string, unknown>).fetch = mockFetch;
 
 beforeEach(() => {
     mockFetch.mockReset();
@@ -12,6 +12,7 @@ describe('fetchFeed', () => {
     it('fetches feed data from the API', async () => {
         const mockStories = [{ id: 1, title: 'Test Story' }];
         mockFetch.mockResolvedValueOnce({
+            ok: true,
             json: () => Promise.resolve(mockStories),
         });
 
@@ -27,6 +28,7 @@ describe('fetchItemContent', () => {
     it('fetches item content from the API', async () => {
         const mockStory = { id: 1, title: 'Test', type: 'story' };
         mockFetch.mockResolvedValueOnce({
+            ok: true,
             json: () => Promise.resolve(mockStory),
         });
 
@@ -42,6 +44,7 @@ describe('fetchUser', () => {
     it('fetches user data from the API', async () => {
         const mockUser = { id: 'testuser', karma: 100 };
         mockFetch.mockResolvedValueOnce({
+            ok: true,
             json: () => Promise.resolve(mockUser),
         });
 

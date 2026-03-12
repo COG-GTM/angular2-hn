@@ -18,7 +18,7 @@ export default function Header() {
       <div id="header">
         <Link className={styles.homeLink} to="/news/1" onClick={scrollTop}>
           <div className={`logo-inner ${styles.logoInner}`}></div>
-          <img className={styles.logo} src="assets/images/logo.svg" alt="Logo" />
+          <img className={styles.logo} src="/assets/images/logo.svg" alt="Logo" />
         </Link>
         <div className={styles.headerText}>
           <div className={styles.left}>
@@ -34,7 +34,7 @@ export default function Header() {
           </div>
         </div>
         <div className={styles.info}>
-          <img className="settings" src="assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
+          <img className="settings" src="/assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
         </div>
       </div>
       {settings.showSettings && <Settings />}

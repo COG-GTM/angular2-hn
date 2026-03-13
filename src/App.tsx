@@ -27,6 +27,7 @@ function AppContent() {
       <div className="body-cover"></div>
       <div className="wrapper">
         <Header />
+        <div id="content">
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/news/1" replace />} />
@@ -35,6 +36,7 @@ function AppContent() {
             <Route path="/user/:id" element={<UserPage />} />
           </Routes>
         </Suspense>
+        </div>
         <Footer />
       </div>
     </div>

@@ -65,12 +65,13 @@ describe('AppComponent', () => {
         expect(component.router).toBeDefined();
     });
 
-    it('should call ga on NavigationEnd event', () => {
+    it('should call ga on NavigationEnd event', async(() => {
         const router = TestBed.get(Router);
-        router.events.subscribe(() => {});
-        // Navigation events are triggered by router
-        expect(component).toBeTruthy();
-    });
+        router.navigateByUrl('/').then(() => {
+            expect((window as any).ga).toHaveBeenCalledWith('set', 'page', jasmine.any(String));
+            expect((window as any).ga).toHaveBeenCalledWith('send', 'pageview');
+        });
+    }));
 
     it('should render the app template', () => {
         const compiled = fixture.debugElement.nativeElement;
@@ -95,6 +96,6 @@ describe('AppComponent', () => {
     it('should apply the theme class', () => {
         const compiled = fixture.debugElement.nativeElement;
         const themeDiv = compiled.querySelector('.default');
-        expect(themeDiv || compiled.firstChild).toBeTruthy();
+        expect(themeDiv).toBeTruthy();
     });
 });

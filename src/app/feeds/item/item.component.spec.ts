@@ -108,7 +108,7 @@ describe('ItemComponent', () => {
 
     it('should render user name', () => {
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('.name') || compiled.textContent).toBeTruthy();
+        expect(compiled.querySelector('.name')).toBeTruthy();
     });
 
     it('should render points', () => {

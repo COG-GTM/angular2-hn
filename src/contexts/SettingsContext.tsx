@@ -18,7 +18,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
       ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
       : false,
-    theme: 'default',
+    theme: localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'default'),
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   }));
@@ -49,19 +49,6 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const toggleSettings = useCallback(() => {
     setSettings(prev => ({ ...prev, showSettings: !prev.showSettings }));
   }, []);
-
-  // Initialize theme from localStorage or system preference
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setSettings(prev => ({ ...prev, theme: savedTheme }));
-    } else {
-      const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-      if (darkColorSchemeMedia.matches) {
-        setTheme('night');
-      }
-    }
-  }, [setTheme]);
 
   // Listen for system color scheme changes
   useEffect(() => {

@@ -17,14 +17,16 @@ export default function ItemDetailsPage() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    let ignore = false;
     setItem(null);
     setErrorMessage('');
     if (id) {
       fetchItemContent(+id)
-        .then(data => setItem(data))
-        .catch(() => setErrorMessage('Could not load item comments.'));
+        .then(data => { if (!ignore) setItem(data); })
+        .catch(() => { if (!ignore) setErrorMessage('Could not load item comments.'); });
     }
     window.scrollTo(0, 0);
+    return () => { ignore = true; };
   }, [id]);
 
   const goBack = () => navigate(-1);

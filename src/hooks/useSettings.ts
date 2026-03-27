@@ -18,30 +18,14 @@ function getInitialSettings(): Settings {
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
             ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
             : false,
-        theme: 'default',
+        theme: localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'default'),
         titleFontSize: localStorage.getItem('titleFontSize') || '16',
         listSpacing: localStorage.getItem('listSpacing') || '0',
     };
 }
 
-function initTheme(settings: Settings, setSettings: React.Dispatch<React.SetStateAction<Settings>>) {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setSettings((prev) => ({ ...prev, theme: savedTheme }));
-    } else {
-        const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-        const theme = darkColorSchemeMedia.matches ? 'night' : 'default';
-        setSettings((prev) => ({ ...prev, theme }));
-    }
-}
-
 export function SettingsProvider({ children }: { children: ReactNode }) {
     const [settings, setSettings] = useState<Settings>(getInitialSettings);
-
-    useEffect(() => {
-        initTheme(settings, setSettings);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');

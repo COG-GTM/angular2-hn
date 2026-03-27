@@ -18,7 +18,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
             ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
             : false,
-        theme: 'default',
+        theme: localStorage.getItem('theme') ?? 'default',
         titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
         listSpacing: localStorage.getItem('listSpacing') ?? '0',
     }));
@@ -28,12 +28,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('theme', theme);
     }, []);
 
-    // Initialize theme from localStorage or system preference
+    // If no saved theme, detect system preference
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setSettings((prev) => ({ ...prev, theme: savedTheme }));
-        } else {
+        if (!localStorage.getItem('theme')) {
             const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
             setTheme(darkMedia.matches ? 'night' : 'default');
         }

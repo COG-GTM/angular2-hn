@@ -14,11 +14,17 @@ export default function User() {
 
     useEffect(() => {
         if (!id) return;
+        let cancelled = false;
         setUser(null);
         setErrorMessage('');
         fetchUser(id)
-            .then((data) => setUser(data))
-            .catch(() => setErrorMessage(`Could not load user ${id}.`));
+            .then((data) => {
+                if (!cancelled) setUser(data);
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage(`Could not load user ${id}.`);
+            });
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);

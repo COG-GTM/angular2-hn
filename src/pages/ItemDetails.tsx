@@ -18,12 +18,18 @@ export default function ItemDetails() {
 
     useEffect(() => {
         if (!id) return;
+        let cancelled = false;
         setItem(null);
         setErrorMessage('');
         fetchItemContent(parseInt(id, 10))
-            .then((data) => setItem(data))
-            .catch(() => setErrorMessage('Could not load item comments.'));
+            .then((data) => {
+                if (!cancelled) setItem(data);
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage('Could not load item comments.');
+            });
         window.scrollTo(0, 0);
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);

@@ -1,6 +1,6 @@
 {
-    "name": "Angular 2 HN",
-    "short_name": "Angular 2 HN",
+    "name": "React HN",
+    "short_name": "React HN",
     "icons": [{
             "src": "assets/icons/android-chrome-144x144.png",
             "sizes": "144x144",

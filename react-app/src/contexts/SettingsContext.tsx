@@ -26,6 +26,9 @@ function getInitialSettings(): Settings {
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>(getInitialSettings);
+  const [userExplicitlySetTheme, setUserExplicitlySetTheme] = useState(
+    () => localStorage.getItem('themeSource') === 'user'
+  );
 
   // Initialize theme from system preference if no saved theme
   useEffect(() => {
@@ -38,17 +41,19 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Subscribe to system color scheme changes
+  // Subscribe to system color scheme changes — only override if user hasn't explicitly chosen a theme
   useEffect(() => {
     const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (event: MediaQueryListEvent) => {
-      const theme = event.matches ? 'night' : 'default';
-      setSettings((prev) => ({ ...prev, theme }));
-      localStorage.setItem('theme', theme);
+      if (!userExplicitlySetTheme) {
+        const theme = event.matches ? 'night' : 'default';
+        setSettings((prev) => ({ ...prev, theme }));
+        localStorage.setItem('theme', theme);
+      }
     };
     darkMedia.addEventListener('change', handler);
     return () => darkMedia.removeEventListener('change', handler);
-  }, []);
+  }, [userExplicitlySetTheme]);
 
   const toggleSettings = useCallback(() => {
     setSettings((prev) => ({ ...prev, showSettings: !prev.showSettings }));
@@ -65,6 +70,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const setTheme = useCallback((theme: string) => {
     setSettings((prev) => ({ ...prev, theme }));
     localStorage.setItem('theme', theme);
+    localStorage.setItem('themeSource', 'user');
+    setUserExplicitlySetTheme(true);
   }, []);
 
   const setFont = useCallback((fontSize: string) => {

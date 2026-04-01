@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 /**
  * Story model matching the Angular Story class
@@ -35,7 +35,7 @@ export interface FeedComponentProps {
      * Mirrors HackerNewsAPIService.fetchFeed(feedType, page).
      * If not provided, uses the default fetch from the HN API.
      */
-    fetchFeed?: (feedType: string, page: number) => Promise<Story[]>;
+    fetchFeed?: (feedType: string, page: number, signal: AbortSignal) => Promise<Story[]>;
     /**
      * Render prop for each story item.
      * Mirrors the Angular <item [item]="item"> child component.
@@ -82,11 +82,16 @@ async function defaultFetchFeed(
 function useFeed(
     feedType: string,
     pageNum: number,
-    fetchFeedFn?: (feedType: string, page: number) => Promise<Story[]>
+    fetchFeedFn?: (feedType: string, page: number, signal: AbortSignal) => Promise<Story[]>
 ) {
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [listStart, setListStart] = useState<number>(1);
+
+    // Store fetchFeedFn in a ref to avoid including it in the useEffect dependency
+    // array. This prevents infinite re-fetch loops when callers pass non-memoized functions.
+    const fetchFeedRef = useRef(fetchFeedFn);
+    fetchFeedRef.current = fetchFeedFn;
 
     useEffect(() => {
         // Reset state on feed/page change (mirrors Angular re-subscription behavior)
@@ -98,8 +103,8 @@ function useFeed(
         const doFetch = async () => {
             try {
                 let result: Story[];
-                if (fetchFeedFn) {
-                    result = await fetchFeedFn(feedType, pageNum);
+                if (fetchFeedRef.current) {
+                    result = await fetchFeedRef.current(feedType, pageNum, abortController.signal);
                 } else {
                     result = await defaultFetchFeed(feedType, pageNum, abortController.signal);
                 }
@@ -123,7 +128,7 @@ function useFeed(
         return () => {
             abortController.abort();
         };
-    }, [feedType, pageNum, fetchFeedFn]);
+    }, [feedType, pageNum]);
 
     return { items, errorMessage, listStart };
 }

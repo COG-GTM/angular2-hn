@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 /**
  * Story model matching the Angular Story class
  * (src/app/shared/models/story.ts)
  */
-interface Story {
+export interface Story {
     id: number;
     title: string;
     points: number;
@@ -19,7 +19,7 @@ interface Story {
     dead: boolean;
 }
 
-interface FeedComponentProps {
+export interface FeedComponentProps {
     /** The feed type: 'news' | 'newest' | 'show' | 'ask' | 'jobs' */
     feedType: string;
     /** The current page number (defaults to 1) */
@@ -27,7 +27,7 @@ interface FeedComponentProps {
     /**
      * Callback to navigate to a different page.
      * In Angular, this was handled by [routerLink].
-     * TODO: Replace with React Router navigation when integrated.
+     * TODO: Replace with React Router <Link> or useNavigate() when React Router is integrated.
      */
     onNavigate?: (path: string) => void;
     /**
@@ -39,17 +39,19 @@ interface FeedComponentProps {
     /**
      * Render prop for each story item.
      * Mirrors the Angular <item [item]="item"> child component.
-     * TODO: Replace with actual Item component when available.
+     * TODO: Replace with actual ItemComponent when migrated to React.
      */
     renderItem?: (item: Story) => React.ReactNode;
     /**
      * Render prop for the loading state.
      * Mirrors Angular <app-loader>.
+     * TODO: Replace with actual Loader component when migrated to React.
      */
     renderLoader?: () => React.ReactNode;
     /**
      * Render prop for the error state.
      * Mirrors Angular <app-error-message [message]="errorMessage">.
+     * TODO: Replace with actual ErrorMessage component when migrated to React.
      */
     renderErrorMessage?: (message: string) => React.ReactNode;
 }
@@ -70,32 +72,22 @@ async function defaultFetchFeed(
 }
 
 /**
- * FeedComponent — React port of the Angular FeedComponent.
+ * Custom hook that encapsulates the feed fetching logic.
+ * Mirrors the data-fetching responsibilities of HackerNewsAPIService + ngOnInit in Angular.
  *
- * Displays paginated lists of Hacker News stories (news, newest, show, ask, jobs)
- * and handles data loading states.
- *
- * Angular source: src/app/feeds/feed/feed.component.ts
+ * @param feedType - The type of feed to fetch
+ * @param pageNum - The page number
+ * @param fetchFeedFn - Optional custom fetch function (for dependency injection, mirrors Angular DI)
  */
-export const FeedComponent: React.FC<FeedComponentProps> = ({
-    feedType,
-    pageNum = 1,
-    onNavigate,
-    fetchFeed,
-    renderItem,
-    renderLoader,
-    renderErrorMessage,
-}) => {
+function useFeed(
+    feedType: string,
+    pageNum: number,
+    fetchFeedFn?: (feedType: string, page: number) => Promise<Story[]>
+) {
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [listStart, setListStart] = useState<number>(1);
 
-    /**
-     * Mirrors ngOnInit subscription to route.params:
-     * - Fetches feed data when feedType or pageNum changes
-     * - Handles success/error/complete callbacks
-     * - Cleans up via AbortController (replaces RxJS Subscription cancellation)
-     */
     useEffect(() => {
         // Reset state on feed/page change (mirrors Angular re-subscription behavior)
         setItems(null);
@@ -106,8 +98,8 @@ export const FeedComponent: React.FC<FeedComponentProps> = ({
         const doFetch = async () => {
             try {
                 let result: Story[];
-                if (fetchFeed) {
-                    result = await fetchFeed(feedType, pageNum);
+                if (fetchFeedFn) {
+                    result = await fetchFeedFn(feedType, pageNum);
                 } else {
                     result = await defaultFetchFeed(feedType, pageNum, abortController.signal);
                 }
@@ -131,17 +123,49 @@ export const FeedComponent: React.FC<FeedComponentProps> = ({
         return () => {
             abortController.abort();
         };
-    }, [feedType, pageNum, fetchFeed]);
+    }, [feedType, pageNum, fetchFeedFn]);
+
+    return { items, errorMessage, listStart };
+}
+
+/**
+ * FeedComponent — React port of the Angular FeedComponent.
+ *
+ * Displays paginated lists of Hacker News stories (news, newest, show, ask, jobs)
+ * and handles data loading states.
+ *
+ * Angular source: src/app/feeds/feed/feed.component.ts
+ *
+ * Dependency mapping:
+ *   - HackerNewsAPIService.fetchFeed → props.fetchFeed / defaultFetchFeed (via useFeed hook)
+ *   - ActivatedRoute.data.feedType   → props.feedType
+ *   - ActivatedRoute.params.page     → props.pageNum
+ *   - [routerLink] navigation        → props.onNavigate callback
+ *   - <item [item]="item">           → props.renderItem render prop
+ *   - <app-loader>                   → props.renderLoader render prop
+ *   - <app-error-message>            → props.renderErrorMessage render prop
+ */
+export const FeedComponent: React.FC<FeedComponentProps> = ({
+    feedType,
+    pageNum = 1,
+    onNavigate,
+    fetchFeed,
+    renderItem,
+    renderLoader,
+    renderErrorMessage,
+}) => {
+    const { items, errorMessage, listStart } = useFeed(feedType, pageNum, fetchFeed);
 
     /**
      * Helper to handle navigation link clicks.
      * Mirrors Angular [routerLink]="['/' + feedType, pageNum +/- 1]".
+     * TODO: Replace with React Router <Link> or useNavigate() when integrated.
      */
-    const handleNavigate = (page: number) => {
+    const handleNavigate = useCallback((page: number) => {
         if (onNavigate) {
             onNavigate(`/${feedType}/${page}`);
         }
-    };
+    }, [onNavigate, feedType]);
 
     return (
         <div className="main-content">

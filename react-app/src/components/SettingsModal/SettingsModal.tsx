@@ -1,4 +1,4 @@
-import { useSettings } from '../../contexts/SettingsContext';
+import { useSettings } from '../../hooks/useSettings';
 import './SettingsModal.scss';
 
 export default function SettingsModal() {

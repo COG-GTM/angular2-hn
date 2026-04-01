@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useItemDetails } from '../../hooks/useItemDetails';
-import { useSettings } from '../../contexts/SettingsContext';
+import { useSettings } from '../../hooks/useSettings';
 import { formatComment } from '../../utils/formatComment';
 import Comment from '../../components/Comment/Comment';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './ItemDetailsPage.scss';
 
-export default function ItemDetailsPage() {
+export function ItemDetailsPage() {
   const { id = '0' } = useParams<{ id: string }>();
   const itemId = parseInt(id, 10);
   const { item, error } = useItemDetails(itemId);

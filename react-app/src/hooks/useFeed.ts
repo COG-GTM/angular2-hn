@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { Story } from '../models/story';
 import { fetchFeed } from '../services/api';
 
@@ -9,31 +9,30 @@ interface UseFeedResult {
 }
 
 export function useFeed(feedType: string, page: number): UseFeedResult {
-  const [items, setItems] = useState<Story[] | null>(null);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const key = `${feedType}:${page}`;
+  const [results, setResults] = useState<Record<string, { items: Story[] | null; error: string; loading: boolean }>>({});
 
   useEffect(() => {
-    setItems(null);
-    setError('');
-    setLoading(true);
-
     const controller = new AbortController();
 
     fetchFeed(feedType, page, controller.signal)
       .then((data) => {
-        setItems(data);
-        setLoading(false);
+        setResults((prev) => ({
+          ...prev,
+          [key]: { items: data, error: '', loading: false },
+        }));
       })
       .catch(() => {
         if (!controller.signal.aborted) {
-          setError(`Could not load ${feedType} stories.`);
-          setLoading(false);
+          setResults((prev) => ({
+            ...prev,
+            [key]: { items: null, error: `Could not load ${feedType} stories.`, loading: false },
+          }));
         }
       });
 
     return () => controller.abort();
-  }, [feedType, page]);
+  }, [feedType, page, key]);
 
-  return { items, error, loading };
+  return useMemo(() => results[key] ?? { items: null, error: '', loading: true }, [results, key]);
 }

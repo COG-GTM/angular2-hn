@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useSettings } from '../../contexts/SettingsContext';
+import { useSettings } from '../../hooks/useSettings';
 import SettingsModal from '../SettingsModal/SettingsModal';
 import './Header.scss';
 
@@ -18,13 +18,13 @@ export default function Header() {
         <div className="header-text">
           <div className="left">
             <span className="header-nav">
-              <NavLink to="/newest/1" onClick={scrollTop}>new</NavLink>
+              <NavLink to="/newest/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>new</NavLink>
                 |
-              <NavLink to="/show/1" onClick={scrollTop}>show</NavLink>
+              <NavLink to="/show/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>show</NavLink>
                 |
-              <NavLink to="/ask/1" onClick={scrollTop}>ask</NavLink>
+              <NavLink to="/ask/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>ask</NavLink>
                 |
-              <NavLink to="/jobs/1" onClick={scrollTop}>jobs</NavLink>
+              <NavLink to="/jobs/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>jobs</NavLink>
             </span>
           </div>
         </div>

@@ -1,16 +1,13 @@
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import type { Settings } from '../models/settings';
+import { SettingsContext } from './settingsContextDef';
 
-interface SettingsContextType {
-  settings: Settings;
-  toggleSettings: () => void;
-  toggleOpenLinksInNewTab: () => void;
-  setTheme: (theme: string) => void;
-  setFont: (fontSize: string) => void;
-  setSpacing: (listSpace: string) => void;
+function getInitialTheme(): string {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'night' : 'default';
 }
-
-const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 function getInitialSettings(): Settings {
   return {
@@ -18,7 +15,7 @@ function getInitialSettings(): Settings {
     openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
       ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
       : false,
-    theme: localStorage.getItem('theme') || 'default',
+    theme: getInitialTheme(),
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   };
@@ -29,17 +26,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [userExplicitlySetTheme, setUserExplicitlySetTheme] = useState(
     () => localStorage.getItem('themeSource') === 'user'
   );
-
-  // Initialize theme from system preference if no saved theme
-  useEffect(() => {
-    if (!localStorage.getItem('theme')) {
-      const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
-      setSettings((prev) => ({
-        ...prev,
-        theme: darkMedia.matches ? 'night' : 'default',
-      }));
-    }
-  }, []);
 
   // Subscribe to system color scheme changes — only override if user hasn't explicitly chosen a theme
   useEffect(() => {
@@ -91,12 +77,4 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       {children}
     </SettingsContext.Provider>
   );
-}
-
-export function useSettings(): SettingsContextType {
-  const context = useContext(SettingsContext);
-  if (!context) {
-    throw new Error('useSettings must be used within a SettingsProvider');
-  }
-  return context;
 }

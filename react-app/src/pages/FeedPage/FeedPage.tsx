@@ -6,10 +6,12 @@ import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './FeedPage.scss';
 
-const VALID_FEED_TYPES = ['news', 'newest', 'show', 'ask', 'jobs'];
+interface FeedPageProps {
+  feedType: string;
+}
 
-export default function FeedPage() {
-  const { feedType = 'news', page = '1' } = useParams<{ feedType: string; page: string }>();
+export function FeedPage({ feedType }: FeedPageProps) {
+  const { page = '1' } = useParams<{ page: string }>();
   const pageNum = parseInt(page, 10) || 1;
   const { items, error } = useFeed(feedType, pageNum);
   const listStart = (pageNum - 1) * 30 + 1;
@@ -17,10 +19,6 @@ export default function FeedPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [feedType, pageNum]);
-
-  if (!VALID_FEED_TYPES.includes(feedType)) {
-    return <ErrorMessage message={`Unknown feed type: ${feedType}`} />;
-  }
 
   return (
     <div className="main-content">

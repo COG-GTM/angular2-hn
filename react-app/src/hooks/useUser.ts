@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { User } from '../models/user';
 import { fetchUser } from '../services/api';
 
@@ -9,31 +9,29 @@ interface UseUserResult {
 }
 
 export function useUser(id: string): UseUserResult {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState<Record<string, { user: User | null; error: string; loading: boolean }>>({});
 
   useEffect(() => {
-    setUser(null);
-    setError('');
-    setLoading(true);
-
     const controller = new AbortController();
 
     fetchUser(id, controller.signal)
       .then((data) => {
-        setUser(data);
-        setLoading(false);
+        setResults((prev) => ({
+          ...prev,
+          [id]: { user: data, error: '', loading: false },
+        }));
       })
       .catch(() => {
         if (!controller.signal.aborted) {
-          setError(`Could not load user ${id}.`);
-          setLoading(false);
+          setResults((prev) => ({
+            ...prev,
+            [id]: { user: null, error: `Could not load user ${id}.`, loading: false },
+          }));
         }
       });
 
     return () => controller.abort();
   }, [id]);
 
-  return { user, error, loading };
+  return useMemo(() => results[id] ?? { user: null, error: '', loading: true }, [results, id]);
 }

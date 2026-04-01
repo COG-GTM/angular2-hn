@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Story } from '../../models/story';
-import { useSettings } from '../../contexts/SettingsContext';
+import { useSettings } from '../../hooks/useSettings';
 import { formatComment } from '../../utils/formatComment';
 import './FeedItem.scss';
 

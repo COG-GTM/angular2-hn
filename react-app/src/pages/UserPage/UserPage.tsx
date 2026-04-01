@@ -4,7 +4,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './UserPage.scss';
 
-export default function UserPage() {
+export function UserPage() {
   const { id = '' } = useParams<{ id: string }>();
   const { user, error } = useUser(id);
   const navigate = useNavigate();

@@ -133,5 +133,92 @@ export const FeedComponent: React.FC<FeedComponentProps> = ({
         };
     }, [feedType, pageNum, fetchFeed]);
 
-    return null;
+    /**
+     * Helper to handle navigation link clicks.
+     * Mirrors Angular [routerLink]="['/' + feedType, pageNum +/- 1]".
+     */
+    const handleNavigate = (page: number) => {
+        if (onNavigate) {
+            onNavigate(`/${feedType}/${page}`);
+        }
+    };
+
+    return (
+        <div className="main-content">
+            {/* *ngIf="!items && !errorMessage" → show loader */}
+            {!items && !errorMessage && (renderLoader ? renderLoader() : null)}
+
+            {/* *ngIf="!items && errorMessage !==''" → show error message */}
+            {!items && errorMessage !== '' && (
+                renderErrorMessage
+                    ? renderErrorMessage(errorMessage)
+                    : <div>{errorMessage}</div>
+            )}
+
+            {/* *ngIf="items" → show feed content */}
+            {items && (
+                <div>
+                    {/* *ngIf="feedType === 'jobs'" → job header */}
+                    {feedType === 'jobs' && (
+                        <p className="job-header">
+                            These are jobs at startups that were funded by Y Combinator.
+                            You can also get a job at a YC startup through{' '}
+                            <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
+                        </p>
+                    )}
+
+                    {/* *ngIf="feedType !== 'new'" → ordered list with items */}
+                    {feedType !== 'new' && (
+                        <ol
+                            className={feedType !== 'jobs' ? 'list-margin' : undefined}
+                            start={listStart}
+                        >
+                            {/* *ngFor="let item of items" */}
+                            {items.map((item) => (
+                                <li key={item.id} className="post">
+                                    {/* <item class="item-block" [item]="item"> */}
+                                    {renderItem ? (
+                                        <span className="item-block">{renderItem(item)}</span>
+                                    ) : (
+                                        <span className="item-block">{item.title}</span>
+                                    )}
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+
+                    {/* Navigation: Prev / More links */}
+                    <div className="nav">
+                        {/* *ngIf="listStart !== 1" → Prev link */}
+                        {listStart !== 1 && (
+                            <a
+                                className="prev"
+                                href={`/${feedType}/${pageNum - 1}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNavigate(pageNum - 1);
+                                }}
+                            >
+                                ‹ Prev
+                            </a>
+                        )}
+
+                        {/* *ngIf="items.length === 30" → More link */}
+                        {items.length === 30 && (
+                            <a
+                                className="more"
+                                href={`/${feedType}/${pageNum + 1}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNavigate(pageNum + 1);
+                                }}
+                            >
+                                More ›
+                            </a>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };

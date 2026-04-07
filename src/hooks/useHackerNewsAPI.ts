@@ -59,7 +59,10 @@ export function useItemDetails(id: number) {
           let pollVotesCount = 0;
           const pollPromises = story.poll.map((_pollItem, i) =>
             fetch(`${BASE_URL}/item/${story.id + i + 1}`, { signal: controller.signal })
-              .then(res => res.json())
+              .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+              })
           );
           const pollResults = await Promise.all(pollPromises);
           for (let i = 0; i < pollResults.length; i++) {

@@ -62,10 +62,12 @@ export function useItemDetails(id: number) {
               .then(res => res.json())
           );
           const pollResults = await Promise.all(pollPromises);
-          for (const pollResult of pollResults) {
+          for (let i = 0; i < pollResults.length; i++) {
+            const pollResult = pollResults[i];
             if (pollResult.points) {
               pollVotesCount += pollResult.points;
             }
+            story.poll[i] = pollResult;
           }
           story.poll_votes_count = pollVotesCount;
         }

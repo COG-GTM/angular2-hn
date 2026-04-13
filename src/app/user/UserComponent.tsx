@@ -38,17 +38,23 @@ export const UserComponent: React.FC<UserComponentProps> = ({
 
   // Replaces ngOnInit + route.params subscription
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) {
+      setErrorMessage('No user ID provided.');
+      return;
+    }
+    let ignore = false;
     setUser(null);
     setErrorMessage('');
 
     fetchUser(userId)
       .then((data) => {
-        setUser(data);
+        if (!ignore) setUser(data);
       })
       .catch(() => {
-        setErrorMessage(`Could not load user ${userId}.`);
+        if (!ignore) setErrorMessage(`Could not load user ${userId}.`);
       });
+
+    return () => { ignore = true; };
   }, [userId, fetchUser]);
 
   // Loading state

@@ -52,7 +52,7 @@ export default function ItemDetailsPage() {
               <span className="poll-content" dangerouslySetInnerHTML={{ __html: pollItem.content }} />
             </div>
           ))}
-          {item.poll_votes_count && (
+          {item.poll_votes_count != null && item.poll_votes_count > 0 && (
             <div className="poll-total">{item.poll_votes_count} total votes</div>
           )}
         </div>

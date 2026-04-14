@@ -89,6 +89,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const handleChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
         dispatch({ type: 'SET_THEME', theme: 'night' });
+      } else {
+        dispatch({ type: 'SET_THEME', theme: 'default' });
       }
     };
 

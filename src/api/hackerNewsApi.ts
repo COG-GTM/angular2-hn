@@ -28,6 +28,7 @@ export async function fetchItemContent(
     );
     const pollResults = await Promise.all(pollPromises);
     story.poll = pollResults;
+    story.poll_votes_count = pollResults.reduce((sum, p) => sum + (p.points || 0), 0);
   }
 
   return story;

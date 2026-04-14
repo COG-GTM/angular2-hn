@@ -21,7 +21,7 @@ export default function Header() {
         </NavLink>
         <nav className="header-nav">
           <NavLink
-            to="/news/1"
+            to="/newest/1"
             className={({ isActive }) => isActive ? 'header-nav-item active' : 'header-nav-item'}
             onClick={scrollTop}
           >

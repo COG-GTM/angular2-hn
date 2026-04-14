@@ -16,15 +16,29 @@ const defaultSettings: Settings = {
   listSpacing: 0,
 };
 
+function isFirstVisit(): boolean {
+  try {
+    return !localStorage.getItem('hn-settings');
+  } catch {
+    return true;
+  }
+}
+
 function loadSettings(): Settings {
   try {
     const saved = localStorage.getItem('hn-settings');
     if (saved) {
-      return { ...defaultSettings, ...JSON.parse(saved) };
+      return { ...defaultSettings, ...JSON.parse(saved), showSettings: false };
     }
   } catch {
     // ignore
   }
+
+  // On first visit, check system dark mode preference
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return { ...defaultSettings, theme: 'night' };
+  }
+
   return defaultSettings;
 }
 
@@ -64,10 +78,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, dispatch] = useReducer(settingsReducer, undefined, loadSettings);
 
   useEffect(() => {
-    saveSettings(settings);
+    const { showSettings: _, ...persistable } = settings;
+    saveSettings({ ...persistable, showSettings: false } as Settings);
   }, [settings]);
 
-  // Listen to system dark mode preference
+  // Listen to system dark mode preference changes
   useEffect(() => {
     const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -78,12 +93,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     };
 
     darkColorSchemeMedia.addEventListener('change', handleChange);
-
-    // Check initial preference if no saved theme
-    const saved = localStorage.getItem('hn-settings');
-    if (!saved && darkColorSchemeMedia.matches) {
-      dispatch({ type: 'SET_THEME', theme: 'night' });
-    }
 
     return () => {
       darkColorSchemeMedia.removeEventListener('change', handleChange);

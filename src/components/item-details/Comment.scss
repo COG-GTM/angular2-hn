@@ -1,0 +1,68 @@
+@import "../../styles/media";
+
+.comment {
+  margin: 10px 0;
+  padding-left: 15px;
+  border-left: 2px solid rgba(128, 128, 128, 0.2);
+
+  @media #{$mobile-only} {
+    padding-left: 10px;
+  }
+}
+
+.comment-header {
+  font-size: 12px;
+  margin-bottom: 5px;
+  opacity: 0.7;
+}
+
+.comment-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 12px;
+  padding: 0 5px 0 0;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.comment-time {
+  opacity: 0.6;
+}
+
+.comment-content {
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media #{$mobile-only} {
+    font-size: 13px;
+  }
+
+  a {
+    word-break: break-all;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  code {
+    font-size: 12px;
+  }
+}
+
+.comment-children {
+  margin-top: 5px;
+}

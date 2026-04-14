@@ -1,0 +1,76 @@
+@import "../../styles/media";
+
+.user-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 56px 15px 30px;
+
+  @media #{$mobile-only} {
+    padding: 56px 10px 30px;
+  }
+}
+
+.user-header {
+  margin-bottom: 15px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.user-profile {
+  padding: 10px 0;
+}
+
+.user-name {
+  font-size: 22px;
+  margin-bottom: 15px;
+
+  @media #{$mobile-only} {
+    font-size: 18px;
+  }
+}
+
+.user-details {
+  margin-bottom: 20px;
+}
+
+.user-detail-item {
+  padding: 5px 0;
+  font-size: 14px;
+}
+
+.user-detail-label {
+  font-weight: bold;
+  margin-right: 8px;
+  min-width: 80px;
+  display: inline-block;
+}
+
+.user-about {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+
+  h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    word-break: break-all;
+  }
+
+  p {
+    margin: 5px 0;
+    line-height: 1.6;
+  }
+}

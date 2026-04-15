@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hacker News</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A progressive Hacker News client built with React">
+  <meta name="theme-color" content="#f0f0ef">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-152x152.png">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-80942826-1', 'auto');
+  </script>
+</head>
+<body>
+  <div id="root">
+    <div class="app-loader" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+      <style>
+        .app-loader .loader{-webkit-animation:load1 1s infinite ease-in-out;animation:load1 1s infinite ease-in-out;color:#b92b27;width:1em;height:4em}
+        .app-loader .loader:before,.app-loader .loader:after{-webkit-animation:load1 1s infinite ease-in-out;animation:load1 1s infinite ease-in-out;width:1em;height:4em}
+        .app-loader .loader{text-indent:-9999em;margin:20px auto;position:relative;font-size:11px;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);-webkit-animation-delay:-0.16s;animation-delay:-0.16s}
+        .app-loader .loader:before,.app-loader .loader:after{position:absolute;top:0;content:''}
+        .app-loader .loader:before{left:-1.5em;-webkit-animation-delay:-0.32s;animation-delay:-0.32s}
+        .app-loader .loader:after{left:1.5em}
+        @-webkit-keyframes load1{0%,80%,100%{box-shadow:0 0;height:2em}40%{box-shadow:0 -2em;height:3em}}
+        @keyframes load1{0%,80%,100%{box-shadow:0 0;height:2em}40%{box-shadow:0 -2em;height:3em}}
+      </style>
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+@import "theme_variables";
+@import "media";
+
+@mixin theme($header-bg, $header-text, $body-bg, $body-text, $link, $loader-color, $skull-bg, $skull-mouth, $skull-teeth, $settings-bg, $settings-text, $settings-btn-bg, $settings-btn-text) {
+  .body-cover {
+    background-color: $body-bg;
+  }
+
+  .header {
+    background-color: $header-bg;
+    color: $header-text;
+  }
+
+  .header-logo {
+    color: $header-text;
+  }
+
+  .header-nav-item {
+    color: $header-text;
+    opacity: 0.7;
+    &.active, &:hover {
+      opacity: 1;
+    }
+  }
+
+  .settings-icon {
+    color: $header-text;
+  }
+
+  .feed-item-title a {
+    color: $body-text;
+  }
+
+  .feed-item-meta {
+    color: $body-text;
+  }
+
+  .feed-item-user,
+  .feed-item-comments {
+    color: $link;
+  }
+
+  .feed-pagination-link {
+    color: $link;
+  }
+
+  .item-details-title {
+    color: $body-text;
+    a {
+      color: $body-text;
+    }
+  }
+
+  .item-details-meta {
+    color: $body-text;
+    a {
+      color: $link;
+    }
+  }
+
+  .back-btn {
+    color: $body-text;
+  }
+
+  .comment-header {
+    color: $body-text;
+  }
+
+  .comment-toggle {
+    color: $body-text;
+  }
+
+  .comment-content {
+    color: $body-text;
+    a {
+      color: $link;
+    }
+    pre {
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+
+  .comment {
+    border-left-color: rgba($body-text, 0.15);
+  }
+
+  .user-name {
+    color: $body-text;
+  }
+
+  .user-detail-label,
+  .user-detail-value {
+    color: $body-text;
+  }
+
+  .user-about {
+    color: $body-text;
+    border-top-color: rgba($body-text, 0.15);
+    a {
+      color: $link;
+    }
+  }
+
+  .footer a {
+    color: $body-text;
+  }
+
+  .loader,
+  .loader:before,
+  .loader:after {
+    color: $loader-color;
+  }
+
+  .error-section p {
+    color: $body-text;
+  }
+
+  .skull .head {
+    background-color: $skull-bg;
+    &:before, &:after {
+      background-color: $body-bg;
+    }
+    .crack {
+      background-color: $body-bg;
+      &:before {
+        border-top: calc($skull-size / 10) solid $body-bg;
+      }
+    }
+  }
+
+  .skull .mouth {
+    background-color: $skull-mouth;
+    &:before {
+      background-color: $body-bg;
+    }
+    .teeth {
+      background-color: $skull-teeth;
+      &:before, &:after {
+        background-color: $skull-teeth;
+      }
+    }
+  }
+
+  .settings-popup {
+    background-color: $settings-bg;
+    color: $settings-text;
+  }
+
+  .settings-header .close-btn {
+    color: $settings-text;
+  }
+
+  .theme-btn {
+    background-color: $settings-btn-bg;
+    color: $settings-btn-text;
+  }
+
+  .item-details-poll {
+    background-color: rgba($body-text, 0.05);
+    color: $body-text;
+  }
+
+  .item-details-comments h3 {
+    color: $body-text;
+    border-bottom-color: rgba($body-text, 0.15);
+  }
+}
+
+.default {
+  @include theme(
+    $day-header-bg, $day-header-text, $day-body-bg, $day-body-text, $day-link,
+    $day-loader-color, $day-skull-bg, $day-skull-mouth, $day-skull-teeth,
+    $day-settings-bg, $day-settings-text, $day-settings-btn-bg, $day-settings-btn-text
+  );
+}
+
+.night {
+  @include theme(
+    $night-header-bg, $night-header-text, $night-body-bg, $night-body-text, $night-link,
+    $night-loader-color, $night-skull-bg, $night-skull-mouth, $night-skull-teeth,
+    $night-settings-bg, $night-settings-text, $night-settings-btn-bg, $night-settings-btn-text
+  );
+}
+
+.amoledblack {
+  @include theme(
+    $amoledblack-header-bg, $amoledblack-header-text, $amoledblack-body-bg, $amoledblack-body-text, $amoledblack-link,
+    $amoledblack-loader-color, $amoledblack-skull-bg, $amoledblack-skull-mouth, $amoledblack-skull-teeth,
+    $amoledblack-settings-bg, $amoledblack-settings-text, $amoledblack-settings-btn-bg, $amoledblack-settings-btn-text
+  );
+}

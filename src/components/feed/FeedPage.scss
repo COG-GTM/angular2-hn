@@ -1,0 +1,35 @@
+@import "../../styles/media";
+
+.feed {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 46px;
+}
+
+.feed-list {
+  padding: 10px 0;
+}
+
+.feed-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  gap: 20px;
+  font-size: 14px;
+
+  @media #{$mobile-only} {
+    padding: 15px 10px 30px;
+  }
+}
+
+.feed-pagination-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.feed-pagination-page {
+  opacity: 0.6;
+}

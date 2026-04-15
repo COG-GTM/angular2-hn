@@ -4,7 +4,7 @@ import { Settings } from '../types/settings';
 type SettingsAction =
   | { type: 'TOGGLE_SETTINGS' }
   | { type: 'TOGGLE_OPEN_LINKS_IN_NEW_TAB' }
-  | { type: 'SET_THEME'; theme: string }
+  | { type: 'SET_THEME'; theme: string; setByUser?: boolean }
   | { type: 'SET_FONT'; size: number }
   | { type: 'SET_SPACING'; spacing: number };
 
@@ -12,17 +12,10 @@ const defaultSettings: Settings = {
   showSettings: false,
   openLinkInNewTab: false,
   theme: 'default',
+  themeSetByUser: false,
   titleFontSize: 16,
   listSpacing: 0,
 };
-
-function isFirstVisit(): boolean {
-  try {
-    return !localStorage.getItem('hn-settings');
-  } catch {
-    return true;
-  }
-}
 
 function loadSettings(): Settings {
   try {
@@ -57,7 +50,7 @@ function settingsReducer(state: Settings, action: SettingsAction): Settings {
     case 'TOGGLE_OPEN_LINKS_IN_NEW_TAB':
       return { ...state, openLinkInNewTab: !state.openLinkInNewTab };
     case 'SET_THEME':
-      return { ...state, theme: action.theme };
+      return { ...state, theme: action.theme, themeSetByUser: action.setByUser ?? state.themeSetByUser };
     case 'SET_FONT':
       return { ...state, titleFontSize: action.size };
     case 'SET_SPACING':
@@ -78,8 +71,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, dispatch] = useReducer(settingsReducer, undefined, loadSettings);
 
   useEffect(() => {
-    const { showSettings: _, ...persistable } = settings;
-    saveSettings({ ...persistable, showSettings: false } as Settings);
+    saveSettings({ ...settings, showSettings: false });
   }, [settings]);
 
   // Listen to system dark mode preference changes
@@ -87,6 +79,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
 
     const handleChange = (e: MediaQueryListEvent) => {
+      if (settings.themeSetByUser) return;
       if (e.matches) {
         dispatch({ type: 'SET_THEME', theme: 'night' });
       } else {
@@ -99,7 +92,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     return () => {
       darkColorSchemeMedia.removeEventListener('change', handleChange);
     };
-  }, []);
+  }, [settings.themeSetByUser]);
 
   return (
     <SettingsContext.Provider value={{ settings, dispatch }}>

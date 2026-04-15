@@ -11,7 +11,7 @@ export default function Settings() {
   };
 
   const selectTheme = (theme: string) => {
-    dispatch({ type: 'SET_THEME', theme });
+    dispatch({ type: 'SET_THEME', theme, setByUser: true });
   };
 
   const changeTitleFont = (e: React.ChangeEvent<HTMLInputElement>) => {

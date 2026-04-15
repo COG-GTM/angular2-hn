@@ -44,6 +44,10 @@ export default function ItemDetailsPage() {
         {item.time_ago && <span> {item.time_ago}</span>}
       </div>
 
+      {item.content && (
+        <div className="item-details-content" dangerouslySetInnerHTML={{ __html: item.content }} />
+      )}
+
       {item.type === 'poll' && item.poll && Array.isArray(item.poll) && (
         <div className="item-details-poll">
           {item.poll.map((pollItem, idx) => (

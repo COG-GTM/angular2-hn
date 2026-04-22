@@ -1,0 +1,34 @@
+{
+  "name": "angular2-hn-react",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A Hacker News Progressive Web App built with React, TypeScript, and Vite (migrated from Angular).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "lint": "tsc -b --noEmit"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^29.0.2",
+    "typescript": "^5.6.3",
+    "vite": "^6.4.2",
+    "vite-plugin-pwa": "^1.2.0",
+    "vitest": "^2.1.9",
+    "workbox-precaching": "^7.4.0"
+  },
+  "dependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.2",
+    "sass": "^1.99.0"
+  }
+}

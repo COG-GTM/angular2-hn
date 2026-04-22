@@ -47,6 +47,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         }
         const media = window.matchMedia('(prefers-color-scheme: dark)');
         const applySystemTheme = (matches: boolean) => {
+            if (localStorage.getItem('theme')) {
+                return;
+            }
             setSettings((s) => ({ ...s, theme: matches ? 'night' : 'default' }));
         };
         applySystemTheme(media.matches);

@@ -18,10 +18,13 @@ export default function Feed() {
     const listStart = ((pageNum - 1) * 30) + 1;
 
     useEffect(() => {
-        if (!VALID_FEED_TYPES.includes(feedType!)) return;
-
         setItems(null);
         setErrorMessage('');
+
+        if (!VALID_FEED_TYPES.includes(feedType!)) {
+            setErrorMessage(`Invalid feed type: ${feedType}`);
+            return;
+        }
 
         const controller = new AbortController();
         fetchFeed(feedType!, pageNum, controller.signal)

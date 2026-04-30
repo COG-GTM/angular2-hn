@@ -18,7 +18,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
             ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
             : false,
-        theme: 'default',
+        theme: localStorage.getItem('theme') || 'default',
         titleFontSize: localStorage.getItem('titleFontSize') || '16',
         listSpacing: localStorage.getItem('listSpacing') || '0',
     });

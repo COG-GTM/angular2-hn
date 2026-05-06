@@ -44,3 +44,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# React app build output
+/react-app/dist
+/react-app/node_modules
+
+# Visual tests
+/visual-tests/node_modules
+/visual-tests/dist
+/visual-tests/screenshots/

@@ -1,0 +1,53 @@
+@import "../../styles/media";
+
+.user-wrapper {
+  padding-top: 0;
+
+  @media #{$mobile-only} {
+    padding-top: 50px;
+  }
+}
+
+.user-header {
+  padding: 15px 20px;
+
+  @media #{$mobile-only} {
+    padding: 10px 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+    display: inline;
+  }
+}
+
+.user-details {
+  padding: 0 20px 20px;
+
+  @media #{$mobile-only} {
+    padding: 0 15px 20px;
+  }
+}
+
+.main-details {
+  font-size: 14px;
+}
+
+.detail-row {
+  margin-bottom: 5px;
+}
+
+.user-about {
+  margin-top: 15px;
+}
+
+.about-content {
+  font-size: 14px;
+  line-height: 1.5;
+
+  a {
+    word-break: break-all;
+  }
+}

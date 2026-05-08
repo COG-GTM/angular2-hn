@@ -1,0 +1,44 @@
+{
+  "id": 1,
+  "title": "Show HN: A new open source project",
+  "url": "https://example.com/project",
+  "domain": "example.com",
+  "points": 142,
+  "user": "testuser1",
+  "time_ago": "3 hours ago",
+  "comments_count": 3,
+  "content": "",
+  "type": "link",
+  "poll": null,
+  "poll_votes_count": 0,
+  "comments": [
+    {
+      "id": 100,
+      "user": "commenter1",
+      "time_ago": "2 hours ago",
+      "content": "This is a great project! I've been looking for something like this for a long time. The API design is particularly elegant.",
+      "comments_count": 1,
+      "level": 0,
+      "comments": [
+        {
+          "id": 101,
+          "user": "commenter2",
+          "time_ago": "1 hour ago",
+          "content": "I agree, the documentation is also excellent. Looking forward to trying it out in production.",
+          "comments_count": 0,
+          "level": 1,
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "user": "commenter3",
+      "time_ago": "1 hour ago",
+      "content": "How does this compare to the existing alternatives? I've been using Library X and wondering if it's worth switching.",
+      "comments_count": 0,
+      "level": 0,
+      "comments": []
+    }
+  ]
+}

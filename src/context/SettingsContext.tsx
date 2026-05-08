@@ -35,21 +35,22 @@ function readString(key: string, fallback: string): string {
   return stored ?? fallback;
 }
 
+function readSavedTheme(): string | null {
+  return localStorage.getItem('theme');
+}
+
 function getInitialSettings(): Settings {
   return {
     showSettings: false,
     openLinkInNewTab: readBoolean('openLinkInNewTab'),
-    theme: 'default',
+    theme: readSavedTheme() ?? 'default',
     titleFontSize: readString('titleFontSize', '16'),
     listSpacing: readString('listSpacing', '0'),
   };
 }
 
-function applyDarkSchemeTheme(settings: Settings, isDark: boolean): Settings {
-  if (isDark) {
-    return { ...settings, theme: 'night' };
-  }
-  return { ...settings, theme: 'default' };
+function themeForDarkScheme(isDark: boolean): string {
+  return isDark ? 'night' : 'default';
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
@@ -60,10 +61,17 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       return;
     }
     const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-    setSettings((prev) => applyDarkSchemeTheme(prev, darkColorSchemeMedia.matches));
+
+    if (readSavedTheme() === null) {
+      setSettings((prev) => ({
+        ...prev,
+        theme: themeForDarkScheme(darkColorSchemeMedia.matches),
+      }));
+    }
 
     const handler = (event: MediaQueryListEvent) => {
-      setSettings((prev) => applyDarkSchemeTheme(prev, event.matches));
+      if (readSavedTheme() !== null) return;
+      setSettings((prev) => ({ ...prev, theme: themeForDarkScheme(event.matches) }));
     };
 
     if (typeof darkColorSchemeMedia.addEventListener === 'function') {
@@ -88,6 +96,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setTheme = useCallback((theme: string) => {
+    localStorage.setItem('theme', theme);
     setSettings((prev) => ({ ...prev, theme }));
   }, []);
 

@@ -85,7 +85,7 @@ export function ItemDetails() {
                 <div
                   className="pollBar"
                   style={{
-                    width: `${(pollItem.points / item.poll_votes_count) * 100}%`,
+                    width: `${item.poll_votes_count > 0 ? (pollItem.points / item.poll_votes_count) * 100 : 0}%`,
                   }}
                 ></div>
                 <p>{pollItem.points} points</p>

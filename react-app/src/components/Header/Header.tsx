@@ -42,6 +42,7 @@ export function Header() {
       </div>
       <span className="info">
         <img
+          className="settings"
           src="/assets/images/cog.svg"
           alt="settings"
           onClick={toggleSettings}

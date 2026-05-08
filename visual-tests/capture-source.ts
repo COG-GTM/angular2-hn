@@ -31,7 +31,7 @@ const ROUTES: RouteConfig[] = [
   { name: 'jobs', path: '/jobs/1', waitFor: '.post' },
 ];
 
-const THEMES = ['theme-default', 'theme-dark', 'theme-amoledblack'];
+const THEMES = ['default', 'night', 'amoledblack'];
 
 async function ensureDir(dir: string) {
   if (!fs.existsSync(dir)) {
@@ -89,15 +89,9 @@ async function captureSource() {
       await page.waitForTimeout(500);
 
       // Set theme via localStorage
-      const themeValue = theme === 'theme-default' ? 'theme-default'
-        : theme === 'theme-dark' ? 'theme-dark'
-        : 'theme-amoledblack';
-
       await page.evaluate((t: string) => {
-        const settings = JSON.parse(localStorage.getItem('settings') || '{}');
-        settings.theme = t;
-        localStorage.setItem('settings', JSON.stringify(settings));
-      }, themeValue);
+        localStorage.setItem('theme', t);
+      }, theme);
 
       await page.reload({ waitUntil: 'networkidle' });
       await page.waitForSelector('.post', { timeout: 15000 }).catch(() => {});

@@ -7,6 +7,12 @@
 # Only exists if Bazel was run
 /bazel-out
 
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Vite
+.vite/
+
 # dependencies
 /node_modules
 

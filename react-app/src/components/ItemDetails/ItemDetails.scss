@@ -1,0 +1,92 @@
+@import "../../styles/media";
+
+.item-detail-wrapper {
+  padding-top: 0;
+
+  @media #{$mobile-only} {
+    padding-top: 50px;
+  }
+}
+
+.item-header {
+  padding: 15px 20px;
+
+  @media #{$mobile-only} {
+    padding: 10px 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 5px 0;
+    display: inline;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.item-title-link {
+  text-decoration: none;
+}
+
+.back-button {
+  display: none;
+
+  @media #{$mobile-only} {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    transform: rotate(225deg);
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+
+.item-text {
+  padding: 0 20px 15px;
+  font-size: 14px;
+  line-height: 1.6;
+
+  @media #{$mobile-only} {
+    padding: 0 15px 15px;
+  }
+
+  a {
+    word-break: break-all;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+}
+
+.poll-section {
+  padding: 0 20px;
+}
+
+.pollContent {
+  margin-bottom: 10px;
+
+  .pollText {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .pollBar {
+    font-size: 12px;
+    padding: 3px 8px;
+    min-width: 30px;
+    border-radius: 2px;
+    color: #fff;
+  }
+}
+
+.comments-section {
+  padding: 10px 0;
+}

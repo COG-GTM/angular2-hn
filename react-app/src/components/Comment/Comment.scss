@@ -1,0 +1,77 @@
+@import "../../styles/media";
+
+.comment-item {
+  padding: 5px 20px 0;
+
+  @media #{$mobile-only} {
+    padding: 5px 15px 0;
+  }
+}
+
+.meta {
+  font-size: 12px;
+  margin-bottom: 5px;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.meta-collapse {
+  margin-bottom: 0;
+}
+
+.collapse {
+  cursor: pointer;
+  user-select: none;
+}
+
+.time {
+  margin-left: 5px;
+}
+
+.comment-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+  overflow-wrap: break-word;
+
+  a {
+    word-break: break-all;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  pre {
+    overflow-x: auto;
+  }
+
+  code {
+    font-size: 13px;
+  }
+}
+
+.subtree {
+  list-style: none;
+  padding-left: 20px;
+  margin: 0;
+
+  @media #{$mobile-only} {
+    padding-left: 10px;
+  }
+}
+
+.deleted-meta {
+  font-size: 12px;
+  padding: 5px 20px;
+
+  @media #{$mobile-only} {
+    padding: 5px 15px;
+  }
+}

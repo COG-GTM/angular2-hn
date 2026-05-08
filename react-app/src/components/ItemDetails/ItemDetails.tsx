@@ -19,18 +19,24 @@ export function ItemDetails() {
   const hasUrl = item?.url?.startsWith('http');
 
   useEffect(() => {
+    let ignore = false;
     setLoading(true);
     setError(false);
     window.scrollTo(0, 0);
     fetchItemContent(parseInt(id || '0', 10))
       .then((data) => {
-        setItem(data);
-        setLoading(false);
+        if (!ignore) {
+          setItem(data);
+          setLoading(false);
+        }
       })
       .catch(() => {
-        setError(true);
-        setLoading(false);
+        if (!ignore) {
+          setError(true);
+          setLoading(false);
+        }
       });
+    return () => { ignore = true; };
   }, [id]);
 
   if (loading) {

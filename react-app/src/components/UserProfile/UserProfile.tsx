@@ -14,18 +14,24 @@ export function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let ignore = false;
     setLoading(true);
     setError(false);
     window.scrollTo(0, 0);
     fetchUser(id || '')
       .then((data) => {
-        setUser(data);
-        setLoading(false);
+        if (!ignore) {
+          setUser(data);
+          setLoading(false);
+        }
       })
       .catch(() => {
-        setError(true);
-        setLoading(false);
+        if (!ignore) {
+          setError(true);
+          setLoading(false);
+        }
       });
+    return () => { ignore = true; };
   }, [id]);
 
   if (loading) {

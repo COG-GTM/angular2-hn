@@ -21,18 +21,24 @@ export function Feed({ feedType }: FeedProps) {
   const listStart = ((pageNum - 1) * 30) + 1;
 
   useEffect(() => {
+    let ignore = false;
     setLoading(true);
     setError(false);
     window.scrollTo(0, 0);
     fetchFeed(feedType, pageNum)
       .then((data) => {
-        setItems(data);
-        setLoading(false);
+        if (!ignore) {
+          setItems(data);
+          setLoading(false);
+        }
       })
       .catch(() => {
-        setError(true);
-        setLoading(false);
+        if (!ignore) {
+          setError(true);
+          setLoading(false);
+        }
       });
+    return () => { ignore = true; };
   }, [feedType, pageNum]);
 
   if (loading) {

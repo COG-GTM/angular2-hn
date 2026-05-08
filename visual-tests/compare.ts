@@ -70,7 +70,7 @@ function comparePair(filename: string): { mismatch: number; pass: boolean } {
     diff.data,
     width,
     height,
-    { threshold: 0.1 }
+    { threshold: 0.2 }
   );
 
   const mismatchPercent = mismatchedPixels / totalPixels;

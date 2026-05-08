@@ -12,62 +12,79 @@ export function Settings() {
         <hr />
         <div className="content">
           <div className="control-section">
-            <h2>Theme</h2>
-            <label>
-              <input
-                type="radio"
-                name="theme"
-                checked={settings.theme === 'default'}
-                onChange={() => setTheme('default')}
-              />
-              {' '}Default
-            </label>
-            <br />
-            <label>
-              <input
-                type="radio"
-                name="theme"
-                checked={settings.theme === 'night'}
-                onChange={() => setTheme('night')}
-              />
-              {' '}Night
-            </label>
-            <br />
-            <label>
-              <input
-                type="radio"
-                name="theme"
-                checked={settings.theme === 'amoledblack'}
-                onChange={() => setTheme('amoledblack')}
-              />
-              {' '}Black (AMOLED)
-            </label>
-          </div>
-          <div className="control-section">
-            <h2>Title Font Size</h2>
+            <h2>Links</h2>
             <input
-              type="number"
-              value={settings.titleFontSize}
-              onChange={(e) => setFont(e.target.value)}
+              type="checkbox"
+              checked={settings.openLinkInNewTab}
+              onChange={toggleOpenLinksInNewTab}
             />
+            {' '}Open links in a new tab
           </div>
-          <div className="control-section">
-            <h2>List Spacing</h2>
-            <input
-              type="number"
-              value={settings.listSpacing}
-              onChange={(e) => setSpacing(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={settings.openLinkInNewTab}
-                onChange={toggleOpenLinksInNewTab}
-              />
-              {' '}Open Links in New Tab
-            </label>
+          <div className="theme-controls">
+            <div className="control-section">
+              <h2>Select a theme</h2>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="default"
+                    checked={settings.theme === 'default'}
+                    onChange={() => setTheme('default')}
+                  />
+                  {' '}Default
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="night"
+                    checked={settings.theme === 'night'}
+                    onChange={() => setTheme('night')}
+                  />
+                  {' '}Night
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="amoledblack"
+                    checked={settings.theme === 'amoledblack'}
+                    onChange={() => setTheme('amoledblack')}
+                  />
+                  {' '}Black (AMOLED)
+                </label>
+              </div>
+            </div>
+            <div className="control-section">
+              <h2>Change Font</h2>
+              <div>
+                <label>
+                  Font size:
+                  <input
+                    type="number"
+                    min="1"
+                    value={settings.titleFontSize}
+                    onChange={(e) => setFont(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  List spacing:
+                  <input
+                    type="number"
+                    min="0"
+                    value={settings.listSpacing}
+                    onChange={(e) => setSpacing(e.target.value)}
+                  />
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

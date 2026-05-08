@@ -92,7 +92,7 @@ async function capturePageScreenshot(
   const page = await context.newPage();
 
   await interceptAPI(page);
-  await page.goto(`${baseUrl}${routePath}`, { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto(`${baseUrl}${routePath}`, { waitUntil: 'load', timeout: 30000 });
 
   if (waitForSelector) {
     await page.waitForSelector(waitForSelector, { timeout: 15000 }).catch(() => {});
@@ -117,24 +117,24 @@ async function captureSettingsScreenshot(
   await interceptAPI(page);
 
   // Set theme before loading
-  await page.goto(`${baseUrl}/news/1`, { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto(`${baseUrl}/news/1`, { waitUntil: 'load', timeout: 30000 });
   await page.waitForSelector('.post', { timeout: 15000 }).catch(() => {});
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(2000);
 
   // Both Angular and React read theme from localStorage 'theme' key
   await page.evaluate((t: string) => {
     localStorage.setItem('theme', t);
   }, theme);
 
-  await page.reload({ waitUntil: 'networkidle' });
+  await page.reload({ waitUntil: 'load', timeout: 30000 });
   await page.waitForSelector('.post', { timeout: 15000 }).catch(() => {});
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(2000);
 
   // Open settings panel
-  await page.click('img.settings').catch(() => {
-    return page.click('.settings').catch(() => {});
+  await page.click('img.settings', { timeout: 5000 }).catch(() => {
+    return page.click('.settings', { timeout: 5000 }).catch(() => {});
   });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
   await disableAnimations(page);
   await page.waitForTimeout(300);

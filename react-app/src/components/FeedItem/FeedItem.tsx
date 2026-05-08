@@ -26,7 +26,7 @@ export function FeedItem({ item }: FeedItemProps) {
           <a className="title" style={titleStyle} href={item.url} target={target} rel={rel}>
             {item.title}
           </a>
-          {item.domain && <span className="domain">({item.domain})</span>}
+          {item.domain && <>{' '}<span className="domain">({item.domain})</span></>}
         </p>
       ) : (
         <p>
@@ -45,7 +45,7 @@ export function FeedItem({ item }: FeedItemProps) {
         <div className="details">
           {item.time_ago}
           {item.type !== 'job' && (
-            <Link to={`/item/${item.id}`} className="comment-number"> · {formatCommentCount(item.comments_count)}</Link>
+            <Link to={`/item/${item.id}`} className="comment-number"> • {formatCommentCount(item.comments_count)}</Link>
           )}
         </div>
       </div>

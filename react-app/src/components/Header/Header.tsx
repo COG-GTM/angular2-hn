@@ -11,44 +11,43 @@ export function Header() {
   };
 
   return (
-    <div id="header">
-      <NavLink to="/news/1" className="home-link" onClick={scrollTop}>
-        <div className="logo-inner"></div>
-        <img className="logo" src="/assets/images/logo.svg" alt="logo" />
-      </NavLink>
-      <div className="left">
-        <h1>
-          <NavLink to="/news/1" className="name" onClick={scrollTop}>
-            Angular 2 HN
-          </NavLink>
-        </h1>
-        <span className="header-nav">
-          <NavLink to="/newest/1" className={({ isActive }) => isActive ? 'active' : ''}>
-            new
-          </NavLink>
-          <span className="divider-pipe"> | </span>
-          <NavLink to="/show/1" className={({ isActive }) => isActive ? 'active' : ''}>
-            show
-          </NavLink>
-          <span className="divider-pipe"> | </span>
-          <NavLink to="/ask/1" className={({ isActive }) => isActive ? 'active' : ''}>
-            ask
-          </NavLink>
-          <span className="divider-pipe"> | </span>
-          <NavLink to="/jobs/1" className={({ isActive }) => isActive ? 'active' : ''}>
-            jobs
-          </NavLink>
-        </span>
+    <header>
+      <div id="header">
+        <NavLink to="/news/1" className="home-link" onClick={scrollTop}>
+          <div className="logo-inner"></div>
+          <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
+        </NavLink>
+        <div className="header-text">
+          <div className="left">
+            <span className="header-nav">
+              <NavLink to="/newest/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>
+                new
+              </NavLink>
+              {' | '}
+              <NavLink to="/show/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>
+                show
+              </NavLink>
+              {' | '}
+              <NavLink to="/ask/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>
+                ask
+              </NavLink>
+              {' | '}
+              <NavLink to="/jobs/1" className={({ isActive }) => isActive ? 'active' : ''} onClick={scrollTop}>
+                jobs
+              </NavLink>
+            </span>
+          </div>
+        </div>
+        <div className="info">
+          <img
+            className="settings"
+            src="/assets/images/cog.svg"
+            alt="Settings"
+            onClick={toggleSettings}
+          />
+        </div>
       </div>
-      <span className="info">
-        <img
-          className="settings"
-          src="/assets/images/cog.svg"
-          alt="settings"
-          onClick={toggleSettings}
-        />
-      </span>
       {settings.showSettings && <Settings />}
-    </div>
+    </header>
   );
 }

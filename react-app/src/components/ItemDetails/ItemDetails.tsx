@@ -17,6 +17,8 @@ export default function ItemDetails() {
 
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading on nav
+    setLoading(true);
 
     (async () => {
       try {

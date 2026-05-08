@@ -23,6 +23,8 @@ export default function Feed({ feedType }: FeedProps) {
 
   useEffect(() => {
     let active = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset loading on nav
+    setLoading(true);
 
     (async () => {
       try {

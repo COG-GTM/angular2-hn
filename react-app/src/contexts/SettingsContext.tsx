@@ -40,11 +40,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (event: MediaQueryListEvent) => {
-      const newTheme = event.matches ? 'night' : 'default';
-      setSettings(prev => {
-        localStorage.setItem('theme', newTheme);
-        return { ...prev, theme: newTheme };
-      });
+      // Only apply system preference if user hasn't explicitly set a theme
+      const savedTheme = localStorage.getItem('theme');
+      if (!savedTheme) {
+        const newTheme = event.matches ? 'night' : 'default';
+        setSettings(prev => ({ ...prev, theme: newTheme }));
+      }
     };
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);

@@ -36,16 +36,37 @@ function comparePair(filename: string): { mismatch: number; pass: boolean } {
   const source = readPNG(sourcePath);
   const react = readPNG(reactPath);
 
-  // Resize to match dimensions if needed
+  // Crop both images to matching dimensions if needed
   const width = Math.min(source.width, react.width);
   const height = Math.min(source.height, react.height);
+
+  // Create properly cropped buffers with correct stride
+  const sourceCropped = new PNG({ width, height });
+  const reactCropped = new PNG({ width, height });
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const srcIdx = (y * source.width + x) * 4;
+      const dstIdx = (y * width + x) * 4;
+      sourceCropped.data[dstIdx] = source.data[srcIdx];
+      sourceCropped.data[dstIdx + 1] = source.data[srcIdx + 1];
+      sourceCropped.data[dstIdx + 2] = source.data[srcIdx + 2];
+      sourceCropped.data[dstIdx + 3] = source.data[srcIdx + 3];
+
+      const reactSrcIdx = (y * react.width + x) * 4;
+      reactCropped.data[dstIdx] = react.data[reactSrcIdx];
+      reactCropped.data[dstIdx + 1] = react.data[reactSrcIdx + 1];
+      reactCropped.data[dstIdx + 2] = react.data[reactSrcIdx + 2];
+      reactCropped.data[dstIdx + 3] = react.data[reactSrcIdx + 3];
+    }
+  }
 
   const diff = new PNG({ width, height });
   const totalPixels = width * height;
 
   const mismatchedPixels = pixelmatch(
-    source.data,
-    react.data,
+    sourceCropped.data,
+    reactCropped.data,
     diff.data,
     width,
     height,

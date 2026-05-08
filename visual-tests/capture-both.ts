@@ -36,7 +36,8 @@ const ROUTES: RouteConfig[] = [
   { name: 'jobs', path: '/jobs/1', apiPath: '/jobs?page=1', waitFor: '.post' },
 ];
 
-const THEMES = ['theme-default', 'theme-dark', 'theme-amoledblack'];
+// Both Angular and React store theme values as: 'default', 'night', 'amoledblack'
+const THEMES = ['default', 'night', 'amoledblack'];
 
 // Stored mock API responses for consistent data
 const mockResponses: Map<string, string> = new Map();
@@ -98,7 +99,7 @@ async function capturePageScreenshot(
   }
 
   await page.waitForTimeout(1000);
-  await page.addStyleTag({ content: DISABLE_ANIMATIONS_CSS });
+  await disableAnimations(page);
   await page.waitForTimeout(300);
 
   await page.screenshot({ path: outputPath, fullPage: true });
@@ -120,10 +121,9 @@ async function captureSettingsScreenshot(
   await page.waitForSelector('.post', { timeout: 15000 }).catch(() => {});
   await page.waitForTimeout(500);
 
+  // Both Angular and React read theme from localStorage 'theme' key
   await page.evaluate((t: string) => {
-    const settings = JSON.parse(localStorage.getItem('settings') || '{}');
-    settings.theme = t;
-    localStorage.setItem('settings', JSON.stringify(settings));
+    localStorage.setItem('theme', t);
   }, theme);
 
   await page.reload({ waitUntil: 'networkidle' });
@@ -136,11 +136,26 @@ async function captureSettingsScreenshot(
   });
   await page.waitForTimeout(500);
 
-  await page.addStyleTag({ content: DISABLE_ANIMATIONS_CSS });
+  await disableAnimations(page);
   await page.waitForTimeout(300);
 
   await page.screenshot({ path: outputPath, fullPage: true });
   await page.close();
+}
+
+async function disableAnimations(page: Page) {
+  await page.evaluate(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      *, *::before, *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    `;
+    document.head.appendChild(style);
+  });
 }
 
 async function captureBoth() {
@@ -161,6 +176,7 @@ async function captureBoth() {
       // Capture Angular source
       const srcCtx = await browser.newContext({
         viewport: { width: vp.width, height: vp.height },
+        bypassCSP: true,
       });
       await capturePageScreenshot(
         srcCtx, SOURCE_URL, route.path, route.waitFor,
@@ -172,6 +188,7 @@ async function captureBoth() {
       // Capture React
       const reactCtx = await browser.newContext({
         viewport: { width: vp.width, height: vp.height },
+        bypassCSP: true,
       });
       await capturePageScreenshot(
         reactCtx, REACT_URL, route.path, route.waitFor,
@@ -192,6 +209,7 @@ async function captureBoth() {
 
       const srcCtx = await browser.newContext({
         viewport: { width: vp.width, height: vp.height },
+        bypassCSP: true,
       });
       await captureSettingsScreenshot(srcCtx, SOURCE_URL, theme, path.join(SOURCE_DIR, filename));
       await srcCtx.close();
@@ -199,6 +217,7 @@ async function captureBoth() {
 
       const reactCtx = await browser.newContext({
         viewport: { width: vp.width, height: vp.height },
+        bypassCSP: true,
       });
       await captureSettingsScreenshot(reactCtx, REACT_URL, theme, path.join(REACT_DIR, filename));
       await reactCtx.close();

@@ -31,7 +31,7 @@ const ROUTES: RouteConfig[] = [
   { name: 'jobs', path: '/jobs/1', waitFor: '.post' },
 ];
 
-const THEMES = ['theme-default', 'theme-dark', 'theme-amoledblack'];
+const THEMES = ['default', 'night', 'amoledblack'];
 
 function ensureDir(dir: string) {
   if (!fs.existsSync(dir)) {
@@ -88,9 +88,7 @@ async function captureReact() {
 
       // Set theme via localStorage
       await page.evaluate((t: string) => {
-        const settings = JSON.parse(localStorage.getItem('settings') || '{}');
-        settings.theme = t;
-        localStorage.setItem('settings', JSON.stringify(settings));
+        localStorage.setItem('theme', t);
       }, theme);
 
       await page.reload({ waitUntil: 'networkidle' });

@@ -1,0 +1,35 @@
+@import "./themes";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#root:empty + .app-loader {
+    opacity: 1;
+    z-index: 100;
+}

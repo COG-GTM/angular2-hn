@@ -112,7 +112,9 @@ export default function ItemDetails({ itemId }: ItemDetailsProps) {
                                         className="pollBar"
                                         style={{
                                             width: `${
-                                                (pollResult.points / item.poll_votes_count) * 100
+                                                item.poll_votes_count > 0
+                                                    ? (pollResult.points / item.poll_votes_count) * 100
+                                                    : 0
                                             }%`,
                                         }}
                                     />

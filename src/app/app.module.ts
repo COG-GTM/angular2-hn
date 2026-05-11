@@ -12,6 +12,7 @@ import { PipesModule } from './shared/pipes/pipes.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HackerNewsAPIService } from './shared/services/hackernews-api.service';
+import { MockHackerNewsAPIService } from './shared/services/mock-hackernews-api.service';
 import { SettingsService } from './shared/services/settings.service';
 
 @NgModule({
@@ -26,7 +27,7 @@ import { SettingsService } from './shared/services/settings.service';
             enabled: environment.production,
         }),
     ],
-    providers: [HackerNewsAPIService, SettingsService],
+    providers: [{ provide: HackerNewsAPIService, useClass: MockHackerNewsAPIService }, SettingsService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

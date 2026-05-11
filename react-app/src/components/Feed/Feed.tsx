@@ -49,7 +49,7 @@ export default function Feed({ feedType, pageNum }: FeedProps) {
                             <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
                         </p>
                     )}
-                    {feedType !== 'new' && (
+                    {feedType !== 'newest' && (
                         <ol
                             className={feedType !== 'jobs' ? 'list-margin' : undefined}
                             start={listStart}

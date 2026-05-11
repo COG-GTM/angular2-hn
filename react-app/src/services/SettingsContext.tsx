@@ -26,12 +26,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         s.theme = getInitialTheme();
         return s;
     });
+    const [userSetTheme, setUserSetTheme] = useState(() => localStorage.getItem('theme') !== null);
 
     const handleColorSchemeChange = useCallback((e: MediaQueryListEvent) => {
+        if (userSetTheme) return;
         const theme = e.matches ? 'night' : 'default';
         setSettings(prev => ({ ...prev, theme }));
-        localStorage.setItem('theme', theme);
-    }, []);
+    }, [userSetTheme]);
 
     useEffect(() => {
         const mql = window.matchMedia('(prefers-color-scheme: dark)');
@@ -54,6 +55,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const setTheme = useCallback((theme: string) => {
         setSettings(prev => ({ ...prev, theme }));
         localStorage.setItem('theme', theme);
+        setUserSetTheme(true);
     }, []);
 
     const setFont = useCallback((fontSize: string) => {

@@ -37,7 +37,7 @@ function ThemedShell() {
   return (
     <div className={settings.theme}>
       <div className="body-cover"></div>
-      <div className="wrapper">
+      <div className="wrapper" id="content">
         <Header />
         <Suspense fallback={<Loader />}>
           <Routes>

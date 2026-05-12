@@ -60,7 +60,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       if (localStorage.getItem('theme')) return;
       const theme = event.matches ? 'night' : 'default';
       setSettings((prev) => ({ ...prev, theme }));
-      localStorage.setItem('theme', theme);
     };
     media.addEventListener('change', handleChange);
     return () => media.removeEventListener('change', handleChange);

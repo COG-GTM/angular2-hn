@@ -24,6 +24,9 @@ export async function fetchItemContent(id: number): Promise<Story> {
     story.poll_votes_count = 0;
     const pollPromises = story.poll.map(async (_, i) => {
       const pollRes = await fetch(`${BASE_URL}/item/${story.id + i + 1}`);
+      if (!pollRes.ok) {
+        throw new Error(`Failed to fetch poll item: ${pollRes.status}`);
+      }
       const pollResult: PollResult = await pollRes.json();
       story.poll[i] = pollResult;
       story.poll_votes_count += pollResult.points;

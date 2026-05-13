@@ -117,10 +117,10 @@ class ChessModel {
         }
         if (piece.type == PieceType.ROOK) {
             when {
-                piece.color == PieceColor.WHITE && from.col == 0 -> whiteRookAMoved = true
-                piece.color == PieceColor.WHITE && from.col == 7 -> whiteRookHMoved = true
-                piece.color == PieceColor.BLACK && from.col == 0 -> blackRookAMoved = true
-                piece.color == PieceColor.BLACK && from.col == 7 -> blackRookHMoved = true
+                piece.color == PieceColor.WHITE && from.row == 7 && from.col == 0 -> whiteRookAMoved = true
+                piece.color == PieceColor.WHITE && from.row == 7 && from.col == 7 -> whiteRookHMoved = true
+                piece.color == PieceColor.BLACK && from.row == 0 && from.col == 0 -> blackRookAMoved = true
+                piece.color == PieceColor.BLACK && from.row == 0 && from.col == 7 -> blackRookHMoved = true
             }
         }
     }

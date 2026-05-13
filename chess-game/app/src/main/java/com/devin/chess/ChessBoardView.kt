@@ -199,8 +199,8 @@ class ChessBoardView @JvmOverloads constructor(
         val game = model ?: return true
         if (game.gameOver) return true
 
-        val col = ((event.x - boardOffset) / squareSize).toInt()
-        val row = ((event.y - boardOffset) / squareSize).toInt()
+        val col = kotlin.math.floor((event.x - boardOffset) / squareSize).toInt()
+        val row = kotlin.math.floor((event.y - boardOffset) / squareSize).toInt()
         if (row !in 0..7 || col !in 0..7) return true
 
         val tappedPos = Position(row, col)

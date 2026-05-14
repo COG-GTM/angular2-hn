@@ -1,3 +1,1 @@
-export const FeedType = () => {
-  return null;
-};
+export type FeedType = 'poll' | 'story' | 'job';

@@ -42,6 +42,10 @@ export function ItemDetails() {
               });
               story.poll_votes_count = pollVotesCount;
               setItem({ ...story });
+            }).catch((err) => {
+              if (err.name !== 'AbortError') {
+                setErrorMessage('Could not load item comments.');
+              }
             });
           } else {
             setItem(story);

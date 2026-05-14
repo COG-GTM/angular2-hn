@@ -40,6 +40,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #b92b27;
 }
 
 .head::before,
@@ -50,6 +51,14 @@
   width: 20%;
   height: 30%;
   bottom: 10%;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .head::before,
+  .head::after {
+    background-color: #fff;
+  }
 }
 
 .head::before {
@@ -67,6 +76,13 @@
   top: 0;
   right: 25%;
   transform: skew(-15deg);
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .crack {
+    background-color: #fff;
+  }
 }
 
 .crack::before {
@@ -76,6 +92,13 @@
   left: 13.33px;
   border-right: 10px solid transparent;
   border-left: 5px solid transparent;
+  border-top: 25px solid #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .crack::before {
+    border-top: 25px solid #fff;
+  }
 }
 
 .mouth {
@@ -85,6 +108,7 @@
   top: 75%;
   left: 30%;
   border-radius: 0 0 20px 20px;
+  background-color: #b92b27;
 }
 
 .mouth::before {
@@ -95,6 +119,13 @@
   border-radius: 50% / 30%;
   left: 42.5%;
   top: -25%;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .mouth::before {
+    background-color: #fff;
+  }
 }
 
 .teeth {
@@ -105,6 +136,13 @@
   height: 50%;
   margin-bottom: -5%;
   border-radius: 50% / 20%;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .teeth {
+    background-color: #fff;
+  }
 }
 
 .teeth::before,
@@ -114,6 +152,14 @@
   width: 100%;
   height: 100%;
   border-radius: 50% / 20%;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .teeth::before,
+  .teeth::after {
+    background-color: #fff;
+  }
 }
 
 .teeth::before {

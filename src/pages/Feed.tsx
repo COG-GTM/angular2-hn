@@ -41,19 +41,26 @@ export function Feed({ feedType }: FeedProps) {
   });
 
   useEffect(() => {
+    let cancelled = false;
     dispatch({ type: 'loading' });
 
     fetchFeed(feedType, pageNum)
       .then((data) => {
-        dispatch({ type: 'loaded', items: data });
-        window.scrollTo(0, 0);
+        if (!cancelled) {
+          dispatch({ type: 'loaded', items: data });
+          window.scrollTo(0, 0);
+        }
       })
       .catch(() => {
-        dispatch({
-          type: 'error',
-          message: `Could not load ${feedType} stories.`,
-        });
+        if (!cancelled) {
+          dispatch({
+            type: 'error',
+            message: `Could not load ${feedType} stories.`,
+          });
+        }
       });
+
+    return () => { cancelled = true; };
   }, [feedType, pageNum]);
 
   const { items, errorMessage } = state;

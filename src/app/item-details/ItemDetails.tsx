@@ -17,6 +17,8 @@ export function ItemDetails() {
 
   useEffect(() => {
     const controller = new AbortController();
+    setItem(null);
+    setErrorMessage('');
 
     if (id) {
       fetch(`https://node-hnapi.herokuapp.com/item/${id}`, {

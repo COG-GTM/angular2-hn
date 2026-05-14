@@ -21,7 +21,7 @@ export function Comment({ comment }: CommentProps) {
   }
 
   return (
-    <div>
+    <div className={styles.commentWrapper}>
       <div className={`${styles.meta}${collapse ? ` ${styles.metaCollapse}` : ''}`}>
         <span className={styles.collapse} onClick={() => setCollapse(!collapse)}>
           [{collapse ? '+' : '-'}]

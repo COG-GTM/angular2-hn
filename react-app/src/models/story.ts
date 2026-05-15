@@ -1,7 +1,7 @@
 import { Comment } from './comment';
 import { PollResult } from './poll-result';
 
-export type FeedType = 'news' | 'newest' | 'show' | 'ask' | 'jobs';
+export type FeedType = 'poll' | 'story' | 'job';
 
 export interface Story {
   id: number;

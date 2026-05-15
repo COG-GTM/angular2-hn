@@ -14,22 +14,23 @@ const SettingsContext = createContext<SettingsContextType>(null!);
 
 export function useSettings() { return useContext(SettingsContext); }
 
+function getInitialTheme(): string {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'default';
+}
+
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>({
     showSettings: false,
     openLinkInNewTab: JSON.parse(localStorage.getItem('openLinkInNewTab') || 'false'),
-    theme: localStorage.getItem('theme') || 'default',
+    theme: getInitialTheme(),
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   });
 
-  // System color scheme detection — match Angular behavior:
-  // On first visit (no saved theme), detect prefers-color-scheme: dark → set 'night'
+  // Listen for system color scheme changes — only auto-switch when user hasn't explicitly chosen a theme
   useEffect(() => {
-    if (!localStorage.getItem('theme')) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      updateSettings({ theme: prefersDark ? 'night' : 'default' });
-    }
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (e: MediaQueryListEvent) => {
       if (!localStorage.getItem('theme')) {

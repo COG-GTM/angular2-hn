@@ -32,7 +32,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (e: MediaQueryListEvent) => {
-      updateSettings({ theme: e.matches ? 'night' : 'default' });
+      if (!localStorage.getItem('theme')) {
+        updateSettings({ theme: e.matches ? 'night' : 'default' });
+      }
     };
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
@@ -42,11 +44,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     setSettings((prev: Settings) => ({ ...prev, ...partial }));
   }
 
-  function toggleSettings() { updateSettings({ showSettings: !settings.showSettings }); }
+  function toggleSettings() { setSettings((prev: Settings) => ({ ...prev, showSettings: !prev.showSettings })); }
   function toggleOpenLinksInNewTab() {
-    const newVal = !settings.openLinkInNewTab;
-    localStorage.setItem('openLinkInNewTab', JSON.stringify(newVal));
-    updateSettings({ openLinkInNewTab: newVal });
+    setSettings((prev: Settings) => {
+      const newVal = !prev.openLinkInNewTab;
+      localStorage.setItem('openLinkInNewTab', JSON.stringify(newVal));
+      return { ...prev, openLinkInNewTab: newVal };
+    });
   }
   function setTheme(theme: string) {
     localStorage.setItem('theme', theme);

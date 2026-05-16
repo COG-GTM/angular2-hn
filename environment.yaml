@@ -1,0 +1,36 @@
+name: angular2-hn
+description: Angular Hacker News Progressive Web App
+
+node:
+  version: "12"
+
+api:
+  base_url: https://node-hnapi.herokuapp.com
+
+firebase:
+  hosting:
+    public: dist
+    rewrites:
+      - source: "**"
+        destination: /index.html
+
+build:
+  output_path: dist/angular-hnpwa
+  aot: true
+  service_worker: true
+
+serve:
+  port: 4200
+  host: localhost
+
+scripts:
+  start: npm start
+  build: npm run build
+  test: npm test
+  lint: npm run lint
+  e2e: npm run e2e
+
+themes:
+  - default
+  - night
+  - black

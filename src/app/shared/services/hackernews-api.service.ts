@@ -6,7 +6,6 @@ import {map } from 'rxjs/operators';
 import { Story } from '../models/story';
 import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
-import { environment } from '../../../environments/environment';
 
 // wrap fetch in observable so we can keep it chill
 @Injectable()
@@ -14,7 +13,7 @@ export class HackerNewsAPIService {
   baseUrl: string;
 
   constructor() {
-    this.baseUrl = environment.apiBaseUrl;
+    this.baseUrl = 'https://node-hnapi.herokuapp.com';
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {

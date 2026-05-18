@@ -126,6 +126,9 @@ h1 {
   top: 0;
   right: 20px;
   height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
   @media #{$mobile-only} {
     right: 10px;
@@ -134,16 +137,36 @@ h1 {
   img {
     opacity: 0.8;
     width: 25px;
-    margin-top: 21.5px;
     display: block;
 
     &:hover {
       opacity: 1;
       cursor: pointer;
     }
+  }
+}
 
-    @media #{$mobile-only} {
-      margin-top: 15px;
-    }
+.userInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+
+  @media #{$mobile-only} {
+    display: none;
+  }
+}
+
+.userEmail {
+  color: hsla(0, 0%, 100%, 0.8);
+}
+
+.logoutLink {
+  color: hsla(0, 0%, 100%, 0.9);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #fff;
   }
 }

@@ -18,6 +18,10 @@
         </div>
       </div>
       <div class="info">
+        <span class="userInfo" *ngIf="authService.user$ | async as user">
+          <span class="userEmail">{{ user.email || user.displayName }}</span>
+          <a class="logoutLink" (click)="logout()">logout</a>
+        </span>
         <img class="settings" src="assets/images/cog.svg" alt="Settings" (click)="toggleSettings()">
       </div>
     </div>

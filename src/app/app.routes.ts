@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { FeedComponent } from './feeds/feed/feed.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const feedRoutes = [{
   path: ':page',
@@ -8,34 +9,48 @@ const feedRoutes = [{
 }];
 
 const routes: Routes = [
+  {path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
   {path: '', redirectTo: 'news/1', pathMatch: 'full'},
   {
     path: 'news',
     children: feedRoutes,
-    data: {feedType: 'news'}
+    data: {feedType: 'news'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'newest',
     children: feedRoutes,
-    data: {feedType: 'newest'}
+    data: {feedType: 'newest'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'show',
     children: feedRoutes,
-    data: {feedType: 'show'}
+    data: {feedType: 'show'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'ask',
     children: feedRoutes,
-    data: {feedType: 'ask'}
+    data: {feedType: 'ask'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'jobs',
     children: feedRoutes,
-    data: {feedType: 'jobs'}
+    data: {feedType: 'jobs'},
+    canActivate: [AuthGuard]
   },
-  {path: 'item', loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule)},
-  {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}
+  {
+    path: 'item',
+    loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard]
+  }
 ];
 
 

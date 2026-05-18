@@ -1,0 +1,26 @@
+<div class="loginContainer">
+    <div class="loginCard">
+        <h2>Sign In</h2>
+        <div class="errorMessage" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <form (ngSubmit)="login()">
+            <div class="formGroup">
+                <label for="email">Email</label>
+                <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="formGroup">
+                <label for="password">Password</label>
+                <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="buttonGroup">
+                <button type="submit" class="primaryButton">Login</button>
+                <button type="button" class="secondaryButton" (click)="signup()">Sign Up</button>
+            </div>
+        </form>
+        <div class="divider">
+            <span>or</span>
+        </div>
+        <button type="button" class="googleButton" (click)="googleSignIn()">
+            Sign in with Google
+        </button>
+    </div>
+</div>

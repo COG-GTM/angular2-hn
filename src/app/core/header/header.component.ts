@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +13,11 @@ import { Settings } from '../../shared/models/settings';
 export class HeaderComponent implements OnInit {
   settings: Settings;
 
-  constructor(private _settingsService: SettingsService) {
+  constructor(
+    private _settingsService: SettingsService,
+    public authService: AuthService,
+    private router: Router
+  ) {
     this.settings = this._settingsService.settings;
   }
 
@@ -24,5 +30,9 @@ export class HeaderComponent implements OnInit {
 
   scrollTop() {
     window.scrollTo(0, 0);
+  }
+
+  logout() {
+    this.authService.logout().then(() => this.router.navigate(['/login']));
   }
 }

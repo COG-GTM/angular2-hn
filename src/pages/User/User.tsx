@@ -13,11 +13,17 @@ export function UserPage() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setUser(null);
         setErrorMessage('');
         fetchUser(id!)
-            .then(setUser)
-            .catch(() => setErrorMessage(`Could not load user ${id}.`));
+            .then((data) => {
+                if (!cancelled) setUser(data);
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage(`Could not load user ${id}.`);
+            });
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);

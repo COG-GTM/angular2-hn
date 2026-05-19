@@ -17,13 +17,19 @@ export function ItemDetails() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setItem(null);
         setErrorMessage('');
         const itemId = parseInt(id!, 10);
         fetchItemContent(itemId)
-            .then(setItem)
-            .catch(() => setErrorMessage('Could not load item comments.'));
+            .then((data) => {
+                if (!cancelled) setItem(data);
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage('Could not load item comments.');
+            });
         window.scrollTo(0, 0);
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);

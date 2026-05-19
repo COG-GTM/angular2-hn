@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchFeed } from '../../services/hackernews-api';
 import { Loader } from '../../components/Loader/Loader';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
@@ -13,23 +13,28 @@ interface FeedProps {
 
 export function Feed({ feedType }: FeedProps) {
     const { page } = useParams<{ page: string }>();
-    const location = useLocation();
     const pageNum = page ? parseInt(page, 10) : 1;
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setItems(null);
         setErrorMessage('');
         fetchFeed(feedType, pageNum)
             .then((data) => {
-                setItems(data);
-                window.scrollTo(0, 0);
+                if (!cancelled) {
+                    setItems(data);
+                    window.scrollTo(0, 0);
+                }
             })
             .catch(() => {
-                setErrorMessage(`Could not load ${feedType} stories.`);
+                if (!cancelled) {
+                    setErrorMessage(`Could not load ${feedType} stories.`);
+                }
             });
-    }, [feedType, pageNum, location.pathname]);
+        return () => { cancelled = true; };
+    }, [feedType, pageNum]);
 
     const listStart = (pageNum - 1) * 30 + 1;
 

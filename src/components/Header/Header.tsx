@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
+import { Settings } from '../Settings/Settings';
 import './Header.scss';
 
 export function Header() {
-    const { toggleSettings } = useSettings();
+    const { settings, toggleSettings } = useSettings();
 
     const scrollTop = () => window.scrollTo(0, 0);
 
@@ -31,6 +32,7 @@ export function Header() {
                     <img className="settings" src="/assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
                 </div>
             </div>
+            {settings.showSettings && <Settings />}
         </header>
     );
 }

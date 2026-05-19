@@ -10,6 +10,9 @@ import './App.scss';
 const ItemDetails = lazy(() =>
     import('./pages/ItemDetails/ItemDetails').then((m) => ({ default: m.ItemDetails }))
 );
+const UserPage = lazy(() =>
+    import('./pages/User/User').then((m) => ({ default: m.UserPage }))
+);
 
 function Layout() {
     const { settings } = useSettings();
@@ -25,10 +28,6 @@ function Layout() {
     );
 }
 
-function Placeholder({ label }: { label: string }) {
-    return <div style={{ padding: '2rem' }}>{label} — component coming in a follow-up PR</div>;
-}
-
 export function App() {
     return (
         <Suspense fallback={<Loader />}>
@@ -41,7 +40,7 @@ export function App() {
                     <Route path="/ask/:page" element={<Feed feedType="ask" />} />
                     <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
                     <Route path="/item/:id" element={<ItemDetails />} />
-                    <Route path="/user/:id" element={<Placeholder label="User Profile" />} />
+                    <Route path="/user/:id" element={<UserPage />} />
                 </Route>
             </Routes>
         </Suspense>

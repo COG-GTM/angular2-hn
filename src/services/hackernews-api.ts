@@ -41,6 +41,7 @@ export async function fetchUser(id: string): Promise<User> {
     const res = await fetch(`https://hacker-news.firebaseio.com/v0/user/${id}.json`);
     if (!res.ok) throw new Error(`Failed to fetch user ${id}`);
     const data = await res.json();
+    if (!data) throw new Error(`User ${id} not found`);
     return {
         id: data.id,
         created_time: data.created,

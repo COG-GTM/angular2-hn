@@ -117,6 +117,14 @@ export async function fetchItemContent(id: number): Promise<Story> {
     story.comments = await fetchComments(item.kids);
   }
 
+  if (item.type === 'poll' && item.parts && item.parts.length > 0) {
+    const partItems = await Promise.all(item.parts.map((id) => fetchItem(id)));
+    story.poll = partItems
+      .filter((p): p is HNItem => p !== null)
+      .map((p) => ({ points: p.score ?? 0, content: p.text ?? '' }));
+    story.poll_votes_count = story.poll.reduce((sum, p) => sum + p.points, 0);
+  }
+
   return story;
 }
 

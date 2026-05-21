@@ -91,10 +91,13 @@ export function FeedPage({ feedType }: FeedPageProps) {
   const pageNum = page ? parseInt(page, 10) : 1;
   const listStart = (pageNum - 1) * 30 + 1;
 
-  const { data: items, isLoading, error } = useQuery({
+  const { data: feedResult, isLoading, error } = useQuery({
     queryKey: ['feed', feedType, pageNum],
     queryFn: () => fetchFeed(feedType, pageNum),
   });
+
+  const items = feedResult?.items;
+  const hasMore = feedResult?.hasMore ?? false;
 
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage message={`Could not load ${feedType} stories.`} />;
@@ -125,7 +128,7 @@ export function FeedPage({ feedType }: FeedPageProps) {
                 ‹ Prev
               </Link>
             )}
-            {items.length === 30 && (
+            {hasMore && (
               <Link to={`/${feedType}/${pageNum + 1}`} className={styles.more}>
                 More ›
               </Link>

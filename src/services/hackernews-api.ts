@@ -92,7 +92,12 @@ function mapItemToStory(item: HNItem): Story {
   };
 }
 
-export async function fetchFeed(feedType: string, page: number): Promise<Story[]> {
+export interface FeedResult {
+  items: Story[];
+  hasMore: boolean;
+}
+
+export async function fetchFeed(feedType: string, page: number): Promise<FeedResult> {
   const endpoint = FEED_ENDPOINTS[feedType] ?? 'topstories';
   const ids = await fetchJSON<number[]>(`${BASE_URL}/${endpoint}.json`);
 
@@ -102,7 +107,10 @@ export async function fetchFeed(feedType: string, page: number): Promise<Story[]
 
   const items = await Promise.all(pageIds.map((id) => fetchItem(id)));
 
-  return items.filter((item): item is HNItem => item !== null).map(mapItemToStory);
+  return {
+    items: items.filter((item): item is HNItem => item !== null).map(mapItemToStory),
+    hasMore: end < ids.length,
+  };
 }
 
 export async function fetchItemContent(id: number): Promise<Story> {

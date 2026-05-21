@@ -12,7 +12,7 @@ function loadSettings(): Settings {
   return {
     showSettings: false,
     openLinkInNewTab: JSON.parse(localStorage.getItem('openLinkInNewTab') ?? 'false') as boolean,
-    theme: localStorage.getItem('theme') ?? '',
+    theme: localStorage.getItem('theme') ?? 'default',
     titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
     listSpacing: localStorage.getItem('listSpacing') ?? '0',
   };

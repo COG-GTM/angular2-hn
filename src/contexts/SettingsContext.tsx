@@ -5,6 +5,7 @@ type SettingsAction =
   | { type: 'TOGGLE_SETTINGS' }
   | { type: 'TOGGLE_OPEN_LINKS_IN_NEW_TAB' }
   | { type: 'SET_THEME'; theme: string }
+  | { type: 'APPLY_SYSTEM_THEME'; theme: string }
   | { type: 'SET_FONT_SIZE'; fontSize: string }
   | { type: 'SET_SPACING'; spacing: string };
 
@@ -29,6 +30,8 @@ function settingsReducer(state: Settings, action: SettingsAction): Settings {
     }
     case 'SET_THEME':
       localStorage.setItem('theme', action.theme);
+      return { ...state, theme: action.theme };
+    case 'APPLY_SYSTEM_THEME':
       return { ...state, theme: action.theme };
     case 'SET_FONT_SIZE':
       localStorage.setItem('titleFontSize', action.fontSize);
@@ -60,7 +63,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
 
     const applySystemTheme = (matches: boolean) => {
-      dispatch({ type: 'SET_THEME', theme: matches ? 'night' : 'default' });
+      dispatch({ type: 'APPLY_SYSTEM_THEME', theme: matches ? 'night' : 'default' });
     };
 
     applySystemTheme(mql.matches);

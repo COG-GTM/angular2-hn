@@ -55,7 +55,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   // Detect system preferred color scheme
   useEffect(() => {
-    if (settings.theme) return; // User already has a saved theme
+    if (localStorage.getItem('theme')) return; // User already has a saved theme
 
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
 

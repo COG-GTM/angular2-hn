@@ -1,0 +1,12 @@
+export function Footer() {
+  return (
+    <div id="footer">
+      <p>
+        Show this project some love on{' '}
+        <a href="https://github.com/COG-GTM/angular2-hn" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </p>
+    </div>
+  );
+}

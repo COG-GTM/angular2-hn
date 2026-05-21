@@ -1,0 +1,78 @@
+@use '../styles/media' as *;
+
+.mainContent {
+  padding: 0.5rem 1rem;
+
+  @media #{$mobile-only} {
+    padding: 0.5rem;
+  }
+}
+
+.item {
+  padding: 0.5rem 0;
+}
+
+.itemHeader {
+  padding: 0.5rem 0;
+}
+
+.titleBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title {
+  text-decoration: none;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.headMargin {
+  margin-bottom: 1rem;
+}
+
+.itemDetails {
+  margin-left: 0.3rem;
+}
+
+.time {
+  margin-left: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.commentTree {
+  padding-left: 1.2rem;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+
+  a {
+    word-break: break-all;
+  }
+}
+
+.subtree {
+  list-style: none;
+  padding-left: 0;
+}
+
+.commentList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.pollResults {
+  padding: 1rem 0;
+}
+
+.subject {
+  padding: 0.5rem 0;
+  line-height: 1.5;
+}

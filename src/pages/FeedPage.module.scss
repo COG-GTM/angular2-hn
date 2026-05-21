@@ -1,0 +1,60 @@
+@use '../styles/media' as *;
+
+.mainContent {
+  padding: 0.5rem 1rem;
+
+  @media #{$mobile-only} {
+    padding: 0.5rem;
+  }
+}
+
+.title {
+  text-decoration: none;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.listMargin {
+  padding-left: 2.5rem;
+}
+
+.post {
+  padding: 0.3rem 0;
+}
+
+.details {
+  display: inline;
+  font-size: 0.8rem;
+}
+
+.name {
+  a {
+    text-decoration: none;
+  }
+}
+
+.right {
+  margin-left: 0.5rem;
+}
+
+.commentNumber {
+  text-decoration: none;
+}
+
+.itemDetails {
+  margin-left: 0.3rem;
+}
+
+.prev,
+.more {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+}
+
+.prev {
+  margin-right: 1rem;
+}

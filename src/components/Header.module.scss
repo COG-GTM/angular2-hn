@@ -1,0 +1,63 @@
+@use '../styles/media' as *;
+
+.homeLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin: 0 0.5rem;
+
+  @media #{$mobile-only} {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.headerText {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  flex: 1;
+}
+
+.headerNav {
+  font-size: 0.9rem;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    padding: 0 0.15rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media #{$mobile-only} {
+    font-size: 0.8rem;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+}
+
+.settingsIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -68,7 +68,9 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
     applySystemTheme(mql.matches);
 
-    const handler = (e: MediaQueryListEvent) => applySystemTheme(e.matches);
+    const handler = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('theme')) applySystemTheme(e.matches);
+    };
     mql.addEventListener('change', handler);
     return () => mql.removeEventListener('change', handler);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

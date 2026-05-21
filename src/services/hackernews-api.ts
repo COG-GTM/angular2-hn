@@ -46,7 +46,7 @@ function extractDomain(url: string | undefined): string {
 
 function timeAgo(timestamp: number): string {
   const seconds = Math.floor(Date.now() / 1000 - timestamp);
-  if (seconds < 60) return `${seconds} seconds ago`;
+  if (seconds < 60) return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
   const hours = Math.floor(minutes / 60);

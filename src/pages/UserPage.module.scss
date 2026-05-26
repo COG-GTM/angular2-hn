@@ -1,0 +1,29 @@
+@use '../styles/media' as *;
+
+.profile {
+  padding: 1rem;
+
+  @media #{$mobile-only} {
+    padding: 0.5rem;
+  }
+}
+
+.itemHeader {
+  padding: 0.5rem 0;
+}
+
+.titleBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.age {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.otherDetails {
+  padding: 1rem 0;
+  line-height: 1.5;
+}

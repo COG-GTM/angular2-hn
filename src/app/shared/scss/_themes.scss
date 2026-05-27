@@ -16,6 +16,8 @@
   $item-a-color,
   $item-a-visited-color,
   $header-background-color,
+  $header-text-color,
+  $popup-background-color,
   $subtext-color,
   $secondary-link-color,
   $logo-inner-color,
@@ -49,6 +51,25 @@
       #header {
         background: $header-background-color;
         border-bottom: $border;
+        color: $header-text-color;
+
+        a {
+          color: $header-text-color;
+        }
+
+        .header-nav a {
+          color: rgba($header-text-color, 0.9);
+
+          &:hover, &.active {
+            color: $header-text-color;
+          }
+        }
+
+        @if lightness($header-text-color) < 50% {
+          .info .settings {
+            filter: brightness(0);
+          }
+        }
       }
 
       .logo-inner {
@@ -82,7 +103,7 @@
       }
 
       .popup {
-        background: $header-background-color;
+        background: $popup-background-color;
       }
 
       .item-header {
@@ -202,6 +223,8 @@
   $theme-day-text-color,
   $theme-day-subtext-color,
   $theme-day-header-background-color,
+  $theme-day-header-text-color,
+  $theme-day-popup-background-color,
   $theme-day-subtext-color,
   $theme-day-secondary-color,
   $theme-day-logo-inner,
@@ -217,6 +240,8 @@
   $theme-night-text-color,
   $theme-night-subtext-color,
   $theme-night-header-background-color,
+  $theme-night-header-text-color,
+  $theme-night-popup-background-color,
   $theme-night-subtext-color,
   $theme-night-secondary-color,
   $theme-night-logo-inner,
@@ -231,6 +256,8 @@
   $theme-amoledblack-text-color,
   $theme-amoledblack-text-color,
   darken($theme-amoledblack-text-color, 33%),
+  $theme-amoledblack-body-background-color,
+  #fff,
   $theme-amoledblack-body-background-color,
   $theme-amoledblack-subtext-color,
   $theme-amoledblack-secondary-color,

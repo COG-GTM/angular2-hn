@@ -11,8 +11,10 @@ $theme-day-wrapper-mobile-background-color: #fff;
 $theme-day-text-color: #000;
 $theme-day-subtext-color: #696969;
 $theme-day-secondary-color: #b92b27;
-$theme-day-header-background-color: $theme-day-secondary-color;
-$theme-day-logo-inner: #fff;
+$theme-day-header-background-color: #fff;
+$theme-day-header-text-color: #000;
+$theme-day-popup-background-color: $theme-day-secondary-color;
+$theme-day-logo-inner: $theme-day-secondary-color;
 
 // Day theme extras
 $theme-day-border: 2px solid #b92b27;
@@ -25,6 +27,8 @@ $theme-night-text-color: rgba(255, 255, 255, 0.7);
 $theme-night-subtext-color: #999;
 $theme-night-secondary-color: #00c0ff;
 $theme-night-header-background-color: #263238;
+$theme-night-header-text-color: #fff;
+$theme-night-popup-background-color: $theme-night-header-background-color;
 $theme-night-logo-inner: $theme-night-header-background-color;
 
 // Night theme extras

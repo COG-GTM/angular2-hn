@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -7,10 +8,18 @@ import { ItemDetails } from './pages/ItemDetails/ItemDetails';
 import { UserProfile } from './pages/UserProfile/UserProfile';
 import './styles/themes.scss';
 
-declare let ga: Function;
+declare let ga: (command: string, ...args: string[]) => void;
 
 function AppShell() {
   const { settings } = useSettings();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (typeof ga === 'function') {
+      ga('set', 'page', location.pathname);
+      ga('send', 'pageview');
+    }
+  }, [location.pathname]);
 
   return (
     <div className={settings.theme}>

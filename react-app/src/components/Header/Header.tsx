@@ -1,12 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { SettingsPanel } from '../Settings/Settings';
 import './Header.scss';
 
 export function Header() {
   const { settings, toggleSettings } = useSettings();
+  const location = useLocation();
 
   const scrollTop = () => window.scrollTo(0, 0);
+
+  const feedClass = (prefix: string) =>
+    location.pathname.startsWith(`/${prefix}/`) ? 'active' : undefined;
 
   return (
     <header>
@@ -18,13 +22,13 @@ export function Header() {
         <div className="header-text">
           <div className="left">
             <span className="header-nav">
-              <NavLink to="/newest/1" onClick={scrollTop}>new</NavLink>
+              <NavLink to="/newest/1" className={feedClass('newest')} onClick={scrollTop}>new</NavLink>
               {' | '}
-              <NavLink to="/show/1" onClick={scrollTop}>show</NavLink>
+              <NavLink to="/show/1" className={feedClass('show')} onClick={scrollTop}>show</NavLink>
               {' | '}
-              <NavLink to="/ask/1" onClick={scrollTop}>ask</NavLink>
+              <NavLink to="/ask/1" className={feedClass('ask')} onClick={scrollTop}>ask</NavLink>
               {' | '}
-              <NavLink to="/jobs/1" onClick={scrollTop}>jobs</NavLink>
+              <NavLink to="/jobs/1" className={feedClass('jobs')} onClick={scrollTop}>jobs</NavLink>
             </span>
           </div>
         </div>

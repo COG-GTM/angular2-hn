@@ -57,18 +57,16 @@ export function Feed({ feedType }: FeedProps) {
           <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
         </p>
       )}
-      {feedType !== 'new' && (
-        <ol
-          className={feedType !== 'jobs' ? 'list-margin' : undefined}
-          start={listStart}
-        >
-          {items.map(item => (
-            <li key={item.id} className="post">
-              <ItemCard item={item} />
-            </li>
-          ))}
-        </ol>
-      )}
+      <ol
+        className={feedType !== 'jobs' ? 'list-margin' : undefined}
+        start={listStart}
+      >
+        {items.map(item => (
+          <li key={item.id} className="post">
+            <ItemCard item={item} />
+          </li>
+        ))}
+      </ol>
       <div className="nav">
         {listStart !== 1 && (
           <Link to={`/${feedType}/${pageNum - 1}`} className="prev">

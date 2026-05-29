@@ -8,6 +8,7 @@ export async function fetchFeed(
   signal?: AbortSignal
 ): Promise<Story[]> {
   const res = await fetch(`${BASE_URL}/${feedType}?page=${page}`, { signal });
+  if (!res.ok) throw new Error(`HTTP error ${res.status}`);
   return res.json();
 }
 
@@ -16,6 +17,7 @@ export async function fetchItemContent(
   signal?: AbortSignal
 ): Promise<Story> {
   const res = await fetch(`${BASE_URL}/item/${id}`, { signal });
+  if (!res.ok) throw new Error(`HTTP error ${res.status}`);
   const story: Story = await res.json();
 
   if (story.type === 'poll' && story.poll) {
@@ -40,6 +42,7 @@ export async function fetchPollContent(
   signal?: AbortSignal
 ): Promise<PollResult> {
   const res = await fetch(`${BASE_URL}/item/${id}`, { signal });
+  if (!res.ok) throw new Error(`HTTP error ${res.status}`);
   return res.json();
 }
 
@@ -48,5 +51,6 @@ export async function fetchUser(
   signal?: AbortSignal
 ): Promise<User> {
   const res = await fetch(`${BASE_URL}/user/${id}`, { signal });
+  if (!res.ok) throw new Error(`HTTP error ${res.status}`);
   return res.json();
 }

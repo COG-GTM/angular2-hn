@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { SettingsProvider, useSettings } from './context/SettingsContext'
+import { usePageTracking } from './hooks/usePageTracking'
 import { Header } from './components/Header/Header'
 import { Footer } from './components/Footer/Footer'
 import { Loader } from './components/Loader/Loader'
@@ -12,6 +13,7 @@ const User = lazy(() => import('./pages/User/User'))
 
 function AppShell() {
     const { settings } = useSettings()
+    usePageTracking()
 
     return (
         <div className={settings.theme}>

@@ -83,7 +83,7 @@ export default function ItemDetailPage() {
             </div>
           </div>
 
-          {item.type === 'poll' && (
+          {item.type === 'poll' && Array.isArray(item.poll) && (
             <div className="pollResults">
               {item.poll.map((pollResult, index) => (
                 <div key={index} className="pollContent">

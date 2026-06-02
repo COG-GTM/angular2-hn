@@ -91,7 +91,13 @@ export default function ItemDetailPage() {
                   <div className="subtext">{pollResult.points} points</div>
                   <div
                     className="pollBar"
-                    style={{ width: `${(pollResult.points / item.poll_votes_count) * 100}%` }}
+                    style={{
+                      width: `${
+                        item.poll_votes_count > 0
+                          ? (pollResult.points / item.poll_votes_count) * 100
+                          : 0
+                      }%`,
+                    }}
                   ></div>
                 </div>
               ))}

@@ -1,13 +1,14 @@
 @import "../scss/media";
 @import "../scss/theme_variables";
 
-p {
+.feed-item {
+  p {
     margin: 2px 0;
 
     @media #{$mobile-only} {
       margin-bottom: 5px;
       margin-top: 0;
-   }
+    }
   }
 
   a {
@@ -66,3 +67,4 @@ p {
   .item-details {
     padding: 10px;
   }
+}

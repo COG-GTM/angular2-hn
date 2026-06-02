@@ -17,7 +17,7 @@ export function FeedItem({ item }: FeedItemProps) {
   const rel = settings.openLinkInNewTab ? 'noopener' : undefined;
 
   return (
-    <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+    <div className="feed-item" style={{ marginBottom: `${settings.listSpacing}px` }}>
       {hasUrl ? (
         <p>
           <a

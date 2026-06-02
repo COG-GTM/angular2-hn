@@ -32,7 +32,7 @@ test.describe('Angular 2 HN (React)', () => {
     await page.goto('/news/1');
     await expect(page.locator('ol li.post').first()).toBeVisible({ timeout: 30000 });
 
-    await page.locator('.subtext-laptop a, .comment-number').first().click();
+    await page.locator('.subtext-laptop .item-details a').first().click();
     await expect(page).toHaveURL(/\/item\/\d+$/);
   });
 

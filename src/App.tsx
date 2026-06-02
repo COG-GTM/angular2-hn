@@ -8,6 +8,7 @@ import { FeedPage } from './pages/FeedPage';
 import './App.scss';
 
 const ItemDetailPage = lazy(() => import('./pages/ItemDetailPage'));
+const UserPage = lazy(() => import('./pages/UserPage'));
 
 export function App() {
   const { settings } = useSettings();
@@ -34,6 +35,7 @@ export function App() {
             <Route path="/ask/:page" element={<FeedPage feedType="ask" />} />
             <Route path="/jobs/:page" element={<FeedPage feedType="jobs" />} />
             <Route path="/item/:id" element={<ItemDetailPage />} />
+            <Route path="/user/:id" element={<UserPage />} />
           </Routes>
         </Suspense>
         <Footer />

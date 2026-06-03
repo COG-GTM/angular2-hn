@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Comment } from '../../types/Comment';
+import './Comment.scss';
 
 interface CommentComponentProps {
   comment: Comment;
@@ -11,34 +12,40 @@ export function CommentComponent({ comment }: CommentComponentProps) {
 
   if (comment.deleted) {
     return (
-      <div className="comment" style={{ marginLeft: `${comment.level * 20}px` }}>
-        <div className="deleted-meta">[deleted] | Comment Deleted</div>
+      <div className="deleted-meta">
+        <span className="collapse">[deleted]</span> | Comment Deleted
       </div>
     );
   }
 
   return (
-    <div className="comment" style={{ marginLeft: `${comment.level * 20}px` }}>
-      <div className="comment-header">
-        <button className="toggle-btn" onClick={() => setCollapsed(!collapsed)}>
+    <>
+      <div className={`meta${collapsed ? ' meta-collapse' : ''}`}>
+        <span className="collapse" onClick={() => setCollapsed(!collapsed)}>
           [{collapsed ? '+' : '-'}]
-        </button>{' '}
-        <Link to={`/user/${comment.user}`}>{comment.user}</Link>{' '}
+        </span>{' '}
+        <Link to={`/user/${comment.user}`}>{comment.user}</Link>
         <span className="time">{comment.time_ago}</span>
       </div>
-
-      {!collapsed && (
-        <>
-          <div
-            className="comment-content"
-            dangerouslySetInnerHTML={{ __html: comment.content }}
-          />
-          {comment.comments &&
-            comment.comments.map(child => (
-              <CommentComponent key={child.id} comment={child} />
-            ))}
-        </>
-      )}
-    </div>
+      <div className="comment-tree">
+        {!collapsed && (
+          <>
+            <p
+              className="comment-text"
+              dangerouslySetInnerHTML={{ __html: comment.content }}
+            />
+            {comment.comments && comment.comments.length > 0 && (
+              <ul className="subtree">
+                {comment.comments.map(child => (
+                  <li key={child.id}>
+                    <CommentComponent comment={child} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+      </div>
+    </>
   );
 }

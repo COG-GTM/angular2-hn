@@ -4,6 +4,7 @@ import { fetchUser } from '../../services/hackerNewsApi';
 import { useFetch } from '../../hooks/useFetch';
 import { Loader } from '../shared/Loader';
 import { ErrorMessage } from '../shared/ErrorMessage';
+import './UserProfile.scss';
 
 function UserProfile() {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +18,7 @@ function UserProfile() {
   const { data: user, loading, error } = useFetch(
     fetcher,
     [id],
-    'Error fetching user profile',
+    `Could not load user ${id}.`,
   );
 
   if (loading) return <Loader />;
@@ -25,22 +26,23 @@ function UserProfile() {
   if (!user) return null;
 
   return (
-    <div className="user-profile">
-      <button className="back-button" onClick={() => navigate(-1)} aria-label="Go back"></button>
-      <div className="main-details">
-        <div className="name">{user.id}</div>
-        <div className="detail">
-          <span className="label">Karma: </span>
-          <span className="right">{user.karma}</span>
-        </div>
-        <div className="detail">
-          <span className="label">Created: </span>
-          <span className="right">{user.created}</span>
-        </div>
-        {user.about && (
-          <div className="about" dangerouslySetInnerHTML={{ __html: user.about }} />
-        )}
+    <div className="profile">
+      <div className="mobile item-header">
+        <p className="title-block">
+          <span className="back-button" onClick={() => navigate(-1)}></span>
+          Profile: {user.id}
+        </p>
       </div>
+      <div className="main-details">
+        <span className="name">{user.id}</span>
+        <span className="right">{user.karma} ★</span>
+        <p className="age">Created {user.created}</p>
+      </div>
+      {user.about && (
+        <div className="other-details">
+          <p dangerouslySetInnerHTML={{ __html: user.about }} />
+        </div>
+      )}
     </div>
   );
 }

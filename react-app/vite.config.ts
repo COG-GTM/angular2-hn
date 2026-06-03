@@ -8,11 +8,29 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'assets/images/logo.svg', 'assets/icons/*.png'],
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        // "app" group from ngsw-config.json — prefetch core shell assets
+        globPatterns: [
+          '**/*.html',
+          '**/*.css',
+          '**/*.js',
+          'manifest.json',
+          'favicon.ico',
+        ],
+        // "assets" group from ngsw-config.json — lazy cache with update
         runtimeCaching: [
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|webp|gif|svg|ico|eot|otf|ttf|woff|woff2|cur|ani)$/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'assets-cache',
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/node-hnapi\.herokuapp\.com\/.*/i,
             handler: 'NetworkFirst',

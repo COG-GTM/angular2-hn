@@ -43,6 +43,34 @@
   <style>
     #skip a { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
     #skip a:focus { position: static; width: auto; height: auto; }
+
+    .app-loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    @media screen and (max-width: 768px) {
+      .app-loader { background-color: #fff; }
+    }
+    #root:empty ~ .app-loader {
+      opacity: 1;
+      z-index: 100;
+    }
+    #root:empty ~ .app-loader .logo {
+      width: 20vh;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .6; transform: scale(.95); }
+    }
   </style>
 </head>
 <body>
@@ -50,7 +78,7 @@
   <div id="root"></div>
 
   <div class="app-loader" id="content">
-    <img class="logo" src="assets/images/logo.svg" alt="Logo" />
+    <img class="logo" src="/assets/images/logo.svg" alt="Logo" />
 
     <noscript>
       <h4 style="font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica;">

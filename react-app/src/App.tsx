@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSettings } from './context/useSettings';
 import { Loader } from './components/shared/Loader';
+import { Header } from './components/core/Header';
+import { Footer } from './components/core/Footer';
 import './styles/App.scss';
 
 const Feed = lazy(() => import('./components/feeds/Feed'));
@@ -33,13 +35,11 @@ function Layout() {
     <div className={settings.theme}>
       <div className="body-cover"></div>
       <div className="wrapper">
-        {/* Header placeholder - will be implemented in Child Session 1 */}
-        <div id="header-placeholder"></div>
+        <Header />
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-        {/* Footer placeholder - will be implemented in Child Session 1 */}
-        <div id="footer-placeholder"></div>
+        <Footer />
       </div>
     </div>
   );

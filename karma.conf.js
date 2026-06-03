@@ -26,6 +26,16 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+    customLaunchers: {
+      CustomChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
+      }
+    },
+    captureTimeout: 120000,
+    browserDisconnectTimeout: 60000,
+    browserDisconnectTolerance: 3,
+    browserNoActivityTimeout: 120000,
     singleRun: false,
     restartOnFileChange: true
   });

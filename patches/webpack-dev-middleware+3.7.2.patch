@@ -1,0 +1,13 @@
+diff --git a/node_modules/webpack-dev-middleware/lib/util.js b/node_modules/webpack-dev-middleware/lib/util.js
+index 8518417..c4e8bea 100644
+--- a/node_modules/webpack-dev-middleware/lib/util.js
++++ b/node_modules/webpack-dev-middleware/lib/util.js
+@@ -128,7 +128,7 @@ module.exports = {
+     // alternative header APIs
+     res.setHeader('Accept-Ranges', 'bytes');
+ 
+-    if (req.headers.range) {
++    if (req.headers && req.headers.range) {
+       const ranges = parseRange(content.length, req.headers.range);
+ 
+       // unsatisfiable

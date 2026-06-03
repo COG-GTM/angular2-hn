@@ -5,6 +5,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { Loader } from '../shared/Loader';
 import { ErrorMessage } from '../shared/ErrorMessage';
 import { Item } from './Item';
+import './Feed.scss';
 
 interface FeedProps {
   feedType: string;
@@ -13,6 +14,7 @@ interface FeedProps {
 function Feed({ feedType }: FeedProps) {
   const { page } = useParams<{ page: string }>();
   const currentPage = Number(page) || 1;
+  const listStart = (currentPage - 1) * 30 + 1;
 
   const fetcher = useCallback(
     () => fetchFeed(feedType, currentPage),
@@ -22,7 +24,7 @@ function Feed({ feedType }: FeedProps) {
   const { data: items, loading, error } = useFetch(
     fetcher,
     [feedType, currentPage],
-    'Error fetching stories',
+    `Could not load ${feedType} stories.`,
   );
 
   if (loading) return <Loader />;
@@ -30,22 +32,33 @@ function Feed({ feedType }: FeedProps) {
   if (!items) return null;
 
   return (
-    <div className="feed">
-      {feedType === 'jobs' && <div className="job-header">Hacker News: Jobs</div>}
-      <ol start={(currentPage - 1) * 30 + 1}>
+    <div className="main-content">
+      {feedType === 'jobs' && (
+        <p className="job-header">
+          These are jobs at startups that were funded by Y Combinator.
+          You can also get a job at a YC startup through{' '}
+          <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
+        </p>
+      )}
+      <ol
+        className={feedType !== 'jobs' ? 'list-margin' : undefined}
+        start={listStart}
+      >
         {items.map(item => (
-          <Item key={item.id} item={item} />
+          <li key={item.id} className="post">
+            <Item item={item} />
+          </li>
         ))}
       </ol>
-      <div className="pagination">
-        {currentPage > 1 && (
+      <div className="nav">
+        {listStart !== 1 && (
           <Link to={`/${feedType}/${currentPage - 1}`} className="prev">
-            &lt; Prev
+            ‹ Prev
           </Link>
         )}
-        {items.length >= 30 && (
+        {items.length === 30 && (
           <Link to={`/${feedType}/${currentPage + 1}`} className="more">
-            More &gt;
+            More ›
           </Link>
         )}
       </div>

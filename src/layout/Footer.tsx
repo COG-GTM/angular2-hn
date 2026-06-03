@@ -1,5 +1,5 @@
-// PLACEHOLDER — to be implemented in the migration child session for the Footer.
-// Parity target: src/app/core/footer/footer.component.{ts,html,scss} on the `master` branch.
+import './Footer.scss';
+
 export function Footer() {
     return (
         <div id="footer">

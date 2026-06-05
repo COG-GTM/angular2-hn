@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
 import { Story } from '../../shared/models/story';
+import { ItemComponent } from '../item/item.component';
+import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+    selector: 'app-feed',
+    templateUrl: './feed.component.html',
+    styleUrls: ['./feed.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoaderComponent, ErrorMessageComponent, NgFor, ItemComponent, RouterLinkActive, RouterLink]
 })
 
 export class FeedComponent implements OnInit {

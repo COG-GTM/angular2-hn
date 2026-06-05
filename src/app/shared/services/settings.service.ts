@@ -1,89 +1,84 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { Settings } from '../models/settings';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class SettingsService {
-  settings: Settings = {
-    showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
-    theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
-  };
+export class SettingsService implements OnDestroy {
+  settings: Settings;
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
+
   constructor() {
+    const openLinkInNewTab = localStorage.getItem('openLinkInNewTab');
+    const titleFontSize = localStorage.getItem('titleFontSize');
+    const listSpacing = localStorage.getItem('listSpacing');
+
+    this.settings = {
+      showSettings: false,
+      openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
+      theme: 'default',
+      titleFontSize: titleFontSize ?? '16',
+      listSpacing: listSpacing ?? '0',
+    };
+
     this.subscribeToSystemPreferredColorScheme();
     this.initTheme();
   }
-  
-  ngOnDestroy() {
+
+  ngOnDestroy(): void {
     this.unSubscribeToSystemPrefferedColorScheme();
   }
 
-  handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
-    if (event.matches) {
-      theme = 'night';
-    } else {
-      theme = 'default';
-    }
+  handleSystemPreferredColorSchemeChange = (event: MediaQueryListEvent): void => {
+    const theme = event.matches ? 'night' : 'default';
     this.setTheme(theme);
-  }
-  
-  subscribeToSystemPreferredColorScheme() {
-    this.darkColorSchemeMedia.addEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
+  };
+
+  subscribeToSystemPreferredColorScheme(): void {
+    this.darkColorSchemeMedia.addEventListener('change', this.handleSystemPreferredColorSchemeChange);
   }
 
-  initTheme() {
-    const savedTheme = localStorage.getItem("theme");
+  initTheme(): void {
+    const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       this.settings.theme = savedTheme;
     } else {
       this.darkColorSchemeMedia.dispatchEvent(
         new MediaQueryListEvent('change', {
           media: this.darkColorSchemeMedia.media,
-          matches: this.darkColorSchemeMedia.matches
+          matches: this.darkColorSchemeMedia.matches,
         })
       );
     }
   }
 
-  unSubscribeToSystemPrefferedColorScheme() {
-    this.darkColorSchemeMedia.removeEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
+  unSubscribeToSystemPrefferedColorScheme(): void {
+    this.darkColorSchemeMedia.removeEventListener('change', this.handleSystemPreferredColorSchemeChange);
   }
 
-  toggleSettings() {
+  toggleSettings(): void {
     this.settings.showSettings = !this.settings.showSettings;
   }
 
-  toggleOpenLinksInNewTab() {
+  toggleOpenLinksInNewTab(): void {
     this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
+    localStorage.setItem('openLinkInNewTab', JSON.stringify(this.settings.openLinkInNewTab));
   }
 
-  setTheme(theme) {
+  setTheme(theme: string): void {
     this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
+    localStorage.setItem('theme', this.settings.theme);
   }
 
-  setFont(fontSize){
+  setFont(fontSize: string): void {
     this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
+    localStorage.setItem('titleFontSize', this.settings.titleFontSize);
   }
 
-  setSpacing(listSpace){
+  setSpacing(listSpace: string): void {
     this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
+    localStorage.setItem('listSpacing', this.settings.listSpacing);
   }
 }

@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  <a href="https://github.com/COG-GTM/angular2-hn/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/COG-GTM/angular2-hn/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 ---
@@ -71,18 +71,31 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
+## Tech stack
+
+This app was modernized from Angular 9 to **Angular 17**:
+
+ - **Angular 17** with standalone components (no `NgModule`s) and `@if`/`@for` control-flow syntax
+ - **TypeScript 5.4**
+ - **RxJS 7**
+ - **esbuild** `application` builder (the default for new Angular 17 apps)
+ - **ESLint** + [`angular-eslint`](https://github.com/angular-eslint/angular-eslint) (replacing TSLint/Codelyzer)
+ - **Karma + Jasmine** for unit tests
+ - **GitHub Actions** for CI (replacing Travis)
+ - **Workbox** service worker for offline support, deployed to **Firebase Hosting**
+
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The project uses the standard [Angular CLI](https://angular.io/cli) workflow:
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the development server at `http://localhost:4200`
+ - `npm run build -- --configuration production` to produce an optimized build in `dist/`
+ - `npm test` to run unit tests
+ - `npm run lint` to lint the project
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The production build automatically generates the Workbox service worker, so offline behavior can be verified by serving the contents of `dist/` with any static file server.
 
 ## Contributors
 

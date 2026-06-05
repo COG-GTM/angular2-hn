@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    standalone: true
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   settings: Settings;
 
   constructor(private _settingsService: SettingsService) {
     this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {
   }
 
   closeSettings() {

@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
 import { Story } from '../../shared/models/story';
+import { ItemComponent } from '../item/item.component';
+import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+    selector: 'app-feed',
+    templateUrl: './feed.component.html',
+    styleUrls: ['./feed.component.scss'],
+    standalone: true,
+    imports: [LoaderComponent, ErrorMessageComponent, ItemComponent, RouterLinkActive, RouterLink]
 })
 
 export class FeedComponent implements OnInit {
@@ -30,20 +35,20 @@ export class FeedComponent implements OnInit {
     this.typeSub = this.route
       .data
       .subscribe(data => {
-        this.feedType = (data as any).feedType;
+        this.feedType = data['feedType'];
       });
 
     this.pageSub = this.route.params.subscribe(params => {
       this.pageNum = params['page'] ? +params['page'] : 1;
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
-        .subscribe(
-          items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
-          () => {
+        .subscribe({
+          next: items => this.items = items,
+          error: () => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
+          complete: () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
             window.scrollTo(0, 0);
           }
-        );
+        });
     });
   }
 }

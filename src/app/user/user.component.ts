@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { User } from '../shared/models/user';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    standalone: true,
+    imports: [LoaderComponent, ErrorMessageComponent]
 })
 export class UserComponent implements OnInit {
   sub: Subscription;
@@ -24,10 +28,11 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
-      this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
-        this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
+      const userID = params['id'];
+      this._hackerNewsAPIService.fetchUser(userID).subscribe({
+        next: data => { this.user = data; },
+        error: () => this.errorMessage = 'Could not load user ' + userID + '.'
+      });
     });
   }
 

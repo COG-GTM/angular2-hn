@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
+import { Location, NgStyle } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
 
 import { Story } from '../shared/models/story';
 import { Settings } from '../shared/models/settings';
+import { CommentPipe } from '../shared/pipes/comment.pipe';
+import { CommentComponent } from './comment/comment.component';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 
 @Component({
-  selector: 'app-item-details',
-  templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.scss']
+    selector: 'app-item-details',
+    templateUrl: './item-details.component.html',
+    styleUrls: ['./item-details.component.scss'],
+    standalone: true,
+    imports: [LoaderComponent, ErrorMessageComponent, RouterLinkActive, RouterLink, NgStyle, CommentComponent, CommentPipe]
 })
 export class ItemDetailsComponent implements OnInit {
   sub: Subscription;
@@ -31,10 +37,11 @@ export class ItemDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
-        this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
+      const itemID = +params['id'];
+      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe({
+        next: item => { this.item = item; },
+        error: () => this.errorMessage = 'Could not load item comments.'
+      });
     });
     window.scrollTo(0, 0);
   }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 import { SettingsComponent } from '../settings/settings.component';
-import { NgIf } from '@angular/common';
+
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [RouterLink, RouterLinkActive, NgIf, SettingsComponent]
+    imports: [RouterLink, RouterLinkActive, SettingsComponent]
 })
 export class HeaderComponent {
   settings: Settings;

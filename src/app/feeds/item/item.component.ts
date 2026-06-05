@@ -5,14 +5,14 @@ import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 import { CommentPipe } from '../../shared/pipes/comment.pipe';
 import { RouterLinkActive, RouterLink } from '@angular/router';
-import { NgStyle, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 @Component({
     selector: 'app-item',
     templateUrl: './item.component.html',
     styleUrls: ['./item.component.scss'],
     standalone: true,
-    imports: [NgStyle, NgIf, RouterLinkActive, RouterLink, CommentPipe]
+    imports: [NgStyle, RouterLinkActive, RouterLink, CommentPipe]
 })
 export class ItemComponent {
   @Input() item: Story;

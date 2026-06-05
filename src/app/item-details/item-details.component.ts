@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
-import { Location, NgIf, NgFor, NgStyle } from '@angular/common';
+import { Location, NgStyle } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
@@ -18,7 +18,7 @@ import { LoaderComponent } from '../shared/components/loader/loader.component';
     templateUrl: './item-details.component.html',
     styleUrls: ['./item-details.component.scss'],
     standalone: true,
-    imports: [NgIf, LoaderComponent, ErrorMessageComponent, RouterLinkActive, RouterLink, NgFor, NgStyle, CommentComponent, CommentPipe]
+    imports: [LoaderComponent, ErrorMessageComponent, RouterLinkActive, RouterLink, NgStyle, CommentComponent, CommentPipe]
 })
 export class ItemDetailsComponent implements OnInit {
   sub: Subscription;

@@ -2,7 +2,7 @@
     <div class="popup">
         <h1>Settings</h1>
         <hr>
-        <span class="close" (click)="closeSettings()">&times;</span>
+        <span class="close" role="button" tabindex="0" (click)="closeSettings()" (keydown.enter)="closeSettings()">&times;</span>
         <div class="content">
             <div class="control-section">
                 <h2>Links</h2>

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with Angular (modernized to Angular 17)
 </p>
 
 <p align="center">
@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
@@ -41,9 +40,21 @@
   <img src = "http://i.imgur.com/MrKHaln.gif">
 </p>
 
+## Tech Stack
+
+This project was modernized from Angular 9 to a current Angular stack:
+
+- **Angular 17** with standalone components, `bootstrapApplication`, and the new control flow syntax (`@if` / `@for`)
+- **TypeScript 5.4** and **RxJS 7.8**
+- **esbuild-based** application builder (`@angular-devkit/build-angular:application`)
+- **ESLint** (`@angular-eslint`) for linting (replacing TSLint)
+- **Karma + Jasmine** for unit tests
+- **Playwright** for end-to-end tests (replacing Protractor)
+- **GitHub Actions** for CI/CD (replacing Travis CI)
+
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [`@angular/service-worker`](https://angular.dev/ecosystem/service-workers) to generate a service worker as part of the production build so it loads quickly and works offline. The worker is configured in `ngsw-config.json` and registered via `provideServiceWorker()` in `src/app/app.config.ts`.
 
 ## Manifest
 
@@ -73,16 +84,21 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+Requires **Node.js 18.13+ or 20.9+** and npm.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the dev server at `http://localhost:4200`
+ - `npm run build` to produce an optimized production build in `dist/angular-hnpwa/`
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+### Other scripts
+
+ - `npm run lint` &mdash; run ESLint over the TypeScript and HTML templates
+ - `npm test` &mdash; run unit tests in watch mode (Karma + Jasmine)
+ - `npm run test:ci` &mdash; run unit tests once in headless Chrome
+ - `npm run e2e` &mdash; run the Playwright end-to-end tests (boots the dev server automatically)
+
+The service worker is only enabled in production builds. To exercise it locally, build the app and serve `dist/angular-hnpwa/browser` with any static file server.
 
 ## Contributors
 

@@ -14,15 +14,13 @@
           You can also get a job at a YC startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
         </p>
       }
-      @if (feedType !== 'new') {
-        <ol [class.list-margin]="feedType !== 'jobs'" start="{{ listStart }}">
-          @for (item of items; track item.id) {
-            <li class="post">
-              <app-item class="item-block" [item]="item"></app-item>
-            </li>
-          }
-        </ol>
-      }
+      <ol [class.list-margin]="feedType !== 'jobs'" start="{{ listStart }}">
+        @for (item of items; track item.id) {
+          <li class="post">
+            <app-item class="item-block" [item]="item"></app-item>
+          </li>
+        }
+      </ol>
       <div class="nav">
         @if (listStart !== 1) {
           <a [routerLink]="['/' + feedType, pageNum - 1]" routerLinkActive="active" class="prev">

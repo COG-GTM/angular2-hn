@@ -31,13 +31,13 @@ export class SettingsService implements OnDestroy {
     this.unSubscribeToSystemPrefferedColorScheme();
   }
 
-  handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent): void {
+  handleSystemPreferredColorSchemeChange = (event: MediaQueryListEvent): void => {
     const theme = event.matches ? 'night' : 'default';
     this.setTheme(theme);
-  }
+  };
 
   subscribeToSystemPreferredColorScheme(): void {
-    this.darkColorSchemeMedia.addEventListener('change', this.handleSystemPreferredColorSchemeChange.bind(this));
+    this.darkColorSchemeMedia.addEventListener('change', this.handleSystemPreferredColorSchemeChange);
   }
 
   initTheme(): void {
@@ -55,7 +55,7 @@ export class SettingsService implements OnDestroy {
   }
 
   unSubscribeToSystemPrefferedColorScheme(): void {
-    this.darkColorSchemeMedia.removeEventListener('change', this.handleSystemPreferredColorSchemeChange.bind(this));
+    this.darkColorSchemeMedia.removeEventListener('change', this.handleSystemPreferredColorSchemeChange);
   }
 
   toggleSettings(): void {

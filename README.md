@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
+    <img alt="React HN" title="React HN" src="http://i.imgur.com/J303pQ4.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
@@ -23,35 +22,27 @@
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:rocket: **Progressive:** Built with modern tooling for optimal performance.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+## Tech Stack
 
-## Mobile Preview
+- **React 18** with TypeScript
+- **Vite** for blazing fast builds
+- **React Router v6** for client-side routing
+- **vite-plugin-pwa** for service worker / PWA support
+- **SCSS** for styling with theme engine
+- **Firebase Hosting** for deployment
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+## Features
 
-## Laptop Preview
-
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
-
-## Offline Support
-
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
-
-## Manifest
-
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
-
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+- Browse HN feeds: news, newest, show, ask, jobs
+- View item details and comments (recursive)
+- User profiles
+- Settings panel with theme switching (Default / Night / Black AMOLED)
+- Customizable font size and list spacing
+- Open links in new tab toggle
+- PWA installable with offline support
+- Google Analytics integration
 
 ## Themes
 
@@ -62,27 +53,38 @@ Current themes:
 * Night
 * Black (AMOLED)
 
-More to come!
+## Build Process
 
-## Areas of improvement
+- Clone or download the repo
+- `npm install`
+- `npm run dev` to start the development server
+- `npm run build` to create a production build in `dist/`
+- `npm run preview` to preview the production build locally
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+## Deployment
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+This app is configured for Firebase Hosting:
 
-## Build process
+```bash
+npm run build
+firebase deploy
+```
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+## Component Architecture
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+```
+App.tsx (Router + SettingsProvider + Layout)
+├── Header.tsx (nav links, settings toggle)
+├── Footer.tsx
+├── Settings.tsx (theme/font/spacing controls)
+├── Feed.tsx (with useFeed hook)
+│   └── Item.tsx
+├── ItemDetails.tsx (lazy-loaded)
+│   └── Comment.tsx (recursive)
+├── User.tsx (lazy-loaded)
+├── Loader.tsx
+└── ErrorMessage.tsx
+```
 
 ## Contributors
 

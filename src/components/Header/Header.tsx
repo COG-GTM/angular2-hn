@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { useSettings } from '../../contexts/SettingsContext';
+import Settings from '../Settings/Settings';
 import './Header.scss';
 
 export default function Header() {
-    const { toggleSettings } = useSettings();
+    const { showSettings, toggleSettings } = useSettings();
 
     const scrollTop = () => window.scrollTo(0, 0);
 
@@ -44,7 +45,7 @@ export default function Header() {
                     />
                 </div>
             </div>
-            {/* Settings panel will be added in Phase 4 */}
+            {showSettings && <Settings />}
         </header>
     );
 }

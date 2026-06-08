@@ -4,6 +4,7 @@ import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 
 @Component({
+  standalone: false,
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']

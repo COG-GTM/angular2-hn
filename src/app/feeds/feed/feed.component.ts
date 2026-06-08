@@ -7,6 +7,7 @@ import { HackerNewsAPIService } from '../../shared/services/hackernews-api.servi
 import { Story } from '../../shared/models/story';
 
 @Component({
+  standalone: false,
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']

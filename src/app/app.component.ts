@@ -7,6 +7,7 @@ import { Settings } from './shared/models/settings';
 declare let ga: Function;
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

@@ -1,13 +1,11 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
-:host >>> {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+::ng-deep a {
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
 

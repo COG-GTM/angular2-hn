@@ -1,9 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSettings } from './contexts/SettingsContext';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import './App.scss';
 
 function Placeholder({ label }: { label: string }) {
-    return <div style={{ padding: 40 }}>{label} — component coming in Phase 2/3</div>;
+    return <div style={{ padding: 40 }}>{label} — page coming in Phase 3</div>;
 }
 
 export default function App() {
@@ -13,7 +15,7 @@ export default function App() {
         <div className={theme}>
             <div className="body-cover" />
             <div className="wrapper">
-                {/* Header component will be added in Phase 2 */}
+                <Header />
                 <Routes>
                     <Route path="/" element={<Navigate to="/news/1" replace />} />
                     <Route path="/news/:page" element={<Placeholder label="Feed (news)" />} />
@@ -24,7 +26,7 @@ export default function App() {
                     <Route path="/item/:id" element={<Placeholder label="Item Details" />} />
                     <Route path="/user/:id" element={<Placeholder label="User Profile" />} />
                 </Routes>
-                {/* Footer component will be added in Phase 2 */}
+                <Footer />
             </div>
         </div>
     );

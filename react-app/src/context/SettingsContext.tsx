@@ -27,7 +27,7 @@ function getInitialSettings(): Settings {
 
   return {
     showSettings: false,
-    openLinkInNewTab: openLinkRaw ? JSON.parse(openLinkRaw) : false,
+    openLinkInNewTab: openLinkRaw ? (() => { try { return JSON.parse(openLinkRaw); } catch { return false; } })() : false,
     theme,
     titleFontSize,
     listSpacing,

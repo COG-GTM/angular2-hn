@@ -17,6 +17,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/main.tsx", "src/App.tsx", "src/App.scss", "src/types", "vite-env.d.ts"],
+  "include": ["src/main.tsx", "src/App.tsx", "src/types", "src/services", "src/contexts", "src/components", "src/utils", "src/pages", "vite-env.d.ts"],
   "exclude": ["src/app"]
 }

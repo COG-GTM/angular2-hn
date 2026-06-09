@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 <p align="center">
@@ -20,6 +20,8 @@
 ---
 
 :zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+
+> **Note:** This app was originally built with Angular and has since been migrated to **React 18 + TypeScript** using **Vite** as the build tool and **react-router-dom v6** for routing. PWA/offline support is provided by [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/) (Workbox under the hood).
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
@@ -41,13 +43,21 @@
   <img src = "http://i.imgur.com/MrKHaln.gif">
 </p>
 
+## Tech stack
+
+* [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+* [Vite](https://vitejs.dev/) for development and bundling
+* [react-router-dom v6](https://reactrouter.com/) for routing (with `React.lazy` + `Suspense` for code-splitting)
+* [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) for the service worker / offline support
+* [Sass](https://sass-lang.com/) for the existing theme engine
+
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://workboxjs.org/) (via `vite-plugin-pwa`) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), the app includes a Web App Manifest that allows you to install to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -73,16 +83,17 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to start the Vite dev server
+ - `npm run build` to produce an optimized production build in the output directory (`dist/`)
+ - `npm run preview` to locally preview the production build (this also serves the generated service worker, so it's the best way to test PWA/offline behavior)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Other scripts:
+ - `npm run lint` &mdash; run ESLint
+ - `npm run typecheck` &mdash; run the TypeScript compiler with `--noEmit`
+
+Note: Service Worker behavior is only active in a production build. Use `npm run build` followed by `npm run preview` to test offline support and installability.
 
 ## Contributors
 

@@ -12,7 +12,7 @@ const sampleStory: Story = {
     points: 100,
     user: 'tester',
     time: 0,
-    time_ago: 0,
+    time_ago: '2 hours ago',
     type: 'story',
     url: 'https://example.com/article',
     domain: 'example.com',

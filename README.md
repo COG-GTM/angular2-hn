@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite (originally built with Angular)
 </p>
 
 <p align="center">
@@ -71,18 +71,34 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
+## Tech stack
+
+This app was migrated from Angular 9 to a modern React stack:
+
+- [React 19](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) for development and bundling
+- [React Router](https://reactrouter.com/) for routing
+- [Sass](https://sass-lang.com/) for theming
+- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) for the service worker and manifest
+- [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for tests
+
+The React application lives in the [`react-app/`](./react-app) directory.
+
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
  - Clone or download the repo
+ - `cd react-app`
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to start the Vite dev server
+ - `npm run build` to produce a production build in `react-app/dist/`
+ - `npm test` to run the test suite
+ - `npm run lint` to lint the project
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The root `package.json` also exposes convenience scripts that delegate to the
+React app (e.g. `npm run dev`, `npm run build`, `npm test`, `npm run lint`).
+
+Note: The service worker is only generated in production builds. To test it
+locally run `npm run build` followed by `npm run preview` from `react-app/`.
 
 ## Contributors
 

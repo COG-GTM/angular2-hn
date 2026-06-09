@@ -1,17 +1,23 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "20"
 
 branches:
   only:
     - master
 
+cache:
+  directories:
+    - react-app/node_modules
+
 before_script:
   - npm install -g firebase-tools
-  - npm install -g @angular/cli
+
+install:
+  - cd react-app && npm install && cd ..
 
 script:
-  - npm run build
+  - cd react-app && npm run build && npm test && cd ..
 
 after_success:
   - firebase use default

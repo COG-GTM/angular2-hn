@@ -8,7 +8,11 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:visual:angular": "ANGULAR_BASE_URL=http://localhost:4200 npx playwright test --project=angular",
+    "test:visual:react": "REACT_BASE_URL=http://localhost:5173 npx playwright test --project=react",
+    "test:visual:compare": "tsx tests/compare-screenshots.ts",
+    "test:parity": "npm run test:visual:angular && npm run test:visual:react && npm run test:visual:compare"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -16,13 +20,20 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
     "sass": "^1.80.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.22.4",
     "typescript": "^5.6.3",
     "vite": "^6.0.0",
-    "vite-plugin-pwa": "^1.3.0"
+    "vite-plugin-pwa": "^1.3.0",
+    "wait-on": "^9.0.10"
   },
   "prettier": {
     "trailingComma": "es5",

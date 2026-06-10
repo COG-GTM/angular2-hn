@@ -1,0 +1,41 @@
+{
+  "id": 48477135,
+  "title": "AMA: I'm Eric Ries (The Lean Startup) & Author of New Bestseller Incorruptible",
+  "points": 167,
+  "user": "eries",
+  "time": 1781102872,
+  "time_ago": "2 hours ago",
+  "type": "link",
+  "content": "<p>Hey gang, you may remember me from such books as _The Lean Startup_ and _The Startup Way_.<p>It&#x27;s been fifteen years since I wrote The Lean Startup, and in that time I&#x27;ve seen some things. In both big companies and tiny startups, NGOs and governments, in almost every industry you can name.<p>I&#x27;ve helped a lot of people create a lot of amazing companies, but I&#x27;ve also seen so many ways this can go wrong. There&#x27;s a darkness in our industry that we often don&#x27;t talk about.<p>I kept watching good companies drift away from the missions they were founded on. Not because anyone woke up one day and decided to be evil, but because the structure they were built on slowly pulled them there. I call that pull &quot;financial gravity.&quot;<p>We&#x27;ve all experienced watching a company we love or admire be warped and broken beyond recognition; until it&#x27;s a husk of its former self, or worse. I wanted to understand why. And I wanted to know what all of us can do to stop that from happening.<p>My new book _Incorruptible_ is my attempt to explain the invisible forces that shape organizations, and how a handful of companies (like Costco, Patagonia, and Novo Nordisk) have successfully been structured to resist gravity and thrive for decades -- or even centuries.<p>Along the way, I founded the Long-Term Stock Exchange, co-founded an AI R&amp;D lab called Answer.AI with Jeremy Howard, and helped a number of notable companies with their governance (yes, including Anthropic).<p>I won&#x27;t pretend I have this all figured out, but I&#x27;ve probably spent more time than is healthy on the &quot;why do good companies go bad&quot; question. Ask me anything!",
+  "url": "item?id=48477135",
+  "comments": [
+    {
+      "id": 48478795,
+      "level": 0,
+      "user": "nradov",
+      "time": 1781109046,
+      "time_ago": "22 minutes ago",
+      "content": "<p>It will be interesting to see how many of those companies remain &quot;incorruptible&quot;. Your new book seems a bit like a sequel to Jim Collins&#x27;s 2001 book <i>Good to Great</i>. Several of the &quot;great&quot; companies including Circuit City, Fannie Mae, and Wells Fargo later ran into serious problems. And from an investor perspective, as a group they have underperformed the S&amp;P 500.<p><a href=\"https:&#x2F;&#x2F;www.harpercollins.com&#x2F;products&#x2F;good-to-great-jim-collins?variant=32116997292066\" rel=\"nofollow\">https:&#x2F;&#x2F;www.harpercollins.com&#x2F;products&#x2F;good-to-great-jim-col...</a>",
+      "comments": []
+    },
+    {
+      "id": 48479142,
+      "level": 0,
+      "user": "imdsm",
+      "time": 1781110340,
+      "time_ago": "a minute ago",
+      "content": "<p>You said build-measure-learn principles survive AI. But when an MVP costs hours instead of months, doesn&#x27;t the bottleneck move entirely to distribution and customer development?",
+      "comments": []
+    },
+    {
+      "id": 48478523,
+      "level": 0,
+      "user": "Ozzie_osman",
+      "time": 1781107998,
+      "time_ago": "40 minutes ago",
+      "content": "<p>Just dropping in to thank you for writing this book and raising awareness around it. A lot of builders are really disillusioned by how &quot;corruptible&quot; the tech industry has been.<p>I wrote a blog post called &quot;Revenue Model is More Important than Culture&quot; (it made the #1 spot on HackerNews a few years ago) arguing that the way to avoid that corruption is by making sure the business model is immune to it, but having read your thoughts, I&#x27;d say your argument (structure being the dominant term) is even stronger.",
+      "comments": []
+    }
+  ],
+  "comments_count": 86
+}

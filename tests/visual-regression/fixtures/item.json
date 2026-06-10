@@ -1,0 +1,618 @@
+{
+  "id": 48475483,
+  "title": "Building an HTML-first site doubled our users overnight",
+  "points": 585,
+  "user": "edent",
+  "time": 1781095547,
+  "time_ago": "4 hours ago",
+  "type": "link",
+  "url": "https://mohkohn.co.uk/writing/html-first/",
+  "domain": "mohkohn.co.uk",
+  "comments": [
+    {
+      "id": 48478007,
+      "level": 0,
+      "user": "OskarS",
+      "time": 1781105865,
+      "time_ago": "an hour ago",
+      "content": "<p>As a non-web dev, I have a question about this part:<p>&gt; There was a sad coda; as is the way of contract work, I moved on. I explained what I had built to my replacement, that it always worked even without javascript. He was appalled and said, \u201cbut that\u2019s a lot more work for us.\u201d<p>Why is it more work? The approach described in the article seems honestly reasonably simple: just write the standard &lt;input&gt; components for the form, have a submit button at the bottom. When I was making my own websites many years ago now, that&#x27;s how it worked, and it wasn&#x27;t that hard. Maybe it&#x27;s reflecting my ignorance in this field, but doing fancy front-ends seems much harder to me.",
+      "comments": [
+        {
+          "id": 48478274,
+          "level": 1,
+          "user": "chao-",
+          "time": 1781106986,
+          "time_ago": "an hour ago",
+          "content": "<p>Starting a few years ago, I realized some junior and medior engineers never once considered the possibility of building a website (app, experience, etc.) in anything other than a heavy SPA framework. But they&#x27;re not stupid people! If you directly asked &quot;Can you build a website without React?&quot; they know the answer is obviously &quot;Yes.&quot; However, if you asked them to build a new website, they would unthinkingly start a new React project, mostly out of familiarity and a desire to get the job done.<p>A few of them would outright not know how to do anything else. No knowledge of how to stand up a boring HTTP server to send pure HTML. No experience building a form that validates or submits without JavaScript. These are not the people who post here on HN. They are not engaged in online discussions of new tools and skills (or old tools and skills!). These are people who learned just enough from a bootcamp, or their uni&#x27;s single &quot;web apps&quot; course, to get a job. Since then, they have just-in-time learned whatever their employer required, or whatever particular tools someone else on their team chose for a project.<p>As an old, it took me a while to recognize&#x2F;realize it, but I understand them now. Depending on their career path, someone will encounter the simplest aspects of HTML, CSS and vanilla JavaScript <i>after</i> they learn the complex, framework-specific aspects of each. It feels (to them) like more esoteric, advanced, or tertiary knowledge.<p>Tying it back to to the quote &quot;that\u2019s a lot more work for us&quot;, that&#x27;s not necessarily an intentionally false claim. It probably does feel like a lot more work to perform a task using unfamiliar tools, even if they are less-complex tools.",
+          "comments": [
+            {
+              "id": 48478442,
+              "level": 2,
+              "user": "concinds",
+              "time": 1781107650,
+              "time_ago": "an hour ago",
+              "content": "<p>You are far too empathetic to them. They should not hold the jobs they have.<p>These are the people writing React monstrosities for government benefit websites, and testing them on fast iPhones and fast 4G, without realizing that every page load for <i>actual users</i> will take 30 seconds on their old $200 Android on 3G, and users won\u2019t complete the form.<p>It\u2019s a culture of not giving a shit, that\u2019s the deeper issue.",
+              "comments": [
+                {
+                  "id": 48478757,
+                  "level": 3,
+                  "user": "6510",
+                  "time": 1781108883,
+                  "time_ago": "25 minutes ago",
+                  "content": "<p>I use to have an old pentium 2 computer for testing websites. Sometimes you cant make things fast enough for the old box. A fun trick is&#x2F;was to have &lt;script&gt;elm.textContent=&quot;loading images&quot;&lt;&#x2F;script&gt; between each &quot;heavy&quot; section, all targeting the same elm. If the computer, network or server is truly extremely slow you will get a nice message at the top describing what they are waiting for. On a normal slow computer you won&#x27;t see the messages unless something went wrong.",
+                  "comments": []
+                },
+                {
+                  "id": 48478796,
+                  "level": 3,
+                  "user": "yesco",
+                  "time": 1781109052,
+                  "time_ago": "22 minutes ago",
+                  "content": "<p>I see no reason not to be empathetic. The frustration is fair, but it&#x27;s aimed at the wrong layer. These people were guided into this spot by bootcamps and curricula that start at React and never go down the stack.<p>My experience was the reverse. I learned HTML and CSS first, then Rails in college to serve templated pages. I understood the client&#x2F;server boundary fine as a concept, what I couldn&#x27;t see was where it actually sat in a web context. I sort of knew JavaScript ran in the browser, but then I&#x27;d see ERB templates stamping values directly into script tags, so the server was writing the JavaScript that ran on the client, and my mental model fell apart. Where does my code actually execute? Why does this variable exist here but not there? Why does the page have data the network tab never fetched? Nobody ever sat me down and explained the request&#x2F;response lifecycle as its own thing. I had to assemble it from fragments over years. This was around 2017 for context.<p>How you learn something shapes how you keep learning. If your mental model is misaligned, everything downstream is friction. The thing that finally made it click for me was reading the actual HTTP RFCs, which is apparently a weird thing to do, because HTTP itself is absent from nearly every guide and curriculum. Tutorials teach you the framework, maybe the language, and just assume the protocol underneath. These days I make newbies read the MDN docs like a book and skim the HTTP wiki page, learn the history of the protocol. It&#x27;s short! It&#x27;s not even a book! That gives you a firm foundation. But if your foundation starts at React, drilling down is like digging past bedrock. People don&#x27;t know where to start, and Googling only shows them wrong answers because they don&#x27;t yet know how to ask the question.",
+                  "comments": [
+                    {
+                      "id": 48479073,
+                      "level": 4,
+                      "user": "luckylion",
+                      "time": 1781110113,
+                      "time_ago": "5 minutes ago",
+                      "content": "<p>Are you sympathetic to a doctor who specialized in surgery and now always recommends surgery, even for a common cold? Or would you say they are in the wrong job, if they are anywhere but surgery?",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 48478584,
+              "level": 2,
+              "user": "opem",
+              "time": 1781108187,
+              "time_ago": "37 minutes ago",
+              "content": "<p>Don&#x27;t you think they have a legit skill issue here and should they be better off upskilling themselves?<p>This is a direct effect of being a low barrier industry to enter. Most of the ppl among us are mostly here because of a good paycheck. And it SUCKS!",
+              "comments": [
+                {
+                  "id": 48478697,
+                  "level": 3,
+                  "user": "chao-",
+                  "time": 1781108664,
+                  "time_ago": "29 minutes ago",
+                  "content": "<p><i>&gt;Don&#x27;t you think they have a legit skill issue here and should they be better off upskilling themselves?</i><p>Absolutely agree! Just because I <i>understand</i> how they got there doesn&#x27;t mean I think it&#x27;s a good state of affairs ;)<p>My post was already quite long, and I didn&#x27;t want to append a treatise on what one should do when encountering those engineers. It depends on many details. Avoid hiring them, if that&#x27;s a power you have. If you are stuck working with them, depending on your authority, encourage them to learn or force them to learn. If you&#x27;re coming in to clean up after them... well, hopefully your comp is worth the annoyance.<p>We are all simultaneously in the position of encountering &quot;the world as it is&quot;, understanding it, and doing what we can to improve it.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 48478620,
+          "level": 1,
+          "user": "egeozcan",
+          "time": 1781108351,
+          "time_ago": "34 minutes ago",
+          "content": "<p>I think the problem is hearing just one side.<p>Someone is saying that they delivered a very reasonable solution that&#x27;s simpler than most would come up. Person taking over was not happy.<p>Do we know if the code being handed over was high quality? Were they reacting to the fact that it was &quot;not React&quot;? Maybe they have a template they enforce in the company about how apps are built?<p>We don&#x27;t know.",
+          "comments": []
+        },
+        {
+          "id": 48478131,
+          "level": 1,
+          "user": "theflyinghorse",
+          "time": 1781106388,
+          "time_ago": "an hour ago",
+          "content": "<p>It probably has to do with what technology people are used to. There has been a couple of generations of web developers who have only known javascript and its ecosystem for building webapps, and so anything other than pure javascript solution looks foreign.",
+          "comments": []
+        },
+        {
+          "id": 48478276,
+          "level": 1,
+          "user": "seangrogg",
+          "time": 1781106990,
+          "time_ago": "an hour ago",
+          "content": "<p>As a web dev a lot of this is simply ongoing maintenance of a largely unknown quantity. Most web devs know React and use it extensively; Astro is something they&#x27;ll have to learn on the job or hire for specifically.<p>It&#x27;s akin to writing a backend in Haskell. Chances are you could write something performant that leverages FP in a way that serves as a magic bullet for your domain. But now everyone after you needs to learn Haskell and how to model all future problems in a way that conforms with it - or rewrite things again.",
+          "comments": [
+            {
+              "id": 48478693,
+              "level": 2,
+              "user": "freehorse",
+              "time": 1781108648,
+              "time_ago": "29 minutes ago",
+              "content": "<p>Not a web-dev myself and I was wondering if, apart from unfamiliarity with astro or HTML being treated as unknown technology, it also has to do with having to handle fallback cases, eg the 3 point validation (web component, browser default, server), esp when one is used to have react (libraries) just handling it all without any more considerations.",
+              "comments": []
+            },
+            {
+              "id": 48478485,
+              "level": 2,
+              "user": "oldandboring",
+              "time": 1781107841,
+              "time_ago": "43 minutes ago",
+              "content": "<p>&gt; Astro is something they&#x27;ll have to learn on the job or hire for specifically.<p>Before LLMs I would have agreed.",
+              "comments": [
+                {
+                  "id": 48478550,
+                  "level": 3,
+                  "user": "hungryhobbit",
+                  "time": 1781108071,
+                  "time_ago": "39 minutes ago",
+                  "content": "<p>LLM + framework you don&#x27;t understand goes in ... unmaintainable garbage comes out.",
+                  "comments": [
+                    {
+                      "id": 48478651,
+                      "level": 4,
+                      "user": "CSSer",
+                      "time": 1781108475,
+                      "time_ago": "32 minutes ago",
+                      "content": "<p>Before LLMs, learning on the job looked like reading documentation. Now it\u2019s a guided tour with verification. When I produce things in this way, I\u2019m not just blindly accepting it. The goal is that by the end of it I have learned more about the codebase and architecture, not less. I feel that\u2019s important.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 48478119,
+          "level": 1,
+          "user": "simpaticoder",
+          "time": 1781106342,
+          "time_ago": "an hour ago",
+          "content": "<p>Simpler doesn&#x27;t mean easier. Consider a chef who at their previous job started using a wood-burning stove. This is an objectively simpler tool than a gas or electric stove, yet it would be very difficult (even impossible, depending on local architecture and regulations) for a new kitchen to add one.",
+          "comments": [
+            {
+              "id": 48478370,
+              "level": 2,
+              "user": "squidbeak",
+              "time": 1781107347,
+              "time_ago": "an hour ago",
+              "content": "<p>I&#x27;m interested to hear what architecture and regulations prevent the use of something that is foundational to web develpment and backwards compatible by design? Which also, by the way, comes with the advantage of not incinerating other parts of the restaurant (accessibility, user experience...), forcing expensive countermeasures or total rebuilds of the things destroyed every time you turn it on.",
+              "comments": []
+            },
+            {
+              "id": 48478220,
+              "level": 2,
+              "user": "LNSY",
+              "time": 1781106741,
+              "time_ago": "an hour ago",
+              "content": "<p>I don&#x27;t understand how having to pay 20 different vendors so hackers can run commands on your server barely impeded is somehow simpler.",
+              "comments": [
+                {
+                  "id": 48478337,
+                  "level": 3,
+                  "user": "simpaticoder",
+                  "time": 1781107232,
+                  "time_ago": "an hour ago",
+                  "content": "<p>The message you just wrote involved how many complex systems, from your keyboard switches and firmware to your BIOS and OS interrupts, to your browser, the internet and middle boxes, just to say one sentence to someone. It would be much simpler (and more secure!) if you just told me with your mouth, but you didn&#x27;t do that.",
+                  "comments": [
+                    {
+                      "id": 48478812,
+                      "level": 4,
+                      "user": "LNSY",
+                      "time": 1781109089,
+                      "time_ago": "22 minutes ago",
+                      "content": "<p>Of course, and if you use all these services you can be a pedantic ass who never has to actually ship a product.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 48478161,
+          "level": 1,
+          "user": "atoav",
+          "time": 1781106510,
+          "time_ago": "an hour ago",
+          "content": "<p>By this point people don&#x27;t appear to have any real clue how to write HTML anymore. Writing semantic HTML isn&#x27;t significantly harder than say writing Markdown. You copy some HTMl skeleton and you literally just stack your elements into the body. I managed to do that as a 13 year old on MySpace without any deep instruction. Sure you have to close elements as well so the syntax is slightly harder than markdown, but that allows you to differenciate between for example &lt;article&gt;, &lt;section&gt; and &lt;aside&gt;.<p>I am convinced the <i>one single thing</i> that made HTML unusable over the time was that people wanted or needed a way to re-use parts of the page across multiple pages, like headers, navigational elements and footers.<p>This meant people used frames, PHP, templating engines or any other new technology mainly for the purpose of creating shared elements, simply because HTML failed (and to this day: fails) to offer a way to include one HTML file in another without having it suck (like frames definitely did, since the browser treated each subpart of the page like its own entity including caching).",
+          "comments": [
+            {
+              "id": 48478564,
+              "level": 2,
+              "user": "autoexec",
+              "time": 1781108132,
+              "time_ago": "38 minutes ago",
+              "content": "<p>Large websites resorted to PHP and server side includes to get headers and footers. Smaller websites resorted to frames and copy&#x2F;paste. It wasn&#x27;t perfect, but it also wasn&#x27;t horrible or unusable either.",
+              "comments": []
+            },
+            {
+              "id": 48479047,
+              "level": 2,
+              "user": "p-t",
+              "time": 1781110005,
+              "time_ago": "6 minutes ago",
+              "content": "<p>yeah editing all the footers and navigation parts in html is too annoying to me so i&#x27;ve resorted for my websites to just a back button to a page that has links to everything else lmao",
+              "comments": []
+            },
+            {
+              "id": 48478898,
+              "level": 2,
+              "user": "jmye",
+              "time": 1781109410,
+              "time_ago": "16 minutes ago",
+              "content": "<p>I think it was... SHTML? that allowed for server includes. My recollection from... 25ish years ago was that it was generally quite well supported and worked quite well (and was dead simple to implement). Not sure why, if that was the issue, the fix didn&#x27;t quite catch on (but it&#x27;s totally possible I&#x27;m mis-remembering the state of browser support).",
+              "comments": [
+                {
+                  "id": 48478977,
+                  "level": 3,
+                  "user": "EvanAnderson",
+                  "time": 1781109759,
+                  "time_ago": "11 minutes ago",
+                  "content": "<p>Server-side includes worked fine but weren&#x27;t enabled by default in any of the mainstream web servers. I used the heck out of them in the late 90s.<p>It would have been very cool if HTML had been created with the ability to do client-side includes without having to resort to using a Turing-complete VM in the client to do it.",
+                  "comments": [
+                    {
+                      "id": 48479043,
+                      "level": 4,
+                      "user": "atoav",
+                      "time": 1781110000,
+                      "time_ago": "7 minutes ago",
+                      "content": "<p>[delayed]",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 48478135,
+          "level": 1,
+          "user": "LNSY",
+          "time": 1781106410,
+          "time_ago": "an hour ago",
+          "content": "<p>Because before there was AI Slop, there was React.",
+          "comments": [
+            {
+              "id": 48478300,
+              "level": 2,
+              "user": "EGreg",
+              "time": 1781107067,
+              "time_ago": "an hour ago",
+              "content": "<p>I think Facebook with their money and Vercel with their VC funding tried hard to push the React and then the Next.js everywhere. So it arrived in time for AIs to all train on it. And now it\u2019s the one true way :)<p>But do we really need all that stuff? Build steps, bundling, tree shaking, all for what? And is it really simpler\u2026 hmm",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 48477670,
+      "level": 0,
+      "user": "motoboi",
+      "time": 1781104729,
+      "time_ago": "2 hours ago",
+      "content": "<p>Old people. They exist.<p>Not even that old. 60 year people can&#x27;t user your fancy site because then don&#x27;t have an internal model of how a computer works.<p>You know that when pressing a button a hidden engine runs in the backend (or something runs in the backend). You expect an answer and if the expectation do not match the result, the model in your mind creates an hypothesis about what maybe happened and iterate from there. Maybe you should have clicked something before? Maybe you should mark some form checkbox?<p>Old people don&#x27;t have that because they didn&#x27;t grow up with computers.<p>What is on the screen is what they see. I clicked next and nothing happens. Well... the site is broken.<p>You known when you plug your refrigerator and nothing happens and instead of reflecting on the possible blown out resistor that you can bypass with a small wire you understand that your only relationship with the refrigerator is plug and unplug or call for help? That is an old person using your site. They won&#x27;t fight against it. They&#x27;ll give up immediately.",
+      "comments": [
+        {
+          "id": 48478137,
+          "level": 1,
+          "user": "StableAlkyne",
+          "time": 1781106413,
+          "time_ago": "an hour ago",
+          "content": "<p>I would argue it&#x27;s not even old people. <i>Most people</i> do not have any understanding of what&#x27;s going on when you click a button. Website either acts as expected, or it doesn&#x27;t &quot;work&quot;<p>If the button doesn&#x27;t work, the average user is going to say &quot;this most be broken&quot; and then use a competitor (or contact your support). That&#x27;s why it&#x27;s really important to error-proof one&#x27;s design (eg <a href=\"https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Poka-yoke\" rel=\"nofollow\">https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Poka-yoke</a>).<p>So instead of the button failing because you didn&#x27;t check a box, pop up with a message telling them &quot;Please click $box before continuing&quot;. Or if you want to be fancy, feed them whatever form you&#x27;re giving them piecemeal, so that they can&#x27;t continue until they finish this small part (e.g., have them input a name, then the next page only has a spot for an address, then the next page only has a spot for card information, then the next only has a spot to select shipping). Simple bite sized chunks anyone (well, anyone you would ethically want to sell to) can understand.",
+          "comments": [
+            {
+              "id": 48478472,
+              "level": 2,
+              "user": "black_puppydog",
+              "time": 1781107783,
+              "time_ago": "44 minutes ago",
+              "content": "<p>Yep, I changed town a few years ago and my new social circles are mostly like that.<p>Either it works right away without any further questions, or they&#x27;ll not do it.<p>Sadly, also if they can&#x27;t do it on their phone, they will not do it. It&#x27;s actually very hard to get people motivated to do anything that has to do with sitting down at an actual computer anymore. Which is a bit hard if you&#x27;re in a very technical political advocacy group, kinda makes me the guy to do everything remotely complex... XD",
+              "comments": []
+            },
+            {
+              "id": 48478656,
+              "level": 2,
+              "user": "andrewflnr",
+              "time": 1781108502,
+              "time_ago": "32 minutes ago",
+              "content": "<p>Yeah, it&#x27;s really, really not an age issue. If there&#x27;s an age distinction, it&#x27;s the range of people who were brought up on computers before the UI was really polished, but even then it&#x27;s not consistent, and they may not have deep understanding. Kids brought up on iPads, and who aren&#x27;t forced to learn by their interests or educators, have no clue.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 48477954,
+          "level": 1,
+          "user": "breakwaterlabs",
+          "time": 1781105719,
+          "time_ago": "an hour ago",
+          "content": "<p>&gt; Old people don&#x27;t have that because they<p><i>Aren&#x27;t insane</i>.<p>When did the industry put the onus on the user to understand how the computer works? What happened to the old days of Xerox PARC&#x27;s HCI studies putting the user first? The computer is in service of the user, not the other way around!<p>If I need to build a mental turing machine to understand your application, <i>it is a bad application</i>. It is rather the engineer&#x27;s job to build a mental model of the user and their needs, and if you can&#x27;t do that you should not call yourself a software engineer.",
+          "comments": [
+            {
+              "id": 48478449,
+              "level": 2,
+              "user": "ryukoposting",
+              "time": 1781107679,
+              "time_ago": "an hour ago",
+              "content": "<p>As a firmware engineer, my philosophy is this: if I&#x27;m doing my job properly, the user should never even know I exist.<p>Maybe this isn&#x27;t applicable to all software devs. If you make web apps, users actually see your UI, they click an icon or type in a URL and hit enter with the intent of using the thing you made. With firmware, that&#x27;s not how it works.<p>When you hit the &quot;mute&quot; button on your laptop keyboard, it should just do it. The audio should turn off and the little LED should light up. If that fails, even once, the mirage is broken. The user is forced to think about the fallibility of firmware, which is a word they might not even know, and still struggle to conceptualize if they do. I think it also has a lasting effect on the way someone thinks about the pruduct: Is this going to work today? Why did that happen? Was that a virus? So on.<p>OTA firmware updates have the same problem. Most users don&#x27;t know what the hell firmware is. All they know is their computer is showing a loading screen they&#x27;ve never seen before. It&#x27;s unfamiliar and weird.<p>Like I said, I don&#x27;t know if this mindset translates perfectly to other fields, but the priorities that fall out of my philosophy certainly apply. Reliability over everything, and get it right the first time.",
+              "comments": []
+            },
+            {
+              "id": 48478905,
+              "level": 2,
+              "user": "cosmic_cheese",
+              "time": 1781109431,
+              "time_ago": "16 minutes ago",
+              "content": "<p>Usability was thrown to the wolves in favor of more readily available designers from non-UI backgrounds, brand identity (\u201cUI as branding\u201d), and pretty screenshots for slideshows and marketing.<p>The pendulum is overdue for swinging back the other way, but I don\u2019t know who or what has both the capability and will to give it the push needed to send it on its way back.",
+              "comments": []
+            },
+            {
+              "id": 48478328,
+              "level": 2,
+              "user": "isityettime",
+              "time": 1781107191,
+              "time_ago": "an hour ago",
+              "content": "<p>Automation generally goes along with a transition to more &quot;self-service&quot; approaches that require the user to model internal states and workflows of whatever they&#x27;re dealing with.<p>This is even true for things as seemingly non-technological as getting to your flight once you arrive at the airport. People who are used to dealing with a service desk might just show up with their printed ticket without even having looked at it, take it to the counter, and expect instructions on what to do next without having read or considered all the fields present on the ticket.<p>It&#x27;s not just about understanding the technology, but sometimes about understanding the business, policies, whatever. When a human agent or customer service worker is handling that stuff for you (typical in the pre-computer age), you barely have to think about that stuff and even if you&#x27;re told, it can be &quot;in one ear, out the other&quot;. Automation very often means pushing a requirement of more understanding onto customers&#x2F;users.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 48477959,
+          "level": 1,
+          "user": "Hard_Space",
+          "time": 1781105733,
+          "time_ago": "an hour ago",
+          "content": "<p>&gt; 60 year people can&#x27;t user your fancy site because then don&#x27;t have an internal model of how a computer works.<p>I think this is a bit outdated. I&#x27;ll be 60 in a month, and have been practicing and writing about machine learning, for money, for a straight 10 years now; and I was a young man (and a full stack developer) during the digital revolution.<p>If anything, GenX had to work harder to get into these brittle emerging technologies and paradigms. There&#x27;s no-one of my age group, at least that I know of, who is remotely as tech-illiterate as your comment depicts.<p>Truth is that it took so long for smartphones to dumb down everyone&#x27;s tech acumen that those of my generation had already learned to do it the hard way.",
+          "comments": [
+            {
+              "id": 48478027,
+              "level": 2,
+              "user": "rewgs",
+              "time": 1781105981,
+              "time_ago": "an hour ago",
+              "content": "<p>GP clearly isn\u2019t talking about 60 year olds who were full stack devs and get on Hacker News.",
+              "comments": [
+                {
+                  "id": 48478168,
+                  "level": 3,
+                  "user": "tomgp",
+                  "time": 1781106539,
+                  "time_ago": "an hour ago",
+                  "content": "<p>60 year olds have been using computers most of their working life. Word processors and spreadsheets having been ubiquitous for office workers from at least the early 90s.",
+                  "comments": [
+                    {
+                      "id": 48478366,
+                      "level": 4,
+                      "user": "lproven",
+                      "time": 1781107327,
+                      "time_ago": "an hour ago",
+                      "content": "<p>&gt; 60 year olds have been using computers most of their working life.<p>Absolutely. I am in full-time work, and expect to be for another decade. I have worked my entire career in IT, doing tech support, training, systems design and implementation, tech journalism, and tech writing (i.e. documentation).<p>I will be 60 in less than 18 months.<p>&gt; Word processors and spreadsheets having been ubiquitous for office workers from at least the early 90s.<p>You did say &quot;at least&quot;, but still... longer than that.<p>I started work in 1988 and they were already ubiquitous in my world. Richer companies had the fairly newfangled IBM compatibles, which were still big and expensive. The cheap Amstrad PCs were just starting to appear.<p>Older hands had multiuser boxes with SCO Xenix or DR Concurrent CP&#x2F;M or Concurrent DOS and a bunch of dumb terminals. My company had switched to these from Alpha Micro systems running AMOS -- and again, dumb terminals. One of my clients had a DEC PDP-11.<p>The real old hands had 8-bit kit: some CP&#x2F;M, and a few BBC Micros.<p>The first big migrations I saw were from standalone (or multiuser) PCs to LANs, and from pre-PC systems to PCs and Macs.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 48478333,
+                  "level": 3,
+                  "user": "jimbokun",
+                  "time": 1781107217,
+                  "time_ago": "an hour ago",
+                  "content": "<p>Most people under 60 aren\u2019t full stack devs either.",
+                  "comments": []
+                },
+                {
+                  "id": 48478089,
+                  "level": 3,
+                  "user": "Hard_Space",
+                  "time": 1781106200,
+                  "time_ago": "an hour ago",
+                  "content": "<p>Well, neither am I - I am talking about my own peer group, non-tech types just fine with computers.",
+                  "comments": []
+                },
+                {
+                  "id": 48478231,
+                  "level": 3,
+                  "user": "wang_li",
+                  "time": 1781106819,
+                  "time_ago": "an hour ago",
+                  "content": "<p>I&#x27;m 55 and likely have been using computers longer than that poster has been alive. Regardless of the fact that I started young, by the time I was in college the PC revolution was in full swing and everyone had and worked with computers.<p>My mother, born in 1934, had no problem using computers. She didn&#x27;t internalize how they work, but she learned the workflows she needed. How to launch applications and so on.<p>The situation described in that comment is just a broken app, it has nothing to do with the age or the understanding of the user.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 48478138,
+              "level": 2,
+              "user": "dijksterhuis",
+              "time": 1781106414,
+              "time_ago": "an hour ago",
+              "content": "<p>&gt; practicing and writing about machine learning ... full stack developer ... digital revolution.<p>my mum, a boomer now in her 70s, would have no bloody clue what you&#x27;re talking about. she used to work helping out a guy who was doing punchcard programming back when she was young. she ain&#x27;t dumb. if i broke it down into normal human english words, she&#x27;d probably get a sort of idea (or at least nod along to humour me).<p>i&#x27;ve lost count of the number of conversations i&#x27;ve had with my dad, late 70s boomer, where he complains that they&#x27;ve changed the UI. &quot;It&#x27;s all different and i don&#x27;t understand, why did they have to change it? I don&#x27;t know where anything is now.&quot; he&#x27;s been moaning about things like this for over a decade now (so since his late 60s).<p>there are definitely technically not-very-literate 60 year olds and the <i>general</i> point about older folks, whether that&#x27;s &gt;60 or &gt;70, is very real:<p>older people exist who don&#x27;t have a clue about SPAs&#x2F;PWAs, and chances are they&#x27;re either asking their offspring for help (my mum does this), trying to phone someone instead (my mum does this) or just walking away from it (my mum does this).",
+              "comments": [
+                {
+                  "id": 48479002,
+                  "level": 3,
+                  "user": "Maken",
+                  "time": 1781109838,
+                  "time_ago": "9 minutes ago",
+                  "content": "<p>To be fair, the UI randomly changing in every update is a pain point for people of any age.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 48478612,
+              "level": 2,
+              "user": "asdfasvea",
+              "time": 1781108320,
+              "time_ago": "35 minutes ago",
+              "content": "<p>Dude, you know what he meant. Don&#x27;t be the internet pedant. No need to be the protector of your class, especially one so inconsequential as &quot;literal 60 year olds&quot;.<p>Instead of &quot;old person&quot; he put a number on it. (Cue the people who need to cut me down because I used a male pronoun for an unknown poster)",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 48478639,
+          "level": 1,
+          "user": "bearjaws",
+          "time": 1781108417,
+          "time_ago": "33 minutes ago",
+          "content": "<p>You are just describing a broken site?<p>I&#x27;ve seen static sites with these same problems, 404 was invented decades before React...",
+          "comments": []
+        },
+        {
+          "id": 48477728,
+          "level": 1,
+          "user": "initramfs",
+          "time": 1781104960,
+          "time_ago": "2 hours ago",
+          "content": "<p>There&#x27;s a great book that explains how abstract computer systems have become from the machinery: <a href=\"https:&#x2F;&#x2F;dabacon.org&#x2F;caelifera&#x2F;2017&#x2F;02&#x2F;05&#x2F;book-overcomplicated-technology-at-the-limits-of-comprehension&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;dabacon.org&#x2F;caelifera&#x2F;2017&#x2F;02&#x2F;05&#x2F;book-overcomplicate...</a>",
+          "comments": []
+        },
+        {
+          "id": 48478294,
+          "level": 1,
+          "user": "dotBen",
+          "time": 1781107049,
+          "time_ago": "an hour ago",
+          "content": "<p><i>&quot;Old people don&#x27;t have that because they didn&#x27;t grow up with computers.&quot;</i><p>You know, it&#x27;s time to stop this trope.<p>People who are 60 today were born in 1966, they probably entered the workforce in the mid 80&#x27;s.  They probably are not even retired yet.  They know how to use computers, they own a smartphone (or if they don&#x27;t, it&#x27;s probably for economic reasons unrelated to their age).<p>As a founder and product manager, this kind of thinking is unhelpful as we design the future.  In many ways it&#x27;s actually ageist to imply that old people are unable to utilize everyday technology.<p>I was building public service websites (BBC News website) back in the early 2000&#x27;s where accessibility was a real and important consideration.  Technology progresses, and the bar for accessibility has moved up.<p>My father is about to turn 80 - he checks his heart with his Apple watch, video calls his grandson from his iPad, and asks ChatGPT questions from his iPhone and MacBook Pro.  Maybe he&#x27;s more unusual for 80yo&#x27;s but it&#x27;s time to stop this lazy trope that old people are technically illiterate.<p>(also, shit, I&#x27;m only 15 years away from being 60 myself :&#x2F; )",
+          "comments": []
+        },
+        {
+          "id": 48477715,
+          "level": 1,
+          "user": "pmontra",
+          "time": 1781104917,
+          "time_ago": "2 hours ago",
+          "content": "<p>Giving up is a wise choice: there are so many other sites to interact with. On the other side they have only one refrigerator.",
+          "comments": [
+            {
+              "id": 48479126,
+              "level": 2,
+              "user": "Telaneo",
+              "time": 1781110289,
+              "time_ago": "2 minutes ago",
+              "content": "<p>I wish I could convince my grandmother of this.<p>&quot;Why did the bank change the layout? I want the old one back!&quot; - Don&#x27;t like it? Change bank then. That&#x27;s what I did.<p>I get that changing to another bank is a big unknown, but it&#x27;s probably still worth it to show your displeasure. Plus her bank are morons when it comes to several other things.",
+              "comments": []
+            },
+            {
+              "id": 48477955,
+              "level": 2,
+              "user": "dghlsakjg",
+              "time": 1781105729,
+              "time_ago": "an hour ago",
+              "content": "<p>Next time I have trouble checking in on an airline site I\u2019ll remember that there are so many other sites to interact with that whatever I was trying to do probably doesn\u2019t matter.<p>I wouldn\u2019t sweat the broken fridge either though, there\u2019s so many other electrical appliances in the house to use.",
+              "comments": []
+            },
+            {
+              "id": 48478019,
+              "level": 2,
+              "user": "natbobc",
+              "time": 1781105945,
+              "time_ago": "an hour ago",
+              "content": "<p>Is entirely context dependent. I can agree in some scenarios but when it\u2019s a utility or gov site that I can\u2019t really avoid it\u2019s less straightforward.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 48478268,
+          "level": 1,
+          "user": "celsoazevedo",
+          "time": 1781106953,
+          "time_ago": "an hour ago",
+          "content": "<p>And now also a lot of young people. They grew up with iPhones and many think that &quot;Wi-Fi&quot; = &quot;internet&quot;.<p>Keep it simple and light. HTML+CSS first, JS to expand functionality. Don&#x27;t re-invent the wheel.",
+          "comments": []
+        },
+        {
+          "id": 48478976,
+          "level": 1,
+          "user": "pugworthy",
+          "time": 1781109746,
+          "time_ago": "11 minutes ago",
+          "content": "<p>&gt; Old people don&#x27;t have that because they didn&#x27;t grow up with computers.<p>You realize that someone who was 18 when the Mac was first released would be 60 now?",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 48477252,
+      "level": 0,
+      "user": "aidanbeck",
+      "time": 1781103209,
+      "time_ago": "2 hours ago",
+      "content": "<p>I was going to comment on the Terence Eden excerpt quoted by the author about the woman researching housing benefits on an old PSP browser, when I noticed that you (the OP) are Terence himself. It&#x27;s strikingly powerful, and a reminder of the duty we have in building our infrastructure.<p>&gt; Of course, your javascript-based analytics package doesn\u2019t see the users you are bouncing because of javascript failures.<p>It is frightening to think of how many people are alienated from critical systems every day because of this bias reinforcing the idea that they do not exist.",
+      "comments": [
+        {
+          "id": 48477833,
+          "level": 1,
+          "user": "genewitch",
+          "time": 1781105328,
+          "time_ago": "an hour ago",
+          "content": "<p>just use firefox with an adblocker like adnauseam and a fairly decent chunk of the internet stops working, including chase.com and several other massive corp sites.<p>I can&#x27;t imagine trying to use links&#x2F;lynx or a browser with less market share than FF that isn&#x27;t based on chromium.",
+          "comments": [
+            {
+              "id": 48477922,
+              "level": 2,
+              "user": "nunez",
+              "time": 1781105617,
+              "time_ago": "an hour ago",
+              "content": "<p>Chase works with ad blockers, though.<p>It doesn&#x27;t work if you disable JavaScript...but it wasn&#x27;t always this way!<p>They had a mobile version of their online banking service at <a href=\"https:&#x2F;&#x2F;m.chase.com\" rel=\"nofollow\">https:&#x2F;&#x2F;m.chase.com</a> that was EXTREMELY FAST and did 85% of what you need to do in an online banking portal (check balances, transfer funds). They scrapped it when they moved to their current bloated monstrosity of the portal that they have today.<p>It was a big reason why I moved to a credit union (who outsources their online banking services to Alkami, which maintains a very tight portal and supports 2FA AND passkeys!).",
+              "comments": [
+                {
+                  "id": 48477990,
+                  "level": 3,
+                  "user": "genewitch",
+                  "time": 1781105823,
+                  "time_ago": "an hour ago",
+                  "content": "<p>i am unclear on if it&#x27;s because of the adblocker (specifically i use ad nauseam which does block some JS. some.) or because of firefox. I can load it on edge every time it fails on firefox. last week, chase.com worked fine on firefox. the previous 15 months where i needed to log in, it did not.<p>Someone at chase isn&#x27;t checking their work on firefox.",
+                  "comments": [
+                    {
+                      "id": 48478183,
+                      "level": 4,
+                      "user": "enlightens",
+                      "time": 1781106592,
+                      "time_ago": "an hour ago",
+                      "content": "<p>FWIW I use Firefox with uBlock Origin and Enhanced Tracking Protection, and use Chase&#x27;s website almost weekly. No issues that I&#x27;ve noticed on MacOS or Windows",
+                      "comments": []
+                    },
+                    {
+                      "id": 48478112,
+                      "level": 4,
+                      "user": "nunez",
+                      "time": 1781106310,
+                      "time_ago": "an hour ago",
+                      "content": "<p>When I have to log into Chase on my computer, I do via Firefox, and it works fine. Maybe you flipped something on in about:config that&#x27;s breaking it?",
+                      "comments": [
+                        {
+                          "id": 48478252,
+                          "level": 5,
+                          "user": "genewitch",
+                          "time": 1781106894,
+                          "time_ago": "an hour ago",
+                          "content": "<p>i love that i&#x27;m holding it wrong. thanks, HN.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 48478312,
+          "level": 1,
+          "user": "natbobc",
+          "time": 1781107129,
+          "time_ago": "an hour ago",
+          "content": "<p>And that is what pixel tracking is for. :)",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 48479023,
+      "level": 0,
+      "user": "Telaneo",
+      "time": 1781109930,
+      "time_ago": "8 minutes ago",
+      "content": "<p>I&#x27;m curious how many web issues can be solved by having the people responsible for the relevant sites only be allowed to use them on a Windows 11 machine with only 4 GB of RAM using Firefox with the network throttled to 3G speeds.<p>Assuming the processor isn&#x27;t horrible, I can still browse plenty of sites with those specs without much issue, and on the sites that do require more, it&#x27;s very rarely because the sites actually needs it (i.e. I&#x27;m not running Windows XP in a VM in the browser or something). It could just be normal HTML and CSS and normal forms, sprinkled with some light JS to help out a bit. But the amount of sites made with that level of care and attention are sadly rare, since the people responsible rarely feel the pain or have the empathy to fix the problem.",
+      "comments": []
+    }
+  ],
+  "comments_count": 257
+}

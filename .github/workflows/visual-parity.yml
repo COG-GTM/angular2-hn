@@ -1,0 +1,72 @@
+name: Visual Parity
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  visual-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Angular 9 + webpack 4 need the legacy OpenSSL provider on Node 17+.
+      NODE_OPTIONS: --openssl-legacy-provider
+      ANGULAR_BASE_URL: http://localhost:4200
+      REACT_BASE_URL: http://localhost:5173
+
+    steps:
+      - name: Checkout React app (this branch)
+        uses: actions/checkout@v4
+        with:
+          path: react-app
+
+      - name: Checkout Angular app (master)
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: angular-app
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Angular dependencies
+        working-directory: angular-app
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+      - name: Install React dependencies
+        working-directory: react-app
+        run: npm ci || npm install
+
+      - name: Install Playwright browser
+        working-directory: react-app
+        run: npx playwright install --with-deps chromium
+
+      - name: Start Angular app (port 4200)
+        working-directory: angular-app
+        run: npx ng serve --host 0.0.0.0 --port 4200 &
+
+      - name: Start React app (port 5173)
+        working-directory: react-app
+        run: npm run dev -- --host 0.0.0.0 --port 5173 &
+
+      - name: Wait for both apps to be healthy
+        working-directory: react-app
+        run: npx wait-on -t 300000 http-get://localhost:4200 http-get://localhost:5173
+
+      - name: Run cross-app parity suite
+        working-directory: react-app
+        run: npm run test:parity
+
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-parity-screenshots
+          path: |
+            react-app/screenshots/
+            react-app/playwright-report/
+          if-no-files-found: warn

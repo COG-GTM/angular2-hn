@@ -47,3 +47,10 @@ Thumbs.db
 
 # Vite
 *.local
+
+# Playwright / visual-parity artifacts
+/screenshots
+/playwright-report
+/test-results
+/blob-report
+/playwright/.cache

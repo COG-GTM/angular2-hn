@@ -39,7 +39,7 @@ export default function Feed({ feedType }: Props) {
                             <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
                         </p>
                     )}
-                    {feedType !== 'new' && (
+                    {feedType !== 'newest' && (
                         <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
                             {items.map((item) => (
                                 <li key={item.id} className="post">

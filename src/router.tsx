@@ -1,6 +1,10 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from './components/App';
 import FeedPage from './pages/FeedPage';
+import Loader from './components/Loader';
+
+const ItemDetailsPage = lazy(() => import('./pages/ItemDetailsPage'));
 
 const router = createBrowserRouter([
   {
@@ -13,7 +17,14 @@ const router = createBrowserRouter([
       { path: 'show/:page', element: <FeedPage feedType="show" /> },
       { path: 'ask/:page', element: <FeedPage feedType="ask" /> },
       { path: 'jobs/:page', element: <FeedPage feedType="jobs" /> },
-      { path: 'item/:id', element: <div>Item details placeholder</div> },
+      {
+        path: 'item/:id',
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ItemDetailsPage />
+          </Suspense>
+        ),
+      },
       { path: 'user/:id', element: <div>User placeholder</div> },
     ],
   },

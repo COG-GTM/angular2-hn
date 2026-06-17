@@ -5,6 +5,7 @@ import FeedPage from './pages/FeedPage';
 import Loader from './components/Loader';
 
 const ItemDetailsPage = lazy(() => import('./pages/ItemDetailsPage'));
+const UserPage = lazy(() => import('./pages/UserPage'));
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,14 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      { path: 'user/:id', element: <div>User placeholder</div> },
+      {
+        path: 'user/:id',
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserPage />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);

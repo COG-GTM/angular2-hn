@@ -91,9 +91,3 @@ pre {
 .wrapper a:visited {
   color: var(--subtext-color);
 }
-
-/* Pagination / secondary nav link color (structural .nav lives in
-   FeedPage.module.css) */
-.nav a {
-  color: var(--secondary-color);
-}

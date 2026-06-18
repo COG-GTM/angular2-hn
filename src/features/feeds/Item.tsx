@@ -7,7 +7,6 @@ import './Item.scss';
 
 interface ItemProps {
   item: Story;
-  index: number;
 }
 
 export function Item({ item }: ItemProps) {

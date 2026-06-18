@@ -18,4 +18,6 @@ export interface Story {
   poll_votes_count: number;
   deleted: boolean;
   dead: boolean;
+  content?: string;
+  text?: string;
 }

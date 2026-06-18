@@ -13,7 +13,7 @@ export default function FeedPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [page]);
+  }, [feedType, page]);
 
   return (
     <div className={styles['main-content']}>

@@ -1,0 +1,11 @@
+/* ----------------------------------------------------------------------------
+   Responsive breakpoints
+
+   Ported from src/app/shared/scss/_media.scss. Plain CSS has no SCSS
+   variables, so the literal pixel values are documented here. Use these exact
+   values in @media (...) blocks across the app so breakpoints stay consistent.
+
+     mobile-only:  @media only screen and (max-width: 768px)
+     laptop-only:  @media only screen and (min-width: 769px)
+     tablet-only:  @media only screen and (max-width: 1024px)
+---------------------------------------------------------------------------- */

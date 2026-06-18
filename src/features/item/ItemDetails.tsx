@@ -123,7 +123,7 @@ export function ItemDetails() {
             </span>
           </div>
         </div>
-        {item.type === 'poll' && (
+        {item.type === 'poll' && Array.isArray(item.poll) && (
           <div className="pollResults">
             {item.poll.map((pollResult, index) => (
               <div key={index} className="pollContent">
@@ -131,7 +131,13 @@ export function ItemDetails() {
                 <div className="subtext">{pollResult.points} points</div>
                 <div
                   className="pollBar"
-                  style={{ width: `${(pollResult.points / item.poll_votes_count) * 100}%` }}
+                  style={{
+                    width: `${
+                      item.poll_votes_count > 0
+                        ? (pollResult.points / item.poll_votes_count) * 100
+                        : 0
+                    }%`,
+                  }}
                 ></div>
               </div>
             ))}

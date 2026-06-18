@@ -1,0 +1,28 @@
+/* Ported from src/app/core/footer/footer.component.scss
+   + #footer theme rules from _themes.scss.
+   #footer -> .footer. mobile-only breakpoint: max-width: 768px. */
+
+.footer {
+  position: relative;
+  padding: 10px;
+  height: 60px;
+  letter-spacing: 0.7px;
+  text-align: center;
+  border-top: var(--border);
+}
+
+.footer a {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer {
+    display: none;
+  }
+}

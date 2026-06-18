@@ -1,0 +1,94 @@
+/* Ported from src/app/item-details/comment/comment.component.scss
+   + .meta / .deleted-meta theme colors from _themes.scss.
+   The Angular `:host >>> a` deep rule maps to anchors inside rendered comment
+   HTML (.comment-text a).
+   mobile-only: max-width: 768px. tablet-only: max-width: 1024px. */
+
+.comment-text a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.comment-text a:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  color: var(--subtext-color);
+}
+
+.meta a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.meta a:hover {
+  text-decoration: underline;
+}
+
+.meta .time {
+  padding-left: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .meta {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .meta .time {
+    padding: 0;
+    float: right;
+  }
+}
+
+.meta-collapse {
+  margin-bottom: 20px;
+}
+
+.deleted-meta {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 30px 0;
+  color: var(--subtext-color);
+}
+
+.deleted-meta a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.collapse {
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.comment-tree {
+  margin-left: 24px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .comment-tree {
+    margin-left: 8px;
+  }
+}
+
+.comment-text {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  line-height: 1.5em;
+}
+
+.subtree {
+  margin-left: 0;
+  padding: 0;
+  list-style-type: none;
+}

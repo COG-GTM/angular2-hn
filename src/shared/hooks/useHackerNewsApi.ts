@@ -13,7 +13,7 @@ export function useFeed(
 ): { items: Story[]; error: string; loading: boolean } {
   const [items, setItems] = useState<Story[]>([]);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -61,7 +61,7 @@ export function useItemDetails(
 ): { item: Story | null; error: string; loading: boolean } {
   const [item, setItem] = useState<Story | null>(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -129,7 +129,7 @@ export function useUser(
 ): { user: User | null; error: string; loading: boolean } {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();

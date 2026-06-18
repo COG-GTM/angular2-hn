@@ -8,12 +8,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores([
     'dist',
-    'src/app',
-    'src/environments',
-    'src/main.ts',
-    'src/polyfills.ts',
-    'src/test.ts',
-    'e2e',
     'dev-dist',
   ]),
   {

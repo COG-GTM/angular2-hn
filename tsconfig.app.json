@@ -21,12 +21,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
-  "exclude": [
-    "src/app",
-    "src/environments",
-    "src/main.ts",
-    "src/polyfills.ts",
-    "src/test.ts"
-  ]
+  "include": ["src"]
 }

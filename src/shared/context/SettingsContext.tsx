@@ -14,7 +14,13 @@ interface SettingsContextValue {
 const DARK_COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
 function getInitialTheme(): string {
-  const savedTheme = localStorage.getItem('theme');
+  let savedTheme = localStorage.getItem('theme');
+  // Backward-compat: the Angular app persisted the AMOLED theme as 'amoledblack',
+  // but the ported CSS class is '.amoled'. Migrate existing users' stored value.
+  if (savedTheme === 'amoledblack') {
+    savedTheme = 'amoled';
+    localStorage.setItem('theme', savedTheme);
+  }
   if (savedTheme) {
     return savedTheme;
   }

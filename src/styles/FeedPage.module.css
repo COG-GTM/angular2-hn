@@ -1,0 +1,122 @@
+/* Ported from src/app/feeds/feed/feed.component.scss
+   + .job-header theme rule from _themes.scss.
+   mobile-only breakpoint: max-width: 768px. */
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ol {
+  padding: 0 40px;
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  ol {
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0 10px;
+  }
+}
+
+ol li {
+  position: relative;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  .list-margin {
+    margin-top: 55px;
+  }
+}
+
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  box-sizing: border-box;
+  padding: 8px 0;
+  z-index: 0;
+}
+
+.post {
+  padding: 10px 0 10px 5px;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #cececb;
+}
+
+.post .itemNum {
+  color: #696969;
+  position: absolute;
+  width: 30px;
+  text-align: right;
+  left: 0;
+  top: 4px;
+}
+
+.item-block {
+  display: block;
+}
+
+.nav {
+  padding: 10px 40px;
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.main-content .nav a,
+.main-content .nav a:visited {
+  color: var(--secondary-color);
+}
+
+@media only screen and (max-width: 768px) {
+  .nav a {
+    text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .nav {
+    margin: 20px 0;
+    text-align: center;
+    padding: 10px 80px;
+    height: 20px;
+  }
+}
+
+.nav .prev {
+  padding-right: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav .prev {
+    float: left;
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .nav .more {
+    float: right;
+  }
+}
+
+.job-header {
+  font-size: 15px;
+  padding: 0 40px 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .job-header {
+    padding: 60px 15px 25px 15px;
+    border-bottom: var(--border);
+  }
+}

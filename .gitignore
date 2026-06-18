@@ -2,8 +2,10 @@
 
 # compiled output
 /dist
+/dev-dist
 /tmp
 /out-tsc
+*.local
 # Only exists if Bazel was run
 /bazel-out
 

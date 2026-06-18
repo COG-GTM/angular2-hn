@@ -1,0 +1,83 @@
+/* Ported from src/app/feeds/item/item.component.scss
+   + .subtext-* / .domain theme colors from _themes.scss.
+   mobile-only: max-width: 768px. laptop-only: min-width: 769px. */
+
+p {
+  margin: 2px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  p {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.title {
+  font-size: 16px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.subtext-laptop {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--subtext-color);
+}
+
+.subtext-laptop a {
+  color: var(--secondary-color);
+}
+
+.subtext-laptop a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+  .subtext-laptop {
+    display: none;
+  }
+}
+
+.subtext-palm {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--subtext-color);
+}
+
+.subtext-palm a {
+  color: var(--secondary-color);
+}
+
+.subtext-palm a:hover {
+  text-decoration: underline;
+}
+
+.subtext-palm .details {
+  margin-top: 5px;
+}
+
+.subtext-palm .details .right {
+  float: right;
+}
+
+@media only screen and (min-width: 769px) {
+  .subtext-palm {
+    display: none;
+  }
+}
+
+.domain {
+  color: var(--subtext-color);
+  letter-spacing: 0.5px;
+}
+
+.item-details {
+  padding: 10px;
+}

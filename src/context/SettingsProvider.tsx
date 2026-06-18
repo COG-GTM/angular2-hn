@@ -7,7 +7,7 @@ function getInitialSettings(): Settings {
   return {
     showSettings: false,
     openLinkInNewTab: storedOpenLinkInNewTab ? JSON.parse(storedOpenLinkInNewTab) : false,
-    theme: 'default',
+    theme: localStorage.getItem('theme') || 'default',
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   };

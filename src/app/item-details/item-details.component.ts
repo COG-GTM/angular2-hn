@@ -44,7 +44,7 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   get hasUrl(): boolean {
-    return this.item.url.indexOf('http') === 0;
+    return this.item.url.startsWith('http');
   }
 
 }

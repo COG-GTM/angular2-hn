@@ -42,6 +42,7 @@ export function UserProfile() {
             {!user && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
             {user && (
+                <div className="profile-page">
                 <div className="profile">
                     <div className="mobile item-header">
                         <p className="title-block">
@@ -59,6 +60,7 @@ export function UserProfile() {
                             <p dangerouslySetInnerHTML={{ __html: user.about }} />
                         </div>
                     )}
+                </div>
                 </div>
             )}
         </>

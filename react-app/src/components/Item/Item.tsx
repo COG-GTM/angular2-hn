@@ -14,7 +14,7 @@ export function Item({ item }: ItemProps) {
     const hasUrl = item.url && item.url.indexOf('http') === 0;
 
     return (
-        <div style={{ marginBottom: settings.listSpacing + 'px' }}>
+        <div className="feed-item" style={{ marginBottom: settings.listSpacing + 'px' }}>
             {hasUrl ? (
                 <p>
                     <a
@@ -26,7 +26,7 @@ export function Item({ item }: ItemProps) {
                     >
                         {item.title}
                     </a>
-                    {item.domain && <span className="domain">({item.domain})</span>}
+                    {item.domain && <>{' '}<span className="domain">({item.domain})</span></>}
                 </p>
             ) : (
                 <p>

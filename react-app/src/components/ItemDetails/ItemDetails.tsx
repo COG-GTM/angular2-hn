@@ -44,7 +44,7 @@ export function ItemDetails() {
     const hasUrl = item ? item.url && item.url.indexOf('http') === 0 : false;
 
     return (
-        <div className="main-content">
+        <div className="item-details-page main-content">
             {!item && !errorMessage && <Loader />}
             {!item && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
@@ -82,7 +82,7 @@ export function ItemDetails() {
                                 >
                                     {item.title}
                                 </a>
-                                {item.domain && <span className="domain">({item.domain})</span>}
+                                {item.domain && <>{' '}<span className="domain">({item.domain})</span></>}
                             </p>
                         ) : (
                             <p>

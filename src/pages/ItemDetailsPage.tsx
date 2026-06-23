@@ -4,6 +4,7 @@ import { fetchItem } from '../api/hackernews';
 import { Story } from '../types/story';
 import { useSettings } from '../context/SettingsContext';
 import { formatCommentCount } from '../utils/commentFormatter';
+import { sanitizeHtml } from '../utils/sanitize';
 import { Comment } from '../components/Comment';
 import { Loader } from '../components/Loader';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -17,13 +18,21 @@ export function ItemDetailsPage() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setItem(null);
         setErrorMessage('');
         if (!id) return;
         fetchItem(parseInt(id, 10))
-            .then(setItem)
-            .catch(() => setErrorMessage('Could not load item comments.'));
-        window.scrollTo(0, 0);
+            .then((data) => {
+                if (!cancelled) {
+                    setItem(data);
+                    window.scrollTo(0, 0);
+                }
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage('Could not load item comments.');
+            });
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);
@@ -98,7 +107,7 @@ export function ItemDetailsPage() {
                         <div className="pollResults">
                             {item.poll.map((pollResult, i) => (
                                 <div key={i} className="pollContent">
-                                    <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
@@ -110,7 +119,7 @@ export function ItemDetailsPage() {
                             ))}
                         </div>
                     )}
-                    {item.content && <p className="subject" dangerouslySetInnerHTML={{ __html: item.content }} />}
+                    {item.content && <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />}
                     <ul className="comment-list">
                         {item.comments &&
                             item.comments.map((comment) => (

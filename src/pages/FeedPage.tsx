@@ -14,16 +14,22 @@ export function FeedPage() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setItems(null);
         setErrorMessage('');
         fetchFeed(feedType, pageNum)
             .then((data) => {
-                setItems(data);
-                window.scrollTo(0, 0);
+                if (!cancelled) {
+                    setItems(data);
+                    window.scrollTo(0, 0);
+                }
             })
             .catch(() => {
-                setErrorMessage(`Could not load ${feedType} stories.`);
+                if (!cancelled) {
+                    setErrorMessage(`Could not load ${feedType} stories.`);
+                }
             });
+        return () => { cancelled = true; };
     }, [feedType, pageNum]);
 
     const listStart = (pageNum - 1) * 30 + 1;

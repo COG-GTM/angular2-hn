@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUser } from '../api/hackernews';
 import { User } from '../types/user';
+import { sanitizeHtml } from '../utils/sanitize';
 import { Loader } from '../components/Loader';
 import { ErrorMessage } from '../components/ErrorMessage';
 import './UserPage.scss';
@@ -13,12 +14,18 @@ export function UserPage() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        let cancelled = false;
         setUser(null);
         setErrorMessage('');
         if (!id) return;
         fetchUser(id)
-            .then(setUser)
-            .catch(() => setErrorMessage(`Could not load user ${id}.`));
+            .then((data) => {
+                if (!cancelled) setUser(data);
+            })
+            .catch(() => {
+                if (!cancelled) setErrorMessage(`Could not load user ${id}.`);
+            });
+        return () => { cancelled = true; };
     }, [id]);
 
     const goBack = () => navigate(-1);
@@ -43,7 +50,7 @@ export function UserPage() {
                     </div>
                     {user.about && (
                         <div className="other-details">
-                            <p dangerouslySetInnerHTML={{ __html: user.about }} />
+                            <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} />
                         </div>
                     )}
                 </div>

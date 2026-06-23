@@ -35,7 +35,9 @@
   margin-bottom: 15px;
 }
 
-p {
+.item-header p,
+.laptop p,
+.subject {
   margin: 2px 0;
 }
 
@@ -44,7 +46,9 @@ p {
   margin-top: 20px;
 }
 
-a {
+.item-header a,
+.laptop a,
+.subtext a {
   cursor: pointer;
   text-decoration: none;
 }
@@ -141,11 +145,11 @@ a {
   }
 }
 
-ul {
+.comment-list {
   list-style-type: none;
   padding: 10px 0;
 }
 
-li {
+.comment-list > li {
   display: list-item;
 }

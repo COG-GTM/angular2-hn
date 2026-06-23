@@ -1,7 +1,8 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
-a {
+.nav a,
+.job-header a {
   text-decoration: none;
   font-weight: bold;
 
@@ -10,7 +11,7 @@ a {
   };
 }
 
-ol {
+.main-content ol {
   padding: 0 40px;
   margin: 0;
 

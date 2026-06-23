@@ -1,7 +1,7 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
-p {
+.item-block p {
     margin: 2px 0;
 
     @media #{$mobile-only} {
@@ -10,7 +10,7 @@ p {
    }
   }
 
-  a {
+  .item-block a {
     cursor: pointer;
     text-decoration: none;
   }

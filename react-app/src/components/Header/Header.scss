@@ -21,12 +21,12 @@
   }
 }
 
-.home-link {
+#header .home-link {
   width: 50px;
   height: 66px;
 }
 
-.logo-inner {
+#header .logo-inner {
   width: 32px;
   position: absolute;
   left: 17px;
@@ -41,7 +41,7 @@
   }
 }
 
-.logo {
+#header .logo {
   width: 50px;
   padding: 3px 8px 0;
 
@@ -51,7 +51,7 @@
   }
 }
 
-h1 {
+#header h1 {
   font-weight: normal;
   display: inline-block;
   vertical-align:middle;
@@ -64,7 +64,7 @@ h1 {
   }
 }
 
-.name {
+#header .name {
   margin-right: 30px;
   margin-bottom: 2px;
 
@@ -73,7 +73,7 @@ h1 {
   }
 }
 
-.header-text {
+#header .header-text {
   position: absolute;
   width: inherit;
   height: 20px;
@@ -86,7 +86,7 @@ h1 {
   }
 }
 
-.left {
+#header .left {
   position: absolute;
   left: 60px;
   font-size: 16px;
@@ -97,7 +97,7 @@ h1 {
   }
 }
 
-.header-nav {
+#header .header-nav {
   display: inline-block;
   margin-left: 20px;
 
@@ -121,7 +121,7 @@ h1 {
   }
 }
 
-.info {
+#header .info {
   position: absolute;
   top: 0;
   right: 20px;

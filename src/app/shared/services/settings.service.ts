@@ -10,6 +10,7 @@ export class SettingsService {
     showSettings : false,
     openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
     theme: 'default',
+    themePreference: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'system',
     titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
     listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
   };
@@ -26,13 +27,9 @@ export class SettingsService {
   }
 
   handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
-    if (event.matches) {
-      theme = 'night';
-    } else {
-      theme = 'default';
+    if (this.settings.themePreference === 'system') {
+      this.settings.theme = event.matches ? 'night' : 'default';
     }
-    this.setTheme(theme);
   }
   
   subscribeToSystemPreferredColorScheme() {
@@ -43,16 +40,14 @@ export class SettingsService {
   }
 
   initTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      this.settings.theme = savedTheme;
+    this.applyThemePreference(this.settings.themePreference);
+  }
+
+  applyThemePreference(preference: string) {
+    if (preference === 'system') {
+      this.settings.theme = this.darkColorSchemeMedia.matches ? 'night' : 'default';
     } else {
-      this.darkColorSchemeMedia.dispatchEvent(
-        new MediaQueryListEvent('change', {
-          media: this.darkColorSchemeMedia.media,
-          matches: this.darkColorSchemeMedia.matches
-        })
-      );
+      this.settings.theme = preference;
     }
   }
 
@@ -72,9 +67,14 @@ export class SettingsService {
     localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
   }
 
-  setTheme(theme) {
-    this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
+  setTheme(preference) {
+    this.settings.themePreference = preference;
+    if (preference === 'system') {
+      localStorage.removeItem('theme');
+    } else {
+      localStorage.setItem('theme', preference);
+    }
+    this.applyThemePreference(preference);
   }
 
   setFont(fontSize){

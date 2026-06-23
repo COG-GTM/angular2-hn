@@ -82,7 +82,28 @@
       }
 
       .popup {
-        background: $header-background-color;
+        background: $wrapper-background-color;
+        color: $wrapper-color;
+
+        h1, h2, .content {
+          color: $wrapper-color;
+        }
+
+        hr {
+          border-color: $subtext-color;
+        }
+
+        .close {
+          color: $subtext-color;
+
+          &:hover {
+            color: $wrapper-color;
+          }
+        }
+
+        .control-section {
+          border-bottom-color: $subtext-color;
+        }
       }
 
       .item-header {
@@ -187,6 +208,14 @@
         }
         .right {
           color: $secondary-link-color;
+        }
+      }
+
+      .post {
+        border-bottom-color: $subtext-color;
+
+        .itemNum {
+          color: $subtext-color;
         }
       }
     }

@@ -21,7 +21,6 @@
   h1 {
     margin-top: 0;
     margin-bottom: 0px;
-    color: #fff;
     text-align: center;
     letter-spacing: 1px;
   }
@@ -39,15 +38,12 @@
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
-    color: rgba(255,255,255,0.8);
     &:hover {
-      color: #fff;
       cursor: pointer;
     }
   }
   .content {
     max-height: 30%;
-    color: #fff;
     letter-spacing: 1px;
     overflow: auto;
   }
@@ -64,7 +60,7 @@
 .control-section {
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid;
 }
 
 @media screen and (max-width: 700px) {

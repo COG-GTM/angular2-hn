@@ -14,19 +14,26 @@ export function useFeed(feedType: string, page: number): UseFeedResult {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
         setItems(null);
         setError('');
         setLoading(true);
 
         fetchFeed(feedType, page)
             .then((data) => {
-                setItems(data);
-                setLoading(false);
+                if (!cancelled) {
+                    setItems(data);
+                    setLoading(false);
+                }
             })
             .catch(() => {
-                setError(`Could not load ${feedType} stories.`);
-                setLoading(false);
+                if (!cancelled) {
+                    setError(`Could not load ${feedType} stories.`);
+                    setLoading(false);
+                }
             });
+
+        return () => { cancelled = true; };
     }, [feedType, page]);
 
     return { items, error, loading };

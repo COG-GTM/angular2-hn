@@ -36,11 +36,9 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) return;
-
         const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
         const handler = (event: MediaQueryListEvent) => {
+            if (localStorage.getItem('theme')) return;
             setSettings((prev) => ({
                 ...prev,
                 theme: event.matches ? 'night' : 'default',

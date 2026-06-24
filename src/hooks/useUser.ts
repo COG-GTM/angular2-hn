@@ -14,19 +14,26 @@ export function useUser(id: string): UseUserResult {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
         setUser(null);
         setError('');
         setLoading(true);
 
         fetchUser(id)
             .then((data) => {
-                setUser(data);
-                setLoading(false);
+                if (!cancelled) {
+                    setUser(data);
+                    setLoading(false);
+                }
             })
             .catch(() => {
-                setError(`Could not load user ${id}.`);
-                setLoading(false);
+                if (!cancelled) {
+                    setError(`Could not load user ${id}.`);
+                    setLoading(false);
+                }
             });
+
+        return () => { cancelled = true; };
     }, [id]);
 
     return { user, error, loading };

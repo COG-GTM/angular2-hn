@@ -14,21 +14,27 @@ export function useItemDetails(id: number): UseItemDetailsResult {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false;
         setItem(null);
         setError('');
         setLoading(true);
 
         fetchItemContent(id)
             .then((data) => {
-                setItem(data);
-                setLoading(false);
+                if (!cancelled) {
+                    setItem(data);
+                    setLoading(false);
+                }
             })
             .catch(() => {
-                setError('Could not load item comments.');
-                setLoading(false);
+                if (!cancelled) {
+                    setError('Could not load item comments.');
+                    setLoading(false);
+                }
             });
 
         window.scrollTo(0, 0);
+        return () => { cancelled = true; };
     }, [id]);
 
     return { item, error, loading };

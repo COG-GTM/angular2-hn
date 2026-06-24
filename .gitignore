@@ -44,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Vite / React migration
+/dev-dist
+/playwright-report
+/test-results
+/.vite

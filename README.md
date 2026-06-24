@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
@@ -73,16 +73,23 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to run the application in development mode
+ - `npm run build` to create a production build in the `dist/` directory
+ - `npm run preview` to preview the production build locally
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: Service Worker is only enabled in production builds. To test service worker:
+ - `npm run build`
+ - `npm run preview`
+
+## Tech Stack
+
+- **React 18** with TypeScript
+- **Vite** for bundling and dev server
+- **react-router-dom v6** for client-side routing
+- **vite-plugin-pwa** (Workbox) for service worker and offline support
+- **SCSS** for styling with theme engine
 
 ## Contributors
 
@@ -95,7 +102,7 @@ A million thanks to some awesome people :)
 * [Zach Berger](https://github.com/zachberger)
 * [blAck PR](https://github.com/blackpr)
 * [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
+* [Antonio Indrianjafy](https://github.com/Andrianjafy)
 * [Addy Osmani](https://github.com/addyosmani)
 * [Majid Hajian](https://github.com/mhadaily)
 * [Jeff Cross](https://github.com/jeffbcross)

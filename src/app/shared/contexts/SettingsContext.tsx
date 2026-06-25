@@ -18,7 +18,8 @@ function getInitialSettings(): Settings {
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
             ? JSON.parse(localStorage.getItem('openLinkInNewTab')!)
             : false,
-        theme: localStorage.getItem('theme') || 'default',
+        theme: localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'default'),
         titleFontSize: localStorage.getItem('titleFontSize') || '16',
         listSpacing: localStorage.getItem('listSpacing') || '0',
     };

@@ -1,0 +1,15 @@
+<div class="main-content">
+  <app-loader *ngIf="loading"></app-loader>
+  <app-error-message [message]="errorMessage" *ngIf="!loading && errorMessage !== ''"></app-error-message>
+
+  <div *ngIf="!loading && errorMessage === ''">
+    <p class="empty" *ngIf="items.length === 0">
+      You haven't saved any posts yet. Tap the ☆ on a story to save it.
+    </p>
+    <ol *ngIf="items.length > 0" class="list-margin">
+      <li *ngFor="let item of items" class="post">
+        <item class="item-block" [item]="item"></item>
+      </li>
+    </ol>
+  </div>
+</div>

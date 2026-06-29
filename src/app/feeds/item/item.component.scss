@@ -63,6 +63,22 @@ p {
     letter-spacing: 0.5px;
   }
 
+  .save-toggle {
+    float: right;
+    background: none;
+    border: none;
+    padding: 0 0 0 8px;
+    margin-left: 4px;
+    cursor: pointer;
+    line-height: 1;
+    font-size: 18px;
+    color: #696969;
+
+    &.saved {
+      color: #ff6600;
+    }
+  }
+
   .item-details {
     padding: 10px;
   }

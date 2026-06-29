@@ -1,4 +1,10 @@
 <div [ngStyle]="{'margin-bottom': settings.listSpacing+'px'}">
+  <button type="button" class="save-toggle" (click)="toggleSaved($event)"
+    [class.saved]="isSaved" [attr.aria-pressed]="isSaved"
+    [attr.aria-label]="isSaved ? 'Remove from saved' : 'Save'"
+    [attr.title]="isSaved ? 'Remove from saved' : 'Save'">
+    {{ isSaved ? '★' : '☆' }}
+  </button>
   <p *ngIf="hasUrl">
     <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
       {{item.title}}

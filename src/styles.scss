@@ -1,4 +1,4 @@
-@import "./app/shared/scss/themes";
+@import "./scss/themes";
 
 html {
   height: 100%;
@@ -32,12 +32,4 @@ pre {
   .app-loader {
     background-color: #fff;
   }
-}
-
-app-root:empty + .app-loader {
-    opacity: 1;
-    z-index: 100;
-}
-app-root:empty + .app-loader .logo {
-    width: 20vh;
 }

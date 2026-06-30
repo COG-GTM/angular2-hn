@@ -13,7 +13,7 @@ export default function FeedItem({ item }: FeedItemProps) {
   const hasUrl = item.url.indexOf('http') === 0;
 
   return (
-    <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+    <div className="feed-item" style={{ marginBottom: `${settings.listSpacing}px` }}>
       {hasUrl ? (
         <p>
           <a

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 import Settings from './Settings';
 import './Header.scss';
@@ -13,20 +13,20 @@ export default function Header() {
   return (
     <header>
       <div id="header">
-        <Link className="home-link" to="/news/1" onClick={scrollTop}>
+        <NavLink className="home-link" to="/news/1" onClick={scrollTop}>
           <div className="logo-inner"></div>
           <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
-        </Link>
+        </NavLink>
         <div className="header-text">
           <div className="left">
             <span className="header-nav">
-              <Link to="/newest/1" onClick={scrollTop}>new</Link>
+              <NavLink to="/newest/1" onClick={scrollTop}>new</NavLink>
                 |
-              <Link to="/show/1" onClick={scrollTop}>show</Link>
+              <NavLink to="/show/1" onClick={scrollTop}>show</NavLink>
                 |
-              <Link to="/ask/1" onClick={scrollTop}>ask</Link>
+              <NavLink to="/ask/1" onClick={scrollTop}>ask</NavLink>
                 |
-              <Link to="/jobs/1" onClick={scrollTop}>jobs</Link>
+              <NavLink to="/jobs/1" onClick={scrollTop}>jobs</NavLink>
             </span>
           </div>
         </div>

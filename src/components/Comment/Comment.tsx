@@ -1,11 +1,43 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Comment as CommentModel } from '../../models/comment';
 import './Comment.scss';
 
-interface CommentProps {
-    comment: CommentModel;
-}
+export default function Comment({ comment }: { comment: CommentModel }) {
+    const [collapse, setCollapse] = useState(false);
 
-// STUB — implemented by a child session.
-export default function Comment({ comment }: CommentProps) {
-    return <div>{comment.user}</div>;
+    if (comment.deleted) {
+        return (
+            <div className="deleted-meta">
+                <span className="collapse">[deleted]</span> | Comment Deleted
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <div className={`meta${collapse ? ' meta-collapse' : ''}`}>
+                <span className="collapse" onClick={() => setCollapse(!collapse)}>
+                    [{collapse ? '+' : '-'}]
+                </span>
+                <Link to={`/user/${comment.user}`}>{comment.user}</Link>
+                <span className="time">{comment.time_ago}</span>
+            </div>
+            <div className="comment-tree">
+                <div style={{ display: collapse ? 'none' : undefined }}>
+                    <p
+                        className="comment-text"
+                        dangerouslySetInnerHTML={{ __html: comment.content }}
+                    />
+                    <ul className="subtree">
+                        {comment.comments.map((subComment) => (
+                            <li key={subComment.id}>
+                                <Comment comment={subComment} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
 }

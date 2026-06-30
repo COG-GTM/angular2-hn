@@ -4,6 +4,13 @@
 /dist
 /tmp
 /out-tsc
+# Angular build cache
+/.angular/cache
+
+# e2e
+/test-results
+/playwright-report
+/playwright/.cache
 # Only exists if Bazel was run
 /bazel-out
 

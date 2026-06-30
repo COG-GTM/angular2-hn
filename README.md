@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
@@ -73,16 +72,19 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This project is built with [Angular](https://angular.dev) and the Angular CLI. It requires an active Node.js LTS release (Node 20+).
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the application with the dev server, or `npm run build` to kick off a fresh production build and update the output directory (`dist/`)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The production build (`npm run build`) compiles ahead-of-time and generates the Angular service worker (`ngsw-worker.js`), so offline/PWA behavior can be verified by serving the contents of `dist/angular-hnpwa/browser`.
+
+## Quality checks
+
+ - `npm run lint` &mdash; lint the project with [ESLint](https://eslint.org) (via [angular-eslint](https://github.com/angular-eslint/angular-eslint))
+ - `npm test` &mdash; run unit tests with Karma + Jasmine
+ - `npm run e2e` &mdash; run end-to-end tests with [Playwright](https://playwright.dev)
 
 ## Contributors
 

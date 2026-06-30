@@ -17,6 +17,5 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "vite-env.d.ts"],
-  "exclude": ["src/app", "src/environments", "src/polyfills.ts", "src/test.ts", "src/main.ts"]
+  "include": ["src", "vite-env.d.ts"]
 }

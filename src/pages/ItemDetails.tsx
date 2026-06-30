@@ -12,14 +12,12 @@ import { Story } from '../models/story';
 
 import './ItemDetails.scss';
 
-type StoryWithContent = Story & { content?: string };
-
 function ItemDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { settings } = useSettings();
 
-  const [item, setItem] = useState<StoryWithContent | null>(null);
+  const [item, setItem] = useState<Story | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {

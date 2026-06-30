@@ -46,7 +46,6 @@ export default function Settings() {
                       type="radio"
                       value={value}
                       checked={settings.theme === value}
-                      onClick={() => setTheme(value)}
                       onChange={() => setTheme(value)}
                     />{' '}
                     {label}

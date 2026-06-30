@@ -17,11 +17,19 @@ export default function User() {
     if (!id) {
       return;
     }
+    let ignore = false;
     setUser(null);
     setErrorMessage('');
     fetchUser(id)
-      .then((data) => setUser(data))
-      .catch(() => setErrorMessage('Could not load user ' + id + '.'));
+      .then((data) => {
+        if (!ignore) setUser(data);
+      })
+      .catch(() => {
+        if (!ignore) setErrorMessage('Could not load user ' + id + '.');
+      });
+    return () => {
+      ignore = true;
+    };
   }, [id]);
 
   const goBack = () => navigate(-1);

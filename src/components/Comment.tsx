@@ -38,7 +38,7 @@ function Comment({ comment }: CommentProps) {
             dangerouslySetInnerHTML={{ __html: comment.content }}
           />
           <ul className="subtree">
-            {comment.comments.map(subComment => (
+            {comment.comments?.map(subComment => (
               <li key={subComment.id}>
                 <Comment comment={subComment} />
               </li>

@@ -23,12 +23,20 @@ function ItemDetails() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    let cancelled = false;
     setItem(null);
     setErrorMessage('');
     fetchItemContent(Number(id))
-      .then(setItem)
-      .catch(() => setErrorMessage('Could not load item comments.'));
+      .then(data => {
+        if (!cancelled) setItem(data);
+      })
+      .catch(() => {
+        if (!cancelled) setErrorMessage('Could not load item comments.');
+      });
     window.scrollTo(0, 0);
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   if (!item && !errorMessage) {
@@ -111,7 +119,7 @@ function ItemDetails() {
             </span>
           </div>
         </div>
-        {item.type === 'poll' && (
+        {item.type === 'poll' && item.poll && (
           <div className="pollResults">
             {item.poll.map((pollResult, i) => (
               <div key={i} className="pollContent">

@@ -16,9 +16,19 @@ export default function User() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
+    let ignore = false;
+    setUser(undefined);
+    setErrorMessage('');
     fetchUser(userID)
-      .then((data) => setUser(data))
-      .catch(() => setErrorMessage('Could not load user ' + userID + '.'));
+      .then((data) => {
+        if (!ignore) setUser(data);
+      })
+      .catch(() => {
+        if (!ignore) setErrorMessage('Could not load user ' + userID + '.');
+      });
+    return () => {
+      ignore = true;
+    };
   }, [userID]);
 
   const goBack = () => navigate(-1);

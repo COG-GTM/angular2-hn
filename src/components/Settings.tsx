@@ -75,7 +75,7 @@ export default function Settings() {
                   <input
                     min="1"
                     value={settings.titleFontSize}
-                    name="theme"
+                    name="titleFontSize"
                     type="number"
                     onChange={(e) => setFont(e.target.value)}
                   />
@@ -87,7 +87,7 @@ export default function Settings() {
                   <input
                     min="0"
                     value={settings.listSpacing}
-                    name="theme"
+                    name="listSpacing"
                     type="number"
                     onChange={(e) => setSpacing(e.target.value)}
                   />

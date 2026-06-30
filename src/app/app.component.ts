@@ -4,10 +4,11 @@ import { Router, NavigationEnd } from '@angular/router';
 import { SettingsService } from './shared/services/settings.service';
 import { Settings } from './shared/models/settings';
 
-declare let ga: Function;
+declare let ga: (...args: unknown[]) => void;
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

@@ -5,6 +5,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { fetchUser } from '../../services/hackernews-api';
 import type { User as HNUser } from '../../models/user';
+import { sanitize } from '../../utils/sanitize';
 import './User.scss';
 
 export default function User() {
@@ -53,7 +54,7 @@ export default function User() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+              <p dangerouslySetInnerHTML={sanitize(user.about)}></p>
             </div>
           )}
         </div>

@@ -79,15 +79,15 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     createInitialSettings,
   );
 
-  // Sync theme with the system preferred color scheme, but only when the user
-  // has not explicitly chosen/saved a theme.
+  // Sync theme with the system preferred color scheme and persist it.
+  // This matches the original SettingsService behavior.
   useEffect(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (event: MediaQueryListEvent) => {
-      if (localStorage.getItem('theme')) {
-        return;
-      }
-      dispatch({ type: 'SET_THEME', theme: event.matches ? 'night' : 'default' });
+      dispatch({
+        type: 'SET_THEME',
+        theme: event.matches ? 'night' : 'default',
+      });
     };
     media.addEventListener('change', handleChange);
     return () => media.removeEventListener('change', handleChange);

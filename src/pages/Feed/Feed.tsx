@@ -21,18 +21,25 @@ export default function Feed({ feedType }: FeedProps) {
   const [listStart, setListStart] = useState(0);
 
   useEffect(() => {
+    let ignore = false;
     setItems(undefined);
     setErrorMessage('');
 
     fetchFeed(feedType, pageNum)
       .then((fetchedItems) => {
+        if (ignore) return;
         setItems(fetchedItems);
         setListStart((pageNum - 1) * 30 + 1);
         window.scrollTo(0, 0);
       })
       .catch(() => {
+        if (ignore) return;
         setErrorMessage('Could not load ' + feedType + ' stories.');
       });
+
+    return () => {
+      ignore = true;
+    };
   }, [feedType, pageNum]);
 
   return (

@@ -2,8 +2,12 @@
 
 # compiled output
 /dist
+/dev-dist
 /tmp
 /out-tsc
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 # Only exists if Bazel was run
 /bazel-out
 

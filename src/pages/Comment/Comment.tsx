@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import type { Comment as CommentModel } from '../../models/comment';
 import './Comment.scss';
 
@@ -5,7 +8,48 @@ interface CommentProps {
   comment: CommentModel;
 }
 
-// TODO(child-session): port CommentComponent (collapse, nested comments).
 export default function Comment({ comment }: CommentProps) {
-  return <div className="comment-tree">{comment.user}</div>;
+  const [collapse, setCollapse] = useState(false);
+
+  if (comment.deleted) {
+    return (
+      <div>
+        <div className="deleted-meta">
+          <span className="collapse">[deleted]</span> | Comment Deleted
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className={collapse ? 'meta meta-collapse' : 'meta'}>
+        <span className="collapse" onClick={() => setCollapse(!collapse)}>
+          [{collapse ? '+' : '-'}]
+        </span>
+        <NavLink
+          to={`/user/${comment.user}`}
+          className={({ isActive }) => (isActive ? 'active' : undefined)}
+        >
+          {comment.user}
+        </NavLink>
+        <span className="time">{comment.time_ago}</span>
+      </div>
+      <div className="comment-tree">
+        <div hidden={collapse}>
+          <p
+            className="comment-text"
+            dangerouslySetInnerHTML={{ __html: comment.content }}
+          ></p>
+          <ul className="subtree">
+            {comment.comments.map((subComment) => (
+              <li key={subComment.id}>
+                <Comment comment={subComment} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }

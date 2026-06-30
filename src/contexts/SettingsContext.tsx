@@ -36,6 +36,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
     const darkMedia = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = (e: MediaQueryListEvent) => {
+      // Once the user has explicitly chosen a theme (persisted to localStorage),
+      // stop letting OS color-scheme changes override their choice.
+      if (localStorage.getItem('theme')) return;
       setSettings(prev => ({ ...prev, theme: e.matches ? 'night' : 'default' }));
     };
 

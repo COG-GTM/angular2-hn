@@ -19,10 +19,20 @@ export default function ItemDetails() {
   const { settings } = useSettings();
 
   useEffect(() => {
+    let stale = false;
+    setItem(undefined);
+    setErrorMessage('');
     fetchItemContent(itemID)
-      .then(setItem)
-      .catch(() => setErrorMessage('Could not load item comments.'));
+      .then((data) => {
+        if (!stale) setItem(data);
+      })
+      .catch(() => {
+        if (!stale) setErrorMessage('Could not load item comments.');
+      });
     window.scrollTo(0, 0);
+    return () => {
+      stale = true;
+    };
   }, [itemID]);
 
   const goBack = () => navigate(-1);

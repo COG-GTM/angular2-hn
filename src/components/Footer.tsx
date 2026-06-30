@@ -1,4 +1,14 @@
-// STUB — to be implemented by the "core-shell" migration session.
+import './Footer.scss';
+
 export default function Footer() {
-    return <footer id="footer">Footer stub</footer>;
+  return (
+    <div id="footer">
+      <p>
+        Show this project some ❤ on{' '}
+        <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank" rel="noopener">
+          GitHub
+        </a>
+      </p>
+    </div>
+  );
 }

@@ -8,6 +8,7 @@ import Comment from '../components/Comment';
 import { fetchItemContent } from '../services/hackerNewsApi';
 import { useSettings } from '../contexts/SettingsContext';
 import { commentPipe } from '../utils/commentPipe';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { Story } from '../models/story';
 
 import './ItemDetails.scss';
@@ -121,7 +122,7 @@ function ItemDetails() {
           <div className="pollResults">
             {item.poll.map((pollResult, i) => (
               <div key={i} className="pollContent">
-                <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                 <div className="subtext">{pollResult.points} points</div>
                 <div
                   className="pollBar"
@@ -135,7 +136,7 @@ function ItemDetails() {
         )}
         <p
           className="subject"
-          dangerouslySetInnerHTML={{ __html: item.content || '' }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}
         />
         <ul className="comment-list">
           {item.comments?.map(comment => (

@@ -10,7 +10,7 @@ interface FeedItemProps {
 
 export default function FeedItem({ item }: FeedItemProps) {
   const { settings } = useSettings();
-  const hasUrl = item.url.indexOf('http') === 0;
+  const hasUrl = item.url ? item.url.indexOf('http') === 0 : false;
 
   return (
     <div className="feed-item" style={{ marginBottom: `${settings.listSpacing}px` }}>

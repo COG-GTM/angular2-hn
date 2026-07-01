@@ -6,6 +6,7 @@ import { Settings } from '../../shared/models/settings';
 
 @Component({
   standalone: false,
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']

@@ -35,11 +35,10 @@ export class SettingsService implements OnDestroy {
     this.setTheme(theme);
   }
   
+  private boundColorSchemeHandler = this.handleSystemPreferredColorSchemeChange.bind(this);
+
   subscribeToSystemPreferredColorScheme() {
-    this.darkColorSchemeMedia.addEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
+    this.darkColorSchemeMedia.addEventListener('change', this.boundColorSchemeHandler);
   }
 
   initTheme() {
@@ -57,10 +56,7 @@ export class SettingsService implements OnDestroy {
   }
 
   unSubscribeToSystemPrefferedColorScheme() {
-    this.darkColorSchemeMedia.removeEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
+    this.darkColorSchemeMedia.removeEventListener('change', this.boundColorSchemeHandler);
   }
 
   toggleSettings() {

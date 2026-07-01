@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
@@ -33,9 +33,12 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
-        this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
+      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe({
+        next: item => {
+          this.item = item;
+        },
+        error: () => this.errorMessage = 'Could not load item comments.'
+      });
     });
     window.scrollTo(0, 0);
   }

@@ -10,6 +10,7 @@ import { Story } from '../shared/models/story';
 import { Settings } from '../shared/models/settings';
 
 @Component({
+  standalone: false,
   selector: 'app-item-details',
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.scss']

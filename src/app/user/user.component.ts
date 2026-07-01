@@ -7,6 +7,7 @@ import { HackerNewsAPIService } from '../shared/services/hackernews-api.service'
 import { User } from '../shared/models/user';
 
 @Component({
+  standalone: false,
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']

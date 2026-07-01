@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, map } from 'rxjs';
 import fetch from 'unfetch';
-import {map } from 'rxjs/operators';
 
 import { Story } from '../models/story';
 import { User } from '../models/user';
@@ -45,7 +44,7 @@ export class HackerNewsAPIService {
   }
 }
 
-function lazyFetch<T>(url, options?) {
+function lazyFetch<T>(url: string, options?: RequestInit) {
   return new Observable<T>(fetchObserver => {
     let cancelToken = false;
     fetch(url, options)

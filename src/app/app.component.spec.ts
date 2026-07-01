@@ -7,6 +7,7 @@ import { SettingsService } from './shared/services/settings.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
+    (window as unknown as Record<string, unknown>)['ga'] = jasmine.createSpy('ga');
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
       providers: [provideRouter([]), SettingsService],

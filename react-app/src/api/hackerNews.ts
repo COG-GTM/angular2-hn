@@ -6,6 +6,9 @@ const baseUrl = 'https://node-hnapi.herokuapp.com';
 
 async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   const res = await fetch(url, { signal });
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
   return res.json() as Promise<T>;
 }
 

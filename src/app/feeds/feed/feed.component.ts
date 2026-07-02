@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -37,14 +36,14 @@ export class FeedComponent implements OnInit {
     this.pageSub = this.route.params.subscribe(params => {
       this.pageNum = params['page'] ? +params['page'] : 1;
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
-        .subscribe(
-          items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
-          () => {
+        .subscribe({
+          next: items => this.items = items,
+          error: () => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
+          complete: () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
             window.scrollTo(0, 0);
           }
-        );
+        });
     });
   }
 }

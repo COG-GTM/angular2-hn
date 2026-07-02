@@ -1,7 +1,7 @@
 @use "../shared/scss/media" as *;
 @use "../shared/scss/theme_variables" as *;
 
-::ng-deep pre {
+:host ::ng-deep pre {
   white-space: pre-wrap;
 }
 

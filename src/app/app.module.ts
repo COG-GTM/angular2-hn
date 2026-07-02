@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 
 import { routing } from './app.routes';
 
@@ -26,7 +26,7 @@ import { SettingsService } from './shared/services/settings.service';
             enabled: environment.production,
         }),
     ],
-    providers: [HackerNewsAPIService, SettingsService],
+    providers: [provideZoneChangeDetection({ eventCoalescing: true }), HackerNewsAPIService, SettingsService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

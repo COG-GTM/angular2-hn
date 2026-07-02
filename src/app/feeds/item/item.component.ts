@@ -6,7 +6,7 @@ import { Settings } from '../../shared/models/settings';
 
 @Component({
   standalone: false,
-  selector: 'item',
+  selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })

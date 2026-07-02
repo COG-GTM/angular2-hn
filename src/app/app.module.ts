@@ -26,7 +26,7 @@ import { SettingsService } from './shared/services/settings.service';
             enabled: environment.production,
         }),
     ],
-    providers: [provideZoneChangeDetection(), HackerNewsAPIService, SettingsService],
+    providers: [provideZoneChangeDetection({ eventCoalescing: true }), HackerNewsAPIService, SettingsService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

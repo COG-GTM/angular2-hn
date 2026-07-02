@@ -26,9 +26,12 @@ export class HackerNewsAPIService {
         let numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
-          this.fetchPollContent(story.id + i).subscribe(pollResults => {
-            story.poll[i - 1] = pollResults;
-            story.poll_votes_count += pollResults.points;
+          this.fetchPollContent(story.id + i).subscribe({
+            next: pollResults => {
+              story.poll[i - 1] = pollResults;
+              story.poll_votes_count += pollResults.points;
+            },
+            error: () => { /* poll option fetch failed; leave partial data */ }
           });
         }
       }

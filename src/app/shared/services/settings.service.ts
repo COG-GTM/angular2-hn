@@ -15,6 +15,8 @@ export class SettingsService implements OnDestroy {
   };
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  private boundColorSchemeChangeHandler = this.handleSystemPreferredColorSchemeChange.bind(this);
   
   constructor() {
     this.subscribeToSystemPreferredColorScheme();
@@ -38,7 +40,7 @@ export class SettingsService implements OnDestroy {
   subscribeToSystemPreferredColorScheme() {
     this.darkColorSchemeMedia.addEventListener(
       'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
+      this.boundColorSchemeChangeHandler
     );
   }
 
@@ -59,7 +61,7 @@ export class SettingsService implements OnDestroy {
   unSubscribeToSystemPrefferedColorScheme() {
     this.darkColorSchemeMedia.removeEventListener(
       'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
+      this.boundColorSchemeChangeHandler
     );
   }
 

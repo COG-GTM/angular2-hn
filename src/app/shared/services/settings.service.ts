@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { Settings } from '../models/settings';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SettingsService {
+export class SettingsService implements OnDestroy {
   settings: Settings = {
     showSettings : false,
     openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
@@ -15,6 +15,8 @@ export class SettingsService {
   };
 
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+  private boundColorSchemeChangeHandler = this.handleSystemPreferredColorSchemeChange.bind(this);
   
   constructor() {
     this.subscribeToSystemPreferredColorScheme();
@@ -38,7 +40,7 @@ export class SettingsService {
   subscribeToSystemPreferredColorScheme() {
     this.darkColorSchemeMedia.addEventListener(
       'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
+      this.boundColorSchemeChangeHandler
     );
   }
 
@@ -59,7 +61,7 @@ export class SettingsService {
   unSubscribeToSystemPrefferedColorScheme() {
     this.darkColorSchemeMedia.removeEventListener(
       'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
+      this.boundColorSchemeChangeHandler
     );
   }
 

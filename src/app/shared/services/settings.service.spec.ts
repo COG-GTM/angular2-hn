@@ -12,6 +12,7 @@ describe('SettingsService', () => {
   });
 
   afterEach(() => {
+    service.ngOnDestroy();
     localStorage.clear();
   });
 

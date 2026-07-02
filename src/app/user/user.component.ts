@@ -25,10 +25,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
+      const userID = params['id'];
       this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
         this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
+      }, () => this.errorMessage = 'Could not load user ' + userID + '.');
     });
   }
 

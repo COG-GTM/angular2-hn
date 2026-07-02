@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from '../../shared/models/comment';
 
 @Component({
+  standalone: false,
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']

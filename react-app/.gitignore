@@ -1,0 +1,10 @@
+node_modules
+dist
+dev-dist
+*.local
+.DS_Store
+
+# test / e2e output
+coverage
+playwright-report
+test-results

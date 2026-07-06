@@ -26,7 +26,7 @@ function createInitialSettings(): Settings {
   return {
     showSettings: false,
     openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
-    theme: 'default',
+    theme: localStorage.getItem('theme') || 'default',
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   };
@@ -51,10 +51,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
     media.addEventListener('change', handleChange);
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setSettings((prev) => ({ ...prev, theme: savedTheme }));
-    } else {
+    if (!localStorage.getItem('theme')) {
       setTheme(media.matches ? 'night' : 'default');
     }
 

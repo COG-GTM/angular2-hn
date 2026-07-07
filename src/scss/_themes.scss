@@ -142,10 +142,10 @@
               }
 
               &:before {
-                border-top: $skull-size / 8 solid $wrapper-background-color;
+                border-top: calc(#{$skull-size} / 8) solid $wrapper-background-color;
 
                 @media #{$mobile-only} {
-                  border-top: $skull-size / 8 solid $wrapper-mobile-background-color;
+                  border-top: calc(#{$skull-size} / 8) solid $wrapper-mobile-background-color;
                 }
               }
             }

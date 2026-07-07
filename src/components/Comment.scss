@@ -1,13 +1,11 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@import "../scss/media";
+@import "../scss/theme_variables";
 
-:host >>> {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+.comment a {
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
 

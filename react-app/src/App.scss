@@ -1,0 +1,12 @@
+$primary: #ff6600;
+
+.app {
+  font-family: system-ui, sans-serif;
+  color: #333;
+
+  header {
+    background: $primary;
+    color: #fff;
+    padding: 0.5rem 1rem;
+  }
+}

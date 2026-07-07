@@ -4,7 +4,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
   ReactNode,
 } from 'react';
@@ -23,10 +22,12 @@ const SettingsContext = createContext<SettingsContextValue | undefined>(undefine
 
 function createInitialSettings(): Settings {
   const openLinkInNewTab = localStorage.getItem('openLinkInNewTab');
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   return {
     showSettings: false,
     openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
-    theme: localStorage.getItem('theme') || 'default',
+    theme: savedTheme || (prefersDark ? 'night' : 'default'),
     titleFontSize: localStorage.getItem('titleFontSize') || '16',
     listSpacing: localStorage.getItem('listSpacing') || '0',
   };
@@ -34,7 +35,6 @@ function createInitialSettings(): Settings {
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>(createInitialSettings);
-  const darkColorSchemeMedia = useRef<MediaQueryList | null>(null);
 
   const setTheme = useCallback((theme: string) => {
     localStorage.setItem('theme', theme);
@@ -43,7 +43,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    darkColorSchemeMedia.current = media;
 
     const handleChange = (event: MediaQueryListEvent) => {
       setTheme(event.matches ? 'night' : 'default');

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React and TypeScript
 </p>
 
 <p align="center">
@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://developer.chrome.com/docs/workbox) (via [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
@@ -73,16 +73,16 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This project is built with [Vite](https://vitejs.dev/), React and TypeScript.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the application with the Vite dev server, or `npm run build` to kick off a fresh production build into the output directory (`dist/`)
+ - `npm test` to run the unit tests with [Vitest](https://vitest.dev/), and `npm run lint` to lint with ESLint
 
 Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+ - `npm run build`
+ - `npm run preview` to serve the production build (including the generated service worker) locally
 
 ## Contributors
 

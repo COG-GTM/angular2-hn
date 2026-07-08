@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -29,8 +28,8 @@ export class FeedComponent implements OnInit {
   ngOnInit() {
     this.typeSub = this.route
       .data
-      .subscribe(data => {
-        this.feedType = (data as any).feedType;
+      .subscribe(({ feedType }) => {
+        this.feedType = feedType;
       });
 
     this.pageSub = this.route.params.subscribe(params => {
@@ -38,7 +37,7 @@ export class FeedComponent implements OnInit {
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
         .subscribe(
           items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
+          () => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
           () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
             window.scrollTo(0, 0);

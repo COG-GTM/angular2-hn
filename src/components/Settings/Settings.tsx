@@ -33,7 +33,7 @@ export default function Settings() {
                     type="radio"
                     value="default"
                     checked={settings.theme === 'default'}
-                    onClick={() => setTheme('default')}
+                    onChange={() => setTheme('default')}
                   />
                   Default
                 </label>
@@ -45,7 +45,7 @@ export default function Settings() {
                     type="radio"
                     value="night"
                     checked={settings.theme === 'night'}
-                    onClick={() => setTheme('night')}
+                    onChange={() => setTheme('night')}
                   />
                   Night
                 </label>
@@ -57,7 +57,7 @@ export default function Settings() {
                     type="radio"
                     value="amoledblack"
                     checked={settings.theme === 'amoledblack'}
-                    onClick={() => setTheme('amoledblack')}
+                    onChange={() => setTheme('amoledblack')}
                   />
                   Black (AMOLED)
                 </label>

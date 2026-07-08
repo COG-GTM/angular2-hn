@@ -1,6 +1,6 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
-import 'zone.js/dist/zone-testing';
+import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -13,7 +13,18 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const context = (import.meta as any).webpackContext('./', {
+const context = (import.meta as unknown as {
+  webpackContext(
+    request: string,
+    options: {
+      recursive: boolean;
+      regExp: RegExp;
+    }
+  ): {
+    keys(): string[];
+    (id: string): unknown;
+  };
+}).webpackContext('./', {
   recursive: true,
   regExp: /\.spec\.ts$/
 });

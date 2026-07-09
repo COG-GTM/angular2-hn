@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ export class FeedComponent implements OnInit {
   pageNum: number;
   listStart: number;
   errorMessage = '';
+  showBackToTop = false;
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
@@ -45,5 +46,14 @@ export class FeedComponent implements OnInit {
           }
         );
     });
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.showBackToTop = (window.pageYOffset || document.documentElement.scrollTop) > 300;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

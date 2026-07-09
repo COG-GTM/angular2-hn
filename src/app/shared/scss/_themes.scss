@@ -189,6 +189,11 @@
           color: $secondary-link-color;
         }
       }
+
+      .back-to-top {
+        background: $secondary-link-color;
+        color: $wrapper-background-color;
+      }
     }
   }
 }

@@ -1,25 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
-import { SettingsProvider, useSettings } from './context/SettingsContext';
+import App from './App';
+import { SettingsProvider } from './context/SettingsContext';
 import './styles/global.scss';
-
-function App() {
-  const { settings } = useSettings();
-  return (
-    <div className={settings.theme}>
-      <div className="wrapper">
-        <h1>Angular 2 HN</h1>
-        <p>React + TypeScript migration &mdash; current theme: {settings.theme}</p>
-      </div>
-    </div>
-  );
-}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <SettingsProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </SettingsProvider>
   </React.StrictMode>,
 );

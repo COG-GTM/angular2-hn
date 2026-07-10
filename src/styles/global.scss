@@ -1,0 +1,42 @@
+@import "./themes";
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+// Pre-hydration app shell loader. In React the loader markup lives inside
+// #root and is replaced when the app mounts, so it is visible by default
+// (the Angular `app-root:empty + .app-loader` toggle is no longer needed).
+.app-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    .logo {
+        width: 20vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .app-loader {
+    background-color: #fff;
+  }
+}

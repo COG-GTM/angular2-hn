@@ -58,6 +58,19 @@ p {
     }
   }
 
+  .save-star {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 16px;
+    line-height: 1;
+    color: #696969;
+
+    &.saved {
+      color: $theme-day-secondary-color;
+    }
+  }
+
   .domain {
     color: #696969;
     letter-spacing: 0.5px;

@@ -1,3 +1,14 @@
 <div class="main-content">
   <h2 class="saved-header">Saved stories</h2>
+
+  <ol *ngIf="items.length > 0" class="list-margin">
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+    </li>
+  </ol>
+
+  <div *ngIf="items.length === 0" class="empty-state">
+    <p>You haven't saved any stories yet.</p>
+    <a [routerLink]="['/news', 1]">Browse the top stories</a>
+  </div>
 </div>

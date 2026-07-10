@@ -1,11 +1,64 @@
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-// Placeholder for the lazy-loaded user route; fully implemented in Phase 8.
+import { fetchUser } from '../../api/hackernews';
+import ErrorMessage from '../../components/ErrorMessage';
+import Loader from '../../components/Loader';
+import { User as UserModel } from '../../types/user';
+import '../../styles/user.scss';
+
 export default function User() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState<UserModel | undefined>(undefined);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setUser(undefined);
+    setErrorMessage('');
+    const userID = id ?? '';
+
+    fetchUser(userID, controller.signal)
+      .then((data) => setUser(data))
+      .catch(() => {
+        if (controller.signal.aborted) {
+          return;
+        }
+        setErrorMessage(`Could not load user ${userID}.`);
+      });
+
+    return () => controller.abort();
+  }, [id]);
+
+  const goBack = () => navigate(-1);
+
   return (
-    <div className="main-content">
-      <p>User: {id}</p>
-    </div>
+    <>
+      {!user && !errorMessage && <Loader />}
+      {!user && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
+
+      {user && (
+        <div className="profile">
+          <div className="mobile item-header">
+            <p className="title-block">
+              <span className="back-button" onClick={goBack}></span>
+              Profile: {user.id}
+            </p>
+          </div>
+          <div className="main-details">
+            <span className="name">{user.id}</span>
+            <span className="right">{user.karma} ★</span>
+            <p className="age">Created {user.created}</p>
+          </div>
+          {user.about && (
+            <div className="other-details">
+              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 }

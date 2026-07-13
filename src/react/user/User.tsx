@@ -1,16 +1,56 @@
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Loader } from '../components/loader/Loader';
+import { ErrorMessage } from '../components/error-message/ErrorMessage';
+import { fetchUser } from '../services/hackernews-api';
+import { User as UserModel } from '../models/user';
+import './User.scss';
 
-/**
- * Placeholder implemented in Phase 4c (UserComponent).
- */
 export const User = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const userID = id;
+    const [user, setUser] = useState<UserModel | null>(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        fetchUser(userID as string, controller.signal)
+            .then((data) => setUser(data))
+            .catch(() => setErrorMessage('Could not load user ' + userID + '.'));
+
+        return () => controller.abort();
+    }, [id, userID]);
+
+    const goBack = () => navigate(-1);
 
     return (
-        <div className="main-content" data-user-id={id}>
-            <Loader />
+        <div className="user-view">
+            {!user && !errorMessage && <Loader />}
+            {!user && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
+
+            {user && (
+                <div className="profile">
+                    <div className="mobile item-header">
+                        <p className="title-block">
+                            <span className="back-button" onClick={goBack}></span>
+                            Profile: {user.id}
+                        </p>
+                    </div>
+                    <div className="main-details">
+                        <span className="name">{user.id}</span>
+                        <span className="right">{user.karma} ★</span>
+                        <p className="age">Created {user.created}</p>
+                    </div>
+                    {user.about && (
+                        <div className="other-details">
+                            <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

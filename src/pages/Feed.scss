@@ -1,16 +1,7 @@
 @import "../styles/media";
 @import "../styles/theme_variables";
 
-.main-content {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  -webkit-transition: opacity .2s ease;
-  transition: opacity .2s ease;
-  box-sizing: border-box;
-  padding: 8px 0;
-  z-index: 0;
-
+.feed {
   a {
     text-decoration: none;
     font-weight: bold;

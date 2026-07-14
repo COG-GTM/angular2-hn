@@ -42,7 +42,7 @@ export default function Feed({ feedType }: FeedProps) {
   const listStart = (pageNum - 1) * 30 + 1;
 
   return (
-    <div className="main-content">
+    <div className="main-content feed">
       {!items && !errorMessage && <Loader />}
       {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 

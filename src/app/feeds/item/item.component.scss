@@ -66,3 +66,16 @@ p {
   .item-details {
     padding: 10px;
   }
+
+  .save-toggle {
+    cursor: pointer;
+    color: #696969;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.saved {
+      color: #ff6600;
+    }
+  }

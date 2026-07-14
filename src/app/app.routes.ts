@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { FeedComponent } from './feeds/feed/feed.component';
+import { SavedFeedComponent } from './feeds/saved-feed/saved-feed.component';
 
 const feedRoutes = [{
   path: ':page',
@@ -33,6 +34,13 @@ const routes: Routes = [
     path: 'jobs',
     children: feedRoutes,
     data: {feedType: 'jobs'}
+  },
+  {
+    path: 'saved',
+    children: [
+      {path: '', redirectTo: '1', pathMatch: 'full'},
+      {path: ':page', component: SavedFeedComponent}
+    ]
   },
   {path: 'item', loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule)},
   {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}

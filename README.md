@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -43,11 +43,11 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/) (which generates a [Workbox](https://developer.chrome.com/docs/workbox) service worker) as part of the build step to precache the app shell so it loads quickly and works offline.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), this app includes a Web App Manifest that allows you to install to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -71,18 +71,19 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Tech stack
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This app is built with [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/), bundled with [Vite](https://vitejs.dev/), routed with [`react-router-dom`](https://reactrouter.com/), and styled with SCSS (via the [`sass`](https://sass-lang.com/) package). The PWA/offline layer is provided by [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/). Data comes from the [`node-hnapi`](https://github.com/cheeaun/node-hnapi) Hacker News API.
+
+## Build process
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` (or `npm run dev`) to run the app with the Vite dev server
+ - `npm run build` to produce a fresh production build in the output directory (`dist/`)
+ - `npm run preview` to serve the production build locally, including the generated service worker, so you can verify offline behaviour
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The production build in `dist/` is deployed to [Firebase Hosting](https://firebase.google.com/docs/hosting) (see `firebase.json`).
 
 ## Contributors
 

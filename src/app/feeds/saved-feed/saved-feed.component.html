@@ -1,0 +1,22 @@
+<div class="main-content">
+  <div *ngIf="savedPosts.length === 0" class="empty">
+    <p>You haven't saved any posts yet.</p>
+    <p>Tap <span class="hint">☆ save</span> on any story to bookmark it here.</p>
+  </div>
+
+  <div *ngIf="savedPosts.length > 0">
+    <ol class="list-margin" start="{{ listStart }}">
+      <li *ngFor="let item of items" class="post">
+        <item class="item-block" [item]="item"></item>
+      </li>
+    </ol>
+    <div class="nav">
+      <a *ngIf="pageNum > 1" [routerLink]="['/saved', pageNum - 1]" routerLinkActive="active" class="prev">
+        ‹ Prev
+      </a>
+      <a *ngIf="hasNextPage" [routerLink]="['/saved', pageNum + 1]" routerLinkActive="active" class="more">
+        More ›
+      </a>
+    </div>
+  </div>
+</div>

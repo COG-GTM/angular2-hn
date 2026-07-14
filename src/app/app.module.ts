@@ -6,6 +6,7 @@ import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { FeedComponent } from './feeds/feed/feed.component';
+import { SavedFeedComponent } from './feeds/saved-feed/saved-feed.component';
 import { ItemComponent } from './feeds/item/item.component';
 import { SharedComponentsModule } from './shared/components/shared-components.module';
 import { PipesModule } from './shared/pipes/pipes.module';
@@ -16,7 +17,7 @@ import { SettingsService } from './shared/services/settings.service';
 import { SavedPostsService } from './shared/services/saved-posts.service';
 
 @NgModule({
-    declarations: [AppComponent, FeedComponent, ItemComponent],
+    declarations: [AppComponent, FeedComponent, SavedFeedComponent, ItemComponent],
     imports: [
         BrowserModule,
         routing,

@@ -1,4 +1,12 @@
-// STUB (Task 0): full markup/styles land in the shared-components task.
+import './Loader.scss';
+
+// Port of src/app/shared/components/loader/loader.component.html + .scss
 export default function Loader() {
-    return <div className="loader">Loading...</div>;
+    return (
+        <div className="loading-section">
+            <div className="loader">
+                Loading...
+            </div>
+        </div>
+    );
 }

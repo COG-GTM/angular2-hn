@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1031,
+    "title": "News story 31",
+    "points": 131,
+    "user": "user31",
+    "time": 1500000031,
+    "time_ago": "31 hours ago",
+    "comments_count": 31,
+    "type": "link",
+    "url": "http://example.com/news/31",
+    "domain": "example.com"
+  },
+  {
+    "id": 1032,
+    "title": "News story 32",
+    "points": 132,
+    "user": "user32",
+    "time": 1500000032,
+    "time_ago": "32 hours ago",
+    "comments_count": 32,
+    "type": "link",
+    "url": "http://example.com/news/32",
+    "domain": "example.com"
+  },
+  {
+    "id": 1033,
+    "title": "News story 33",
+    "points": 133,
+    "user": "user33",
+    "time": 1500000033,
+    "time_ago": "33 hours ago",
+    "comments_count": 33,
+    "type": "link",
+    "url": "http://example.com/news/33",
+    "domain": "example.com"
+  },
+  {
+    "id": 1034,
+    "title": "News story 34",
+    "points": 134,
+    "user": "user34",
+    "time": 1500000034,
+    "time_ago": "34 hours ago",
+    "comments_count": 34,
+    "type": "link",
+    "url": "http://example.com/news/34",
+    "domain": "example.com"
+  },
+  {
+    "id": 1035,
+    "title": "News story 35",
+    "points": 135,
+    "user": "user35",
+    "time": 1500000035,
+    "time_ago": "35 hours ago",
+    "comments_count": 35,
+    "type": "link",
+    "url": "http://example.com/news/35",
+    "domain": "example.com"
+  }
+]

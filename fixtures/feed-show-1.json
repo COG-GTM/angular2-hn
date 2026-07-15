@@ -1,0 +1,38 @@
+[
+  {
+    "id": 3001,
+    "title": "Show story 1",
+    "points": 101,
+    "user": "user1",
+    "time": 1500000001,
+    "time_ago": "1 hours ago",
+    "comments_count": 1,
+    "type": "link",
+    "url": "http://example.com/show/1",
+    "domain": "example.com"
+  },
+  {
+    "id": 3002,
+    "title": "Show story 2",
+    "points": 102,
+    "user": "user2",
+    "time": 1500000002,
+    "time_ago": "2 hours ago",
+    "comments_count": 2,
+    "type": "link",
+    "url": "http://example.com/show/2",
+    "domain": "example.com"
+  },
+  {
+    "id": 3003,
+    "title": "Show story 3",
+    "points": 103,
+    "user": "user3",
+    "time": 1500000003,
+    "time_ago": "3 hours ago",
+    "comments_count": 3,
+    "type": "link",
+    "url": "http://example.com/show/3",
+    "domain": "example.com"
+  }
+]

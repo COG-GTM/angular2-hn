@@ -1,0 +1,38 @@
+[
+  {
+    "id": 2001,
+    "title": "Newest story 1",
+    "points": 101,
+    "user": "user1",
+    "time": 1500000001,
+    "time_ago": "1 hours ago",
+    "comments_count": 1,
+    "type": "link",
+    "url": "http://example.com/newest/1",
+    "domain": "example.com"
+  },
+  {
+    "id": 2002,
+    "title": "Newest story 2",
+    "points": 102,
+    "user": "user2",
+    "time": 1500000002,
+    "time_ago": "2 hours ago",
+    "comments_count": 2,
+    "type": "link",
+    "url": "http://example.com/newest/2",
+    "domain": "example.com"
+  },
+  {
+    "id": 2003,
+    "title": "Newest story 3",
+    "points": 103,
+    "user": "user3",
+    "time": 1500000003,
+    "time_ago": "3 hours ago",
+    "comments_count": 3,
+    "type": "link",
+    "url": "http://example.com/newest/3",
+    "domain": "example.com"
+  }
+]

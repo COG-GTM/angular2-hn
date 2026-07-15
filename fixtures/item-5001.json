@@ -1,0 +1,14 @@
+{
+  "id": 5001,
+  "title": "Senior Engineer at YC Startup (San Francisco)",
+  "points": null,
+  "user": null,
+  "time": 1500000001,
+  "time_ago": "1 hour ago",
+  "type": "job",
+  "url": "http://example.com/jobs/1",
+  "domain": "example.com",
+  "comments_count": 0,
+  "content": "<p>We are hiring engineers.</p>",
+  "comments": []
+}

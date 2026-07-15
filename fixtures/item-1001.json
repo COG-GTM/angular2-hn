@@ -1,0 +1,46 @@
+{
+  "id": 1001,
+  "title": "News story 1",
+  "points": 101,
+  "user": "user1",
+  "time": 1500000001,
+  "time_ago": "1 hour ago",
+  "type": "link",
+  "url": "http://example.com/news/1",
+  "domain": "example.com",
+  "comments_count": 3,
+  "content": "<p>This is the story <b>content</b>.</p>",
+  "comments": [
+    {
+      "id": 90001,
+      "level": 0,
+      "user": "commenter1",
+      "time": 1500000100,
+      "time_ago": "30 minutes ago",
+      "content": "<p>Top level comment</p>",
+      "deleted": false,
+      "comments": [
+        {
+          "id": 90002,
+          "level": 1,
+          "user": "commenter2",
+          "time": 1500000200,
+          "time_ago": "20 minutes ago",
+          "content": "<p>Nested reply</p>",
+          "deleted": false,
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 90003,
+      "level": 0,
+      "user": "",
+      "time": 1500000300,
+      "time_ago": "10 minutes ago",
+      "content": "",
+      "deleted": true,
+      "comments": []
+    }
+  ]
+}

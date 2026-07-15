@@ -17,18 +17,28 @@ test('loads stories on each of the five feeds', async ({ page }) => {
 test('clicking a story opens item details with comments', async ({ page }) => {
     await page.goto('/news/1');
     await expect(page.locator('li.post').first()).toBeVisible({ timeout: 30000 });
-    await page.locator('a[href^="/item/"]').first().click();
+    await page.locator('a[href^="/item/"]:visible').first().click();
     await expect(page).toHaveURL(/\/item\/\d+/);
     await expect(page.locator('.item')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('.comment-list .comment-block').first()).toBeVisible({ timeout: 30000 });
 });
 
 test('clicking a user opens the user profile', async ({ page }) => {
+    // The public node-hnapi deployment no longer serves the /user/:id endpoint
+    // (it responds with a 404), so mock it here to verify the client rendering.
+    await page.route('**/user/*', (route) =>
+        route.fulfill({
+            contentType: 'application/json',
+            body: JSON.stringify({ id: 'someuser', karma: 4321, created: 'January 1, 2020', about: 'Hi there' }),
+        })
+    );
+
     await page.goto('/news/1');
     await expect(page.locator('li.post').first()).toBeVisible({ timeout: 30000 });
-    await page.locator('a[href^="/user/"]').first().click();
+    await page.locator('a[href^="/user/"]:visible').first().click();
     await expect(page).toHaveURL(/\/user\/.+/);
     await expect(page.locator('.profile .name')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('.profile .name')).toHaveText('someuser');
 });
 
 test('pagination navigates to the next page', async ({ page }) => {

@@ -4,6 +4,12 @@
 /dist
 /tmp
 /out-tsc
+
+# Vite
+dist-ssr
+dev-dist
+*.local
+
 # Only exists if Bazel was run
 /bazel-out
 

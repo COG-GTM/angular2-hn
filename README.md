@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 <p align="center">
@@ -73,16 +73,24 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This project is built with [Vite](https://vitejs.dev/), React 18 and TypeScript.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to start the Vite dev server (defaults to http://localhost:5173)
+ - `npm run build` to type-check and produce a production build in the output directory (`dist/`)
+ - `npm run preview` to serve the production build locally
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The service worker and web app manifest are generated at build time by [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox). Service worker behavior is only active for the production build — use `npm run build` followed by `npm run preview` to test offline/PWA features locally.
+
+### Scripts
+
+ - `npm run dev` — start the dev server
+ - `npm run build` — type-check (`tsc`) and build for production
+ - `npm run preview` — preview the production build
+ - `npm run test` — run the Vitest unit tests
+ - `npm run typecheck` — type-check without emitting
+ - `npm run lint` — lint the TypeScript/React source with ESLint
 
 ## Contributors
 

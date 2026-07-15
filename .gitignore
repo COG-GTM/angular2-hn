@@ -5,6 +5,10 @@
 /dev-dist
 /tmp
 /out-tsc
+
+# test output
+/playwright-report
+/test-results
 # Only exists if Bazel was run
 /bazel-out
 

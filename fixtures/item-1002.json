@@ -1,0 +1,14 @@
+{
+  "id": 1002,
+  "title": "News discuss post 2",
+  "points": 42,
+  "user": "user2",
+  "time": 1500000002,
+  "time_ago": "2 hours ago",
+  "type": "ask",
+  "url": "item?id=1002",
+  "domain": "",
+  "comments_count": 0,
+  "content": "<p>Discuss away.</p>",
+  "comments": []
+}

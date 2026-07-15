@@ -1,0 +1,28 @@
+{
+  "id": 300,
+  "title": "Poll: favorite framework?",
+  "points": 200,
+  "user": "polluser",
+  "time": 1500000000,
+  "time_ago": "5 hours ago",
+  "type": "poll",
+  "url": "item?id=300",
+  "domain": "",
+  "comments_count": 0,
+  "content": "<p>Vote below.</p>",
+  "poll": [
+    {
+      "points": 0,
+      "content": "React"
+    },
+    {
+      "points": 0,
+      "content": "Angular"
+    },
+    {
+      "points": 0,
+      "content": "Vue"
+    }
+  ],
+  "comments": []
+}

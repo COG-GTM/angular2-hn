@@ -1,0 +1,26 @@
+[
+  {
+    "id": 5001,
+    "title": "Senior Engineer at YC Startup (San Francisco)",
+    "points": null,
+    "user": null,
+    "time": 1500000001,
+    "time_ago": "1 hour ago",
+    "comments_count": 0,
+    "type": "job",
+    "url": "http://example.com/jobs/1",
+    "domain": "example.com"
+  },
+  {
+    "id": 5002,
+    "title": "Founding Designer at YC Startup (Remote)",
+    "points": null,
+    "user": null,
+    "time": 1500000002,
+    "time_ago": "2 hours ago",
+    "comments_count": 0,
+    "type": "job",
+    "url": "http://example.com/jobs/2",
+    "domain": "example.com"
+  }
+]

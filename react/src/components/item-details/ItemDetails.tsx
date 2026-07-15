@@ -5,6 +5,7 @@ import { commentPipe } from '../../utils/commentPipe';
 import { Loader } from '../shared/Loader';
 import { ErrorMessage } from '../shared/ErrorMessage';
 import { Comment } from './Comment';
+import { sanitizeHtml } from '../../utils/sanitize';
 
 export function ItemDetails() {
   const params = useParams();
@@ -51,7 +52,12 @@ export function ItemDetails() {
                 <a className="title" href={item.url} target={target} rel={rel}>
                   {item.title}
                 </a>
-                {item.domain && <span className="domain">({item.domain})</span>}
+                {item.domain && (
+                  <>
+                    {' '}
+                    <span className="domain">({item.domain})</span>
+                  </>
+                )}
               </p>
             ) : (
               <p>
@@ -67,6 +73,7 @@ export function ItemDetails() {
                   <NavLink to={`/user/${item.user}`}>{item.user}</NavLink>
                 </span>
               )}
+              {item.type !== 'job' && ' '}
               <span className={item.type !== 'job' ? 'item-details' : undefined}>
                 {item.time_ago}
                 {item.type !== 'job' && (
@@ -82,7 +89,7 @@ export function ItemDetails() {
             <div className="pollResults">
               {item.poll?.map((pollResult, i) => (
                 <div key={i} className="pollContent">
-                  <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
                   <div className="subtext">{pollResult.points} points</div>
                   <div
                     className="pollBar"
@@ -94,7 +101,7 @@ export function ItemDetails() {
               ))}
             </div>
           )}
-          <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+          <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }}></p>
           <ul className="comment-list">
             {item.comments?.map((comment) => (
               <li key={comment.id}>

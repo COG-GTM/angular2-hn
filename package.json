@@ -7,7 +7,12 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build:react": "npm --prefix react run build",
+    "test:angular": "ng test --watch=false --browsers=ChromeHeadlessNoSandbox",
+    "test:react": "npm --prefix react run test",
+    "test:parity": "npm run build && npm run build:react && npm --prefix react run test:e2e",
+    "test:all": "npm run test:angular && npm run test:react && npm run test:parity"
   },
   "private": true,
   "dependencies": {

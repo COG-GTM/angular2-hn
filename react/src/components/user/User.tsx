@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useUser } from '../../api/hooks';
 import { Loader } from '../shared/Loader';
 import { ErrorMessage } from '../shared/ErrorMessage';
+import { sanitizeHtml } from '../../utils/sanitize';
 
 export function User() {
   const params = useParams();
@@ -31,7 +32,7 @@ export function User() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
             </div>
           )}
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import type { Comment as CommentModel } from '../../models/comment';
+import { sanitizeHtml } from '../../utils/sanitize';
 
 export function Comment({ comment }: { comment: CommentModel }) {
   const [collapse, setCollapse] = useState(false);
@@ -20,13 +21,13 @@ export function Comment({ comment }: { comment: CommentModel }) {
       <div className={collapse ? 'meta meta-collapse' : 'meta'}>
         <span className="collapse" onClick={() => setCollapse(!collapse)}>
           [{collapse ? '+' : '-'}]
-        </span>{' '}
+        </span>
         <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
         <span className="time">{comment.time_ago}</span>
       </div>
       <div className="comment-tree">
         <div hidden={collapse}>
-          <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
+          <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
           <ul className="subtree">
             {comment.comments?.map((subComment) => (
               <li key={subComment.id}>

@@ -23,7 +23,12 @@ export function Item({ item }: { item: Story }) {
           >
             {item.title}
           </a>
-          {item.domain && <span className="domain">({item.domain})</span>}
+          {item.domain && (
+            <>
+              {' '}
+              <span className="domain">({item.domain})</span>
+            </>
+          )}
         </p>
       ) : (
         <p>
@@ -57,6 +62,7 @@ export function Item({ item }: { item: Story }) {
             {item.points} points by <NavLink to={`/user/${item.user}`}>{item.user}</NavLink>
           </span>
         )}
+        {item.type !== 'job' && ' '}
         <span className={item.type !== 'job' ? 'item-details' : undefined}>
           {item.time_ago}
           {item.type !== 'job' && (

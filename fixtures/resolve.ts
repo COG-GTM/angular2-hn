@@ -2,10 +2,12 @@
 // cross-parity route interception. Maps a node-hnapi request path to a recorded
 // JSON response, or null when no fixture exists (used to exercise error states).
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 
-const dir = dirname(fileURLToPath(import.meta.url));
+// Both the Vitest (React MSW) and Playwright suites run with a cwd of `react/`,
+// so the shared fixtures live one directory up. Allow an override for other cwds.
+const dir =
+  process.env.FIXTURES_DIR || join(process.cwd(), '..', 'fixtures');
 
 function load(name: string): unknown {
   return JSON.parse(readFileSync(join(dir, name), 'utf-8'));

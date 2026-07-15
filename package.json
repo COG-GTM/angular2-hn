@@ -28,6 +28,7 @@
     "node-fetch": "^2.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.10.0",

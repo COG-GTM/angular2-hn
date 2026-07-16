@@ -81,7 +81,14 @@ This project is built with [Vite](https://vitejs.dev/), React and TypeScript.
  - `npm run build` to kick off a fresh production build into the output directory (`dist/`)
  - `npm start` (alias for `vite preview`) to serve the production build locally, including the generated service worker
 
-Note: Service worker behavior is only active in the production build. Use `npm run build` followed by `npm start` to exercise it.
+## Testing
+
+Two testing layers are included:
+
+ - `npm run test` runs the unit/component test suite ([Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)). Use `npm run test:watch` for watch mode.
+ - `npm run e2e` runs the end-to-end suite ([Playwright](https://playwright.dev/)). It builds the app and serves the production preview automatically. Run `npx playwright install --with-deps chromium` once beforehand to download the browser.
+
+Note: Service worker behavior is only active in the production build. Use `npm run build` followed by `npm start` (or `npm run e2e`) to exercise it.
 
 ## Contributors
 

@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://workboxjs.org/) (via [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/)) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
@@ -71,18 +71,35 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Tech stack
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This app was migrated from Angular 9 to a modern React stack:
+
+* [React 18](https://react.dev/) + [React Router](https://reactrouter.com/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Vite](https://vitejs.dev/) for dev server and builds
+* [Sass](https://sass-lang.com/) theme engine
+* [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) + [Workbox](https://workboxjs.org/) for the offline App Shell
+* [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for unit/component tests
+* [Playwright](https://playwright.dev/) for end-to-end tests
+
+## Getting started
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` &mdash; start the Vite dev server (defaults to http://localhost:4200)
+ - `npm run build` &mdash; type-check and produce a production build in `dist/`
+ - `npm run preview` &mdash; serve the production build locally
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The service worker is generated as part of `npm run build`, so preview the production build (`npm run preview`) to exercise offline/PWA behavior.
+
+## Testing
+
+ - `npm run test` &mdash; run unit/component tests once (Vitest)
+ - `npm run test:watch` &mdash; run unit/component tests in watch mode
+ - `npm run test:e2e` &mdash; run Playwright end-to-end tests (builds the app and runs against the preview server; the Hacker News API is mocked for deterministic, offline runs)
+
+On first use of Playwright, install the browser binaries with `npx playwright install --with-deps chromium`.
 
 ## Contributors
 

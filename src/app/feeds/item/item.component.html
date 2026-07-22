@@ -13,6 +13,7 @@
   <div class="subtext-palm">
     <div class="details" *ngIf="item.type !== 'job'">
       <span class="name"><a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a></span>
+      <span class="save-toggle" (click)="toggleSaved()">{{ isSaved ? '★' : '☆' }}</span>
       <span class="right">{{item.points}} ★</span>
     </div>
     <div class="details">
@@ -23,6 +24,7 @@
     </div>
   </div>
   <div class="subtext-laptop">
+    <span class="save-toggle" (click)="toggleSaved()">{{ isSaved ? '★' : '☆' }}</span>
     <span *ngIf="item.type !== 'job'">
       {{item.points}} points by
       <a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a>

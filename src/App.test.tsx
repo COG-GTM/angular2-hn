@@ -1,9 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { http, HttpResponse } from 'msw';
 import { MemoryRouter } from 'react-router-dom';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { SettingsProvider } from './context/SettingsProvider';
+import { BASE_URL } from './services/hackerNewsApi';
+import { server } from './test/mocks/server';
+
+let lastFeedUrl = '';
 
 function renderApp(initialEntries: string[]) {
   return render(
@@ -16,24 +21,40 @@ function renderApp(initialEntries: string[]) {
 }
 
 describe('App shell + routing', () => {
+  beforeEach(() => {
+    lastFeedUrl = '';
+    server.use(
+      http.get(`${BASE_URL}/:feedType`, ({ request }) => {
+        lastFeedUrl = request.url;
+        return HttpResponse.json([]);
+      })
+    );
+  });
+
   afterEach(() => {
     delete window.ga;
   });
 
-  it('redirects / to /news/1', () => {
+  it('redirects / to /news/1', async () => {
     renderApp(['/']);
-    expect(screen.getByTestId('feed-page')).toHaveTextContent('news (page 1)');
+    await waitFor(() => expect(lastFeedUrl).not.toBe(''));
+    const url = new URL(lastFeedUrl);
+    expect(url.pathname).toBe('/news');
+    expect(url.searchParams.get('page')).toBe('1');
   });
 
   it.each([
-    ['/news/1', 'news (page 1)'],
-    ['/newest/2', 'newest (page 2)'],
-    ['/show/3', 'show (page 3)'],
-    ['/ask/1', 'ask (page 1)'],
-    ['/jobs/1', 'jobs (page 1)'],
-  ])('renders the feed page for %s', (path, expected) => {
+    ['/news/1', '/news', '1'],
+    ['/newest/2', '/newest', '2'],
+    ['/show/3', '/show', '3'],
+    ['/ask/1', '/ask', '1'],
+    ['/jobs/1', '/jobs', '1'],
+  ])('routes %s to the right feed request', async (path, pathname, page) => {
     renderApp([path]);
-    expect(screen.getByTestId('feed-page')).toHaveTextContent(expected);
+    await waitFor(() => expect(lastFeedUrl).not.toBe(''));
+    const url = new URL(lastFeedUrl);
+    expect(url.pathname).toBe(pathname);
+    expect(url.searchParams.get('page')).toBe(page);
   });
 
   it('renders the item details route with its id', () => {
@@ -63,8 +84,9 @@ describe('App shell + routing', () => {
 
   it('navigates when a nav link is clicked', async () => {
     renderApp(['/news/1']);
+    await waitFor(() => expect(new URL(lastFeedUrl).pathname).toBe('/news'));
     await userEvent.click(screen.getByRole('link', { name: 'jobs' }));
-    expect(screen.getByTestId('feed-page')).toHaveTextContent('jobs (page 1)');
+    await waitFor(() => expect(new URL(lastFeedUrl).pathname).toBe('/jobs'));
   });
 
   describe('settings modal', () => {

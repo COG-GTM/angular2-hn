@@ -19,6 +19,9 @@ if (!window.matchMedia) {
   }));
 }
 
+// jsdom does not implement scrollTo; stub it so scroll-to-top handlers are safe.
+window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
+
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 
 afterEach(() => {

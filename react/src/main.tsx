@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import { SettingsProvider } from './context/SettingsContext';
-import './index.css';
+import './styles.scss';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>

@@ -67,9 +67,14 @@ describe('App shell + routing', () => {
     expect((await screen.findAllByText('Deep item')).length).toBeGreaterThan(0);
   });
 
-  it('renders the user route with its id', () => {
+  it('renders the user route for the requested id', async () => {
+    server.use(
+      http.get(`${BASE_URL}/user/pg`, () =>
+        HttpResponse.json({ id: 'pg', karma: 155000, created: 'long ago', about: '' })
+      )
+    );
     renderApp(['/user/pg']);
-    expect(screen.getByTestId('user-page')).toHaveTextContent('pg');
+    expect((await screen.findAllByText('pg')).length).toBeGreaterThan(0);
   });
 
   it('renders header navigation links and footer', () => {

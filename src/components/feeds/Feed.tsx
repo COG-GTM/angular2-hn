@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchFeed } from '../../services/hackerNewsApi';
 import type { Story } from '../../types/story';
+import { ErrorMessage } from '../shared/ErrorMessage';
+import { Loader } from '../shared/Loader';
 import { Item } from './Item';
 import './Feed.scss';
 
@@ -40,12 +42,8 @@ export function Feed({ feedType }: { feedType: string }) {
 
   return (
     <div className="main-content">
-      {!items && !errorMessage && <div className="loader" data-testid="loader" />}
-      {!items && errorMessage !== '' && (
-        <div className="error-message" role="alert">
-          {errorMessage}
-        </div>
-      )}
+      {!items && !errorMessage && <Loader />}
+      {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
       {items && (
         <div>

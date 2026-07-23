@@ -13,7 +13,7 @@ export function Header() {
       <div id="header">
         <NavLink to="/news/1" className="home-link" onClick={scrollTop}>
           <div className="logo-inner"></div>
-          <img className="logo" src="assets/images/logo.svg" alt="Logo" />
+          <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
         </NavLink>
         <div className="header-text">
           <div className="left">
@@ -39,7 +39,7 @@ export function Header() {
         <div className="info">
           <img
             className="settings"
-            src="assets/images/cog.svg"
+            src="/assets/images/cog.svg"
             alt="Settings"
             onClick={toggleSettings}
           />

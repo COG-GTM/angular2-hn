@@ -1,102 +1,76 @@
 <p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
-
-<p align="center">
-  A progressive Hacker News client built with Angular
-</p>
-
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
-
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 ---
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+:zap: **Fast:** Service Worker precaching (via `vite-plugin-pwa`) for fast loads with and without a network.
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen for a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:rocket: **Progressive:** Installable PWA with an offline-capable app shell.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+---
 
-## Mobile Preview
+## Tech stack
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+- [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) with [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/) (service worker + web manifest)
+- [React Router v6](https://reactrouter.com/)
+- [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/) + [jsdom](https://github.com/jsdom/jsdom)
+- [MSW](https://mswjs.io/) for API mocking in tests
+- [Sass](https://sass-lang.com/) for the theme system
 
-## Laptop Preview
+Data comes from the [node-hnapi](https://github.com/cheeaun/node-hnapi) endpoint at `https://node-hnapi.herokuapp.com`.
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+## Project structure
 
-## Offline Support
+```
+src/
+  components/      React components (core, feeds, item-details, user, shared)
+  context/         SettingsProvider + useSettings (theme, font, spacing, links)
+  services/        hackerNewsApi (fetch-based HN API client)
+  types/           Domain models (Story, User, Comment, PollResult, Settings, FeedType)
+  hooks/           usePageViews (Google Analytics pageviews on route change)
+  utils/           formatCommentCount and other helpers
+  styles/          Global SCSS + theme system (default / night / amoledblack)
+  test/            Vitest setup and MSW server/handlers
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+## Getting started
 
-## Manifest
+Requires Node.js 18+.
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+```bash
+npm install
+```
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+### Develop
 
-## Themes
+```bash
+npm run dev      # or: npm start
+```
 
-Built in theme engine!
+Starts the Vite dev server (default http://localhost:5173).
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
+### Build
 
-More to come!
+```bash
+npm run build    # type-checks with tsc, then builds with Vite (emits the PWA service worker + manifest)
+npm run preview  # serve the production build locally
+```
 
-## Areas of improvement
+### Test & lint
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+```bash
+npm test         # run the Vitest suite once
+npm run test:watch
+npm run lint     # ESLint over .ts/.tsx
+```
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+## Routes
 
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-
-## Contributors
-
-A million thanks to some awesome people :)
-
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+- `/` → redirects to `/news/1`
+- `/news/:page`, `/newest/:page`, `/show/:page`, `/ask/:page`, `/jobs/:page`
+- `/item/:id` — item details + recursive comments
+- `/user/:id` — user profile

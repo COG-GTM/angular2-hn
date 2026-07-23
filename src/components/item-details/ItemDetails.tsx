@@ -4,6 +4,8 @@ import { useSettings } from '../../context/useSettings';
 import { fetchItemContent } from '../../services/hackerNewsApi';
 import type { Story } from '../../types/story';
 import { formatCommentCount } from '../../utils/formatCommentCount';
+import { ErrorMessage } from '../shared/ErrorMessage';
+import { Loader } from '../shared/Loader';
 import { Comment } from './Comment';
 import './ItemDetails.scss';
 
@@ -44,12 +46,7 @@ export function ItemDetails() {
   if (!item) {
     return (
       <div className="main-content">
-        {!errorMessage && <div className="loader" data-testid="loader" />}
-        {errorMessage !== '' && (
-          <div className="error-message" role="alert">
-            {errorMessage}
-          </div>
-        )}
+        {errorMessage !== '' ? <ErrorMessage message={errorMessage} /> : <Loader />}
       </div>
     );
   }

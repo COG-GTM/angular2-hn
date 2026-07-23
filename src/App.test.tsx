@@ -57,9 +57,14 @@ describe('App shell + routing', () => {
     expect(url.searchParams.get('page')).toBe(page);
   });
 
-  it('renders the item details route with its id', () => {
+  it('renders the item details route for the requested id', async () => {
+    server.use(
+      http.get(`${BASE_URL}/item/8863`, () =>
+        HttpResponse.json({ id: 8863, type: 'story', title: 'Deep item', url: '', comments: [] })
+      )
+    );
     renderApp(['/item/8863']);
-    expect(screen.getByTestId('item-details-page')).toHaveTextContent('8863');
+    expect((await screen.findAllByText('Deep item')).length).toBeGreaterThan(0);
   });
 
   it('renders the user route with its id', () => {

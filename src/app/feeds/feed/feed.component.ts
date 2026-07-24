@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
+import { BookmarksService } from '../../shared/services/bookmarks.service';
 import { Story } from '../../shared/models/story';
 
 @Component({
@@ -23,6 +24,7 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
+    private _bookmarksService: BookmarksService,
     private route: ActivatedRoute
   ) { }
 
@@ -35,6 +37,12 @@ export class FeedComponent implements OnInit {
 
     this.pageSub = this.route.params.subscribe(params => {
       this.pageNum = params['page'] ? +params['page'] : 1;
+      if (this.feedType === 'saved') {
+        this.items = this._bookmarksService.getPage(this.pageNum);
+        this.listStart = ((this.pageNum - 1) * 30) + 1;
+        window.scrollTo(0, 0);
+        return;
+      }
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
         .subscribe(
           items => this.items = items,
@@ -45,5 +53,20 @@ export class FeedComponent implements OnInit {
           }
         );
     });
+  }
+
+  get displayItems(): Story[] {
+    return this.feedType === 'saved' ? this._bookmarksService.getPage(this.pageNum) : this.items;
+  }
+
+  get isSavedEmpty(): boolean {
+    return this.feedType === 'saved' && this._bookmarksService.savedStories.length === 0;
+  }
+
+  get hasMore(): boolean {
+    if (this.feedType === 'saved') {
+      return this._bookmarksService.savedStories.length > this.pageNum * 30;
+    }
+    return !!this.items && this.items.length === 30;
   }
 }

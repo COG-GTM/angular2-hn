@@ -111,13 +111,23 @@ h1 {
     margin: 0 5px;
     letter-spacing: 1.8px;
 
+    @media #{$mobile-only} {
+      margin: 0 2px;
+      letter-spacing: 1px;
+    }
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease;
+
     &:hover {
       color: #fff;
+      border-bottom-color: hsla(0,0%,100%,.5);
     }
   }
 
   .active {
     color: #fff;
+    border-bottom-color: #fff;
   }
 }
 

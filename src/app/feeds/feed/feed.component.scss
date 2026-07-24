@@ -45,9 +45,14 @@ ol {
 }
 
 .post {
-  padding: 10px 0 10px 5px;
+  padding: 10px 5px;
   transition: background-color 0.2s ease;
-  border-bottom: 1px solid #CECECB;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgba(128, 128, 128, 0.08);
+  }
 
   .itemNum {
     color: #696969;
@@ -67,9 +72,20 @@ ol {
 .nav {
   padding: 10px 40px;
   margin-top: 10px;
-  font-size: 17px;
+  font-size: 15px;
 
   a {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid currentColor;
+    border-radius: 20px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      text-decoration: none;
+      background-color: rgba(128, 128, 128, 0.12);
+    }
+
     @media #{$mobile-only} {
       text-decoration: none;
     }
@@ -83,11 +99,11 @@ ol {
   }
 
   .prev {
-    padding-right: 20px;
+    margin-right: 20px;
 
     @media #{$mobile-only} {
       float: left;
-      padding-right: 0;
+      margin-right: 0;
     }
   }
 

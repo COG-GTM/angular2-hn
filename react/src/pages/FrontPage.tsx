@@ -10,6 +10,10 @@ import './FrontPage.scss';
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
+function isValidDateString(value: string): boolean {
+    return DATE_PATTERN.test(value) && toDateString(parseDateString(value)) === value;
+}
+
 function toDateString(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -27,7 +31,7 @@ function FrontPage() {
     const navigate = useNavigate();
 
     const todayString = toDateString(new Date());
-    const dateString = params.date && DATE_PATTERN.test(params.date) ? params.date : todayString;
+    const dateString = params.date && isValidDateString(params.date) ? params.date : todayString;
     const date = useMemo(() => parseDateString(dateString), [dateString]);
 
     const [items, setItems] = useState<Story[] | null>(null);

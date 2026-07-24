@@ -98,6 +98,20 @@ describe('FrontPage', () => {
         expect(requestedDate.getDate()).toBe(today.getDate());
     });
 
+    it('falls back to today for well-formed but invalid dates', async () => {
+        mockedFetch.mockResolvedValue([]);
+        renderFrontPage('/front-page/2020-13-45');
+
+        await waitFor(() => {
+            expect(mockedFetch).toHaveBeenCalled();
+        });
+        const requestedDate = mockedFetch.mock.calls[0][0];
+        const today = new Date();
+        expect(requestedDate.getFullYear()).toBe(today.getFullYear());
+        expect(requestedDate.getMonth()).toBe(today.getMonth());
+        expect(requestedDate.getDate()).toBe(today.getDate());
+    });
+
     it('shows an empty state when no stories are returned', async () => {
         mockedFetch.mockResolvedValue([]);
         renderFrontPage('/front-page/2010-01-01');

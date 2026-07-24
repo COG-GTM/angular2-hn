@@ -10,6 +10,11 @@ const STORAGE_KEY = 'savedStories';
 export class BookmarksService {
   savedStories: Story[] = [];
 
+  private cachedPage: Story[] = [];
+  private cachedSource: Story[] = null;
+  private cachedPageNum: number = null;
+  private cachedPageSize: number = null;
+
   constructor() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -36,6 +41,12 @@ export class BookmarksService {
   }
 
   getPage(page: number, pageSize: number = 30): Story[] {
-    return this.savedStories.slice((page - 1) * pageSize, page * pageSize);
+    if (this.cachedSource !== this.savedStories || this.cachedPageNum !== page || this.cachedPageSize !== pageSize) {
+      this.cachedPage = this.savedStories.slice((page - 1) * pageSize, page * pageSize);
+      this.cachedSource = this.savedStories;
+      this.cachedPageNum = page;
+      this.cachedPageSize = pageSize;
+    }
+    return this.cachedPage;
   }
 }

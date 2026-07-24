@@ -68,4 +68,13 @@ describe('BookmarksService', () => {
     expect(service.getPage(2).length).toBe(5);
     expect(service.getPage(1, 10).length).toBe(10);
   });
+
+  it('should return a stable array reference for repeated getPage calls', () => {
+    service.toggle(makeStory(1, 'First'));
+    expect(service.getPage(1)).toBe(service.getPage(1));
+    const before = service.getPage(1);
+    service.toggle(makeStory(2, 'Second'));
+    expect(service.getPage(1)).not.toBe(before);
+    expect(service.getPage(1)[0].id).toBe(2);
+  });
 });

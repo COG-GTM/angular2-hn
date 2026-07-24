@@ -2,12 +2,12 @@
   "name": "angular-hnpwa",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "npm --prefix react run dev",
+    "dev": "npm --prefix react run dev",
+    "build": "npm --prefix react run build",
+    "test": "npm --prefix react run test",
+    "lint": "npm --prefix react run lint",
+    "preview": "npm --prefix react run preview"
   },
   "private": true,
   "dependencies": {

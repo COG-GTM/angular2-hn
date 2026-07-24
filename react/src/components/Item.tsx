@@ -16,7 +16,7 @@ function Item({ item }: ItemProps) {
     const titleStyle = { fontSize: settings.titleFontSize + 'px' };
 
     return (
-        <div style={{ marginBottom: settings.listSpacing + 'px' }}>
+        <div className='item' style={{ marginBottom: settings.listSpacing + 'px' }}>
             {hasUrl ? (
                 <p>
                     <a

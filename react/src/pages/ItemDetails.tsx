@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import { useSettings } from '../context/useSettings';
 import type { Story } from '../models';
 import { commentLabel } from '../utils/commentLabel';
+import { sanitizeHtml } from '../utils/sanitize';
 import './ItemDetails.scss';
 
 function ItemDetails() {
@@ -41,7 +42,7 @@ function ItemDetails() {
     const hasUrl = item ? item.url.indexOf('http') === 0 : false;
 
     return (
-        <div className="main-content">
+        <div className="main-content item-page">
             {!item && !errorMessage && <Loader />}
             {!item && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
@@ -116,7 +117,7 @@ function ItemDetails() {
                         <div className="pollResults">
                             {item.poll.map((pollResult, index) => (
                                 <div className="pollContent" key={index}>
-                                    <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
@@ -126,7 +127,7 @@ function ItemDetails() {
                             ))}
                         </div>
                     )}
-                    <p className="subject" dangerouslySetInnerHTML={{ __html: item.content }}></p>
+                    <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}></p>
                     <ul className="comment-list">
                         {item.comments.map((comment) => (
                             <li key={comment.id}>

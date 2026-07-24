@@ -35,6 +35,22 @@ export default defineConfig({
                             expiration: { maxEntries: 100 },
                         },
                     },
+                    {
+                        urlPattern: /^https:\/\/node-hnapi\.herokuapp\.com\/.*/,
+                        handler: 'NetworkFirst',
+                        options: {
+                            cacheName: 'hn-api',
+                            expiration: { maxEntries: 50, maxAgeSeconds: 60 * 5 },
+                        },
+                    },
+                    {
+                        urlPattern: /^https:\/\/hn\.algolia\.com\/api\/.*/,
+                        handler: 'NetworkFirst',
+                        options: {
+                            cacheName: 'hn-algolia-api',
+                            expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 },
+                        },
+                    },
                 ],
             },
         }),

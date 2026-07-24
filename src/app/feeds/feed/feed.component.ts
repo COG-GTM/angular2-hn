@@ -20,7 +20,6 @@ export class FeedComponent implements OnInit {
   feedType: string;
   pageNum: number;
   listStart: number;
-  hasMore = false;
   errorMessage = '';
 
   constructor(
@@ -40,17 +39,13 @@ export class FeedComponent implements OnInit {
       this.pageNum = params['page'] ? +params['page'] : 1;
       if (this.feedType === 'saved') {
         this.items = this._bookmarksService.getPage(this.pageNum);
-        this.hasMore = this._bookmarksService.savedStories.length > this.pageNum * 30;
         this.listStart = ((this.pageNum - 1) * 30) + 1;
         window.scrollTo(0, 0);
         return;
       }
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
         .subscribe(
-          items => {
-            this.items = items;
-            this.hasMore = items.length === 30;
-          },
+          items => this.items = items,
           error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
           () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
@@ -58,5 +53,20 @@ export class FeedComponent implements OnInit {
           }
         );
     });
+  }
+
+  get displayItems(): Story[] {
+    return this.feedType === 'saved' ? this._bookmarksService.getPage(this.pageNum) : this.items;
+  }
+
+  get isSavedEmpty(): boolean {
+    return this.feedType === 'saved' && this._bookmarksService.savedStories.length === 0;
+  }
+
+  get hasMore(): boolean {
+    if (this.feedType === 'saved') {
+      return this._bookmarksService.savedStories.length > this.pageNum * 30;
+    }
+    return !!this.items && this.items.length === 30;
   }
 }

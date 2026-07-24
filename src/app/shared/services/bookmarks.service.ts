@@ -14,7 +14,8 @@ export class BookmarksService {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        this.savedStories = JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        this.savedStories = Array.isArray(parsed) ? parsed : [];
       } catch (e) {
         this.savedStories = [];
       }

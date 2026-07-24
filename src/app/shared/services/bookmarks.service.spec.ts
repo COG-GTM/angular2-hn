@@ -53,6 +53,13 @@ describe('BookmarksService', () => {
     expect(restored.savedStories.length).toBe(0);
   });
 
+  it('should recover from valid JSON that is not an array', () => {
+    localStorage.setItem('savedStories', '{"id":1}');
+    const restored = new BookmarksService();
+    expect(restored.savedStories.length).toBe(0);
+    expect(restored.isSaved(1)).toBe(false);
+  });
+
   it('should paginate saved stories', () => {
     for (let i = 1; i <= 35; i++) {
       service.toggle(makeStory(i, `Story ${i}`));

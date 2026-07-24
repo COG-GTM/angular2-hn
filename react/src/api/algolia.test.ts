@@ -74,8 +74,9 @@ describe('fetchFrontPageForDate', () => {
         expect(url.origin + url.pathname).toBe('https://hn.algolia.com/api/v1/search');
         expect(url.searchParams.get('tags')).toBe('story');
         const start = Math.floor(date.getTime() / 1000);
+        const end = Math.floor(new Date(2020, 5, 16).getTime() / 1000);
         expect(url.searchParams.get('numericFilters')).toBe(
-            `created_at_i>=${start},created_at_i<${start + 86400}`
+            `created_at_i>=${start},created_at_i<${end}`
         );
     });
 

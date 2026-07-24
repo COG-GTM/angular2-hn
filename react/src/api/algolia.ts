@@ -53,7 +53,7 @@ export function mapHitToStory(hit: AlgoliaHit): Story {
 
 export async function fetchFrontPageForDate(date: Date, hitsPerPage = 30): Promise<Story[]> {
     const start = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() / 1000);
-    const end = start + 24 * 60 * 60;
+    const end = Math.floor(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).getTime() / 1000);
 
     const params = new URLSearchParams({
         tags: 'story',

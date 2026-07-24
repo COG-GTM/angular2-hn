@@ -17,11 +17,23 @@ function User() {
         if (!id) {
             return;
         }
+        let active = true;
         setUser(null);
         setErrorMessage('');
         fetchUser(id)
-            .then(data => setUser(data))
-            .catch(() => setErrorMessage('Could not load user ' + id + '.'));
+            .then(data => {
+                if (active) {
+                    setUser(data);
+                }
+            })
+            .catch(() => {
+                if (active) {
+                    setErrorMessage('Could not load user ' + id + '.');
+                }
+            });
+        return () => {
+            active = false;
+        };
     }, [id]);
 
     return (

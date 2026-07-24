@@ -54,6 +54,13 @@ describe('mapHitToStory', () => {
         expect(story.url).toBe('');
         expect(story.domain).toBe('');
     });
+
+    it('handles hits with a malformed url', () => {
+        const story = mapHitToStory(makeHit({ url: 'not a valid url' }));
+
+        expect(story.url).toBe('not a valid url');
+        expect(story.domain).toBe('');
+    });
 });
 
 describe('fetchFrontPageForDate', () => {

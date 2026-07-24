@@ -16,6 +16,17 @@ interface AlgoliaSearchResponse {
     hits: AlgoliaHit[];
 }
 
+function domainOf(url: string | null): string {
+    if (!url) {
+        return '';
+    }
+    try {
+        return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+        return '';
+    }
+}
+
 export function mapHitToStory(hit: AlgoliaHit): Story {
     return {
         id: Number(hit.objectID),
@@ -30,7 +41,7 @@ export function mapHitToStory(hit: AlgoliaHit): Story {
         }),
         type: 'story',
         url: hit.url ?? '',
-        domain: hit.url ? new URL(hit.url).hostname.replace(/^www\./, '') : '',
+        domain: domainOf(hit.url),
         comments: [],
         comments_count: hit.num_comments ?? 0,
         poll: [],

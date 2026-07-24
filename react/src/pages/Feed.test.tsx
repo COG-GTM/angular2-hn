@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Story } from '../models';
+import { SettingsProvider } from '../context/SettingsContext';
 import Feed from './Feed';
 
 vi.mock('../api/hackernews', () => ({
@@ -38,17 +39,25 @@ function makeStory(id: number): Story {
 
 function renderFeed(path: string) {
     return render(
-        <MemoryRouter initialEntries={[path]}>
-            <Routes>
-                <Route path='/:feedType/:page' element={<Feed />} />
-            </Routes>
-        </MemoryRouter>
+        <SettingsProvider>
+            <MemoryRouter initialEntries={[path]}>
+                <Routes>
+                    <Route path='/:feedType/:page' element={<Feed />} />
+                </Routes>
+            </MemoryRouter>
+        </SettingsProvider>
     );
 }
 
 describe('Feed', () => {
     beforeEach(() => {
         window.scrollTo = vi.fn();
+        window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+            matches: false,
+            media: query,
+            addEventListener: vi.fn(),
+            removeEventListener: vi.fn(),
+        }));
     });
 
     afterEach(() => {

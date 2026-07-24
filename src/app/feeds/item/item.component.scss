@@ -58,6 +58,14 @@ p {
     }
   }
 
+  .save-link {
+    cursor: pointer;
+
+    &.saved {
+      font-weight: bold;
+    }
+  }
+
   .domain {
     color: #696969;
     letter-spacing: 0.5px;

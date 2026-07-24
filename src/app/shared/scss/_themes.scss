@@ -224,6 +224,21 @@
 );
 
 @include theme(
+  sepia,
+  $theme-sepia-body-background-color,
+  $theme-sepia-wrapper-background-color,
+  $theme-sepia-wrapper-mobile-background-color,
+  $theme-sepia-text-color,
+  $theme-sepia-text-color,
+  $theme-sepia-subtext-color,
+  $theme-sepia-header-background-color,
+  $theme-sepia-subtext-color,
+  $theme-sepia-secondary-color,
+  $theme-sepia-logo-inner,
+  $theme-sepia-border
+);
+
+@include theme(
   amoledblack,
   $theme-amoledblack-body-background-color,
   $theme-amoledblack-body-background-color,

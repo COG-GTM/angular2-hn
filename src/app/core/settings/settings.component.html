@@ -39,6 +39,17 @@
                     </div>
                     <div>
                         <label>
+                        <input #sepia 
+                            name="theme" 
+                            type="radio" 
+                            value="sepia" 
+                            [checked]="settings.theme === sepia.value"
+                            (click)="selectTheme(sepia.value)" />
+                            Sepia
+                        </label>
+                    </div>
+                    <div>
+                        <label>
                         <input 
                             #amoledblack 
                             name="theme" 

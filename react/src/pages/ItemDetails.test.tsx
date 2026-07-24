@@ -21,7 +21,7 @@ function makeStory(overrides: Partial<Story> = {}): Story {
         points: 100,
         user: 'pg',
         time: 0,
-        time_ago: 0,
+        time_ago: '3 hours ago',
         type: 'story',
         url: 'https://example.com/article',
         domain: 'example.com',

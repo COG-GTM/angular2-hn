@@ -1,32 +1,23 @@
-# React + TypeScript + Vite
+# HN PWA (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A progressive Hacker News client. See the [root README](../README.md) for the full feature list and project background.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev        # Vite dev server
+npm test           # Vitest test suite
+npm run lint       # ESLint
+npm run typecheck  # TypeScript project check
+npm run build      # typecheck + production build (dist/)
+npm run preview    # preview the production build (with service worker)
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Structure
+
+- `src/api/` — fetch-based clients for node-hnapi (live feeds) and the Algolia HN Search API (date-based browsing)
+- `src/models/` — TypeScript interfaces (`Story`, `Comment`, `User`, `PollResult`, settings)
+- `src/pages/` — routed pages: `Feed`, `ItemDetails`, `User`, `FrontPage` ("front page on this day")
+- `src/components/` — shared UI (header/footer, item row, comment thread, settings panel, loader, error)
+- `src/context/` — settings context (theme, link behavior, font size, spacing) persisted to `localStorage`

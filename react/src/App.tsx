@@ -9,6 +9,7 @@ import './App.scss';
 
 const ItemDetails = lazy(() => import('./pages/ItemDetails'));
 const User = lazy(() => import('./pages/User'));
+const FrontPage = lazy(() => import('./pages/FrontPage'));
 
 declare global {
     interface Window {
@@ -40,6 +41,8 @@ function App() {
                         <Route path="/show" element={<Navigate to="/show/1" replace />} />
                         <Route path="/ask" element={<Navigate to="/ask/1" replace />} />
                         <Route path="/jobs" element={<Navigate to="/jobs/1" replace />} />
+                        <Route path="/front-page" element={<FrontPage />} />
+                        <Route path="/front-page/:date" element={<FrontPage />} />
                         <Route path="/item/:id" element={<ItemDetails />} />
                         <Route path="/user/:id" element={<User />} />
                         <Route path="/:feedType/:page" element={<Feed />} />

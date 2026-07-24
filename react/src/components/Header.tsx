@@ -27,6 +27,8 @@ function Header() {
                             <NavLink to="/ask/1" onClick={scrollTop}>ask</NavLink>
                             {' | '}
                             <NavLink to="/jobs/1" onClick={scrollTop}>jobs</NavLink>
+                            {' | '}
+                            <NavLink to="/front-page" onClick={scrollTop}>past</NavLink>
                         </span>
                     </div>
                 </div>

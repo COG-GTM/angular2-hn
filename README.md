@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
+    <img alt="HN PWA" title="HN PWA" src="http://i.imgur.com/J303pQ4.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React + TypeScript
 </p>
 
 <p align="center">
@@ -14,44 +14,50 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+This app was originally built with Angular and has been rewritten as a modern **React 19 + TypeScript + Vite** application. The React app lives in the [`react/`](react/) directory.
+
+:zap: **Fast:** Vite-built PWA with a Workbox service worker for fast loads with and without a network.
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:calendar: **Time travel:** Browse the Hacker News front page for any calendar day in history.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+## Features
 
-## Mobile Preview
+- All five Hacker News feeds — `news`, `newest`, `show`, `ask`, `jobs` — with pagination, powered by the [node-hnapi](https://github.com/cheeaun/node-hnapi) REST API (`https://node-hnapi.herokuapp.com`)
+- Item detail pages with nested comment threads and poll rendering
+- User profile pages
+- Settings panel with themes (Default / Night / AMOLED), open-links-in-new-tab, title font size, and list spacing — persisted to `localStorage` and respecting `prefers-color-scheme`
+- **Front page on this day:** pick any date (via the `past` nav link or `/front-page/:date`) and see that day's top stories ranked by points, with previous day / next day / today navigation and "on this day in previous years" shortcuts — powered by the [Algolia HN Search API](https://hn.algolia.com/api)
+- Installable PWA with offline support via [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) / Workbox
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+## Tech Stack
 
-## Laptop Preview
+- [React 19](https://react.dev/) with function components and hooks
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/) for dev server and production builds
+- [React Router v7](https://reactrouter.com/) for routing
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for unit tests
+- ESLint (flat config) with typescript-eslint
+- SCSS for styling and theming
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+## Development
 
-## Offline Support
+```bash
+cd react
+npm install
+npm run dev        # start the Vite dev server
+npm test           # run the Vitest test suite
+npm run lint       # run ESLint
+npm run build      # typecheck + production build (react/dist)
+npm run preview    # preview the production build (with service worker)
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
-
-## Manifest
-
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
-
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+Note: the service worker is only generated for production builds — use `npm run build && npm run preview` to test PWA/offline behavior locally.
 
 ## Themes
 
@@ -61,28 +67,6 @@ Current themes:
 * Default
 * Night
 * Black (AMOLED)
-
-More to come!
-
-## Areas of improvement
-
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
-
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
-
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
 
 ## Contributors
 

@@ -26,9 +26,12 @@ function installMatchMedia(initialMatches: boolean) {
   };
 }
 
+const renderedThemes: string[] = [];
+
 function Harness() {
   const { settings, toggleSettings, toggleOpenLinksInNewTab, setTheme, setFont, setSpacing } =
     useSettings();
+  renderedThemes.push(settings.theme);
   return (
     <div>
       <span data-testid="theme">{settings.theme}</span>
@@ -56,6 +59,7 @@ function renderWithProvider() {
 describe('SettingsProvider', () => {
   beforeEach(() => {
     localStorage.clear();
+    renderedThemes.length = 0;
   });
 
   afterEach(() => {
@@ -82,6 +86,13 @@ describe('SettingsProvider', () => {
       installMatchMedia(true);
       renderWithProvider();
       expect(screen.getByTestId('theme')).toHaveTextContent('amoledblack');
+    });
+
+    it('applies a saved theme on the first render, before effects run', () => {
+      localStorage.setItem('theme', 'night');
+      installMatchMedia(false);
+      renderWithProvider();
+      expect(renderedThemes[0]).toBe('night');
     });
 
     it('updates the theme when the system preference changes', () => {

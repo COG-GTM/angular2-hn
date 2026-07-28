@@ -125,5 +125,16 @@ describe('App shell + routing', () => {
       expect(ga).toHaveBeenCalledWith('set', 'page', '/ask/1');
       expect(ga).toHaveBeenCalledWith('send', 'pageview');
     });
+
+    it('reports only the post-redirect url when landing on /', async () => {
+      const ga = vi.fn();
+      window.ga = ga;
+      renderApp(['/']);
+      await waitFor(() => expect(lastFeedUrl).not.toBe(''));
+
+      expect(ga).not.toHaveBeenCalledWith('set', 'page', '/');
+      expect(ga).toHaveBeenCalledWith('set', 'page', '/news/1');
+      expect(ga.mock.calls.filter(([command]) => command === 'send')).toHaveLength(1);
+    });
   });
 });

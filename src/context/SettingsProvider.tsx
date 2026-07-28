@@ -9,7 +9,7 @@ function readInitialSettings(): Settings {
   return {
     showSettings: false,
     openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
-    theme: 'default',
+    theme: localStorage.getItem('theme') ?? 'default',
     titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
     listSpacing: localStorage.getItem('listSpacing') ?? '0',
   };
@@ -23,11 +23,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     setSettings((prev) => ({ ...prev, theme }));
   }, []);
 
-  // Apply theme without persisting (used when honoring a previously saved theme).
-  const applyTheme = useCallback((theme: string) => {
-    setSettings((prev) => ({ ...prev, theme }));
-  }, []);
-
   useEffect(() => {
     const media = window.matchMedia(DARK_SCHEME_QUERY);
 
@@ -37,18 +32,16 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
     media.addEventListener('change', handleSystemPreferredColorSchemeChange);
 
-    // initTheme: honor a saved theme, otherwise auto-select from the system preference.
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      applyTheme(savedTheme);
-    } else {
+    // initTheme: a saved theme is already applied by readInitialSettings, so only
+    // auto-select from the system preference when nothing has been saved yet.
+    if (!localStorage.getItem('theme')) {
       setTheme(media.matches ? 'night' : 'default');
     }
 
     return () => {
       media.removeEventListener('change', handleSystemPreferredColorSchemeChange);
     };
-  }, [setTheme, applyTheme]);
+  }, [setTheme]);
 
   const toggleSettings = useCallback(() => {
     setSettings((prev) => ({ ...prev, showSettings: !prev.showSettings }));

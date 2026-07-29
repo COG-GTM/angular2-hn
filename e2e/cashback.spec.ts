@@ -43,6 +43,23 @@ test.describe('Vantage cashback app', () => {
         expect(await page.getByTestId('category-row').count()).toBeGreaterThan(1);
     });
 
+    test('settings overlay stays readable in every theme', async ({ page }) => {
+        for (const theme of ['default', 'night', 'amoledblack']) {
+            await page.goto('/dashboard');
+            await page.evaluate((value) => localStorage.setItem('theme', value), theme);
+            await page.reload();
+            await page.getByRole('button', { name: /settings/i }).click();
+
+            const popup = page.locator('.popup');
+            await expect(popup.getByRole('heading', { name: 'Settings' })).toBeVisible();
+            const [color, background] = await popup.evaluate((element) => {
+                const styles = getComputedStyle(element);
+                return [styles.color, styles.backgroundColor];
+            });
+            expect(color).not.toBe(background);
+        }
+    });
+
     test('card page lists accounts and keeps the theme engine', async ({ page }) => {
         await page.goto('/account');
 

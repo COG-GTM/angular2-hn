@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://workboxjs.org/) (through [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)) to generate a service worker as part of the build step to load quickly and work offline. The app shell is precached and Hacker News API responses use a network-first strategy so previously visited pages keep working without a connection.
 
 ## Manifest
 
@@ -64,6 +64,18 @@ Current themes:
 
 More to come!
 
+## Tech stack
+
+The app was migrated from Angular 9 to React; the Angular sources are no longer part of the repo (see the migration PRs for the port history).
+
+* [React](https://react.dev) 19 with TypeScript
+* [Vite](https://vite.dev) for dev server and builds
+* [React Router](https://reactrouter.com) for routing
+* `fetch` + custom hooks for data loading (no RxJS)
+* React context for settings (theme, font size, list spacing, link target) with `localStorage` persistence
+* Sass for the theme engine
+* [Playwright](https://playwright.dev) for end-to-end tests
+
 ## Areas of improvement
 
  - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
@@ -73,16 +85,23 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` (or `npm run dev`) to run the app on [http://localhost:5173](http://localhost:5173)
+ - `npm run build` to type-check and build into the output directory (`dist/`)
+ - `npm run lint` to lint with [oxlint](https://oxc.rs/docs/guide/usage/linter.html)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The service worker is only generated for production builds. To exercise it locally:
+ - `npm run build`
+ - `npm run preview` to serve `dist/` along with the generated `sw.js`
+
+## End-to-end tests
+
+End-to-end tests live in `e2e/` and run against a production build served by `vite preview`. The Hacker News API is stubbed (`e2e/mockApi.ts`) so runs are deterministic.
+
+ - `npx playwright install chromium` (first run only)
+ - `npm run e2e` — feeds, feed navigation, pagination, item details and comment tree, user profile, settings/themes, and service worker registration
+ - `npm run e2e:ui` to debug interactively
 
 ## Contributors
 

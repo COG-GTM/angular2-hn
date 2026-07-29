@@ -1,12 +1,8 @@
-<div class="error-section">
-  <div class="skull">
-    <div class="head">
-      <div class="crack"></div>
-    </div>
-    <div class="mouth">
-      <div class="teeth"></div>
-    </div>
-  </div>
-  <p class="strong">{{ message }}</p>
-  <p>If you are offline viewing, you'll need to visit this page with a network connection first before it can work offline.</p>
+<div class="error-section" role="alert">
+    <div class="error-badge">!</div>
+    <p class="strong">{{ message() }}</p>
+    <p>
+        Your cashback data could not be loaded. If you are offline, visit this page once with a network connection so it
+        can be cached for offline use.
+    </p>
 </div>

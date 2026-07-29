@@ -1,5 +1,4 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@use '../../shared/scss/variables' as *;
 
 .overlay {
   position: fixed;
@@ -37,34 +36,21 @@
     top: 12px;
     right: 20px;
     font-size: 30px;
+    line-height: 1;
     font-weight: bold;
-    text-decoration: none;
+    background: none;
+    border: 0;
+    padding: 0;
     color: rgba(255,255,255,0.8);
     &:hover {
       color: #fff;
       cursor: pointer;
     }
   }
-  .content {
-    max-height: 30%;
+  app-settings-controls {
+    display: block;
     color: #fff;
-    letter-spacing: 1px;
-    overflow: auto;
   }
-  input[type=number] {
-      display: block;
-      width: 80%;
-      height: 20px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      padding: 2px;
-  }
-}
-
-.control-section {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid white;
 }
 
 @media screen and (max-width: 700px) {

@@ -1,27 +1,27 @@
 # Contributing
 
 Thank you for your interest in contributing! Please feel free to put up a PR for any issue or feature request.
-Even if you have little to no experience with Angular, I'll be more than happy to help. :)
 
 ## Setup
 
-1. Fork the repo
-2. Clone your fork
-3. Make a branch for your feature or bug fix
-4. If you don't have Angular CLI installed: `npm install -g angular-cli@latest`
-5. `ng init`
-6. Type `n` for each file to not overwrite any file changes
-7. Run `npm start` and open `localhost:4200` in a browser
-8. Work your magic
-9. Run `npm run build` or `npm run static-serve` to kick off a production build and make sure nothing is broken
-10. To test service worker changes:
-  * `npm run build` to kick off a fresh build and update the `dist/` directory
-  * `npm run precache` to generate the service worker file
-  * `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-11. Add yourself to the [contributor's list](https://github.com/hdjirdeh/angular2-hn#contributors) in the README!
-12. Commit your changes and reference the issue you're addressing (for example: `git commit -am 'Commit message. Closes #5'`)
-13. Push your branch to your fork
-14. Create a pull request from your branch on your fork to `master` on this repo
-15. Have your branch get merged in! :star2:
+1. Fork the repo and clone your fork
+2. Make a branch for your feature or bug fix
+3. `npm install`
+4. `npm start` and open `localhost:4200` in a browser
+5. Work your magic
+6. Before pushing, run:
+   - `npm run lint`
+   - `npm test`
+   - `npm run e2e` (first time: `npm run e2e:install`)
+   - `npm run build`
+7. Commit your changes and reference the issue you're addressing (for example: `git commit -am 'Commit message. Closes #5'`)
+8. Push your branch to your fork and open a pull request against `master`
 
-If you experience a problem at any point, please don't hesitate to file an issue or send me a message!
+## Notes
+
+- Feature views live under `src/app/<feature>/` and are lazy loaded from `src/app/app.routes.ts`.
+- All cashback data flows through `src/app/shared/services/cashback-api.service.ts`; keep new data access there.
+- The 4% rate comes from `CASHBACK_RATE` in `src/app/shared/data/mock-cashback-data.ts` — never hard-code it elsewhere.
+- Service worker changes are only active in production builds (`npm run build`, then serve `dist/vantage-cashback/browser`).
+
+If you experience a problem at any point, please don't hesitate to file an issue.

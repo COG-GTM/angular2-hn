@@ -1,0 +1,47 @@
+$mobile-only: 'only screen and (max-width : 768px)';
+$laptop-only: 'only screen and (min-width : 769px)';
+$tablet-only: 'only screen and (max-width : 1024px)';
+
+// -------------------------------------------------------------------------------------------
+// Theme Engine
+// -------------------------------------------------------------------------------------------
+
+// Day theme colors
+$theme-day-body-background-color: #fff;
+$theme-day-wrapper-background-color: #f5f7f6;
+$theme-day-wrapper-mobile-background-color: #fff;
+$theme-day-panel-background-color: #fff;
+$theme-day-text-color: #10231c;
+$theme-day-subtext-color: #5f7169;
+$theme-day-secondary-color: #067647;
+$theme-day-header-background-color: $theme-day-secondary-color;
+$theme-day-logo-inner: #fff;
+$theme-day-accent-color: #0f9d58;
+
+// Day theme extras
+$theme-day-border: 2px solid #067647;
+$theme-day-hero-background: linear-gradient(135deg, #067647, #0f9d58);
+
+// Night theme colors
+$theme-night-body-background-color: #16211d;
+$theme-night-wrapper-background-color: #1c2b25;
+$theme-night-wrapper-mobile-background-color: $theme-night-wrapper-background-color;
+$theme-night-panel-background-color: #223730;
+$theme-night-text-color: rgba(255, 255, 255, 0.87);
+$theme-night-subtext-color: #9bb0a7;
+$theme-night-secondary-color: #3ddc97;
+$theme-night-header-background-color: #14201b;
+$theme-night-logo-inner: $theme-night-header-background-color;
+$theme-night-accent-color: #3ddc97;
+
+// Night theme extras
+$theme-night-border: 2px solid #3ddc97;
+$theme-night-hero-background: linear-gradient(135deg, #0a4d33, #0f7a52);
+
+// Black theme colors
+$theme-amoledblack-body-background-color: #000;
+$theme-amoledblack-panel-background-color: #0b0b0b;
+$theme-amoledblack-text-color: rgba(255, 255, 255, 0.75);
+$theme-amoledblack-subtext-color: rgba(255, 255, 255, 0.5);
+$theme-amoledblack-secondary-color: #4ade80;
+$theme-amoledblack-hero-background: linear-gradient(135deg, #04331f, #0a5c3c);

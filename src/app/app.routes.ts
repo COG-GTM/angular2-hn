@@ -1,43 +1,23 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { FeedComponent } from './feeds/feed/feed.component';
-
-const feedRoutes = [{
-  path: ':page',
-  component: FeedComponent
-}];
-
-const routes: Routes = [
-  {path: '', redirectTo: 'news/1', pathMatch: 'full'},
-  {
-    path: 'news',
-    children: feedRoutes,
-    data: {feedType: 'news'}
-  },
-  {
-    path: 'newest',
-    children: feedRoutes,
-    data: {feedType: 'newest'}
-  },
-  {
-    path: 'show',
-    children: feedRoutes,
-    data: {feedType: 'show'}
-  },
-  {
-    path: 'ask',
-    children: feedRoutes,
-    data: {feedType: 'ask'}
-  },
-  {
-    path: 'jobs',
-    children: feedRoutes,
-    data: {feedType: 'jobs'}
-  },
-  {path: 'item', loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule)},
-  {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}
+export const routes: Routes = [
+    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+    {
+        path: 'dashboard',
+        title: 'Dashboard · Vantage 4% Cash Card',
+        loadComponent: () => import('./dashboard/dashboard.component').then((m) => m.DashboardComponent),
+    },
+    {
+        path: 'transactions',
+        loadChildren: () => import('./transactions/transactions.routes').then((m) => m.TRANSACTIONS_ROUTES),
+    },
+    {
+        path: 'rewards',
+        loadChildren: () => import('./rewards/rewards.routes').then((m) => m.REWARDS_ROUTES),
+    },
+    {
+        path: 'account',
+        loadChildren: () => import('./account/account.routes').then((m) => m.ACCOUNT_ROUTES),
+    },
+    { path: '**', redirectTo: 'dashboard' },
 ];
-
-
-// - Updated Export
-export const routing = RouterModule.forRoot(routes);

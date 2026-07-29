@@ -1,25 +1,28 @@
 <header>
     <div id="header">
-      <a class="home-link" routerLink="/news/1" routerLinkActive="active" (click)="scrollTop()">
-        <div class="logo-inner"></div>
-        <img class="logo" src="assets/images/logo.svg" alt="Logo">
-      </a>
-      <div class="header-text">
-        <div class="left">
-          <span class="header-nav">
-            <a routerLink="/newest/1" routerLinkActive="active" (click)="scrollTop()">new</a>
-              |
-            <a routerLink="/show/1" routerLinkActive="active" (click)="scrollTop()">show</a>
-              |
-            <a routerLink="/ask/1" routerLinkActive="active" (click)="scrollTop()">ask</a>
-              |
-            <a routerLink="/jobs/1" routerLinkActive="active" (click)="scrollTop()">jobs</a>
-          </span>
+        <a class="home-link" routerLink="/dashboard" (click)="scrollTop()" aria-label="Vantage home">
+            <img class="logo" src="assets/images/logo.svg" alt="Vantage" />
+        </a>
+        <div class="header-text">
+            <span class="brand">Vantage</span>
+            <span class="rate-pill">4% cash back</span>
+            <nav class="header-nav" aria-label="Primary">
+                <a routerLink="/dashboard" routerLinkActive="active" (click)="scrollTop()">dashboard</a>
+                <span class="divider">|</span>
+                <a routerLink="/transactions" routerLinkActive="active" (click)="scrollTop()">transactions</a>
+                <span class="divider">|</span>
+                <a routerLink="/rewards" routerLinkActive="active" (click)="scrollTop()">rewards</a>
+                <span class="divider">|</span>
+                <a routerLink="/account" routerLinkActive="active" (click)="scrollTop()">card</a>
+            </nav>
         </div>
-      </div>
-      <div class="info">
-        <img class="settings" src="assets/images/cog.svg" alt="Settings" (click)="toggleSettings()">
-      </div>
+        <div class="info">
+            <button type="button" class="settings-button" (click)="toggleSettings()" aria-label="Open settings">
+                <img class="settings" src="assets/images/cog.svg" alt="" />
+            </button>
+        </div>
     </div>
-    <app-settings *ngIf="settings.showSettings"></app-settings>
-  </header>
+    @if (settings().showSettings) {
+        <app-settings />
+    }
+</header>

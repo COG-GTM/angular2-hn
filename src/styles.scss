@@ -1,18 +1,15 @@
-@import "./app/shared/scss/themes";
+@use './app/shared/scss/themes';
+@use './app/shared/scss/ui';
 
 html {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 body {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-}
-
-pre {
-    white-space: pre-wrap;
+    margin: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .app-loader {
@@ -29,15 +26,16 @@ pre {
 }
 
 @media screen and (max-width: 768px) {
-  .app-loader {
-    background-color: #fff;
-  }
+    .app-loader {
+        background-color: #fff;
+    }
 }
 
 app-root:empty + .app-loader {
     opacity: 1;
     z-index: 100;
 }
+
 app-root:empty + .app-loader .logo {
     width: 20vh;
 }

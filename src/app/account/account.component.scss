@@ -1,0 +1,38 @@
+@use '../shared/scss/variables' as *;
+
+.card-face {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: #fff;
+    background: linear-gradient(135deg, #067647, #10231c);
+    max-width: 340px;
+
+    .card-number {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .card-network {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+        opacity: 0.85;
+    }
+}
+
+.account-stats {
+    margin-bottom: 0;
+
+    .stat-label {
+        margin-bottom: 4px;
+    }
+}
+
+.program-rate {
+    font-weight: 700;
+    margin-right: 6px;
+}

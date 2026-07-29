@@ -1,102 +1,77 @@
 <p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
+  <img alt="Vantage 4% Cash Card" title="Vantage 4% Cash Card" src="public/assets/images/logo.svg" width="120">
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
-</p>
-
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
-
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  A progressive web app for the <strong>Vantage 4% cash back card</strong> — balances, transactions and rewards.
 </p>
 
 ---
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+:zap: **Fast:** Angular 20 standalone components with lazy-loaded feature routes and a service worker app shell.
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+:iphone: **Responsive:** Installable UI that works on phones and desktops.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:moneybag: **4% on everything:** every purchase earns a flat 4% back — the rate is applied in exactly one place and surfaced across the dashboard, transactions and rewards views.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+## Features
 
-## Mobile Preview
+| Route            | What it shows                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `/dashboard`     | 4% cash back headline, cash back earned, balances and recent transactions              |
+| `/transactions`  | Every transaction with the 4% cash back it earned, filterable by spend category        |
+| `/transactions/:id` | A single transaction and how its cash back was calculated                           |
+| `/rewards`       | Cash back broken down by category, plus redeemed vs. available balances                |
+| `/account`       | Card accounts, credit utilization and display preferences (themes, masking amounts)    |
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+## Stack
 
-## Laptop Preview
+- **Angular 20** — standalone components, signals, `input()`/`computed()`, lazy routes
+- **HttpClient** — via `provideHttpClient(withFetch())`
+- **`@angular/service-worker`** — PWA/offline support (`ngsw-config.json`)
+- **ESLint** (`angular-eslint`) — replaced TSLint/codelyzer
+- **Karma + Jasmine** — unit tests
+- **Playwright** — end-to-end tests (replaced Protractor)
+- **SCSS theme engine** — Default / Night / Black (AMOLED)
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+## Data
 
-## Offline Support
+There is no cashback backend yet, so [`CashbackApiService`](src/app/shared/services/cashback-api.service.ts) serves
+in-memory fixtures from [`mock-cashback-data.ts`](src/app/shared/data/mock-cashback-data.ts). Set
+`environment.apiBaseUrl` to a real API origin and the same methods (`fetchCardAccounts()`, `fetchTransactions()`,
+`fetchRewardsSummary()`, `fetchCashbackRate()`) issue `HttpClient` requests instead — no caller changes needed.
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+Cash back is derived from the single `CASHBACK_RATE = 0.04` constant, so the ledger, the per-transaction amounts and
+the rewards breakdown can never disagree.
 
-## Manifest
+## Development
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+```bash
+npm install
+npm start          # dev server on http://localhost:4200
+npm run build      # production build into dist/vantage-cashback
+npm run lint       # ESLint
+npm test           # Karma + Jasmine unit tests
+npm run e2e:install && npm run e2e   # Playwright end-to-end tests
+```
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+Regenerate the PWA icons after changing the brand mark with `python3 scripts/generate-icons.py`.
+
+Service worker behaviour is only enabled in production builds; serve `dist/vantage-cashback/browser` with any static
+server to exercise it.
 
 ## Themes
 
-Built in theme engine!
+Built-in theme engine with Default, Night and Black (AMOLED). Themes, font size, list spacing and amount masking are
+managed by `SettingsService` and persisted to `localStorage`.
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
+## Deployment
 
-More to come!
+`npm run build` then `firebase deploy` — hosting serves `dist/vantage-cashback/browser` with SPA rewrites
+(see [`firebase.json`](firebase.json)). CI runs lint, unit tests, e2e and a production build on every push and pull
+request (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
-## Areas of improvement
+## Credits
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
-
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
-
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-
-## Contributors
-
-A million thanks to some awesome people :)
-
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+This project began as [angular2-hn](https://github.com/hdjirdeh/angular2-hn), a Hacker News PWA by Houssein Djirdeh and
+contributors, and was repurposed into a credit card cash back experience.

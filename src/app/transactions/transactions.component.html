@@ -1,0 +1,69 @@
+<section class="page">
+    <h1 class="page-title">Transactions</h1>
+    <p class="page-subtitle muted">
+        Every purchase earns {{ cashbackRate() | percentRate }} cash back, credited when the transaction posts.
+    </p>
+
+    @if (errored()) {
+        <app-error-message message="We couldn’t load your transactions." />
+    } @else if (loading()) {
+        <app-loader />
+    } @else {
+        <div class="stat-grid">
+            <div class="stat">
+                <span class="stat-label">Spend shown</span>
+                <span class="stat-value">{{ totalSpend() | amount: maskAmounts() }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Cash back shown</span>
+                <span class="stat-value cashback-amount" data-testid="filtered-cashback">{{
+                    totalCashback() | amount: maskAmounts()
+                }}</span>
+                <span class="stat-note muted">{{ cashbackRate() | percentRate }} of spend</span>
+            </div>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filter by category">
+            @for (filter of filters(); track filter.value) {
+                <button
+                    type="button"
+                    class="chip"
+                    [class.selected]="selectedCategory() === filter.value"
+                    (click)="selectCategory(filter.value)"
+                >
+                    {{ filter.label }}
+                </button>
+            }
+        </div>
+
+        <div class="panel">
+            @for (transaction of visibleTransactions(); track transaction.id) {
+                <a
+                    class="list-row"
+                    [style.padding-top]="rowPadding()"
+                    [style.padding-bottom]="rowPadding()"
+                    [routerLink]="['/transactions', transaction.id]"
+                >
+                    <span class="list-main">
+                        <span class="list-title" [style.font-size]="titleFontSize()">{{ transaction.merchant }}</span>
+                        <span class="meta">
+                            {{ transaction.postedAt | date: 'mediumDate' }} · {{ categoryLabel(transaction.category) }}
+                            @if (transaction.pending) {
+                                <span class="pill">Pending</span>
+                            }
+                        </span>
+                    </span>
+                    <span class="list-amounts">
+                        <span class="list-title">{{ transaction.amount | amount: maskAmounts() }}</span>
+                        <span class="meta cashback-amount">
+                            +{{ transaction.cashbackEarned | amount: maskAmounts() }}
+                            ({{ transaction.cashbackRate | percentRate }})
+                        </span>
+                    </span>
+                </a>
+            } @empty {
+                <p class="muted">No transactions in this category yet.</p>
+            }
+        </div>
+    }
+</section>

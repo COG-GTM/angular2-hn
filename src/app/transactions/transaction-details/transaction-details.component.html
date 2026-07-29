@@ -1,0 +1,48 @@
+<section class="page">
+    <a class="back-button" routerLink="/transactions">‹ Back to transactions</a>
+
+    @if (errored()) {
+        <app-error-message message="We couldn’t load this transaction." />
+    } @else if (loading()) {
+        <app-loader />
+    } @else if (notFound()) {
+        <app-error-message message="That transaction is no longer available." />
+    } @else if (transaction(); as transaction) {
+        <h1 class="page-title">{{ transaction.merchant }}</h1>
+        <p class="page-subtitle muted">
+            {{ transaction.postedAt | date: 'medium' }} · {{ categoryLabel(transaction.category) }}
+            @if (transaction.pending) {
+                <span class="pill">Pending</span>
+            }
+        </p>
+
+        <div class="stat-grid">
+            <div class="stat">
+                <span class="stat-label">Amount</span>
+                <span class="stat-value">{{ transaction.amount | amount: maskAmounts() }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Cash back rate</span>
+                <span class="stat-value accent">{{ transaction.cashbackRate | percentRate }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Cash back earned</span>
+                <span class="stat-value cashback-amount" data-testid="transaction-cashback">{{
+                    transaction.cashbackEarned | amount: maskAmounts()
+                }}</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header"><h2>How this was calculated</h2></div>
+            <p class="calculation">
+                {{ transaction.amount | amount: maskAmounts() }} × {{ transaction.cashbackRate | percentRate }} =
+                <span class="cashback-amount">{{ transaction.cashbackEarned | amount: maskAmounts() }}</span>
+            </p>
+            <p class="muted">
+                Cash back posts as a statement credit once the transaction clears. Refunds reverse the cash back earned
+                on the original purchase.
+            </p>
+        </div>
+    }
+</section>

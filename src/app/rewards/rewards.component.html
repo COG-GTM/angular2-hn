@@ -1,0 +1,67 @@
+<section class="page">
+    <h1 class="page-title">Rewards</h1>
+    <p class="page-subtitle muted">Where your cash back came from.</p>
+
+    @if (errored()) {
+        <app-error-message message="We couldn’t load your rewards summary." />
+    } @else if (loading()) {
+        <app-loader />
+    } @else if (summary(); as summary) {
+        <div class="rate-hero">
+            <div class="rate-badge" data-testid="cashback-rate">{{ summary.rate | percentRate }}</div>
+            <div class="rate-copy">
+                <h1>{{ rate()?.headline }}</h1>
+                <p>{{ rate()?.description }}</p>
+            </div>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat">
+                <span class="stat-label">Cash back earned</span>
+                <span class="stat-value cashback-amount" data-testid="total-cashback">{{
+                    summary.totalCashbackEarned | amount: maskAmounts()
+                }}</span>
+                <span class="stat-note muted">{{ summary.periodLabel }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Total spend</span>
+                <span class="stat-value">{{ summary.totalSpend | amount: maskAmounts() }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Redeemed</span>
+                <span class="stat-value">{{ summary.cashbackRedeemed | amount: maskAmounts() }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Available to redeem</span>
+                <span class="stat-value">{{ summary.cashbackAvailable | amount: maskAmounts() }}</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Cash back by category</h2>
+                <a routerLink="/transactions">View transactions</a>
+            </div>
+            @for (category of summary.categories; track category.category) {
+                <div class="category-row" data-testid="category-row">
+                    <div class="category-head">
+                        <span class="list-title">{{ category.label }}</span>
+                        <span class="list-amounts">
+                            <span class="cashback-amount">{{ category.cashbackEarned | amount: maskAmounts() }}</span>
+                            <span class="meta">{{ category.share | percent: '1.0-0' }} of cash back</span>
+                        </span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" [style.width]="barWidth(category.cashbackEarned)"></div>
+                    </div>
+                    <span class="meta"
+                        >{{ category.spend | amount: maskAmounts() }} spent at
+                        {{ summary.rate | percentRate }}</span
+                    >
+                </div>
+            } @empty {
+                <p class="muted">No cash back earned yet.</p>
+            }
+        </div>
+    }
+</section>

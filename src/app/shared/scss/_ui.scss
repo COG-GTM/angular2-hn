@@ -1,0 +1,190 @@
+@use './variables' as *;
+
+/* Layout and surface primitives shared by every cashback feature. */
+
+.page {
+    padding: 24px 24px 48px;
+
+    @media #{$mobile-only} {
+        padding: 70px 14px 24px;
+    }
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.page-subtitle {
+    margin: 0 0 20px;
+    font-size: 14px;
+}
+
+.panel {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+
+    h2 {
+        font-size: 16px;
+        margin: 0;
+        font-weight: 600;
+    }
+}
+
+.rate-hero {
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    @media #{$mobile-only} {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    a {
+        color: #fff !important;
+        text-decoration: underline;
+    }
+}
+
+.rate-badge {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.rate-copy {
+    h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    p {
+        margin: 0;
+        opacity: 0.9;
+        max-width: 52ch;
+    }
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.stat-note {
+    display: block;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    text-decoration: none;
+}
+
+.list-main {
+    min-width: 0;
+}
+
+.list-title {
+    font-weight: 600;
+    display: block;
+}
+
+.meta {
+    font-size: 12px;
+}
+
+.list-amounts {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.cashback-amount {
+    font-weight: 600;
+}
+
+.bar-track {
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin: 0 8px 8px 0;
+    background: none;
+    cursor: pointer;
+}
+
+.pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(128, 128, 128, 0.2);
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 12px;
+    text-decoration: none;
+    font-size: 14px;
+}

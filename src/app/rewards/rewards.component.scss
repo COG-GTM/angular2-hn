@@ -1,0 +1,26 @@
+@use '../shared/scss/variables' as *;
+
+.category-row {
+    padding: 12px 0;
+
+    + .category-row {
+        border-top: 1px solid rgba(128, 128, 128, 0.2);
+    }
+}
+
+.category-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    .list-amounts {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.bar-track {
+    margin-bottom: 6px;
+}

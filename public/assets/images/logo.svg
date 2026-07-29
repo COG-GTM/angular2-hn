@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Vantage 4% cash card">
+  <rect width="256" height="256" rx="48" fill="#067647"/>
+  <rect x="40" y="76" width="176" height="112" rx="16" fill="#ffffff"/>
+  <rect x="40" y="102" width="176" height="20" fill="#0f9d58"/>
+  <rect x="62" y="146" width="52" height="12" rx="6" fill="#c7d9d0"/>
+  <text x="168" y="170" font-family="Helvetica, Arial, sans-serif" font-size="46" font-weight="bold" fill="#067647" text-anchor="middle">4%</text>
+</svg>

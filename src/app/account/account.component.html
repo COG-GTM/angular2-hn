@@ -1,0 +1,71 @@
+<section class="page">
+    <h1 class="page-title">Card & settings</h1>
+    <p class="page-subtitle muted">Manage your cards and how this app displays your cash back.</p>
+
+    @if (errored()) {
+        <app-error-message message="We couldn’t load your card accounts." />
+    } @else if (loading()) {
+        <app-loader />
+    } @else {
+        @for (account of accounts(); track account.id) {
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>{{ account.productName }}</h2>
+                    <span class="pill">{{ account.status | titlecase }}</span>
+                </div>
+                <div class="card-face">
+                    <span class="card-holder">{{ account.cardholderName }}</span>
+                    <span class="card-number">•••• •••• •••• {{ account.last4 }}</span>
+                    <span class="card-network">{{ account.network | titlecase }}</span>
+                </div>
+                <div class="stat-grid account-stats">
+                    <div>
+                        <span class="stat-label">Current balance</span>
+                        <span class="list-title">{{ account.currentBalance | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Statement balance</span>
+                        <span class="list-title">{{ account.statementBalance | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Available credit</span>
+                        <span class="list-title">{{ account.availableCredit | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Credit limit</span>
+                        <span class="list-title">{{ account.creditLimit | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Utilization</span>
+                        <span class="list-title">{{ utilization(account.currentBalance, account.creditLimit) }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Payment due</span>
+                        <span class="list-title">{{ account.paymentDueDate | date: 'mediumDate' }}</span>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <p class="muted">No card accounts on file.</p>
+        }
+
+        @if (rate(); as rate) {
+            <div class="panel">
+                <div class="panel-header"><h2>Cash back program</h2></div>
+                <p>
+                    <span class="accent program-rate">{{ rate.rate | percentRate }}</span>
+                    {{ rate.description }}
+                </p>
+                <p class="muted">
+                    Effective {{ rate.effectiveFrom | date: 'longDate' }} ·
+                    {{ rate.annualCap ? 'Annual cap of ' + rate.annualCap : 'No annual cap' }}
+                </p>
+            </div>
+        }
+
+        <div class="panel">
+            <div class="panel-header"><h2>Display preferences</h2></div>
+            <app-settings-controls />
+        </div>
+    }
+</section>

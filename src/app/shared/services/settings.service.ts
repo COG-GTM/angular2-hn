@@ -1,89 +1,70 @@
-import { Injectable } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 
-import { Settings } from '../models/settings';
+import { Settings, Theme } from '../models/settings';
 
-@Injectable({
-  providedIn: 'root'
-})
+const STORAGE_KEYS = {
+    theme: 'theme',
+    maskAmounts: 'maskAmounts',
+    titleFontSize: 'titleFontSize',
+    listSpacing: 'listSpacing',
+} as const;
+
+@Injectable({ providedIn: 'root' })
 export class SettingsService {
-  settings: Settings = {
-    showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
-    theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
-  };
+    private readonly state = signal<Settings>({
+        showSettings: false,
+        maskAmounts: localStorage.getItem(STORAGE_KEYS.maskAmounts) === 'true',
+        theme: (localStorage.getItem(STORAGE_KEYS.theme) as Theme | null) ?? 'default',
+        titleFontSize: localStorage.getItem(STORAGE_KEYS.titleFontSize) ?? '16',
+        listSpacing: localStorage.getItem(STORAGE_KEYS.listSpacing) ?? '0',
+    });
 
-  darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  constructor() {
-    this.subscribeToSystemPreferredColorScheme();
-    this.initTheme();
-  }
-  
-  ngOnDestroy() {
-    this.unSubscribeToSystemPrefferedColorScheme();
-  }
+    readonly settings = this.state.asReadonly();
+    readonly theme = computed(() => this.state().theme);
+    readonly maskAmounts = computed(() => this.state().maskAmounts);
+    readonly titleFontSize = computed(() => `${this.state().titleFontSize}px`);
+    readonly rowPadding = computed(() => `calc(12px + ${this.state().listSpacing}px)`);
 
-  handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
-    if (event.matches) {
-      theme = 'night';
-    } else {
-      theme = 'default';
+    private readonly darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    private readonly onColorSchemeChange = (event: MediaQueryListEvent) =>
+        this.setTheme(event.matches ? 'night' : 'default');
+
+    constructor() {
+        this.darkColorSchemeMedia.addEventListener('change', this.onColorSchemeChange);
+        inject(DestroyRef).onDestroy(() =>
+            this.darkColorSchemeMedia.removeEventListener('change', this.onColorSchemeChange)
+        );
+
+        if (!localStorage.getItem(STORAGE_KEYS.theme) && this.darkColorSchemeMedia.matches) {
+            this.setTheme('night');
+        }
     }
-    this.setTheme(theme);
-  }
-  
-  subscribeToSystemPreferredColorScheme() {
-    this.darkColorSchemeMedia.addEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
-  }
 
-  initTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      this.settings.theme = savedTheme;
-    } else {
-      this.darkColorSchemeMedia.dispatchEvent(
-        new MediaQueryListEvent('change', {
-          media: this.darkColorSchemeMedia.media,
-          matches: this.darkColorSchemeMedia.matches
-        })
-      );
+    toggleSettings(): void {
+        this.state.update((settings) => ({ ...settings, showSettings: !settings.showSettings }));
     }
-  }
 
-  unSubscribeToSystemPrefferedColorScheme() {
-    this.darkColorSchemeMedia.removeEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
-  }
+    closeSettings(): void {
+        this.state.update((settings) => ({ ...settings, showSettings: false }));
+    }
 
-  toggleSettings() {
-    this.settings.showSettings = !this.settings.showSettings;
-  }
+    toggleMaskAmounts(): void {
+        this.state.update((settings) => ({ ...settings, maskAmounts: !settings.maskAmounts }));
+        localStorage.setItem(STORAGE_KEYS.maskAmounts, String(this.state().maskAmounts));
+    }
 
-  toggleOpenLinksInNewTab() {
-    this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
-  }
+    setTheme(theme: Theme): void {
+        this.state.update((settings) => ({ ...settings, theme }));
+        localStorage.setItem(STORAGE_KEYS.theme, theme);
+    }
 
-  setTheme(theme) {
-    this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
-  }
+    setFont(fontSize: string): void {
+        this.state.update((settings) => ({ ...settings, titleFontSize: fontSize }));
+        localStorage.setItem(STORAGE_KEYS.titleFontSize, fontSize);
+    }
 
-  setFont(fontSize){
-    this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
-  }
-
-  setSpacing(listSpace){
-    this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
-  }
+    setSpacing(listSpacing: string): void {
+        this.state.update((settings) => ({ ...settings, listSpacing }));
+        localStorage.setItem(STORAGE_KEYS.listSpacing, listSpacing);
+    }
 }

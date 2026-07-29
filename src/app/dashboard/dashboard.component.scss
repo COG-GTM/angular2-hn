@@ -1,0 +1,14 @@
+@use '../shared/scss/variables' as *;
+
+.hero-meta {
+    margin-top: 12px !important;
+    font-size: 13px;
+}
+
+.card-summary {
+    margin-bottom: 0;
+
+    .stat-label {
+        margin-bottom: 4px;
+    }
+}

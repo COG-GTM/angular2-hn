@@ -1,0 +1,57 @@
+<div class="content">
+    <div class="control-section">
+        <h2>Privacy</h2>
+        <label>
+            <input type="checkbox" [checked]="settings().maskAmounts" (change)="toggleMaskAmounts()" />
+            Hide balances and cash back amounts
+        </label>
+    </div>
+    <div class="theme-controls">
+        <div class="control-section">
+            <h2>Select a theme</h2>
+            @for (theme of themes; track theme.value) {
+                <div>
+                    <label>
+                        <input
+                            name="theme"
+                            type="radio"
+                            [value]="theme.value"
+                            [checked]="settings().theme === theme.value"
+                            (change)="selectTheme(theme.value)"
+                        />
+                        {{ theme.label }}
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="control-section">
+            <h2>Display</h2>
+            <div class="field">
+                <label>
+                    Font size:
+                    <input
+                        #titleFont
+                        min="1"
+                        [value]="settings().titleFontSize"
+                        type="number"
+                        (keyup)="changeTitleFont(titleFont.value)"
+                        (change)="changeTitleFont(titleFont.value)"
+                    />
+                </label>
+            </div>
+            <div class="field">
+                <label>
+                    List spacing:
+                    <input
+                        #listSpacing
+                        min="0"
+                        [value]="settings().listSpacing"
+                        type="number"
+                        (keyup)="changeSpacing(listSpacing.value)"
+                        (change)="changeSpacing(listSpacing.value)"
+                    />
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

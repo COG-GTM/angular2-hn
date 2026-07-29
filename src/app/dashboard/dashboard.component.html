@@ -1,0 +1,108 @@
+<section class="page">
+    @if (errored()) {
+        <app-error-message message="We couldn’t load your cashback dashboard." />
+    } @else if (loading()) {
+        <app-loader />
+    } @else {
+        @if (cashbackRate(); as rate) {
+            <div class="rate-hero">
+                <div class="rate-badge" data-testid="cashback-rate">{{ rate.rate | percentRate }}</div>
+                <div class="rate-copy">
+                    <h1>{{ rate.headline }}</h1>
+                    <p>{{ rate.description }}</p>
+                    <p class="hero-meta">
+                        Effective {{ rate.effectiveFrom | date: 'longDate' }} ·
+                        {{ rate.annualCap ? 'Capped at ' + rate.annualCap : 'No annual cap' }} ·
+                        <a routerLink="/rewards">View rewards breakdown</a>
+                    </p>
+                </div>
+            </div>
+        }
+
+        <div class="stat-grid">
+            <div class="stat">
+                <span class="stat-label">Cash back earned</span>
+                <span class="stat-value cashback-amount" data-testid="total-cashback">{{
+                    rewards()?.totalCashbackEarned | amount: maskAmounts()
+                }}</span>
+                <span class="stat-note muted">{{ rewards()?.periodLabel }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Available to redeem</span>
+                <span class="stat-value">{{ rewards()?.cashbackAvailable | amount: maskAmounts() }}</span>
+                <span class="stat-note muted"
+                    >{{ rewards()?.cashbackRedeemed | amount: maskAmounts() }} already redeemed</span
+                >
+            </div>
+            <div class="stat">
+                <span class="stat-label">Current balance</span>
+                <span class="stat-value" data-testid="current-balance">{{
+                    totalBalance() | amount: maskAmounts()
+                }}</span>
+                <span class="stat-note muted">Across {{ primaryAccount() ? 'all cards' : 'no cards' }}</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Available credit</span>
+                <span class="stat-value">{{ availableCredit() | amount: maskAmounts() }}</span>
+                @if (primaryAccount(); as account) {
+                    <span class="stat-note muted">Payment due {{ account.paymentDueDate | date: 'mediumDate' }}</span>
+                }
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Recent transactions</h2>
+                <a routerLink="/transactions">See all</a>
+            </div>
+            @for (transaction of recentTransactions(); track transaction.id) {
+                <a class="list-row" [routerLink]="['/transactions', transaction.id]">
+                    <span class="list-main">
+                        <span class="list-title">{{ transaction.merchant }}</span>
+                        <span class="meta">
+                            {{ transaction.postedAt | date: 'mediumDate' }}
+                            @if (transaction.pending) {
+                                <span class="pill">Pending</span>
+                            }
+                        </span>
+                    </span>
+                    <span class="list-amounts">
+                        <span class="list-title">{{ transaction.amount | amount: maskAmounts() }}</span>
+                        <span class="meta cashback-amount"
+                            >+{{ transaction.cashbackEarned | amount: maskAmounts() }} back</span
+                        >
+                    </span>
+                </a>
+            } @empty {
+                <p class="muted">No transactions posted yet.</p>
+            }
+        </div>
+
+        @if (primaryAccount(); as account) {
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>{{ account.productName }}</h2>
+                    <a routerLink="/account">Manage card</a>
+                </div>
+                <div class="stat-grid card-summary">
+                    <div>
+                        <span class="stat-label">Card</span>
+                        <span class="list-title">•••• {{ account.last4 }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Statement balance</span>
+                        <span class="list-title">{{ account.statementBalance | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Credit limit</span>
+                        <span class="list-title">{{ account.creditLimit | amount: maskAmounts() }}</span>
+                    </div>
+                    <div>
+                        <span class="stat-label">Status</span>
+                        <span class="list-title">{{ account.status | titlecase }}</span>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</section>

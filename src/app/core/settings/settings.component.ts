@@ -1,40 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { SettingsService } from '../../shared/services/settings.service';
-import { Settings } from '../../shared/models/settings';
+import { SettingsControlsComponent } from './settings-controls.component';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    imports: [SettingsControlsComponent],
+    templateUrl: './settings.component.html',
+    styleUrl: './settings.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit {
-  settings: Settings;
+export class SettingsComponent {
+    private readonly settingsService = inject(SettingsService);
 
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {
-  }
-
-  closeSettings() {
-    this._settingsService.toggleSettings();
-  }
-
-  toggleOpenLinksInNewTab() {
-    this._settingsService.toggleOpenLinksInNewTab();
-  }
-
-  selectTheme(theme) {
-    this._settingsService.setTheme(theme);
-  }
-
-  changeTitleFont(val){
-    this._settingsService.setFont(val);
-  }
-
-  changeSpacing(val){
-    this._settingsService.setSpacing(val);
-  }
+    closeSettings(): void {
+        this.settingsService.closeSettings();
+    }
 }

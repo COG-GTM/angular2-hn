@@ -1,5 +1,4 @@
-@import "../../scss/media";
-@import "../../scss/theme_variables";
+@use '../../scss/variables' as *;
 
 .loader {
   -webkit-animation: load1 1s infinite ease-in-out;

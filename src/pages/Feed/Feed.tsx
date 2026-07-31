@@ -13,7 +13,7 @@ const PAGE_SIZE = 30;
 
 export function Feed({ feedType }: { feedType: string }) {
     const { page } = useParams();
-    const pageNum = Number(page) || 1;
+    const pageNum = Math.max(1, Math.floor(Number(page)) || 1);
 
     const { data: items, error } = useApiRequest(
         (signal) => fetchFeed(feedType, pageNum, signal),

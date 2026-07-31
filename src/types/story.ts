@@ -15,7 +15,7 @@ export interface Story {
     content: string;
     comments: Comment[];
     comments_count: number;
-    poll: PollResult[];
+    poll?: PollResult[];
     poll_votes_count: number;
     deleted: boolean;
     dead: boolean;

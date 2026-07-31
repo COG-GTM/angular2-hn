@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate } from 'react-router';
 
 import { App } from './App';
 import { Feed } from './pages/Feed/Feed';
+import { ItemDetails } from './pages/ItemDetails/ItemDetails';
+import { User } from './pages/User/User';
 
 const FEED_TYPES = ['news', 'newest', 'show', 'ask', 'jobs'];
 
@@ -15,6 +17,8 @@ export const router = createBrowserRouter([
                 path: `${feedType}/:page`,
                 element: <Feed feedType={feedType} />,
             })),
+            { path: 'item/:id', element: <ItemDetails /> },
+            { path: 'user/:id', element: <User /> },
         ],
     },
 ]);

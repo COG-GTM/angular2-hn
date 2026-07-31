@@ -33,7 +33,7 @@ export default defineConfig({
                         options: {
                             cacheName: 'hn-api',
                             networkTimeoutSeconds: 5,
-                            expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 },
+                            expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 7 },
                             cacheableResponse: { statuses: [200] },
                         },
                     },

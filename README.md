@@ -42,7 +42,7 @@ npm run typecheck
 
 ## Offline Support
 
-The production build generates a Workbox service worker that precaches the app shell and static assets, and serves Hacker News API responses with a network-first strategy so previously visited feeds and threads stay readable offline.
+The production build generates a Workbox service worker that precaches the app shell and static assets, and serves Hacker News API responses with a network-first strategy so previously visited feeds and threads stay readable offline for a week.
 
 ## Manifest
 

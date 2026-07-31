@@ -36,6 +36,8 @@ export function Settings() {
                     <div className="theme-controls">
                         <div className="control-section">
                             <h2>Select a theme</h2>
+                            {/* onClick also fires when the checked radio is re-selected, which is how a
+                                visitor pins the theme the system colour scheme picked for them. */}
                             {THEMES.map((theme) => (
                                 <div key={theme.value}>
                                     <label>

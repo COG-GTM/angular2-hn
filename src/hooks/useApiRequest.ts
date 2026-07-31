@@ -5,36 +5,43 @@ interface ApiRequestState<T> {
     error: string;
 }
 
+interface KeyedState<T> extends ApiRequestState<T> {
+    key: string;
+}
+
+const PENDING = { data: null, error: '' };
+
 /**
  * Runs a request whenever its dependencies change, aborting the in-flight
  * request when they change again or the component unmounts.
+ *
+ * `dependencies` identifies the request, so it must list every value the
+ * `request` closure reads (feed type, page, item id, ...) and must be
+ * JSON-serialisable; results resolved for other dependencies read as pending.
  */
 export function useApiRequest<T>(
     request: (signal: AbortSignal) => Promise<T>,
     errorMessage: string,
     dependencies: unknown[]
 ): ApiRequestState<T> {
-    const [data, setData] = useState<T | null>(null);
-    const [error, setError] = useState('');
+    const key = JSON.stringify(dependencies);
+    const [state, setState] = useState<KeyedState<T>>({ key, ...PENDING });
 
     useEffect(() => {
         const controller = new AbortController();
 
-        setData(null);
-        setError('');
-
         request(controller.signal)
-            .then((result) => setData(result))
+            .then((data) => setState({ key, data, error: '' }))
             .catch((requestError: unknown) => {
-                if (requestError instanceof DOMException && requestError.name === 'AbortError') {
+                if (requestError instanceof Error && requestError.name === 'AbortError') {
                     return;
                 }
-                setError(errorMessage);
+                setState({ key, data: null, error: errorMessage });
             });
 
         return () => controller.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, dependencies);
+    }, [key]);
 
-    return { data, error };
+    return state.key === key ? { data: state.data, error: state.error } : PENDING;
 }

@@ -23,7 +23,8 @@ export function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
 }
 
 // Poll options live at consecutive item ids after the poll itself, so they are
-// fetched separately and folded back into the story.
+// fetched separately and folded back into the story. An option that cannot be
+// loaded keeps its placeholder rather than failing the whole story.
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await get<Story>(`/item/${id}`, signal);
 
@@ -31,7 +32,16 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
         return story;
     }
 
-    const results = await Promise.all(story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal)));
+    const results = await Promise.all(
+        story.poll.map((option, index) =>
+            fetchPollContent(story.id + index + 1, signal).catch((error: unknown) => {
+                if (error instanceof Error && error.name === 'AbortError') {
+                    throw error;
+                }
+                return { ...option, points: 0 };
+            })
+        )
+    );
 
     return {
         ...story,

@@ -10,15 +10,21 @@ function readStoredTheme(): Theme | null {
     return storedTheme === 'default' || storedTheme === 'night' || storedTheme === 'amoledblack' ? storedTheme : null;
 }
 
-function initialSettings(): Settings {
-    const storedOpenLinkInNewTab = localStorage.getItem('openLinkInNewTab');
+function readStoredOpenLinkInNewTab(): boolean {
+    try {
+        return JSON.parse(localStorage.getItem('openLinkInNewTab') ?? 'false') === true;
+    } catch {
+        return false;
+    }
+}
 
+function initialSettings(): Settings {
     return {
         showSettings: false,
-        openLinkInNewTab: storedOpenLinkInNewTab ? (JSON.parse(storedOpenLinkInNewTab) as boolean) : false,
+        openLinkInNewTab: readStoredOpenLinkInNewTab(),
         theme: readStoredTheme() ?? (window.matchMedia(DARK_COLOR_SCHEME_QUERY).matches ? 'night' : 'default'),
-        titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
-        listSpacing: localStorage.getItem('listSpacing') ?? '0',
+        titleFontSize: localStorage.getItem('titleFontSize') || '16',
+        listSpacing: localStorage.getItem('listSpacing') || '0',
     };
 }
 

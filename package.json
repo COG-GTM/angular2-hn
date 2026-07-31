@@ -38,6 +38,6 @@
     "printWidth": 120
   },
   "overrides": {
-    "brace-expansion": "5.0.8"
+    "minimatch@5": "^10.2.6"
   }
 }

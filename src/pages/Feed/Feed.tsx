@@ -28,7 +28,7 @@ export function Feed({ feedType }: { feedType: string }) {
     const listStart = (pageNum - 1) * PAGE_SIZE + 1;
 
     return (
-        <div className="main-content">
+        <div className="main-content feed-page">
             {!items && !error && <Loader />}
             {!items && error !== '' && <ErrorMessage message={error} />}
 

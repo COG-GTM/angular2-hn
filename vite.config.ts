@@ -32,8 +32,9 @@ export default defineConfig({
                         handler: 'NetworkFirst',
                         options: {
                             cacheName: 'hn-api',
+                            networkTimeoutSeconds: 5,
                             expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 },
-                            cacheableResponse: { statuses: [0, 200] },
+                            cacheableResponse: { statuses: [200] },
                         },
                     },
                 ],

@@ -85,7 +85,7 @@ export function ItemDetails() {
                 </div>
                 {item.type === 'poll' && (
                     <div className="pollResults">
-                        {item.poll.map((pollResult, index) => (
+                        {item.poll?.map((pollResult, index) => (
                             <div className="pollContent" key={index}>
                                 <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
                                 <div className="subtext">{pollResult.points} points</div>

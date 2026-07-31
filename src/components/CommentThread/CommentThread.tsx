@@ -10,8 +10,10 @@ export function CommentThread({ comment }: { comment: Comment }) {
 
     if (comment.deleted) {
         return (
-            <div className="deleted-meta">
-                <span className="collapse">[deleted]</span> | Comment Deleted
+            <div className="comment">
+                <div className="deleted-meta">
+                    <span className="collapse">[deleted]</span> | Comment Deleted
+                </div>
             </div>
         );
     }

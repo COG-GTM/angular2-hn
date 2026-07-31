@@ -21,7 +21,12 @@ export function Item({ item }: { item: Story }) {
                     <a className="title" style={titleStyle} href={item.url} {...linkTarget}>
                         {item.title}
                     </a>
-                    {item.domain && <span className="domain">({item.domain})</span>}
+                    {item.domain && (
+                        <>
+                            {' '}
+                            <span className="domain">({item.domain})</span>
+                        </>
+                    )}
                 </p>
             ) : (
                 <p>

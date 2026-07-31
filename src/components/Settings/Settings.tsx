@@ -45,6 +45,7 @@ export function Settings() {
                                             value={theme.value}
                                             checked={settings.theme === theme.value}
                                             onChange={() => setTheme(theme.value)}
+                                            onClick={() => setTheme(theme.value)}
                                         />
                                         {theme.label}
                                     </label>

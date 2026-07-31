@@ -28,7 +28,9 @@ export function ItemDetails() {
     }, [itemId]);
 
     if (!item) {
-        return <div className="main-content">{error === '' ? <Loader /> : <ErrorMessage message={error} />}</div>;
+        return (
+            <div className="main-content item-page">{error === '' ? <Loader /> : <ErrorMessage message={error} />}</div>
+        );
     }
 
     const hasUrl = item.url?.startsWith('http') ?? false;
@@ -53,7 +55,7 @@ export function ItemDetails() {
     }
 
     return (
-        <div className="main-content">
+        <div className="main-content item-page">
             <div className="item">
                 <div className="mobile item-header">
                     <p className="title-block">
@@ -96,7 +98,11 @@ export function ItemDetails() {
                                 <div className="subtext">{pollResult.points} points</div>
                                 <div
                                     className="pollBar"
-                                    style={{ width: `${(pollResult.points / item.poll_votes_count) * 100}%` }}
+                                    style={{
+                                        width: item.poll_votes_count
+                                            ? `${(pollResult.points / item.poll_votes_count) * 100}%`
+                                            : 0,
+                                    }}
                                 />
                             </div>
                         ))}

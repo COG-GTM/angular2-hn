@@ -51,28 +51,6 @@
         }
       }
 
-      h1 {
-        font-weight: normal;
-        display: inline-block;
-        vertical-align:middle;
-        margin: 0;
-        font-size: 16px;
-
-        a {
-          color: #fff;
-          text-decoration: none;
-        }
-      }
-
-      .name {
-        margin-right: 30px;
-        margin-bottom: 2px;
-
-        @media #{$mobile-only} {
-          display: none;
-        }
-      }
-
       .header-text {
         position: absolute;
         width: inherit;

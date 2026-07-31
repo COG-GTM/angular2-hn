@@ -1,27 +1,30 @@
 # Contributing
 
-Thank you for your interest in contributing! Please feel free to put up a PR for any issue or feature request.
-Even if you have little to no experience with Angular, I'll be more than happy to help. :)
+Thanks for your interest in improving this app!
 
 ## Setup
 
-1. Fork the repo
-2. Clone your fork
-3. Make a branch for your feature or bug fix
-4. If you don't have Angular CLI installed: `npm install -g angular-cli@latest`
-5. `ng init`
-6. Type `n` for each file to not overwrite any file changes
-7. Run `npm start` and open `localhost:4200` in a browser
-8. Work your magic
-9. Run `npm run build` or `npm run static-serve` to kick off a production build and make sure nothing is broken
-10. To test service worker changes:
-  * `npm run build` to kick off a fresh build and update the `dist/` directory
-  * `npm run precache` to generate the service worker file
-  * `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-11. Add yourself to the [contributor's list](https://github.com/hdjirdeh/angular2-hn#contributors) in the README!
-12. Commit your changes and reference the issue you're addressing (for example: `git commit -am 'Commit message. Closes #5'`)
-13. Push your branch to your fork
-14. Create a pull request from your branch on your fork to `master` on this repo
-15. Have your branch get merged in! :star2:
+```sh
+git clone https://github.com/COG-GTM/angular2-hn.git
+cd angular2-hn
+npm install
+npm run dev
+```
 
-If you experience a problem at any point, please don't hesitate to file an issue or send me a message!
+The dev server runs on [http://localhost:4200](http://localhost:4200).
+
+## Before Opening a Pull Request
+
+```sh
+npm run lint        # ESLint (flat config, zero warnings allowed)
+npm run typecheck   # tsc --noEmit
+npm run build       # type-check + production build
+npm run preview     # verify the built app, including the service worker
+```
+
+## Conventions
+
+- Function components and hooks; no class components.
+- TypeScript strict mode — avoid `any`.
+- Component styles live next to the component as a `.scss` file, scoped under the component's root class.
+- Shared theme tokens and media query helpers belong in `src/styles/`.

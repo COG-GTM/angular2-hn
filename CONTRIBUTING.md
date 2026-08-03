@@ -14,7 +14,7 @@ Even if you have little to no experience with React, I'll be more than happy to 
 7. Run `npm run lint` and `npm run build` to make sure nothing is broken
 8. To test service worker changes:
   * `npm run build` to kick off a fresh build and update the `dist/` directory
-  * `npm run preview` to load the application along with the generated service worker
+  * `npm run preview` to load the application along with the generated service worker on `localhost:4173`
 9. Add yourself to the [contributor's list](https://github.com/hdjirdeh/angular2-hn#contributors) in the README!
 10. Commit your changes and reference the issue you're addressing (for example: `git commit -am 'Commit message. Closes #5'`)
 11. Push your branch to your fork

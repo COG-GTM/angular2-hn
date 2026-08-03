@@ -80,7 +80,7 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 Note: the service worker is only generated for production builds. To test service worker changes:
  - `npm run build`
- - `npm run preview` to serve the production build (service worker included)
+ - `npm run preview` to serve the production build on `localhost:4173` (service worker included)
 
 ## Contributors
 

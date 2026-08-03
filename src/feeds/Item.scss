@@ -1,13 +1,14 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@use "../shared/scss/media" as *;
+@use "../shared/scss/theme_variables" as *;
 
-p {
+.item-post {
+  p {
     margin: 2px 0;
 
     @media #{$mobile-only} {
       margin-bottom: 5px;
       margin-top: 0;
-   }
+    }
   }
 
   a {
@@ -66,3 +67,4 @@ p {
   .item-details {
     padding: 10px;
   }
+}

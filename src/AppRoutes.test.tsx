@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 
 import AppRoutes from './AppRoutes';
 import * as api from './api/hackerNewsApi';
-import { makeStory } from './test/fixtures';
+import { makeStory, makeUser } from './test/fixtures';
 import { renderWithProviders } from './test/render';
 
 vi.mock('./api/hackerNewsApi');
@@ -27,5 +27,21 @@ describe('AppRoutes', () => {
         renderWithProviders(<AppRoutes />, { route: `/${feed}/2` });
 
         await waitFor(() => expect(fetchFeed).toHaveBeenCalledWith(feed, 2, expect.any(AbortSignal)));
+    });
+
+    it('serves an item discussion', async () => {
+        vi.mocked(api.fetchItemContent).mockResolvedValue(makeStory({ id: 7, title: 'Discussed story' }));
+
+        renderWithProviders(<AppRoutes />, { route: '/item/7' });
+
+        expect((await screen.findAllByRole('link', { name: 'Discussed story' }))[0]).toBeInTheDocument();
+    });
+
+    it('serves a user profile', async () => {
+        vi.mocked(api.fetchUser).mockResolvedValue(makeUser());
+
+        renderWithProviders(<AppRoutes />, { route: '/user/pg' });
+
+        expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
     });
 });

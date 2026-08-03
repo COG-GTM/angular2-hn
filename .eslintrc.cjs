@@ -8,8 +8,7 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
     ],
-    // src/app holds the not-yet-ported Angular sources; each is removed as its React port lands.
-    ignorePatterns: ['dist', 'coverage', 'node_modules', '.eslintrc.cjs', 'src/app'],
+    ignorePatterns: ['dist', 'coverage', 'node_modules', '.eslintrc.cjs'],
     parser: '@typescript-eslint/parser',
     plugins: ['react-refresh'],
     settings: { react: { version: 'detect' } },

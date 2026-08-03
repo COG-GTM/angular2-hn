@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
+    <img alt="React HN" title="React HN" src="http://i.imgur.com/J303pQ4.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -43,11 +43,11 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://workboxjs.org/), via [vite-plugin-pwa](https://vite-pwa-org.netlify.app/), to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), React HN includes a Web App Manifest that allows you to install to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -73,16 +73,24 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app is built with [React](https://react.dev/), [React Router](https://reactrouter.com/) and [Vite](https://vite.dev/).
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the application with the Vite dev server, or `npm run build` to kick off a fresh production build in the output directory (`dist/`)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the dev server on http://localhost:5173 |
+| `npm run build` | Type check and build for production into `dist/` |
+| `npm run preview` | Serve the production build, including the service worker |
+| `npm test` | Run the Vitest suite once |
+| `npm run test:watch` | Run the Vitest suite in watch mode |
+| `npm run test:coverage` | Run the suite and write a coverage report to `coverage/` |
+| `npm run lint` | Lint with ESLint |
+| `npm run typecheck` | Type check without emitting |
+
+Note: Service Worker changes are not reflected by the dev server. To test them, run `npm run build` followed by `npm run preview`.
 
 ## Contributors
 

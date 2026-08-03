@@ -11,8 +11,11 @@ before_script:
 
 script:
   - npm run lint
+  - npm run typecheck
   - npm test
   - npm run build
+  - npx playwright install --with-deps chromium
+  - npm run e2e
 
 after_success:
   - firebase use default

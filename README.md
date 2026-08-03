@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
@@ -23,80 +22,77 @@
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:rocket: **Progressive:** Installable, offline-capable PWA.
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+## Stack
 
-## Mobile Preview
+React 18 + TypeScript, Vite, React Router, SCSS theming, Vitest + React Testing Library for unit and
+component tests, and Playwright for end-to-end tests. Story data comes from the
+[node-hnapi](https://github.com/cheeaun/node-hnapi) Hacker News API.
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+## Getting started
 
-## Laptop Preview
+```bash
+npm install
+npm run dev          # dev server on http://localhost:5173
+```
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+## Commands
+
+| Command                 | Description                                             |
+| ----------------------- | ------------------------------------------------------- |
+| `npm run dev`           | Start the Vite dev server                               |
+| `npm run build`         | Typecheck and build the production bundle into `dist/`   |
+| `npm run preview`       | Serve the production bundle                              |
+| `npm test`              | Run the Vitest unit and component suite                  |
+| `npm run test:coverage` | Run the unit suite with a coverage report                |
+| `npm run e2e`           | Run the Playwright end-to-end suite against `dist/`      |
+| `npm run lint`          | ESLint over the project                                  |
+| `npm run typecheck`     | `tsc -b`                                                 |
+| `npm run format`        | Prettier (4-space tabs, single quotes, 120 columns)       |
+
+The Playwright suite builds nothing on its own: run `npm run build` first (its web server runs
+`npm run preview`). Browsers are installed with `npx playwright install chromium`.
+
+## Layout
+
+- `src/router` — route table, including the feed routes that carry a feed type
+- `src/shared` — models, Hacker News API access, the settings store and shared components
+- `src/core` — app shell: header, footer, settings
+- `src/features` — feed, item details and user features
+- `src/styles` — SCSS theme engine
+- `e2e` — Playwright specs; the Hacker News API is served from fixtures
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+The production build ships a Workbox service worker (via `vite-plugin-pwa`) that precaches the app
+shell — HTML, JS, CSS and the web manifest — and caches static assets on first use.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
-
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+`manifest.webmanifest` is generated at build time, so the app can be installed to a home screen.
 
 ## Themes
 
 Built in theme engine!
 
 Current themes:
-* Default
-* Night
-* Black (AMOLED)
 
-More to come!
+- Default
+- Night
+- Black (AMOLED)
 
-## Areas of improvement
+The app follows the operating system's `prefers-color-scheme` until a theme is picked explicitly, and
+the choice is then persisted in `localStorage`.
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+To add a theme, add its variables to `src/styles/_theme_variables.scss`, include the `theme` mixin in
+`src/styles/_themes.scss`, and list it in `src/core/Settings.tsx`.
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+## Deployment
 
-## Build process
+Firebase Hosting serves `dist/` with a rewrite of every route to `index.html`; Travis builds, tests
+and deploys `master`.
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+## License
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-
-## Contributors
-
-A million thanks to some awesome people :)
-
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+[MIT](/LICENSE.md)

@@ -10,6 +10,9 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
+        "e2e": "playwright test",
+        "e2e:ui": "playwright test --ui",
+        "e2e:report": "playwright show-report",
         "typecheck": "tsc -b",
         "lint": "eslint . --ext .ts,.tsx --max-warnings 0",
         "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
@@ -21,9 +24,11 @@
         "react-router-dom": "6.26.2"
     },
     "devDependencies": {
+        "@playwright/test": "^1.48.2",
         "@testing-library/jest-dom": "6.5.0",
         "@testing-library/react": "16.0.1",
         "@testing-library/user-event": "14.5.2",
+        "@types/node": "^20.17.6",
         "@types/react": "18.3.12",
         "@types/react-dom": "18.3.1",
         "@typescript-eslint/eslint-plugin": "7.18.0",
@@ -39,6 +44,7 @@
         "sass": "1.77.8",
         "typescript": "5.5.4",
         "vite": "5.4.10",
+        "vite-plugin-pwa": "^0.20.5",
         "vitest": "2.1.4"
     },
     "prettier": {

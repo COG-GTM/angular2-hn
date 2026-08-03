@@ -45,7 +45,7 @@ export default function UserPage() {
     }
 
     return (
-        <div className="profile">
+        <div className="user-page profile">
             <div className="mobile item-header">
                 <p className="title-block">
                     <span

@@ -42,7 +42,7 @@ export default function ItemDetailsPage() {
 
     if (!item) {
         return (
-            <div className="main-content">
+            <div className="main-content item-details-page">
                 {!errorMessage && <Loader />}
                 {errorMessage !== '' && <ErrorMessage message={errorMessage} />}
             </div>
@@ -70,7 +70,7 @@ export default function ItemDetailsPage() {
     }
 
     return (
-        <div className="main-content">
+        <div className="main-content item-details-page">
             <div className="item">
                 <div className="mobile item-header">
                     <p className="title-block">

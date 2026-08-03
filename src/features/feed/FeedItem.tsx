@@ -16,7 +16,7 @@ export default function FeedItem({ item }: FeedItemProps) {
     const externalLinkProps = settings.openLinkInNewTab ? { target: '_blank', rel: 'noopener' } : {};
 
     return (
-        <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+        <div className="feed-item" style={{ marginBottom: `${settings.listSpacing}px` }}>
             {hasUrl ? (
                 <p>
                     <a

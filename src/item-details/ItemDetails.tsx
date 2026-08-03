@@ -20,6 +20,9 @@ export function ItemDetails() {
     useEffect(() => {
         let cancelled = false;
 
+        setItem(undefined);
+        setErrorMessage('');
+
         fetchItemContent(Number(id))
             .then((story) => {
                 if (!cancelled) {

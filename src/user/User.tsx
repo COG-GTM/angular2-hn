@@ -19,6 +19,9 @@ export function User() {
         }
         let cancelled = false;
 
+        setUser(undefined);
+        setErrorMessage('');
+
         fetchUser(id)
             .then((data) => {
                 if (!cancelled) {

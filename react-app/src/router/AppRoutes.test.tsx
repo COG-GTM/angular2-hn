@@ -1,18 +1,19 @@
-import { screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { fetchFeed, fetchItemContent } from '../shared/api/hackernews-api';
-import { makeStory } from '../test/fixtures';
+import { fetchFeed, fetchItemContent, fetchUser } from '../shared/api/hackernews-api';
+import { makeStory, makeUser } from '../test/fixtures';
 import { renderWithProviders } from '../test/renderWithProviders';
 import AppRoutes from './AppRoutes';
 
 vi.mock('../shared/api/hackernews-api', () => ({
     fetchFeed: vi.fn(),
     fetchItemContent: vi.fn(),
+    fetchUser: vi.fn(),
 }));
 
 const fetchFeedMock = vi.mocked(fetchFeed);
 const fetchItemContentMock = vi.mocked(fetchItemContent);
+const fetchUserMock = vi.mocked(fetchUser);
 
 describe('AppRoutes', () => {
     beforeEach(() => {
@@ -21,6 +22,8 @@ describe('AppRoutes', () => {
         fetchFeedMock.mockResolvedValue([]);
         fetchItemContentMock.mockReset();
         fetchItemContentMock.mockResolvedValue(makeStory());
+        fetchUserMock.mockReset();
+        fetchUserMock.mockResolvedValue(makeUser());
         vi.stubGlobal('scrollTo', vi.fn());
     });
 
@@ -55,6 +58,6 @@ describe('AppRoutes', () => {
     it('renders the user page with the user id', () => {
         renderWithProviders(<AppRoutes />, { route: '/user/pg' });
 
-        expect(screen.getByTestId('user-page')).toHaveAttribute('data-user-id', 'pg');
+        expect(fetchUserMock).toHaveBeenCalledWith('pg');
     });
 });

@@ -6,14 +6,22 @@ import { SettingsProvider } from '../context/SettingsContext';
 
 interface Options extends Omit<RenderOptions, 'wrapper'> {
     route?: string;
+    history?: string[];
 }
 
 /** Renders a component inside the providers the app always mounts it under. */
-export function renderWithProviders(ui: ReactElement, { route = '/', ...options }: Options = {}): RenderResult {
+export function renderWithProviders(
+    ui: ReactElement,
+    { route = '/', history, ...options }: Options = {}
+): RenderResult {
+    const entries = history ?? [route];
+
     function Wrapper({ children }: { children: ReactNode }) {
         return (
             <SettingsProvider>
-                <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
+                <MemoryRouter initialEntries={entries} initialIndex={entries.length - 1}>
+                    {children}
+                </MemoryRouter>
             </SettingsProvider>
         );
     }

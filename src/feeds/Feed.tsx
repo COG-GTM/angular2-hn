@@ -43,7 +43,7 @@ export function Feed({ feedType }: { feedType: string }) {
     }, [feedType, pageNum]);
 
     return (
-        <div className="main-content feed">
+        <div className="feed">
             {!items && !errorMessage && <Loader />}
             {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 

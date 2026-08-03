@@ -2,17 +2,22 @@ import { screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from './App';
-import { fetchFeed } from './shared/api/hackernews-api';
+import { fetchFeed, fetchItemContent, fetchUser } from './shared/api/hackernews-api';
+import { makeStory, makeUser } from './test/fixtures';
 import { renderWithProviders } from './test/renderWithProviders';
 
 vi.mock('./shared/api/hackernews-api', () => ({
     fetchFeed: vi.fn(),
+    fetchItemContent: vi.fn(),
+    fetchUser: vi.fn(),
 }));
 
 describe('App', () => {
     beforeEach(() => {
         localStorage.clear();
         vi.mocked(fetchFeed).mockResolvedValue([]);
+        vi.mocked(fetchItemContent).mockResolvedValue(makeStory());
+        vi.mocked(fetchUser).mockResolvedValue(makeUser());
         vi.stubGlobal('scrollTo', vi.fn());
     });
 

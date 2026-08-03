@@ -1,3 +1,7 @@
+import { BrowserRouter } from 'react-router-dom';
+
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 import { SettingsProvider } from './context/SettingsContext';
 import { useSettings } from './context/settingsContext';
 
@@ -8,8 +12,11 @@ function AppShell() {
 
     return (
         <div className={settings.theme}>
-            <div className="body-cover" />
-            <div className="wrapper" />
+            <div className="body-cover"></div>
+            <div className="wrapper">
+                <Header />
+                <Footer />
+            </div>
         </div>
     );
 }
@@ -17,7 +24,9 @@ function AppShell() {
 export default function App() {
     return (
         <SettingsProvider>
-            <AppShell />
+            <BrowserRouter>
+                <AppShell />
+            </BrowserRouter>
         </SettingsProvider>
     );
 }

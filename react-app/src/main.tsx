@@ -3,12 +3,15 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
+import { SettingsProvider } from './shared/settings/SettingsProvider';
 import './styles/global.scss';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
     <StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <SettingsProvider>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </SettingsProvider>
     </StrictMode>
 );

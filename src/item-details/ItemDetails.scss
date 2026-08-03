@@ -34,8 +34,8 @@
     margin-bottom: 15px;
   }
 
-  .item > p,
-  .item > div > p {
+  :where(.item) > p,
+  :where(.item) > div > p {
     margin: 2px 0;
   }
 

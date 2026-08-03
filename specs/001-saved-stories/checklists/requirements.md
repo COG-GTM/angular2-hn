@@ -32,9 +32,11 @@
 ## Notes
 
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`
-- The verbatim user description quoted in the spec's **Input** field names concrete classes,
-  files, and routes. That is preserved as provenance only; the specification body itself stays
-  implementation-agnostic and the named design lives in `plan.md`.
+- Revised 2026-08-03 after re-running `/speckit-specify` with the user's own feature description;
+  the spec's **Input** now quotes it verbatim and the user-story wording follows it
+  ("bookmark", "saved page", "header nav"). Requirements, success criteria, and edge cases were
+  re-validated unchanged. The concrete class/file/route names supplied earlier live in `plan.md`,
+  not here.
 - Two implementation-flavored constraints were kept in the spec because they are user-visible
   guarantees, not design choices: FR-004 (no saved data leaves the device) and FR-010 (saved
   entries render without re-fetching, so the view works offline).

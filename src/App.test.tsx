@@ -10,4 +10,12 @@ describe('App', () => {
         expect(container.querySelector('.body-cover')).toBeInTheDocument();
         expect(container.querySelector('.wrapper')).toBeInTheDocument();
     });
+
+    it('applies the theme stored in settings', () => {
+        localStorage.setItem('theme', 'night');
+
+        const { container } = render(<App />);
+
+        expect(container.querySelector('.night')).toBeInTheDocument();
+    });
 });

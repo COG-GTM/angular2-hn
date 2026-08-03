@@ -1,6 +1,13 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
-import { afterEach } from 'vitest';
+import { afterEach, beforeEach } from 'vitest';
+
+import { installMatchMedia } from './matchMedia';
+
+beforeEach(() => {
+    localStorage.clear();
+    installMatchMedia(false);
+});
 
 afterEach(() => {
     cleanup();

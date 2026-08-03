@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import AppRoutes from './AppRoutes';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { SettingsProvider } from './context/SettingsContext';
@@ -15,6 +16,7 @@ function AppShell() {
             <div className="body-cover"></div>
             <div className="wrapper">
                 <Header />
+                <AppRoutes />
                 <Footer />
             </div>
         </div>

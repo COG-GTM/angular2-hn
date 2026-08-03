@@ -132,10 +132,10 @@ showing the `active` style; open `/saved` directly in a new tab and get the same
 - [X] T024 Run the full unit suite and confirm every spec passes with a non-zero spec count — this is the first time the repo's Karma setup executes real tests (quickstart.md "Run the unit tests")
 - [X] T025 Run `NODE_OPTIONS=--openssl-legacy-provider npm run build` and confirm it succeeds within the existing bundle budgets in `angular.json`
 - [X] T026 Run `npm run lint` and confirm the violation count matches the T002 baseline — no new violations
-- [ ] T027 [P] Walk quickstart.md scenarios V1–V3 manually in the dev server
-- [ ] T028 [P] Walk quickstart.md V4 (offline) against a production build with the service worker active, confirming `/saved` renders with no network
-- [ ] T029 [P] Walk quickstart.md V5 (corrupt `savedStories` value, throwing `setItem`) and confirm feeds keep working with no unhandled error
-- [ ] T030 Verify keyboard-only operation of the star and the header link, and that `aria-pressed` reflects state (FR-013)
+- [X] T027 [P] Walk quickstart.md scenarios V1–V3 manually in the dev server
+- [X] T028 [P] Walk quickstart.md V4 (offline) against a production build with the service worker active, confirming `/saved` renders with no network
+- [X] T029 [P] Walk quickstart.md V5 (corrupt `savedStories` value, throwing `setItem`) and confirm feeds keep working with no unhandled error
+- [X] T030 Verify keyboard-only operation of the star and the header link, and that `aria-pressed` reflects state (FR-013)
 
 ---
 

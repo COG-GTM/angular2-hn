@@ -1,5 +1,4 @@
-@import "./shared/scss/media";
-@import "./shared/scss/theme_variables";
+@use "./styles/media" as *;
 
 .body-cover {
   width: 100%;

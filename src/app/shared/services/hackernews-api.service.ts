@@ -17,7 +17,7 @@ export class HackerNewsAPIService {
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
-    return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
+    return lazyFetch(`${this.baseUrl}/${encodeURIComponent(feedType)}?page=${encodeURIComponent(String(page))}`);
   }
 
   fetchItemContent(id: number): Observable<Story> {
@@ -41,7 +41,7 @@ export class HackerNewsAPIService {
   }
 
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return lazyFetch(`${this.baseUrl}/user/${encodeURIComponent(id)}`);
   }
 }
 

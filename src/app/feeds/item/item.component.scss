@@ -3,6 +3,8 @@
 
 p {
     margin: 2px 0;
+    // Keeps a wrapped title indented beside the floated save toggle instead of under it.
+    overflow: hidden;
 
     @media #{$mobile-only} {
       margin-bottom: 5px;
@@ -13,6 +15,24 @@ p {
   a {
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .save-toggle {
+    float: left;
+    padding: 0 8px 0 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover,
+    &:focus,
+    &.saved {
+      opacity: 1;
+    }
   }
 
   .title {

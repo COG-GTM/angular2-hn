@@ -92,8 +92,11 @@ h1 {
   font-size: 16px;
 
   @media #{$mobile-only} {
+    box-sizing: border-box;
     width: 100%;
     left: 0;
+    // Keeps the navigation clear of the settings cog, which is pinned to the right edge.
+    padding-right: 45px;
   }
 }
 
@@ -102,7 +105,7 @@ h1 {
   margin-left: 20px;
 
   @media #{$mobile-only} {
-    margin-left: 60px;
+    margin-left: 45px;
   }
 
   a {
@@ -113,6 +116,11 @@ h1 {
 
     &:hover {
       color: #fff;
+    }
+
+    @media #{$mobile-only} {
+      margin: 0 2px;
+      letter-spacing: 0.8px;
     }
   }
 

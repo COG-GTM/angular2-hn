@@ -46,7 +46,7 @@ export function ItemDetails() {
     const rel = settings.openLinkInNewTab ? 'noopener' : undefined;
 
     return (
-        <div className="main-content item-details-page">
+        <div className="item-details-page">
             {!item && !errorMessage && <Loader />}
             {!item && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 

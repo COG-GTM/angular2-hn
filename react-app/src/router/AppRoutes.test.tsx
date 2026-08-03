@@ -1,44 +1,54 @@
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { screen } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { fetchFeed } from '../shared/api/hackernews-api';
+import { renderWithProviders } from '../test/renderWithProviders';
 import AppRoutes from './AppRoutes';
 
-function renderAt(path: string) {
-    return render(
-        <MemoryRouter initialEntries={[path]}>
-            <AppRoutes />
-        </MemoryRouter>
-    );
-}
+vi.mock('../shared/api/hackernews-api', () => ({
+    fetchFeed: vi.fn(),
+}));
+
+const fetchFeedMock = vi.mocked(fetchFeed);
 
 describe('AppRoutes', () => {
-    it('redirects the root path to the first news page', () => {
-        renderAt('/');
+    beforeEach(() => {
+        localStorage.clear();
+        fetchFeedMock.mockReset();
+        fetchFeedMock.mockResolvedValue([]);
+        vi.stubGlobal('scrollTo', vi.fn());
+    });
 
-        expect(screen.getByTestId('feed-page')).toHaveAttribute('data-feed-type', 'news');
+    afterEach(() => {
+        vi.unstubAllGlobals();
+    });
+
+    it('redirects the root path to the first news page', () => {
+        renderWithProviders(<AppRoutes />, { route: '/' });
+
+        expect(fetchFeedMock).toHaveBeenCalledWith('news', 1);
     });
 
     it.each([
-        ['/news/2', 'news'],
-        ['/newest/1', 'newest'],
-        ['/show/3', 'show'],
-        ['/ask/1', 'ask'],
-        ['/jobs/1', 'jobs'],
-    ])('renders the feed page for %s with its feed type', (path, feedType) => {
-        renderAt(path);
+        ['/news/2', 'news', 2],
+        ['/newest/1', 'newest', 1],
+        ['/show/3', 'show', 3],
+        ['/ask/1', 'ask', 1],
+        ['/jobs/1', 'jobs', 1],
+    ])('renders the feed page for %s with its feed type and page', (route, feedType, page) => {
+        renderWithProviders(<AppRoutes />, { route });
 
-        expect(screen.getByTestId('feed-page')).toHaveAttribute('data-feed-type', feedType);
+        expect(fetchFeedMock).toHaveBeenCalledWith(feedType, page);
     });
 
     it('renders the item details page with the item id', () => {
-        renderAt('/item/8863');
+        renderWithProviders(<AppRoutes />, { route: '/item/8863' });
 
         expect(screen.getByTestId('item-details-page')).toHaveAttribute('data-item-id', '8863');
     });
 
     it('renders the user page with the user id', () => {
-        renderAt('/user/pg');
+        renderWithProviders(<AppRoutes />, { route: '/user/pg' });
 
         expect(screen.getByTestId('user-page')).toHaveAttribute('data-user-id', 'pg');
     });

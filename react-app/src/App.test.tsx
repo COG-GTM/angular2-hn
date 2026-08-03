@@ -2,11 +2,18 @@ import { screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from './App';
+import { fetchFeed } from './shared/api/hackernews-api';
 import { renderWithProviders } from './test/renderWithProviders';
+
+vi.mock('./shared/api/hackernews-api', () => ({
+    fetchFeed: vi.fn(),
+}));
 
 describe('App', () => {
     beforeEach(() => {
         localStorage.clear();
+        vi.mocked(fetchFeed).mockResolvedValue([]);
+        vi.stubGlobal('scrollTo', vi.fn());
     });
 
     afterEach(() => {
@@ -20,7 +27,7 @@ describe('App', () => {
 
         expect(container.querySelector('.night')).not.toBeNull();
         expect(screen.getByRole('img', { name: 'Logo' })).toBeInTheDocument();
-        expect(screen.getByTestId('feed-page')).toBeInTheDocument();
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
         expect(screen.getByRole('link', { name: 'GitHub' })).toBeInTheDocument();
     });
 

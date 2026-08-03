@@ -15,6 +15,14 @@ module.exports = function (config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
+    // Components under test reference images from src/assets; serve them so those requests do not
+    // fall through to the webpack dev middleware.
+    files: [
+      { pattern: './src/assets/**', watched: false, included: false, served: true, nocache: false }
+    ],
+    proxies: {
+      '/assets/': '/base/src/assets/'
+    },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/angular-hnpwa'),
       reports: ['html', 'lcovonly', 'text-summary'],

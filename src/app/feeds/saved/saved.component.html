@@ -1,0 +1,10 @@
+<div class="main-content">
+  <ol class="list-margin" *ngIf="savedStories.length > 0">
+    <li *ngFor="let story of savedStories" class="post">
+      <item class="item-block" [item]="story"></item>
+    </li>
+  </ol>
+  <p class="empty-state" *ngIf="savedStories.length === 0">
+    You have not saved any stories yet. Select the star next to a story in any feed to keep it here.
+  </p>
+</div>

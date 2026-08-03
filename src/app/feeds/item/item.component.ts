@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Story } from '../../shared/models/story';
 
+import { SavedStoriesService } from '../../shared/services/saved-stories.service';
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 
@@ -13,7 +14,10 @@ export class ItemComponent implements OnInit {
   @Input() item: Story;
   settings: Settings;
 
-  constructor(private _settingsService: SettingsService) {
+  constructor(
+    private _settingsService: SettingsService,
+    private savedStoriesService: SavedStoriesService
+  ) {
     this.settings = this._settingsService.settings;
   }
 
@@ -21,6 +25,14 @@ export class ItemComponent implements OnInit {
 
   get hasUrl(): boolean {
     return this.item.url.indexOf('http') === 0;
+  }
+
+  get isSaved(): boolean {
+    return this.savedStoriesService.isSaved(this.item.id);
+  }
+
+  toggleSaved() {
+    this.savedStoriesService.toggleSaved(this.item);
   }
 
 }

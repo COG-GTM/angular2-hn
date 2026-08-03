@@ -15,6 +15,24 @@ p {
     text-decoration: none;
   }
 
+  .save-toggle {
+    float: left;
+    padding: 0 8px 0 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 16px;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover,
+    &:focus,
+    &.saved {
+      opacity: 1;
+    }
+  }
+
   .title {
     font-size: 16px;
     font-family: Verdana, Geneva, sans-serif;

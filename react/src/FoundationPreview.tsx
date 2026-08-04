@@ -13,9 +13,6 @@ interface FoundationPreviewProps {
 export function FoundationPreview({ theme, themes, onThemeChange, sampleCommentCounts }: FoundationPreviewProps) {
     return (
         <section className="foundation-preview">
-            <div id="header">
-                <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
-            </div>
             <h1>React HN — foundation</h1>
             <p className="subtext">
                 Models, theming and formatting utilities ported from the Angular app. Services, components, routing and
@@ -27,7 +24,7 @@ export function FoundationPreview({ theme, themes, onThemeChange, sampleCommentC
                 <div key={name}>
                     <label>
                         <input
-                            name="theme"
+                            name="preview-theme"
                             type="radio"
                             value={name}
                             checked={theme === name}
@@ -46,15 +43,6 @@ export function FoundationPreview({ theme, themes, onThemeChange, sampleCommentC
                     </li>
                 ))}
             </ul>
-
-            <div id="footer">
-                <p>
-                    Show this project some &hearts; on{' '}
-                    <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank" rel="noopener noreferrer">
-                        GitHub
-                    </a>
-                </p>
-            </div>
         </section>
     );
 }

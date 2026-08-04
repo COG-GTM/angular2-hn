@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { Footer } from './core/Footer/Footer';
+import { Header } from './core/Header/Header';
 import { formatCommentCount } from './shared/utils/comment';
 import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
@@ -20,6 +22,7 @@ export default function App() {
         <div className={theme}>
             <div className="body-cover" />
             <div className="wrapper">
+                <Header />
                 <Routes>
                     <Route path="/preview/services" element={<ServicesPreview />} />
                     <Route
@@ -41,6 +44,7 @@ export default function App() {
                         }
                     />
                 </Routes>
+                <Footer />
             </div>
         </div>
     );

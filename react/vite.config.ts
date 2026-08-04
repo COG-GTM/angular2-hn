@@ -10,9 +10,14 @@ export default defineConfig({
             registerType: 'autoUpdate',
             injectRegister: 'auto',
             disable: process.env.NODE_ENV !== 'production',
+            // The icons and the generated webmanifest are already matched by `globPatterns`; letting the
+            // plugin add them a second time makes Workbox throw on duplicate precache URLs during install,
+            // which silently leaves the service worker without a fetch handler.
+            includeManifestIcons: false,
             // The app shell and its assets are copied verbatim from the Angular `ngsw-config.json` asset groups.
             workbox: {
-                globPatterns: ['**/*.{js,css,html,ico,svg,png,webp,gif,eot,cur,jpg,otf,ttf,woff,woff2,ani,xml,webmanifest}'],
+                // `manifest.webmanifest` is deliberately absent: the plugin precaches it itself.
+                globPatterns: ['**/*.{js,css,html,ico,svg,png,webp,gif,eot,cur,jpg,otf,ttf,woff,woff2,ani,xml}'],
                 navigateFallback: 'index.html',
                 runtimeCaching: [
                     {

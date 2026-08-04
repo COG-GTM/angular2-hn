@@ -17,10 +17,10 @@ export function App() {
     const location = useLocation();
 
     useEffect(() => {
-        const page = `${location.pathname}${location.search}`;
+        const page = `${location.pathname}${location.search}${location.hash}`;
         window.ga?.('set', 'page', page);
         window.ga?.('send', 'pageview');
-    }, [location.pathname, location.search]);
+    }, [location.pathname, location.search, location.hash]);
 
     return (
         <div className={settings.theme}>

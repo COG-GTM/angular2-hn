@@ -23,7 +23,7 @@ export function Item({ story }: { story: Story }) {
                         rel={rel}
                     >
                         {story.title}
-                    </a>
+                    </a>{' '}
                     {story.domain && <span className="domain">({story.domain})</span>}
                 </p>
             ) : (

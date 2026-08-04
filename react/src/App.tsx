@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { formatCommentCount } from './shared/utils/comment';
+import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
 import './App.scss';
 
@@ -19,6 +20,10 @@ export default function App() {
             <div className="body-cover" />
             <div className="wrapper">
                 <Routes>
+                    <Route
+                        path="/preview/components"
+                        element={<ComponentsPreview theme={theme} themes={THEMES} onThemeChange={setTheme} />}
+                    />
                     <Route
                         path="*"
                         element={

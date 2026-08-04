@@ -23,12 +23,14 @@ export default function App() {
     const { settings } = useSettings();
     const location = useLocation();
 
+    const url = `${location.pathname}${location.search}${location.hash}`;
+
     useEffect(() => {
         if (typeof window.ga === 'function') {
-            window.ga('set', 'page', location.pathname);
+            window.ga('set', 'page', url);
             window.ga('send', 'pageview');
         }
-    }, [location.pathname]);
+    }, [url]);
 
     return (
         <div className={settings.theme}>
@@ -40,11 +42,13 @@ export default function App() {
                         <Route path="/" element={<Navigate to="/news/1" replace />} />
                         {FEED_TYPES.map((feedType) => (
                             <Route key={feedType} path={`/${feedType}`}>
+                                <Route index element={<Navigate to={`/${feedType}/1`} replace />} />
                                 <Route path=":page" element={<Feed feedType={feedType} />} />
                             </Route>
                         ))}
                         <Route path="/item/:id" element={<ItemDetails />} />
                         <Route path="/user/:id" element={<UserProfile />} />
+                        <Route path="*" element={<Navigate to="/news/1" replace />} />
                     </Routes>
                 </Suspense>
                 <Footer />

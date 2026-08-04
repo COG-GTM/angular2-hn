@@ -80,7 +80,7 @@ export function ItemDetails() {
                             <p>
                                 <a className="title" href={item.url} target={target} rel={rel}>
                                     {item.title}
-                                </a>
+                                </a>{' '}
                                 {item.domain && <span className="domain">({item.domain})</span>}
                             </p>
                         ) : (

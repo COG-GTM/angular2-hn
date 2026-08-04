@@ -5,6 +5,7 @@ import { formatCommentCount } from './shared/utils/comment';
 import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
 import { ServicesPreview } from './ServicesPreview';
+import { Feed } from './feeds/Feed/Feed';
 import './App.scss';
 
 const THEMES = ['default', 'night', 'amoledblack'];
@@ -26,6 +27,11 @@ export default function App() {
                         path="/preview/components"
                         element={<ComponentsPreview theme={theme} themes={THEMES} onThemeChange={setTheme} />}
                     />
+                    <Route path="/news/:page" element={<Feed feedType="news" />} />
+                    <Route path="/newest/:page" element={<Feed feedType="newest" />} />
+                    <Route path="/show/:page" element={<Feed feedType="show" />} />
+                    <Route path="/ask/:page" element={<Feed feedType="ask" />} />
+                    <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
                     <Route
                         path="*"
                         element={

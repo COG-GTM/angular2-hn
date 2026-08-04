@@ -76,7 +76,7 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
  - Clone or download the repo
  - `npm install`
  - `npm start` to run the application with the Vite dev server on `localhost:4200`, or `npm run build` to kick off a fresh production build into the output directory (`dist/`)
- - `npm run lint` to lint the TypeScript sources
+ - `npm run lint` to lint the TypeScript sources (warnings fail, same as CI)
 
 Note: the service worker is only generated for production builds. To test service worker changes:
  - `npm run build`

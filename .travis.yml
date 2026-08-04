@@ -10,7 +10,7 @@ before_script:
   - npm install -g firebase-tools
 
 script:
-  - npm run lint -- --max-warnings 0
+  - npm run lint
   - npm run build
 
 after_success:

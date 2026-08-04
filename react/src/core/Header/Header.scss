@@ -97,7 +97,12 @@ h1 {
   }
 }
 
-.header-nav {
+/*
+ * Scoped under `#header` so the link colours outrank the theme engine's
+ * `.<theme> .wrapper a` rule. Angular's emulated view encapsulation added
+ * `[_ngcontent-*]` attributes here, which supplied that specificity for free.
+ */
+#header .header-nav {
   display: inline-block;
   margin-left: 20px;
 

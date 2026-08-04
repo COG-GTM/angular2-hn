@@ -21,7 +21,7 @@ export function ComponentsPreview({ theme, themes, onThemeChange }: ComponentsPr
                 <div key={name}>
                     <label>
                         <input
-                            name="theme"
+                            name="preview-theme"
                             type="radio"
                             value={name}
                             checked={theme === name}

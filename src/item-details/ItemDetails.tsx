@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage } from '../shared/components/ErrorMessage';
 import { Loader } from '../shared/components/Loader';
 import { Story } from '../shared/models/story';
+import { sanitizeHtml } from '../shared/sanitize-html';
 import { fetchItemContent } from '../shared/services/hackernews-api';
 import { useSettings } from '../shared/settings/settings-context';
 import { formatCommentCount } from '../shared/utils/comment';
@@ -110,7 +111,7 @@ export function ItemDetails() {
                         <div className="pollResults">
                             {item.poll.map((pollResult, index) => (
                                 <div key={index} className="pollContent">
-                                    <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
@@ -120,7 +121,7 @@ export function ItemDetails() {
                             ))}
                         </div>
                     )}
-                    <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                    <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }}></p>
                     <ul className="comment-list">
                         {item.comments?.map((comment) => (
                             <li key={comment.id}>

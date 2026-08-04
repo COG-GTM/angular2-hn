@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-const HN_API_ORIGIN = 'https://node-hnapi.herokuapp.com';
+// Must be a literal RegExp: workbox-build serialises `urlPattern` with `.toString()`, so a matcher
+// function cannot close over anything defined in this file.
+const HN_API_PATTERN = /^https:\/\/node-hnapi\.herokuapp\.com\//;
 
 export default defineConfig({
     plugins: [
@@ -26,7 +28,7 @@ export default defineConfig({
                 cleanupOutdatedCaches: true,
                 runtimeCaching: [
                     {
-                        urlPattern: ({ url }) => url.origin === HN_API_ORIGIN,
+                        urlPattern: HN_API_PATTERN,
                         handler: 'NetworkFirst',
                         options: {
                             cacheName: 'hn-api',

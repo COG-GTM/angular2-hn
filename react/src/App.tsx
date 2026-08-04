@@ -1,59 +1,40 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Footer } from './core/Footer/Footer';
 import { Header } from './core/Header/Header';
-import { formatCommentCount } from './shared/utils/comment';
-import { ComponentsPreview } from './ComponentsPreview';
-import { FoundationPreview } from './FoundationPreview';
-import { ItemDetails } from './item-details/ItemDetails';
-import { ServicesPreview } from './ServicesPreview';
 import { Feed } from './feeds/Feed/Feed';
-import { UserProfile } from './user/UserProfile';
+import { Loader } from './shared/components/Loader/Loader';
+import { useAnalyticsPageviews } from './shared/analytics/useAnalyticsPageviews';
+import { useSettings } from './shared/settings/useSettings';
 import './App.scss';
 
-const THEMES = ['default', 'night', 'amoledblack'];
+const ItemDetails = lazy(() => import('./item-details/ItemDetails').then((m) => ({ default: m.ItemDetails })));
+const UserProfile = lazy(() => import('./user/UserProfile').then((m) => ({ default: m.UserProfile })));
 
-/**
- * Phase 0 shell. The real Header / router-outlet / Footer layout arrives in Phase 3;
- * for now this renders the ported theming so the foundation is verifiable end to end.
- */
 export default function App() {
-    const [theme, setTheme] = useState<string>(THEMES[0]);
+    const { settings } = useSettings();
+
+    useAnalyticsPageviews();
 
     return (
-        <div className={theme}>
-            <div className="body-cover" />
+        <div className={settings.theme}>
+            <div className="body-cover"></div>
             <div className="wrapper">
                 <Header />
-                <Routes>
-                    <Route path="/preview/services" element={<ServicesPreview />} />
-                    <Route
-                        path="/preview/components"
-                        element={<ComponentsPreview theme={theme} themes={THEMES} onThemeChange={setTheme} />}
-                    />
-                    <Route path="/news/:page" element={<Feed feedType="news" />} />
-                    <Route path="/newest/:page" element={<Feed feedType="newest" />} />
-                    <Route path="/show/:page" element={<Feed feedType="show" />} />
-                    <Route path="/ask/:page" element={<Feed feedType="ask" />} />
-                    <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
-                    <Route path="/item/:id" element={<ItemDetails />} />
-                    <Route path="/user/:id" element={<UserProfile />} />
-                    <Route
-                        path="*"
-                        element={
-                            <FoundationPreview
-                                theme={theme}
-                                themes={THEMES}
-                                onThemeChange={setTheme}
-                                sampleCommentCounts={[0, 1, 42].map((count) => ({
-                                    count,
-                                    label: formatCommentCount(count),
-                                }))}
-                            />
-                        }
-                    />
-                </Routes>
+                <Suspense fallback={<Loader />}>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/news/1" replace />} />
+                        <Route path="/news/:page" element={<Feed feedType="news" />} />
+                        <Route path="/newest/:page" element={<Feed feedType="newest" />} />
+                        <Route path="/show/:page" element={<Feed feedType="show" />} />
+                        <Route path="/ask/:page" element={<Feed feedType="ask" />} />
+                        <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
+                        <Route path="/item/:id" element={<ItemDetails />} />
+                        <Route path="/user/:id" element={<UserProfile />} />
+                        <Route path="*" element={<Navigate to="/news/1" replace />} />
+                    </Routes>
+                </Suspense>
                 <Footer />
             </div>
         </div>

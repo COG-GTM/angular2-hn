@@ -1,9 +1,10 @@
 @import "../../styles/media";
 @import "../../styles/theme_variables";
 
-// `.item` stands in for Angular's `<item>` host element: the rules below were view-encapsulated
-// to this component, so they must not leak to the feed's own paragraphs and anchors.
-.item {
+// `.feed-item` stands in for Angular's `<item>` host element: the rules below were view-encapsulated
+// to this component, so they must not leak to the feed's own paragraphs and anchors, nor to the
+// item-details page, whose root `.item` class would otherwise collide with this one.
+.feed-item {
   p {
     margin: 2px 0;
 

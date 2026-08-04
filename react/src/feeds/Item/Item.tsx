@@ -21,7 +21,10 @@ export function Item({ item, className }: ItemProps) {
     const isJob = item.type === 'job';
 
     return (
-        <div className={className ? 'item ' + className : 'item'} style={{ marginBottom: settings.listSpacing + 'px' }}>
+        <div
+            className={className ? 'feed-item ' + className : 'feed-item'}
+            style={{ marginBottom: settings.listSpacing + 'px' }}
+        >
             {hasUrl ? (
                 <p>
                     <a

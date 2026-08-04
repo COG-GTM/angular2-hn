@@ -10,14 +10,11 @@ import { formatCommentCount } from '../shared/utils/comment';
 import { useSettings } from '../shared/settings/useSettings';
 import './ItemDetails.scss';
 
-/** node-hnapi returns the item body as `content`, a field the shared `Story` model does not declare. */
-type StoryWithContent = Story & { content?: string };
-
 export function ItemDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { settings } = useSettings();
-    const [item, setItem] = useState<StoryWithContent | null>(null);
+    const [item, setItem] = useState<Story | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {

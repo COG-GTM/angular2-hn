@@ -6,6 +6,7 @@ import { Header } from './core/Header/Header';
 import { formatCommentCount } from './shared/utils/comment';
 import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
+import { ItemDetails } from './item-details/ItemDetails';
 import { ServicesPreview } from './ServicesPreview';
 import { Feed } from './feeds/Feed/Feed';
 import './App.scss';
@@ -35,6 +36,7 @@ export default function App() {
                     <Route path="/show/:page" element={<Feed feedType="show" />} />
                     <Route path="/ask/:page" element={<Feed feedType="ask" />} />
                     <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
+                    <Route path="/item/:id" element={<ItemDetails />} />
                     <Route
                         path="*"
                         element={

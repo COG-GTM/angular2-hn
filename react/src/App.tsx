@@ -8,12 +8,8 @@ import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
 import { ItemDetails } from './item-details/ItemDetails';
 import { ServicesPreview } from './ServicesPreview';
-<<<<<<< HEAD
 import { Feed } from './feeds/Feed/Feed';
-||||||| 2fd06fee
-=======
 import { UserProfile } from './user/UserProfile';
->>>>>>> origin/devin/1785852032-phase2d-user
 import './App.scss';
 
 const THEMES = ['default', 'night', 'amoledblack'];

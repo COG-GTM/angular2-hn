@@ -43,6 +43,15 @@ describe('Comment', () => {
         expect(screen.getByText('top level').closest('div[hidden]')).not.toBeNull();
     });
 
+    it('strips scripts from the comment HTML returned by the API', () => {
+        const comment = buildComment({ content: '<p>safe</p><img src="x" onerror="alert(1)">' });
+
+        const { container } = renderWithProviders(<Comment comment={comment} />);
+
+        expect(screen.getByText('safe')).toBeInTheDocument();
+        expect(container.querySelector('img')?.getAttribute('onerror')).toBeNull();
+    });
+
     it('renders a placeholder for deleted comments', () => {
         renderWithProviders(<Comment comment={buildComment({ deleted: true })} />);
 

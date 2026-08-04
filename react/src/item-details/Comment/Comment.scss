@@ -1,17 +1,8 @@
 @import "../../styles/media";
 @import "../../styles/theme_variables";
 
-.meta,
-.deleted-meta,
-.comment-tree {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
+// The Angular original's `:host >>> a { ... }` compiled to the invalid selector
+// `[_nghost-c] > > > a[_ngcontent-c]` and never applied, so it is dropped here.
 
 .meta {
   font-size: 13px;

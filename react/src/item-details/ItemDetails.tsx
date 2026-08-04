@@ -48,7 +48,7 @@ export function ItemDetails() {
         };
     }, [id]);
 
-    const hasUrl = item ? item.url.indexOf('http') === 0 : false;
+    const hasUrl = item ? item.url?.indexOf('http') === 0 : false;
     const externalTarget = settings.openLinkInNewTab ? '_blank' : undefined;
     const externalRel = settings.openLinkInNewTab ? 'noopener' : undefined;
 
@@ -61,7 +61,7 @@ export function ItemDetails() {
                 <div className="item">
                     <div className="mobile item-header">
                         <p className="title-block">
-                            <span className="back-button" onClick={() => navigate(-1)}></span>{' '}
+                            <span className="back-button" onClick={() => navigate(-1)}></span>
                             {hasUrl ? (
                                 <a className="title" href={item.url} target={externalTarget} rel={externalRel}>
                                     {item.title}
@@ -122,7 +122,7 @@ export function ItemDetails() {
                     )}
                     <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
                     <ul className="comment-list">
-                        {item.comments.map((comment) => (
+                        {item.comments?.map((comment) => (
                             <li key={comment.id}>
                                 <Comment comment={comment} />
                             </li>

@@ -35,7 +35,11 @@
   margin-bottom: 15px;
 }
 
-p {
+// Angular scoped these element selectors to the component's own template with [_ngcontent],
+// which excluded innerHTML content. Listing the template elements keeps them out of it.
+.title-block,
+.laptop > p,
+.subject {
   margin: 2px 0;
 }
 
@@ -44,7 +48,8 @@ p {
   margin-top: 20px;
 }
 
-a {
+.title,
+.subtext a {
   cursor: pointer;
   text-decoration: none;
 }
@@ -130,7 +135,7 @@ a {
 }
 
 .pollContent {
-  * {
+  > * {
     padding-bottom: 0;
     margin-bottom: -1em;
     margin-top: 1em;
@@ -141,11 +146,11 @@ a {
   }
 }
 
-ul {
+.comment-list {
   list-style-type: none;
   padding: 10px 0;
-}
 
-li {
-  display: list-item;
+  > li {
+    display: list-item;
+  }
 }

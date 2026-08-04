@@ -2,15 +2,21 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Settings } from '../models';
 import { SettingsContext, SettingsContextValue } from './settingsContext';
-import { getDarkColorSchemeMedia, readStoredValue, writeStoredValue } from './storage';
+import { getDarkColorSchemeMedia, readStoredBoolean, readStoredValue, writeStoredValue } from './storage';
+
+/**
+ * Resolved before the first paint so a persisted theme never flashes as `default`.
+ * A saved theme always wins; the media query is only consulted when there is none.
+ */
+function resolveInitialTheme(): string {
+    return readStoredValue('theme') ?? (getDarkColorSchemeMedia()?.matches ? 'night' : 'default');
+}
 
 function createInitialSettings(): Settings {
-    const openLinkInNewTab = readStoredValue('openLinkInNewTab');
-
     return {
         showSettings: false,
-        openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
-        theme: 'default',
+        openLinkInNewTab: readStoredBoolean('openLinkInNewTab'),
+        theme: resolveInitialTheme(),
         titleFontSize: readStoredValue('titleFontSize') ?? '16',
         listSpacing: readStoredValue('listSpacing') ?? '0',
     };
@@ -57,10 +63,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
 
         darkColorSchemeMedia?.addEventListener('change', handleChange);
 
-        const savedTheme = readStoredValue('theme');
-        if (savedTheme) {
-            setSettings((current) => ({ ...current, theme: savedTheme }));
-        } else if (darkColorSchemeMedia) {
+        // With no saved theme the system preference is adopted *and* persisted, as in Angular.
+        if (!readStoredValue('theme') && darkColorSchemeMedia) {
             handleSystemPreferredColorSchemeChange(darkColorSchemeMedia.matches);
         }
 

@@ -10,6 +10,24 @@ export function readStoredValue(key: string): string | null {
     }
 }
 
+/**
+ * Reads a JSON-encoded boolean, tolerating values an older build or a manual
+ * edit may have left behind — a bad parse must not take down the render.
+ */
+export function readStoredBoolean(key: string): boolean {
+    const stored = readStoredValue(key);
+
+    if (!stored) {
+        return false;
+    }
+
+    try {
+        return Boolean(JSON.parse(stored));
+    } catch {
+        return false;
+    }
+}
+
 export function writeStoredValue(key: string, value: string): void {
     try {
         window.localStorage.setItem(key, value);

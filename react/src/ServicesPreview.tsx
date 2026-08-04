@@ -9,6 +9,14 @@ const DEFAULT_POLL_ID = '126809';
 const THEMES = ['default', 'night', 'amoledblack'];
 
 /**
+ * Poll option content comes back from the API as HTML. Parsing it out of document
+ * context and taking `textContent` renders it readably without injecting remote markup.
+ */
+function toPlainText(html: string): string {
+    return new DOMParser().parseFromString(html, 'text/html').body.textContent ?? '';
+}
+
+/**
  * Throwaway Phase 1a scaffolding that exercises the ported API client and settings
  * context so they can be verified in a browser. Phase 3 removes it.
  */
@@ -75,8 +83,7 @@ export function ServicesPreview() {
                     <ul>
                         {(poll.poll ?? []).map((option, index) => (
                             <li key={index}>
-                                <b>{option.points} points</b> —{' '}
-                                <span dangerouslySetInnerHTML={{ __html: option.content }} />
+                                <b>{option.points} points</b> — <span>{toPlainText(option.content)}</span>
                             </li>
                         ))}
                     </ul>

@@ -22,7 +22,7 @@ export default function Item({ item }: ItemProps) {
     const isJob = item.type === 'job';
 
     return (
-        <div style={{ marginBottom: `${listSpacing}px` }}>
+        <div className="feed-item" style={{ marginBottom: `${listSpacing}px` }}>
             {hasUrl ? (
                 <p>
                     <a

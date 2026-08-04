@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { SettingsProvider, useSettings } from './settings-context';
+import { SettingsProvider, useSettings, type SettingsContextValue } from './settings-context';
 
 type ChangeListener = (event: MediaQueryListEvent) => void;
 
@@ -168,6 +168,36 @@ describe('SettingsProvider', () => {
         expect(media.listeners).toHaveLength(1);
         unmount();
         expect(media.listeners).toHaveLength(0);
+    });
+
+    it('re-renders every consumer with the new value instead of mutating a shared object', async () => {
+        const user = userEvent.setup();
+        const renderedThemes: string[] = [];
+        const seenValues: SettingsContextValue[] = [];
+
+        function ThemeConsumer() {
+            const settings = useSettings();
+            renderedThemes.push(settings.theme);
+            seenValues.push(settings);
+
+            return <span data-testid="consumer-theme">{settings.theme}</span>;
+        }
+
+        render(
+            <SettingsProvider>
+                <Probe />
+                <ThemeConsumer />
+            </SettingsProvider>
+        );
+
+        expect(screen.getByTestId('consumer-theme')).toHaveTextContent('default');
+
+        await user.click(screen.getByText('set-theme'));
+
+        expect(screen.getByTestId('consumer-theme')).toHaveTextContent('night');
+        expect(renderedThemes).toEqual(['default', 'night']);
+        expect(seenValues[0]).not.toBe(seenValues[1]);
+        expect(seenValues[0].theme).toBe('default');
     });
 
     it('throws when useSettings is used outside of the provider', () => {

@@ -12,6 +12,21 @@ function jsonResponse(data: unknown): Response {
     return { ok: true, status: 200, json: async () => data } as Response;
 }
 
+function abortError(): DOMException {
+    return new DOMException('The operation was aborted.', 'AbortError');
+}
+
+/** A `fetch` stub that never resolves and rejects as soon as its signal is aborted. */
+function abortableFetch(_url: string, init: RequestInit | undefined): Promise<Response> {
+    return new Promise((_resolve, reject) => {
+        if (init?.signal?.aborted) {
+            reject(abortError());
+            return;
+        }
+        init?.signal?.addEventListener('abort', () => reject(abortError()));
+    });
+}
+
 const fetchMock = jest.fn<Promise<Response>, [string, RequestInit | undefined]>();
 
 beforeEach(() => {
@@ -93,6 +108,50 @@ describe('hackernews-api', () => {
         expect(fetchMock).toHaveBeenNthCalledWith(4, `${HN_API_BASE_URL}/item/103`, { signal: undefined });
         expect(story.poll).toEqual(options);
         expect(story.poll_votes_count).toBe(17);
+    });
+
+    it('keeps the poll options in request order even when they resolve out of order', async () => {
+        const poll = { id: 500, type: 'poll', poll: [{}, {}, {}] } as unknown as Story;
+        const byId: Record<number, PollResult> = {
+            501: { points: 1, content: 'first' },
+            502: { points: 2, content: 'second' },
+            503: { points: 4, content: 'third' },
+        };
+        const delayById: Record<number, number> = { 501: 30, 502: 0, 503: 15 };
+        fetchMock.mockResolvedValueOnce(jsonResponse(poll));
+        fetchMock.mockImplementation((url) => {
+            const id = Number(url.slice(url.lastIndexOf('/') + 1));
+            return new Promise((resolve) => setTimeout(() => resolve(jsonResponse(byId[id])), delayById[id]));
+        });
+
+        const story = await fetchItemContent(500);
+
+        expect(story.poll).toEqual([byId[501], byId[502], byId[503]]);
+        expect(story.poll_votes_count).toBe(7);
+    });
+
+    it('rejects with an abort error when the controller is aborted mid-flight', async () => {
+        const controller = new AbortController();
+        fetchMock.mockImplementation(abortableFetch);
+
+        const pending = fetchItemContent(1, controller.signal).catch((error: unknown) => error);
+        controller.abort();
+
+        expect(isAbortError(await pending)).toBe(true);
+    });
+
+    it('propagates an abort raised while the poll options are being fetched', async () => {
+        const controller = new AbortController();
+        const poll = { id: 300, type: 'poll', poll: [{}, {}] } as unknown as Story;
+        fetchMock.mockResolvedValueOnce(jsonResponse(poll));
+        fetchMock.mockImplementation(abortableFetch);
+
+        const pending = fetchItemContent(300, controller.signal).catch((error: unknown) => error);
+        await Promise.resolve();
+        controller.abort();
+
+        expect(isAbortError(await pending)).toBe(true);
+        expect(controller.signal.aborted).toBe(true);
     });
 
     it('passes the abort signal to poll sub-requests', async () => {

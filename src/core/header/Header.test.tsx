@@ -31,6 +31,16 @@ describe('Header', () => {
         expect(screen.getByRole('heading', { name: 'Settings' })).toBeInTheDocument();
     });
 
+    it('scrolls back to the top when a feed link is followed', async () => {
+        const user = userEvent.setup();
+        window.scrollTo = jest.fn();
+        renderWithProviders(<Header />);
+
+        await user.click(screen.getByRole('link', { name: 'ask' }));
+
+        expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
+    });
+
     it('marks the active feed link', () => {
         renderWithProviders(<Header />, { route: '/show/1' });
 

@@ -9,4 +9,6 @@ module.exports = {
         '^.+\\.(t|j)sx?$': ['ts-jest', { tsconfig: { module: 'CommonJS', verbatimModuleSyntax: false } }],
     },
     testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
+    collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.test.{ts,tsx}', '!src/main.tsx', '!src/test-utils.tsx'],
+    coverageDirectory: '<rootDir>/coverage',
 };

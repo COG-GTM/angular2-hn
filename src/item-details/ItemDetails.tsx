@@ -59,7 +59,7 @@ export default function ItemDetails() {
 
     if (!item) {
         return (
-            <div className="main-content">
+            <div className="main-content item-details-view">
                 {!errorMessage && <Loader />}
                 {errorMessage !== '' && <ErrorMessage message={errorMessage} />}
             </div>
@@ -78,7 +78,7 @@ export default function ItemDetails() {
     const pollVotesCount = item.poll_votes_count ?? 0;
 
     return (
-        <div className="main-content">
+        <div className="main-content item-details-view">
             <div className="item">
                 <div className="mobile item-header">
                     <p className="title-block">

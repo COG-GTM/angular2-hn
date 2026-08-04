@@ -1,7 +1,7 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@use "../../shared/scss/media" as *;
 
-p {
+.feed-item {
+  p {
     margin: 2px 0;
 
     @media #{$mobile-only} {
@@ -66,3 +66,4 @@ p {
   .item-details {
     padding: 10px;
   }
+}

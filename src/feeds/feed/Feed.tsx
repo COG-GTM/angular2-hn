@@ -59,7 +59,7 @@ export default function Feed({ feedType }: FeedProps) {
     const listStart = loaded?.listStart;
 
     return (
-        <div className="main-content">
+        <div className="main-content feed-view">
             {!items && !errorMessage && <Loader />}
             {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 

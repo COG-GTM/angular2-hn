@@ -23,7 +23,7 @@ export default function CommentItem({ comment }: CommentProps) {
 
     if (comment.deleted) {
         return (
-            <div>
+            <div className="comment">
                 <div className="deleted-meta">
                     <span className="collapse">[deleted]</span> | Comment Deleted
                 </div>
@@ -32,7 +32,7 @@ export default function CommentItem({ comment }: CommentProps) {
     }
 
     return (
-        <div>
+        <div className="comment">
             <div className={collapse ? 'meta meta-collapse' : 'meta'}>
                 <span
                     className="collapse"

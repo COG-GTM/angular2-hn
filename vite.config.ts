@@ -51,7 +51,7 @@ export default defineConfig({
             },
             workbox: {
                 navigateFallback: '/index.html',
-                globPatterns: ['**/*.{js,css,html,ico,png,svg,xml}'],
+                globPatterns: ['**/*.{js,css,html,ico,png,svg,xml,jpg,gif,webp,cur,ani,eot,otf,ttf,woff,woff2}'],
                 runtimeCaching: [
                     {
                         urlPattern: /^https:\/\/node-hnapi\.herokuapp\.com\/.*/,

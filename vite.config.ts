@@ -15,8 +15,10 @@ export default defineConfig({
             registerType: 'autoUpdate',
             // Only production builds get a service worker, mirroring `enabled: environment.production`.
             devOptions: { enabled: false },
-            includeAssets: ['favicon.ico', 'manifest.json', 'assets/**/*'],
             workbox: {
+                // Covers the app shell plus everything copied out of `public/` (icons, images, favicon,
+                // the manifest). `includeAssets` is deliberately unset: it would add those same static
+                // files a second time with a different revision and Workbox rejects conflicting entries.
                 globPatterns: [
                     '**/*.{js,css,html,ico,json,png,jpg,jpeg,gif,webp,svg,cur,ani,eot,otf,ttf,woff,woff2,xml}',
                 ],

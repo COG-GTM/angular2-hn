@@ -8,7 +8,7 @@ const DARK_COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 function initialSettings(): Settings {
     const openLinkInNewTab = localStorage.getItem('openLinkInNewTab');
     const savedTheme = localStorage.getItem('theme');
-    const theme = savedTheme ?? (window.matchMedia(DARK_COLOR_SCHEME_QUERY).matches ? 'night' : 'default');
+    const theme = savedTheme || (window.matchMedia(DARK_COLOR_SCHEME_QUERY).matches ? 'night' : 'default');
     if (!savedTheme) {
         localStorage.setItem('theme', theme);
     }
@@ -17,8 +17,8 @@ function initialSettings(): Settings {
         showSettings: false,
         openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
         theme,
-        titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
-        listSpacing: localStorage.getItem('listSpacing') ?? '0',
+        titleFontSize: localStorage.getItem('titleFontSize') || '16',
+        listSpacing: localStorage.getItem('listSpacing') || '0',
     };
 }
 

@@ -95,7 +95,7 @@ export function ItemDetails() {
                                 <span>
                                     {item.points} points by <Link to={`/user/${item.user}`}>{item.user}</Link>
                                 </span>
-                            )}
+                            )}{' '}
                             <span className={item.type !== 'job' ? 'item-details' : undefined}>
                                 {item.time_ago}
                                 {item.type !== 'job' && (

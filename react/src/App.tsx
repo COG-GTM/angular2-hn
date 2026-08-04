@@ -5,6 +5,7 @@ import { formatCommentCount } from './shared/utils/comment';
 import { ComponentsPreview } from './ComponentsPreview';
 import { FoundationPreview } from './FoundationPreview';
 import { ServicesPreview } from './ServicesPreview';
+import { UserProfile } from './user/UserProfile';
 import './App.scss';
 
 const THEMES = ['default', 'night', 'amoledblack'];
@@ -26,6 +27,7 @@ export default function App() {
                         path="/preview/components"
                         element={<ComponentsPreview theme={theme} themes={THEMES} onThemeChange={setTheme} />}
                     />
+                    <Route path="/user/:id" element={<UserProfile />} />
                     <Route
                         path="*"
                         element={

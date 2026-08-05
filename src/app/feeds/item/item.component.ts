@@ -1,4 +1,4 @@
-import { NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { SettingsService } from '../../shared/services/settings.service';
   selector: 'item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
-  imports: [NgStyle, NgIf, RouterLinkActive, RouterLink, CommentPipe],
+  imports: [NgStyle, RouterLinkActive, RouterLink, CommentPipe],
 })
 export class ItemComponent {
   @Input() item: Story;

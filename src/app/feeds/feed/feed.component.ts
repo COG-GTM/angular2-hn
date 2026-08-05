@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
@@ -15,7 +15,7 @@ import { ItemComponent } from '../item/item.component';
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
-  imports: [NgIf, LoaderComponent, ErrorMessageComponent, NgFor, ItemComponent, RouterLinkActive, RouterLink],
+  imports: [LoaderComponent, ErrorMessageComponent, ItemComponent, RouterLinkActive, RouterLink],
 })
 export class FeedComponent implements OnInit {
   private readonly hackerNewsAPIService = inject(HackerNewsAPIService);

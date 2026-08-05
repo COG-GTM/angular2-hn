@@ -1,4 +1,4 @@
-import { Location, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Location, NgStyle } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
@@ -19,16 +19,14 @@ import { CommentComponent } from './comment/comment.component';
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.scss'],
   imports: [
-    NgIf,
     LoaderComponent,
     ErrorMessageComponent,
     RouterLinkActive,
     RouterLink,
-    NgFor,
     NgStyle,
     CommentComponent,
-    CommentPipe,
-  ],
+    CommentPipe
+],
 })
 export class ItemDetailsComponent implements OnInit {
   private readonly hackerNewsAPIService = inject(HackerNewsAPIService);

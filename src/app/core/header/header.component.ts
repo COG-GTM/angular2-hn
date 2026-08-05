@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { SettingsComponent } from '../settings/settings.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  imports: [RouterLink, RouterLinkActive, NgIf, SettingsComponent],
+  imports: [RouterLink, RouterLinkActive, SettingsComponent],
 })
 export class HeaderComponent {
   private readonly settingsService = inject(SettingsService);

@@ -1,4 +1,4 @@
-import { Location, NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { HackerNewsAPIService } from '../shared/services/hackernews-api.service'
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  imports: [NgIf, LoaderComponent, ErrorMessageComponent],
+  imports: [LoaderComponent, ErrorMessageComponent],
 })
 export class UserComponent implements OnInit {
   private readonly hackerNewsAPIService = inject(HackerNewsAPIService);

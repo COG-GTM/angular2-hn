@@ -1,19 +1,29 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "20"
 
 branches:
   only:
     - master
 
+cache:
+  directories:
+    - node_modules
+    - $HOME/.cache/ms-playwright
+
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
+  - npm ci
+  - npx playwright install --with-deps chromium
 
 script:
+  - npm run lint
+  - npm run typecheck
+  - npm test
   - npm run build
+  - npm run test:e2e
 
 after_success:
+  - npm install -g firebase-tools
   - firebase use default
   - firebase deploy --token $FIREBASE_TOKEN
 

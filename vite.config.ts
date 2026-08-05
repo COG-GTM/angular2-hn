@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -42,5 +42,12 @@ export default defineConfig({
     build: {
         outDir: 'dist',
         sourcemap: true,
+    },
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './src/react/test/setup.ts',
+        css: true,
+        exclude: [...configDefaults.exclude, 'e2e/**'],
     },
 });

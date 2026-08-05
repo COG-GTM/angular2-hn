@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  <a href="../../actions/workflows/ci.yml"><img alt="Build Status" src="../../actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 ---
@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses the [Angular service worker](https://angular.dev/ecosystem/service-workers) to generate a service worker as part of the production build so it loads quickly and works offline.
 
 ## Manifest
 
@@ -73,16 +73,16 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app is built with Angular 19 (standalone components, `provideRouter`/`provideHttpClient`) and the Angular CLI application builder. Node 20 or later is required.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the dev server, or `npm run build` for a production build in `dist/angular-hnpwa/browser`
+ - `npm run lint` and `npm test -- --watch=false` to lint and run the unit tests
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Stories come from the [HNPWA API](https://api.hnpwa.com), configured per environment in `src/environments/`.
+
+Note: the service worker is only enabled in production builds. To test it, run `npm run build` and serve `dist/angular-hnpwa/browser` over HTTP (for example with `npx http-server dist/angular-hnpwa/browser`).
 
 ## Contributors
 

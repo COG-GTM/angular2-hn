@@ -19,11 +19,8 @@
     "@angular/platform-browser-dynamic": "~19.2.25",
     "@angular/router": "~19.2.25",
     "@angular/service-worker": "~19.2.25",
-    "node-fetch": "^2.6.0",
     "rxjs": "^7.8.2",
-    "rxjs-compat": "^6.5.2",
     "tslib": "^2.0.0",
-    "unfetch": "^4.1.0",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
@@ -46,8 +43,9 @@
   },
   "prettier": {
     "trailingComma": "es5",
-    "tabWidth": 4,
+    "tabWidth": 2,
     "singleQuote": true,
-    "printWidth": 120
+    "printWidth": 120,
+    "arrowParens": "avoid"
   }
 }

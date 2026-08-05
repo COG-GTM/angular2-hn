@@ -8,7 +8,7 @@ import { CommentPipe } from '../../shared/pipes/comment.pipe';
 import { SettingsService } from '../../shared/services/settings.service';
 
 @Component({
-  selector: 'item',
+  selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
   imports: [NgStyle, RouterLinkActive, RouterLink, CommentPipe],

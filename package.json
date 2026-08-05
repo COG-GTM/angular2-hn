@@ -34,13 +34,16 @@
     "@angular/language-service": "~19.2.25",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "angular-eslint": "19.8.1",
+    "eslint": "^9.28.0",
     "jasmine-core": "~3.6.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "typescript-eslint": "8.33.1"
   },
   "prettier": {
     "trailingComma": "es5",

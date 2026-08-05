@@ -1,7 +1,8 @@
 @if (!comment.deleted) {
   <div>
     <div class="meta" [class.meta-collapse]="collapse">
-      <span class="collapse" (click)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span>
+      <span class="collapse" role="button" tabindex="0" (click)="collapse = !collapse"
+        (keyup.enter)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span>
       <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{{comment.user}}</a>
       <span class="time">{{comment.time_ago}}</span>
     </div>

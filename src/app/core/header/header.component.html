@@ -18,7 +18,8 @@
       </div>
     </div>
     <div class="info">
-      <img class="settings" src="assets/images/cog.svg" alt="Settings" (click)="toggleSettings()">
+      <img class="settings" src="assets/images/cog.svg" alt="Settings" role="button" tabindex="0"
+        (click)="toggleSettings()" (keyup.enter)="toggleSettings()">
     </div>
   </div>
   @if (settings.showSettings) {

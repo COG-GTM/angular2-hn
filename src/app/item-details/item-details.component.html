@@ -10,7 +10,8 @@
     <div class="item">
       <div class="mobile item-header">
         <p class="title-block">
-          <span class="back-button" (click)="goBack()"></span>
+          <span class="back-button" role="button" tabindex="0" aria-label="Go back" (click)="goBack()"
+            (keyup.enter)="goBack()"></span>
           @if (hasUrl) {
             <a class="title" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
               {{item.title}}

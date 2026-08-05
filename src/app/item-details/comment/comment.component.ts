@@ -1,20 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { Comment } from '../../shared/models/comment';
 
 @Component({
-    selector: 'app-comment',
-    templateUrl: './comment.component.html',
-    styleUrls: ['./comment.component.scss'],
-    standalone: false
+  selector: 'app-comment',
+  templateUrl: './comment.component.html',
+  styleUrls: ['./comment.component.scss'],
+  imports: [NgIf, RouterLinkActive, RouterLink, NgFor],
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
   @Input() comment: Comment;
-  collapse: boolean;
 
-  constructor() {}
-
-  ngOnInit() {
-    this.collapse = false;
-  }
+  collapse = false;
 }

@@ -1,27 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Story } from '../../shared/models/story';
+import { NgIf, NgStyle } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
+import { Story } from '../../shared/models/story';
+import { CommentPipe } from '../../shared/pipes/comment.pipe';
+import { SettingsService } from '../../shared/services/settings.service';
 
 @Component({
-    selector: 'item',
-    templateUrl: './item.component.html',
-    styleUrls: ['./item.component.scss'],
-    standalone: false
+  selector: 'item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.scss'],
+  imports: [NgStyle, NgIf, RouterLinkActive, RouterLink, CommentPipe],
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
   @Input() item: Story;
-  settings: Settings;
 
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {}
+  settings: Settings = inject(SettingsService).settings;
 
   get hasUrl(): boolean {
     return this.item.url.indexOf('http') === 0;
   }
-
 }

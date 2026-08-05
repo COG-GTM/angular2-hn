@@ -14,6 +14,7 @@ import { User } from '../models/user';
 export class HackerNewsAPIService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.hnApiBaseUrl;
+  private readonly officialApiBaseUrl = environment.hnOfficialApiBaseUrl;
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
     return this.http.get<Story[]>(`${this.baseUrl}/${feedType}/${page}.json`);
@@ -21,7 +22,7 @@ export class HackerNewsAPIService {
 
   fetchItemContent(id: number): Observable<Story> {
     return this.http.get<Story>(`${this.baseUrl}/item/${id}.json`).pipe(
-      switchMap(story => (story.type === 'poll' && story.poll?.length ? this.fetchPollResults(story) : of(story)))
+      switchMap(story => (story.type === 'poll' ? this.fetchPollResults(story) : of(story)))
     );
   }
 
@@ -33,9 +34,10 @@ export class HackerNewsAPIService {
     return this.http.get<User>(`${this.baseUrl}/user/${id}.json`);
   }
 
+  // The feed API does not expose the options of a poll, so their ids come from the official HN API.
   private fetchPollResults(story: Story): Observable<Story> {
-    const optionRequests = story.poll.map((_, index) => this.fetchPollContent(story.id + index + 1));
-    return forkJoin(optionRequests).pipe(
+    return this.http.get<{ parts?: number[] }>(`${this.officialApiBaseUrl}/item/${story.id}.json`).pipe(
+      switchMap(({ parts }) => (parts?.length ? forkJoin(parts.map(part => this.fetchPollContent(part))) : of([]))),
       map(poll => ({
         ...story,
         poll,

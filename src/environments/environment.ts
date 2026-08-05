@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   hnApiBaseUrl: 'https://api.hnpwa.com/v0',
+  hnOfficialApiBaseUrl: 'https://hacker-news.firebaseio.com/v0',
 };
 
 /*

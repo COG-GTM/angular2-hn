@@ -8,6 +8,7 @@ import { HackerNewsAPIService } from './hackernews-api.service';
 
 describe('HackerNewsAPIService', () => {
   const baseUrl = environment.hnApiBaseUrl;
+  const officialApiBaseUrl = environment.hnOfficialApiBaseUrl;
   let service: HackerNewsAPIService;
   let httpTesting: HttpTestingController;
 
@@ -42,12 +43,13 @@ describe('HackerNewsAPIService', () => {
   });
 
   it('resolves the options of a poll and sums their votes', () => {
-    const poll = { id: 10, type: 'poll', poll: [null, null] } as unknown as Story;
+    const poll = { id: 10, type: 'poll' } as unknown as Story;
     let response: Story;
 
     service.fetchItemContent(10).subscribe(item => (response = item));
 
     httpTesting.expectOne(`${baseUrl}/item/10.json`).flush(poll);
+    httpTesting.expectOne(`${officialApiBaseUrl}/item/10.json`).flush({ parts: [11, 12] });
     httpTesting.expectOne(`${baseUrl}/item/11.json`).flush({ content: 'first', points: 3 });
     httpTesting.expectOne(`${baseUrl}/item/12.json`).flush({ content: 'second', points: 4 });
 

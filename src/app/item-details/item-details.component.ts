@@ -1,50 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Location, NgStyle } from '@angular/common';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { EMPTY } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
+import { Settings } from '../shared/models/settings';
+import { Story } from '../shared/models/story';
+import { CommentPipe } from '../shared/pipes/comment.pipe';
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
-
-import { Story } from '../shared/models/story';
-import { Settings } from '../shared/models/settings';
+import { CommentComponent } from './comment/comment.component';
 
 @Component({
   selector: 'app-item-details',
   templateUrl: './item-details.component.html',
-  styleUrls: ['./item-details.component.scss']
+  styleUrls: ['./item-details.component.scss'],
+  imports: [
+    LoaderComponent,
+    ErrorMessageComponent,
+    RouterLinkActive,
+    RouterLink,
+    NgStyle,
+    CommentComponent,
+    CommentPipe
+],
 })
 export class ItemDetailsComponent implements OnInit {
-  sub: Subscription;
+  private readonly hackerNewsAPIService = inject(HackerNewsAPIService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
+  private readonly destroyRef = inject(DestroyRef);
+
   item: Story;
   errorMessage = '';
-  settings: Settings;
-
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private _settingsService: SettingsService,
-    private route: ActivatedRoute,
-    private _location: Location
-  ) {
-    this.settings = this._settingsService.settings;
-  }
+  settings: Settings = inject(SettingsService).settings;
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
-        this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
-    });
+    this.route.params
+      .pipe(
+        map(params => +params['id']),
+        switchMap(itemID =>
+          this.hackerNewsAPIService.fetchItemContent(itemID).pipe(
+            catchError(() => {
+              this.errorMessage = 'Could not load item comments.';
+              return EMPTY;
+            })
+          )
+        ),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: item => (this.item = item),
+      });
     window.scrollTo(0, 0);
   }
 
   goBack() {
-    this._location.back();
+    this.location.back();
   }
 
   get hasUrl(): boolean {
     return this.item.url.indexOf('http') === 0;
   }
-
 }

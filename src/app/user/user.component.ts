@@ -1,37 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { EMPTY } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { User } from '../shared/models/user';
+import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  imports: [LoaderComponent, ErrorMessageComponent],
 })
 export class UserComponent implements OnInit {
-  sub: Subscription;
+  private readonly hackerNewsAPIService = inject(HackerNewsAPIService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
+  private readonly destroyRef = inject(DestroyRef);
+
   user: User;
   errorMessage = '';
 
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private route: ActivatedRoute,
-    private _location: Location
-  ) {}
-
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
-      this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
-        this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
-    });
+    this.route.params
+      .pipe(
+        map(params => params['id'] as string),
+        switchMap(userID =>
+          this.hackerNewsAPIService.fetchUser(userID).pipe(
+            catchError(() => {
+              this.errorMessage = 'Could not load user ' + userID + '.';
+              return EMPTY;
+            })
+          )
+        ),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: user => (this.user = user),
+      });
   }
 
   goBack() {
-    this._location.back();
+    this.location.back();
   }
 }

@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
 
-import { SettingsService } from '../../shared/services/settings.service';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 import { Settings } from '../../shared/models/settings';
+import { SettingsService } from '../../shared/services/settings.service';
+import { SettingsComponent } from '../settings/settings.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  imports: [RouterLink, RouterLinkActive, SettingsComponent],
 })
-export class HeaderComponent implements OnInit {
-  settings: Settings;
+export class HeaderComponent {
+  private readonly settingsService = inject(SettingsService);
 
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {
-  }
+  settings: Settings = this.settingsService.settings;
 
   toggleSettings() {
-    this._settingsService.toggleSettings();
+    this.settingsService.toggleSettings();
   }
 
   scrollTop() {

@@ -9,15 +9,10 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             injectRegister: 'auto',
-            includeAssets: [
-                'favicon.ico',
-                'manifest.json',
-                'assets/icons/favicon-16x16.png',
-                'assets/icons/favicon-32x32.png',
-                'assets/icons/safari-pinned-tab.svg',
-                'assets/icons/apple-touch-icon.png',
-                'assets/images/logo.svg',
-            ],
+            // Everything else under public/ is already precached by workbox.globPatterns below;
+            // listing an asset in both places produces conflicting precache entries.
+            includeAssets: ['manifest.json'],
+            includeManifestIcons: false,
             manifest: {
                 name: 'Angular 2 HN',
                 short_name: 'Angular 2 HN',

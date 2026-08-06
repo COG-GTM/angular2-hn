@@ -14,9 +14,14 @@ const UserPage = lazy(() => import('./features/user/UserPage'));
 
 declare const ga: ((...args: unknown[]) => void) | undefined;
 
+const REDIRECT_ONLY_PATHS = new Set(['/', '/news', '/newest', '/show', '/ask', '/jobs']);
+
 function usePageviewTracking() {
     const location = useLocation();
     useEffect(() => {
+        if (REDIRECT_ONLY_PATHS.has(location.pathname)) {
+            return;
+        }
         if (typeof ga === 'function') {
             ga('set', 'page', location.pathname + location.search);
             ga('send', 'pageview');

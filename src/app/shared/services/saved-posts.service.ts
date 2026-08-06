@@ -8,7 +8,16 @@ const STORAGE_KEY = 'savedPosts';
   providedIn: 'root'
 })
 export class SavedPostsService {
-  savedPosts: Story[] = localStorage.getItem(STORAGE_KEY) ? JSON.parse(localStorage.getItem(STORAGE_KEY)) : [];
+  savedPosts: Story[] = SavedPostsService.read();
+
+  private static read(): Story[] {
+    try {
+      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      return Array.isArray(stored) ? stored : [];
+    } catch {
+      return [];
+    }
+  }
 
   getSavedPosts(): Story[] {
     return this.savedPosts;

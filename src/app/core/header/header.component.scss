@@ -102,7 +102,12 @@ h1 {
   margin-left: 20px;
 
   @media #{$mobile-only} {
-    margin-left: 60px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 13px;
+    margin-left: 55px;
+    padding-right: 40px;
+    white-space: nowrap;
   }
 
   a {
@@ -113,6 +118,11 @@ h1 {
 
     &:hover {
       color: #fff;
+    }
+
+    @media #{$mobile-only} {
+      margin: 0 1px;
+      letter-spacing: 0.5px;
     }
   }
 

@@ -29,13 +29,14 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,webmanifest}'],
         navigateFallback: '/index.html',
         runtimeCaching: [
-          // Lazy-cached static assets (equivalent of the "assets" asset group, installMode lazy)
+          // Lazy-cached static assets (equivalent of the "assets" asset group,
+          // installMode lazy / updateMode prefetch)
           {
             urlPattern: /\.(?:eot|svg|cur|jpg|jpeg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'assets',
-              expiration: { maxEntries: 100 },
+              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
           },
         ],

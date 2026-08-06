@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import FeedPage from './pages/Feed/FeedPage';
+import Loader from './components/Loader/Loader';
 import { useSettings } from './context/SettingsContext';
 import type { FeedType } from './models';
 
@@ -38,7 +39,7 @@ function AppShell() {
       <div className="body-cover"></div>
       <div className="wrapper">
         <Header />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Navigate to="/news/1" replace />} />
             {feedTypes.map((feedType) => (

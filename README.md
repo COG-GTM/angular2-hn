@@ -19,6 +19,22 @@
 
 ---
 
+## React migration (in progress)
+
+The app is being migrated from Angular to React 18 + TypeScript + Vite. The React app lives in [`web/`](/web) while the
+Angular app in `src/` stays buildable until parity is reached.
+
+```bash
+cd web
+npm ci
+npm run dev     # dev server on http://localhost:5173
+npm run lint
+npm test
+npm run build
+```
+
+---
+
 :zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.

@@ -1,7 +1,8 @@
 $mobile-only: "only screen and (max-width : 768px)";
 
 .feed-page {
-  a {
+  .nav a,
+  .job-header a {
     text-decoration: none;
     font-weight: bold;
 

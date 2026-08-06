@@ -9,7 +9,6 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['assets/**/*'],
       manifest: {
         name: 'React HN',
         short_name: 'React HN',

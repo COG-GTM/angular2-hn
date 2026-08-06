@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "strict": true,
+    // The Angular models this component reuses are plain field declarations without initializers.
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": []
+  },
+  "include": [
+    "src/react/**/*.ts",
+    "src/react/**/*.tsx",
+    "src/app/shared/models/*.ts"
+  ]
+}

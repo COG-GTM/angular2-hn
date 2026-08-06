@@ -1,0 +1,10 @@
+<div class="main-content">
+  <p class="job-header" *ngIf="items.length === 0">
+    You haven't saved any posts yet. Tap the ☆ on a post to save it for later.
+  </p>
+  <ol class="list-margin" *ngIf="items.length > 0">
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+    </li>
+  </ol>
+</div>

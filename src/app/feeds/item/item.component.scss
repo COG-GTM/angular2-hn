@@ -58,6 +58,16 @@ p {
     }
   }
 
+  .save-toggle {
+    cursor: pointer;
+    color: #696969;
+    letter-spacing: 0.5px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .domain {
     color: #696969;
     letter-spacing: 0.5px;

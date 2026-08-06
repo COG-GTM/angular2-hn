@@ -13,10 +13,10 @@
   <div class="subtext-palm">
     <div class="details" *ngIf="item.type !== 'job'">
       <span class="name"><a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a></span>
-      <span class="save-toggle" (click)="toggleSaved()">{{ isSaved ? '★' : '☆' }}</span>
       <span class="right">{{item.points}} ★</span>
     </div>
     <div class="details">
+    <span class="save-toggle" (click)="toggleSaved()">{{ isSaved ? '★' : '☆' }}</span>
     {{ item.time_ago }}
     <a [routerLink]="['/item', item.id]" routerLinkActive="active" class="comment-number" *ngIf="item.type !== 'job'"> •
       {{item.comments_count | comment }}

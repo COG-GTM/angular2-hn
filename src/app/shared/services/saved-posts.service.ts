@@ -8,9 +8,16 @@ import { Story } from '../models/story';
 export class SavedPostsService {
   private static readonly STORAGE_KEY = 'savedPosts';
 
-  savedPosts: Story[] = localStorage.getItem(SavedPostsService.STORAGE_KEY)
-    ? JSON.parse(localStorage.getItem(SavedPostsService.STORAGE_KEY))
-    : [];
+  savedPosts: Story[] = SavedPostsService.read();
+
+  private static read(): Story[] {
+    try {
+      const stored = JSON.parse(localStorage.getItem(SavedPostsService.STORAGE_KEY));
+      return Array.isArray(stored) ? stored : [];
+    } catch {
+      return [];
+    }
+  }
 
   getSavedPosts(): Story[] {
     return this.savedPosts;
@@ -21,10 +28,11 @@ export class SavedPostsService {
   }
 
   toggleSaved(story: Story): void {
-    if (this.isSaved(story.id)) {
-      this.savedPosts = this.savedPosts.filter(post => post.id !== story.id);
+    const index = this.savedPosts.findIndex(post => post.id === story.id);
+    if (index > -1) {
+      this.savedPosts.splice(index, 1);
     } else {
-      this.savedPosts = [...this.savedPosts, story];
+      this.savedPosts.push(story);
     }
     this.persist();
   }

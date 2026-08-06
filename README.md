@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -14,24 +14,8 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  <a href="https://github.com/COG-GTM/angular2-hn/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/COG-GTM/angular2-hn/actions/workflows/ci.yml/badge.svg"></a>
 </p>
-
----
-
-## React migration (in progress)
-
-The app is being migrated from Angular to React 18 + TypeScript + Vite. The React app lives in [`web/`](/web) while the
-Angular app in `src/` stays buildable until parity is reached.
-
-```bash
-cd web
-npm ci
-npm run dev     # dev server on http://localhost:5173
-npm run lint
-npm test
-npm run build
-```
 
 ---
 
@@ -39,27 +23,71 @@ npm run build
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+:rocket: **Progressive:** installable, offline-capable PWA.
 
 <p align="center">
   <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
 </p>
 
-## Mobile Preview
+## Stack
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+The app was originally written in Angular and has been rewritten in React with no change in behaviour:
 
-## Laptop Preview
+| | |
+| --- | --- |
+| UI | React 18 + TypeScript |
+| Build / dev server | Vite 5 |
+| Routing | React Router v6 |
+| Styling | SCSS (three themes: Default, Night, Black (AMOLED)) |
+| Unit / component tests | Vitest + React Testing Library |
+| End-to-end tests | Playwright |
+| PWA | `vite-plugin-pwa` (Workbox) |
+| Data | [node-hnapi](https://github.com/cheeaun/node-hnapi) over native `fetch` |
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+## Getting started
 
-## Offline Support
+```bash
+npm ci
+npm run dev       # dev server on http://localhost:5173
+npm run build     # type-check and build to dist/
+npm run preview   # serve the production build (service worker included)
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+## Tests
+
+```bash
+npm run lint            # ESLint (with Prettier compatibility)
+npm test                # Vitest unit and component tests
+npm run test:coverage   # the same suite with a V8 coverage report
+npm run test:e2e        # Playwright end-to-end tests against the production build
+```
+
+The Playwright suite stubs the Hacker News API with fixtures (`e2e/fixtures.ts`) so it is deterministic and can run
+offline. CI (`.github/workflows/ci.yml`) runs lint, unit tests, the build and the e2e suite on every pull request.
+
+## Project layout
+
+```
+src/
+  api/            fetch-based Hacker News API client
+  components/     shared presentational components (Loader, ErrorMessage)
+  context/        SettingsContext (theme, font size, list spacing, link behaviour)
+  core/           app chrome: Header, Footer, Settings modal
+  feeds/          feed item row
+  item-details/   recursive comment tree
+  models/         TypeScript models (Story, Comment, User, PollResult, Settings)
+  pages/          routed pages: FeedPage, ItemDetailsPage, UserPage
+  styles/         SCSS themes and shared variables/mixins
+  utils/          pure helpers (formatCommentCount)
+  routes.tsx      route table mirroring the original Angular routes
+e2e/              Playwright specs and API fixtures
+```
+
+## Offline support
+
+`vite-plugin-pwa` generates a Workbox service worker at build time: the app shell is precached and every navigation
+falls back to `index.html`, while Hacker News API responses are served with a `NetworkFirst` strategy (24h expiry) so
+previously visited feeds and items keep working offline.
 
 ## Manifest
 
@@ -78,27 +106,26 @@ Current themes:
 * Night
 * Black (AMOLED)
 
-More to come!
+The theme follows `prefers-color-scheme` on first load and is then persisted to `localStorage`.
+
+## Mobile Preview
+
+<p align="center">
+  <img src = "http://i.imgur.com/ZloA1hn.gif">
+</p>
+
+## Laptop Preview
+
+<p align="center">
+  <img src = "http://i.imgur.com/MrKHaln.gif">
+</p>
 
 ## Areas of improvement
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
+ - Realtime updating using the Firebase SDK (may need to add option to settings so the service worker can still rely on REST endpoints)
  - Server side rendering
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
-
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
 
 ## Contributors
 

@@ -1,0 +1,10 @@
+<div class="main-content">
+  <ol class="list-margin" *ngIf="items && items.length">
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+    </li>
+  </ol>
+  <p class="empty-state" *ngIf="!items || !items.length">
+    You haven't saved any posts yet. Tap the ☆ on a post to save it here.
+  </p>
+</div>

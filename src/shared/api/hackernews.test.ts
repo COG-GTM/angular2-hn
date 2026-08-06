@@ -6,6 +6,7 @@ function mockFetchResponses(responses: Record<string, unknown>) {
     return vi.stubGlobal(
         'fetch',
         vi.fn(async (url: string) => ({
+            ok: true,
             json: async () => responses[url],
         }))
     );

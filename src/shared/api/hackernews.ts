@@ -6,6 +6,9 @@ export const BASE_URL = 'https://node-hnapi.herokuapp.com';
 
 async function fetchJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
     const res = await fetch(url, { signal });
+    if (!res.ok) {
+        throw new Error(`Request failed with status ${res.status}: ${url}`);
+    }
     return (await res.json()) as T;
 }
 

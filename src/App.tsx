@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { Header } from './core/header/Header';
 import { Footer } from './core/footer/Footer';
@@ -12,8 +12,21 @@ import './App.scss';
 const ItemDetailsPage = lazy(() => import('./features/item/ItemDetailsPage'));
 const UserPage = lazy(() => import('./features/user/UserPage'));
 
+declare const ga: ((...args: unknown[]) => void) | undefined;
+
+function usePageviewTracking() {
+    const location = useLocation();
+    useEffect(() => {
+        if (typeof ga === 'function') {
+            ga('set', 'page', location.pathname + location.search);
+            ga('send', 'pageview');
+        }
+    }, [location]);
+}
+
 export default function App() {
     const { settings } = useSettings();
+    usePageviewTracking();
 
     return (
         <div className={settings.theme}>

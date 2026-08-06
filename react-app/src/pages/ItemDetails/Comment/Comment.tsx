@@ -13,7 +13,7 @@ function Comment({ comment }: CommentProps) {
 
   if (comment.deleted) {
     return (
-      <div>
+      <div className="comment-block">
         <div className="deleted-meta">
           <span className="collapse">[deleted]</span> | Comment Deleted
         </div>
@@ -22,7 +22,7 @@ function Comment({ comment }: CommentProps) {
   }
 
   return (
-    <div>
+    <div className="comment-block">
       <div className={`meta${collapse ? ' meta-collapse' : ''}`}>
         <span className="collapse" onClick={() => setCollapse(!collapse)}>
           [{collapse ? '+' : '-'}]

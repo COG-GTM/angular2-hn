@@ -44,7 +44,8 @@ export default function FeedPage({ feedType }: FeedPageProps) {
   const listStart = (pageNum - 1) * 30 + 1;
 
   return (
-    <div className="main-content">
+    <div className="feed-page">
+      <div className="main-content">
       {!items && !errorMessage && <Loader />}
       {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
@@ -83,6 +84,7 @@ export default function FeedPage({ feedType }: FeedPageProps) {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

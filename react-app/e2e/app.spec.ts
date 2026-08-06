@@ -24,4 +24,6 @@ test('opens the settings panel and switches theme', async ({ page }) => {
   await page.goto('/news/1');
   await page.locator('img.settings').click();
   await expect(page.locator('#popup1 .popup')).toBeVisible();
+  await page.getByLabel('Night').check();
+  await expect(page.locator('#root > div.night')).toBeVisible();
 });

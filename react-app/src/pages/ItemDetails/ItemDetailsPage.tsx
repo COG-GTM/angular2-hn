@@ -43,7 +43,8 @@ function ItemDetailsPage() {
   const hasUrl = item ? item.url.indexOf('http') === 0 : false;
 
   return (
-    <div className="main-content">
+    <div className="item-details-page">
+      <div className="main-content">
       {!item && !errorMessage && <Loader />}
       {!item && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
@@ -57,7 +58,7 @@ function ItemDetailsPage() {
                   className="title"
                   href={item.url}
                   target={settings.openLinkInNewTab ? '_blank' : undefined}
-                  rel={settings.openLinkInNewTab ? 'noopener' : undefined}
+                  rel={settings.openLinkInNewTab ? 'noopener noreferrer' : undefined}
                 >
                   {item.title}
                 </a>
@@ -79,7 +80,7 @@ function ItemDetailsPage() {
                   className="title"
                   href={item.url}
                   target={settings.openLinkInNewTab ? '_blank' : undefined}
-                  rel={settings.openLinkInNewTab ? 'noopener' : undefined}
+                  rel={settings.openLinkInNewTab ? 'noopener noreferrer' : undefined}
                 >
                   {item.title}
                 </a>
@@ -135,6 +136,7 @@ function ItemDetailsPage() {
           </ul>
         </div>
       )}
+      </div>
     </div>
   );
 }

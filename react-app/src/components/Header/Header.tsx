@@ -20,7 +20,7 @@ function Header() {
   };
 
   return (
-    <header>
+    <header className="app-header">
       <div id="header">
         <Link className={sectionClass('news', 'home-link')} to="/news/1" onClick={scrollTop}>
           <div className="logo-inner"></div>

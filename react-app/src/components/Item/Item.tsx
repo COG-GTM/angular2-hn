@@ -15,7 +15,7 @@ export default function Item({ item }: ItemProps) {
   const hasUrl = item.url.indexOf('http') === 0;
 
   return (
-    <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+    <div className="feed-item" style={{ marginBottom: `${settings.listSpacing}px` }}>
       {hasUrl ? (
         <p>
           <a
@@ -23,7 +23,7 @@ export default function Item({ item }: ItemProps) {
             style={{ fontSize: `${settings.titleFontSize}px` }}
             href={item.url}
             target={settings.openLinkInNewTab ? '_blank' : undefined}
-            rel={settings.openLinkInNewTab ? 'noopener' : undefined}
+            rel={settings.openLinkInNewTab ? 'noopener noreferrer' : undefined}
           >
             {item.title}
           </a>

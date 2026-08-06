@@ -2,6 +2,7 @@
   "name": "angular-hnpwa",
   "version": "0.0.0",
   "scripts": {
+    "postinstall": "npm --prefix react-app install",
     "start": "npm --prefix react-app run dev",
     "dev": "npm --prefix react-app run dev",
     "build": "npm --prefix react-app run build",

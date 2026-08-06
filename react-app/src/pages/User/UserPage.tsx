@@ -41,7 +41,7 @@ export default function UserPage() {
   }, [id]);
 
   return (
-    <>
+    <div className="user-page">
       {!user && !errorMessage && <Loader />}
       {!user && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
@@ -65,6 +65,6 @@ export default function UserPage() {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }

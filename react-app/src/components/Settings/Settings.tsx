@@ -7,7 +7,8 @@ export default function Settings() {
     useSettings();
 
   return (
-    <div id="popup1" className="overlay">
+    <div className="settings-panel">
+      <div id="popup1" className="overlay">
       <div className="popup">
         <h1>Settings</h1>
         <hr />
@@ -93,6 +94,7 @@ export default function Settings() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

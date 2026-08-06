@@ -1,0 +1,4 @@
+// Stylesheet for the standalone React harness: the same SCSS the Angular components use, loaded globally
+// because the harness has no Angular view encapsulation.
+@import '../../app/feeds/feed/feed.component';
+@import '../components/Item';

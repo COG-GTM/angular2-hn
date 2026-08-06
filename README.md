@@ -84,6 +84,17 @@ Note: Any Service Worker changes will not be reflected when you run the applicat
  - `npm run precache` to generate the service worker file
  - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
 
+## React migration (in progress)
+
+Components are being ported to React one at a time under `src/react/`. The Angular implementations stay in place
+and keep serving the app until the corresponding React component replaces them.
+
+ - `npm run react:typecheck` — type-checks `src/react/**` (uses the `typescript5` alias so Angular 9 stays on TS 3.7)
+ - `npm run react:serve` — builds and serves the standalone harness at http://localhost:4300 to preview ported
+   components in isolation
+
+Migrated so far: `ItemComponent` → `src/react/components/Item.tsx`.
+
 ## Contributors
 
 A million thanks to some awesome people :)

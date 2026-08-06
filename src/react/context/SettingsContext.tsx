@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { createContext, useContext, ReactNode } from 'react';
 
 import { Settings } from '../../app/shared/models/settings';

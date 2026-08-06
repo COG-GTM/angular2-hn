@@ -37,8 +37,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const applySystemPreferredColorScheme = (matches: boolean) => {
+      setTheme(matches ? 'night' : 'default');
+    };
     const handleSystemPreferredColorSchemeChange = (event: MediaQueryListEvent) => {
-      setTheme(event.matches ? 'night' : 'default');
+      applySystemPreferredColorScheme(event.matches);
     };
 
     darkColorSchemeMedia.addEventListener('change', handleSystemPreferredColorSchemeChange);
@@ -47,12 +50,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (savedTheme) {
       setSettings((prev) => ({ ...prev, theme: savedTheme }));
     } else {
-      handleSystemPreferredColorSchemeChange(
-        new MediaQueryListEvent('change', {
-          media: darkColorSchemeMedia.media,
-          matches: darkColorSchemeMedia.matches,
-        })
-      );
+      applySystemPreferredColorScheme(darkColorSchemeMedia.matches);
     }
 
     return () => {

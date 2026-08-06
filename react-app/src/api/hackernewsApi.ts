@@ -19,7 +19,7 @@ export async function fetchItemContent(id: number): Promise<Story> {
   if (story.type === 'poll') {
     const numberOfPollOptions = story.poll.length;
     story.poll_votes_count = 0;
-    await Promise.all(
+    await Promise.allSettled(
       Array.from({ length: numberOfPollOptions }, (_, index) =>
         fetchPollContent(story.id + index + 1).then((pollResults) => {
           story.poll[index] = pollResults;

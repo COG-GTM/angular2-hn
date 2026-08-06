@@ -21,7 +21,9 @@ interface SettingsProviderProps {
 }
 
 // TODO: mirrors only the read path of SettingsService. The writer methods (toggleOpenLinksInNewTab, setTheme,
-// setFont, setSpacing) and the prefers-color-scheme subscription move here when SettingsComponent is migrated.
+// setFont, setSpacing) and the prefers-color-scheme subscription move here when SettingsComponent is migrated;
+// until then `defaultSettings` is a localStorage snapshot taken at module load, so consumers only pick up
+// settings changes through a `settings` prop on the provider (or a remount), not from a live store.
 export const SettingsProvider = ({ settings = defaultSettings, children }: SettingsProviderProps) => {
     return <SettingsContext.Provider value={settings}>{children}</SettingsContext.Provider>;
 };

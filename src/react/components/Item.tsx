@@ -15,9 +15,9 @@ export const Item = ({ item }: ItemProps) => {
     const hasUrl = item.url.indexOf('http') === 0;
     const isJob = item.type === 'job';
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
-    const activeClass = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
-    const commentNumberClass = ({ isActive }: { isActive: boolean }) =>
-        isActive ? 'comment-number active' : 'comment-number';
+    const linkClass = (staticClass = '') => ({ isActive }: { isActive: boolean }) =>
+        [staticClass, isActive ? 'active' : ''].filter(Boolean).join(' ');
+    const activeClass = linkClass();
 
     return (
         <div style={{ marginBottom: `${settings.listSpacing}px` }}>
@@ -37,7 +37,7 @@ export const Item = ({ item }: ItemProps) => {
             )}
             {!hasUrl && (
                 <p>
-                    <NavLink className={activeClass} style={titleStyle} to={`/item/${item.id}`}>
+                    <NavLink className={linkClass('title')} style={titleStyle} to={`/item/${item.id}`}>
                         {item.title}
                     </NavLink>
                 </p>
@@ -56,7 +56,7 @@ export const Item = ({ item }: ItemProps) => {
                 <div className="details">
                     {item.time_ago}
                     {!isJob && (
-                        <NavLink to={`/item/${item.id}`} className={commentNumberClass}>
+                        <NavLink to={`/item/${item.id}`} className={linkClass('comment-number')}>
                             {' '}
                             • {formatCommentCount(item.comments_count)}
                         </NavLink>

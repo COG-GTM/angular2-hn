@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './Header.scss';
 
@@ -10,28 +10,28 @@ export function Header() {
     return (
         <header>
             <div id="header">
-                <Link className="home-link" to="/news/1" onClick={scrollTop}>
+                <NavLink className={({ isActive }) => (isActive ? 'home-link active' : 'home-link')} to="/news/1" onClick={scrollTop}>
                     <div className="logo-inner"></div>
                     <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
-                </Link>
+                </NavLink>
                 <div className="header-text">
                     <div className="left">
                         <span className="header-nav">
-                            <Link to="/newest/1" onClick={scrollTop}>
+                            <NavLink className={({ isActive }) => (isActive ? 'active' : undefined)} to="/newest/1" onClick={scrollTop}>
                                 new
-                            </Link>{' '}
+                            </NavLink>{' '}
                             |{' '}
-                            <Link to="/show/1" onClick={scrollTop}>
+                            <NavLink className={({ isActive }) => (isActive ? 'active' : undefined)} to="/show/1" onClick={scrollTop}>
                                 show
-                            </Link>{' '}
+                            </NavLink>{' '}
                             |{' '}
-                            <Link to="/ask/1" onClick={scrollTop}>
+                            <NavLink className={({ isActive }) => (isActive ? 'active' : undefined)} to="/ask/1" onClick={scrollTop}>
                                 ask
-                            </Link>{' '}
+                            </NavLink>{' '}
                             |{' '}
-                            <Link to="/jobs/1" onClick={scrollTop}>
+                            <NavLink className={({ isActive }) => (isActive ? 'active' : undefined)} to="/jobs/1" onClick={scrollTop}>
                                 jobs
-                            </Link>
+                            </NavLink>
                         </span>
                     </div>
                 </div>

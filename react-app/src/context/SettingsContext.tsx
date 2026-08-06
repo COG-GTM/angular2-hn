@@ -20,9 +20,9 @@ function getInitialSettings(): Settings {
     openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
       ? JSON.parse(localStorage.getItem('openLinkInNewTab') as string)
       : false,
-    theme: 'default',
-    titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
-    listSpacing: localStorage.getItem('listSpacing') ?? '0',
+    theme: localStorage.getItem('theme') || (darkColorSchemeMedia.matches ? 'night' : 'default'),
+    titleFontSize: localStorage.getItem('titleFontSize') || '16',
+    listSpacing: localStorage.getItem('listSpacing') || '0',
   };
 }
 
@@ -37,21 +37,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const applySystemPreferredColorScheme = (matches: boolean) => {
-      setTheme(matches ? 'night' : 'default');
-    };
     const handleSystemPreferredColorSchemeChange = (event: MediaQueryListEvent) => {
-      applySystemPreferredColorScheme(event.matches);
+      setTheme(event.matches ? 'night' : 'default');
     };
 
     darkColorSchemeMedia.addEventListener('change', handleSystemPreferredColorSchemeChange);
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setSettings((prev) => ({ ...prev, theme: savedTheme }));
-    } else {
-      applySystemPreferredColorScheme(darkColorSchemeMedia.matches);
-    }
 
     return () => {
       darkColorSchemeMedia.removeEventListener('change', handleSystemPreferredColorSchemeChange);

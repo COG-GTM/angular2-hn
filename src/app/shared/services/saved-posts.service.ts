@@ -13,7 +13,7 @@ export class SavedPostsService {
   private static read(): Story[] {
     try {
       const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      return Array.isArray(stored) ? stored : [];
+      return Array.isArray(stored) ? stored.filter(post => post && typeof post.id === 'number') : [];
     } catch {
       return [];
     }

@@ -16,7 +16,7 @@ export const Item = ({ item }: ItemProps) => {
     const isJob = item.type === 'job';
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
     const linkClass = (staticClass = '') => ({ isActive }: { isActive: boolean }) =>
-        [staticClass, isActive ? 'active' : ''].filter(Boolean).join(' ');
+        [staticClass, isActive ? 'active' : ''].filter(Boolean).join(' ') || undefined;
     const activeClass = linkClass();
 
     return (
@@ -31,7 +31,7 @@ export const Item = ({ item }: ItemProps) => {
                         rel={settings.openLinkInNewTab ? 'noopener' : undefined}
                     >
                         {item.title}
-                    </a>
+                    </a>{' '}
                     {item.domain && <span className="domain">({item.domain})</span>}
                 </p>
             )}

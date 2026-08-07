@@ -1,13 +1,17 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@import "../../styles/media";
+@import "../../styles/theme_variables";
 
-p {
+// Scoped under .item-block to replace Angular's emulated view encapsulation.
+.item-block {
+  display: block;
+
+  p {
     margin: 2px 0;
 
     @media #{$mobile-only} {
       margin-bottom: 5px;
       margin-top: 0;
-   }
+    }
   }
 
   a {
@@ -66,3 +70,4 @@ p {
   .item-details {
     padding: 10px;
   }
+}

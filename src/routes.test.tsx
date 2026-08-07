@@ -9,6 +9,8 @@ import { routes } from './routes';
 
 vi.mock('./api/hackernews', () => ({
     fetchFeed: vi.fn(() => Promise.resolve([])),
+    fetchItemContent: vi.fn(() => new Promise(() => {})),
+    fetchUser: vi.fn(() => new Promise(() => {})),
 }));
 
 const fetchFeedMock = vi.mocked(fetchFeed);

@@ -73,16 +73,16 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app is built with React 18, TypeScript and Vite.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the Vite dev server, or `npm run build` to type-check and update the output directory (`dist/`)
+ - `npm test` to run the Vitest suite, `npm run test:coverage` for coverage
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: the service worker is only generated for production builds. To test service worker changes:
+ - `npm run build`
+ - `npm run preview` to serve `dist/` with the service worker registered
 
 ## Contributors
 

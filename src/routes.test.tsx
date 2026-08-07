@@ -4,7 +4,14 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SettingsProvider } from './context/SettingsContext';
+import { fetchFeed } from './api/hackernews';
 import { routes } from './routes';
+
+vi.mock('./api/hackernews', () => ({
+    fetchFeed: vi.fn(() => Promise.resolve([])),
+}));
+
+const fetchFeedMock = vi.mocked(fetchFeed);
 
 function renderApp(initialEntry: string) {
     const router = createMemoryRouter(routes, { initialEntries: [initialEntry] });
@@ -43,10 +50,12 @@ describe('routing', () => {
         await waitFor(() => expect(router.state.location.pathname).toBe('/news/1'));
     });
 
-    it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed for its path', (feedType) => {
-        const { container } = renderApp(`/${feedType}/1`);
+    it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed for its path', async (feedType) => {
+        fetchFeedMock.mockClear();
 
-        expect(container.querySelector('[data-feed-type]')).toHaveAttribute('data-feed-type', feedType);
+        renderApp(`/${feedType}/3`);
+
+        await waitFor(() => expect(fetchFeedMock).toHaveBeenCalledWith(feedType, 3));
     });
 
     it('renders the lazily loaded item route', async () => {

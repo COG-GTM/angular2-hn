@@ -1,9 +1,23 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        VitePWA({
+            // index.html already links the hand-written /manifest.json.
+            manifest: false,
+            injectRegister: null,
+            devOptions: { enabled: false },
+            includeAssets: ['favicon.ico', 'manifest.json', 'assets/**/*'],
+            workbox: {
+                globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+                navigateFallback: 'index.html',
+            },
+        }),
+    ],
     server: {
         port: 4200,
     },
@@ -27,7 +41,13 @@ export default defineConfig({
         coverage: {
             provider: 'v8',
             include: ['src/**/*.{ts,tsx}'],
-            exclude: ['src/**/*.test.{ts,tsx}', 'src/setupTests.ts', 'src/testUtils.tsx', 'src/main.tsx'],
+            exclude: [
+                'src/**/*.test.{ts,tsx}',
+                'src/setupTests.ts',
+                'src/testUtils.tsx',
+                'src/main.tsx',
+                'src/vite-env.d.ts',
+            ],
         },
     },
 });

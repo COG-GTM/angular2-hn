@@ -69,7 +69,7 @@ describe('routing', () => {
     it('renders the lazily loaded user route', async () => {
         const { container } = renderApp('/user/pg');
 
-        await waitFor(() => expect(container.querySelector('.profile')).toBeInTheDocument());
+        await waitFor(() => expect(container.querySelector('.user-page')).toBeInTheDocument());
     });
 
     it('navigates between feeds through the header links', async () => {

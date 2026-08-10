@@ -18,7 +18,7 @@ const initialSettings: Settings = {
     openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
         ? JSON.parse(localStorage.getItem('openLinkInNewTab'))
         : false,
-    theme: 'default',
+    theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'default',
     titleFontSize: localStorage.getItem('titleFontSize') ? localStorage.getItem('titleFontSize') : '16',
     listSpacing: localStorage.getItem('listSpacing') ? localStorage.getItem('listSpacing') : '0',
 };
@@ -38,10 +38,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
         };
         darkColorSchemeMedia.addEventListener('change', handleSystemPreferredColorSchemeChange);
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setSettings(current => ({ ...current, theme: savedTheme }));
-        } else {
+        if (!localStorage.getItem('theme')) {
             darkColorSchemeMedia.dispatchEvent(
                 new MediaQueryListEvent('change', {
                     media: darkColorSchemeMedia.media,

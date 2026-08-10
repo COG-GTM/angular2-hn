@@ -32,11 +32,11 @@ export default function App() {
                 <Suspense fallback={<Loader />}>
                     <Routes>
                         <Route path="/" element={<Navigate to="/news/1" replace />} />
-                        <Route path="/news/:page" element={<Feed feedType="news" />} />
-                        <Route path="/newest/:page" element={<Feed feedType="newest" />} />
-                        <Route path="/show/:page" element={<Feed feedType="show" />} />
-                        <Route path="/ask/:page" element={<Feed feedType="ask" />} />
-                        <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
+                        <Route path="/news/:page" element={<Feed key="news" feedType="news" />} />
+                        <Route path="/newest/:page" element={<Feed key="newest" feedType="newest" />} />
+                        <Route path="/show/:page" element={<Feed key="show" feedType="show" />} />
+                        <Route path="/ask/:page" element={<Feed key="ask" feedType="ask" />} />
+                        <Route path="/jobs/:page" element={<Feed key="jobs" feedType="jobs" />} />
                         <Route path="/item/:id" element={<ItemDetails />} />
                         <Route path="/user/:id" element={<UserProfile />} />
                     </Routes>

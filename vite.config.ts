@@ -2,13 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
     plugins: [
         react(),
         VitePWA({
             registerType: 'autoUpdate',
             injectRegister: null,
-            disable: process.env.NODE_ENV !== 'production',
+            disable: command !== 'build',
             includeAssets: ['favicon.ico', 'assets/**/*'],
             manifestFilename: 'manifest.webmanifest',
             manifest: {
@@ -38,4 +38,4 @@ export default defineConfig({
     build: {
         outDir: 'dist/react-hnpwa',
     },
-});
+}));

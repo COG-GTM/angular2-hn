@@ -24,7 +24,7 @@ beforeAll(() => {
     });
 });
 
-const story = {
+const story: Story = {
     id: 1,
     title: 'A story',
     url: 'https://example.com/story',
@@ -34,7 +34,15 @@ const story = {
     comments_count: 2,
     time_ago: '1 hour ago',
     type: 'link',
-} as Story;
+    time: 0,
+    content: '',
+    text: '',
+    comments: [],
+    poll: [],
+    poll_votes_count: 0,
+    deleted: false,
+    dead: false,
+};
 
 async function renderItem() {
     const { default: Item } = await import('./item.component');

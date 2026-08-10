@@ -13,13 +13,25 @@ export interface SettingsContextValue {
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
+function preferredTheme(): string {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        return storedTheme;
+    }
+    const prefersDark =
+        typeof window !== 'undefined' &&
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'night' : 'default';
+}
+
 function readStoredSettings(): Settings {
     return {
         showSettings: false,
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
             ? JSON.parse(localStorage.getItem('openLinkInNewTab'))
             : false,
-        theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'default',
+        theme: preferredTheme(),
         titleFontSize: localStorage.getItem('titleFontSize') ? localStorage.getItem('titleFontSize') : '16',
         listSpacing: localStorage.getItem('listSpacing') ? localStorage.getItem('listSpacing') : '0',
     };
@@ -39,15 +51,6 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
             setTheme(event.matches ? 'night' : 'default');
         };
         darkColorSchemeMedia.addEventListener('change', handleSystemPreferredColorSchemeChange);
-
-        if (!localStorage.getItem('theme')) {
-            darkColorSchemeMedia.dispatchEvent(
-                new MediaQueryListEvent('change', {
-                    media: darkColorSchemeMedia.media,
-                    matches: darkColorSchemeMedia.matches,
-                })
-            );
-        }
 
         return () => {
             darkColorSchemeMedia.removeEventListener('change', handleSystemPreferredColorSchemeChange);

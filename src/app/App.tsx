@@ -42,6 +42,7 @@ export default function App() {
                         <Route path="/jobs/:page" element={<Feed key="jobs" feedType="jobs" />} />
                         <Route path="/item/:id" element={<ItemDetails />} />
                         <Route path="/user/:id" element={<UserProfile />} />
+                        <Route path="*" element={<Navigate to="/news/1" replace />} />
                     </Routes>
                 </Suspense>
                 <Footer />

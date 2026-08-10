@@ -17,7 +17,6 @@ export default function Feed({ feedType }: { feedType: string }) {
 
     useEffect(() => {
         let cancelled = false;
-        setItems(undefined);
         setErrorMessage('');
 
         fetchFeed(feedType, pageNum)

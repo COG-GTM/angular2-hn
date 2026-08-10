@@ -1,6 +1,7 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
+.feed-page {
 a {
   text-decoration: none;
   font-weight: bold;
@@ -105,4 +106,6 @@ ol {
   @media #{$mobile-only} {
     padding: 60px 15px 25px 15px;
   }
+}
+
 }

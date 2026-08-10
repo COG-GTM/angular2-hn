@@ -1,66 +1,39 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import fetch from 'unfetch';
-import {map } from 'rxjs/operators';
-
 import { Story } from '../models/story';
 import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
 
-// wrap fetch in observable so we can keep it chill
-@Injectable()
-export class HackerNewsAPIService {
-  baseUrl: string;
+const baseUrl = 'https://node-hnapi.herokuapp.com';
 
-  constructor() {
-    this.baseUrl = 'https://node-hnapi.herokuapp.com';
-  }
+async function getJSON<T>(url: string): Promise<T> {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+    }
+    return response.json() as Promise<T>;
+}
 
-  fetchFeed(feedType: string, page: number): Observable<Story[]> {
-    return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
-  }
+export function fetchFeed(feedType: string, page: number): Promise<Story[]> {
+    return getJSON<Story[]>(`${baseUrl}/${feedType}?page=${page}`);
+}
 
-  fetchItemContent(id: number): Observable<Story> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
-      if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+export function fetchPollContent(id: number): Promise<PollResult> {
+    return getJSON<PollResult>(`${baseUrl}/item/${id}`);
+}
+
+export async function fetchItemContent(id: number): Promise<Story> {
+    const story = await getJSON<Story>(`${baseUrl}/item/${id}`);
+    if (story.type === 'poll') {
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
-          this.fetchPollContent(story.id + i).subscribe(pollResults => {
+            const pollResults = await fetchPollContent(story.id + i);
             story.poll[i - 1] = pollResults;
             story.poll_votes_count += pollResults.points;
-          });
         }
-      }
-      return story;
-    }));
-  }
-
-  fetchPollContent(id: number): Observable<PollResult> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`);
-  }
-
-  fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
-  }
+    }
+    return story;
 }
 
-function lazyFetch<T>(url, options?) {
-  return new Observable<T>(fetchObserver => {
-    let cancelToken = false;
-    fetch(url, options)
-      .then(res => {
-        if (!cancelToken) {
-          return res.json()
-            .then(data => {
-              fetchObserver.next(data);
-              fetchObserver.complete();
-            });
-        }
-      }).catch(err => fetchObserver.error(err));
-    return () => {
-      cancelToken = true;
-    };
-  });
+export function fetchUser(id: string): Promise<User> {
+    return getJSON<User>(`${baseUrl}/user/${id}`);
 }
-

@@ -1,7 +1,8 @@
 @import "../shared/scss/media";
 @import "../shared/scss/theme_variables";
 
-:host >>> pre {
+.user-page {
+& pre {
   white-space: pre-wrap;
 }
 
@@ -86,4 +87,6 @@
 
 .other-details {
   word-wrap: break-word;
+}
+
 }

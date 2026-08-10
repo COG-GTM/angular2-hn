@@ -1,6 +1,7 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
+.item-row {
 p {
     margin: 2px 0;
 
@@ -66,3 +67,5 @@ p {
   .item-details {
     padding: 10px;
   }
+
+}

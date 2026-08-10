@@ -1,6 +1,7 @@
 @import "../shared/scss/media";
 @import "../shared/scss/theme_variables";
 
+.item-details-page {
 .main-content {
   position: relative;
   width: 100%;
@@ -148,4 +149,6 @@ ul {
 
 li {
   display: list-item;
+}
+
 }

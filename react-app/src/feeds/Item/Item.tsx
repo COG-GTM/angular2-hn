@@ -24,7 +24,7 @@ export default function Item({ item }: { item: Story }) {
                     >
                         {item.title}
                     </a>
-                    {item.domain && <span className="domain">({item.domain})</span>}
+                    {item.domain && <span className="domain"> ({item.domain})</span>}
                 </p>
             ) : (
                 <p>

@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
+    <img alt="React HN" title="React HN" src="http://i.imgur.com/J303pQ4.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 <p align="center">
@@ -43,11 +43,11 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox under the hood) to generate a service worker as part of the production build so the app loads quickly and works offline. The service worker is only enabled in production builds.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), React HN includes a Web App Manifest that allows you to install to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -71,18 +71,24 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Tech stack
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+- [React](https://react.dev/) 19 with function components and hooks
+- [TypeScript](https://www.typescriptlang.org/) 5
+- [Vite](https://vite.dev/) for dev server and builds, with SCSS support
+- [React Router](https://reactrouter.com/) for routing and code splitting
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for tests
+- [ESLint](https://eslint.org/) for linting
+- [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) for the service worker and web app manifest
+
+## Build process
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the dev server on [localhost:4200](http://localhost:4200), or `npm run build` to produce a production build in `dist/`
+ - `npm test` to run the unit tests, `npm run lint` to lint
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: the service worker is disabled in development. To test offline behaviour, run `npm run build` followed by `npm run preview`.
 
 ## Contributors
 

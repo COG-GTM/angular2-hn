@@ -8,6 +8,10 @@ description: Migrate an Angular component, service, pipe or feature area of this
 The Angular app under `src/` is the source of truth and stays untouched. The React port lives
 alongside it at `react-app/` so both can run side by side for visual comparison.
 
+`react-app/` is created by the migration's foundation PR. If it is not present on your branch,
+that PR has not landed yet — branch off it (or port the shared foundation first) before
+following the rest of this skill.
+
 ## Target project
 
 `react-app/` — Vite + React 19 + TypeScript, `react-router-dom`, `sass`, Vitest +
@@ -29,7 +33,8 @@ react-app/src/
 ```
 
 Commands (run from `react-app/`): `npm install`, `npm run dev`, `npm run test`,
-`npm run typecheck`, `npm run build`, `npm run lint`. All four must pass before opening a PR.
+`npm run typecheck`, `npm run build`, `npm run lint`. `test`, `typecheck`, `build` and `lint`
+must all pass before opening a PR.
 Known-acceptable lint noise: `react(only-export-components)` warnings from
 `src/shared/services/settingsContext.tsx`.
 
@@ -50,9 +55,9 @@ NODE_OPTIONS=--openssl-legacy-provider npm start   # http://localhost:4200
 | `*ngIf="c"` | `{c && <X/>}` / ternary |
 | `*ngFor="let x of xs"` | `xs.map(x => ...)` with a stable `key` |
 | `[class.foo]="c"` | `className={c ? 'a foo' : 'a'}` |
-| `[ngStyle]="{'font-size': n+'px'}"` | `style={{ fontSize: `${n}px` }}` |
+| `[ngStyle]="{'font-size': n+'px'}"` | ``style={{ fontSize: `${n}px` }}`` |
 | `[attr.target]="c ? '_blank' : null"` | `target={c ? '_blank' : undefined}` (undefined omits it) |
-| `[routerLink]="['/item', id]"` | `<Link to={`/item/${id}`}>` |
+| `[routerLink]="['/item', id]"` | ``<Link to={`/item/${id}`}>`` |
 | route `data` / `params` | `useParams()` (feed type became a URL segment: `/:feedType/:page`) |
 | `@Pipe` + `transform()` | exported function, e.g. `formatCommentCount(n)` |
 | `@Injectable` service with RxJS | plain `async` functions returning promises |
@@ -60,19 +65,25 @@ NODE_OPTIONS=--openssl-legacy-provider npm start   # http://localhost:4200
 | `ngOnInit` + `subscribe` | `useEffect` + `useState`, cleanup via `AbortController` |
 
 Fetch/effect pattern — always abort on cleanup and ignore aborted responses so a stale response
-cannot overwrite newer state, and keep Angular's `complete`-callback side effects (e.g.
-`window.scrollTo(0, 0)`) after the request settles:
+cannot overwrite newer state. Angular's `complete` callback runs on success only, so its side
+effects (e.g. `window.scrollTo(0, 0)`) belong in the success handler, not in a trailing `.then`
+that would also run after an error:
 
 ```tsx
 useEffect(() => {
     const controller = new AbortController();
     setItems(null); setErrorMessage('');
-    fetchFeed(feedType, pageNum, controller.signal)
-        .then(
-            data  => { if (!controller.signal.aborted) setItems(data); },
-            ()    => { if (!controller.signal.aborted) setErrorMessage(`Could not load ${feedType} stories.`); }
-        )
-        .then(() => { if (!controller.signal.aborted) { /* post-settle side effects */ } });
+    fetchFeed(feedType, pageNum, controller.signal).then(
+        data => {
+            if (controller.signal.aborted) return;
+            setItems(data);
+            /* Angular `complete` side effects go here */
+        },
+        () => {
+            if (controller.signal.aborted) return;
+            setErrorMessage(`Could not load ${feedType} stories.`);
+        }
+    );
     return () => controller.abort();
 }, [feedType, pageNum]);
 ```

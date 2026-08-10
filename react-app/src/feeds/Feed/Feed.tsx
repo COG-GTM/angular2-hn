@@ -64,9 +64,7 @@ export default function Feed() {
                         <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
                             {items.map((item) => (
                                 <li key={item.id} className="post">
-                                    <div className="item-block">
-                                        <Item item={item} />
-                                    </div>
+                                    <Item item={item} />
                                 </li>
                             ))}
                         </ol>

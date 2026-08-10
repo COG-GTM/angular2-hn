@@ -2,15 +2,6 @@
 @import "../../shared/scss/theme_variables";
 
 .feed-page {
-a {
-  text-decoration: none;
-  font-weight: bold;
-
-  &:hover {
-    text-decoration: underline;
-  };
-}
-
 ol {
   padding: 0 40px;
   margin: 0;
@@ -71,6 +62,13 @@ ol {
   font-size: 17px;
 
   a {
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
     @media #{$mobile-only} {
       text-decoration: none;
     }

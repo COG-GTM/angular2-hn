@@ -19,6 +19,19 @@
   a {
     display: inline;
   }
+
+  h1 {
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    font-size: 16px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
 }
 
 .home-link {
@@ -48,19 +61,6 @@
   @media #{$mobile-only} {
     width: 45px;
     padding: 0 0 0 10px;
-  }
-}
-
-h1 {
-  font-weight: normal;
-  display: inline-block;
-  vertical-align:middle;
-  margin: 0;
-  font-size: 16px;
-
-  a {
-    color: #fff;
-    text-decoration: none;
   }
 }
 

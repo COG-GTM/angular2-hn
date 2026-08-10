@@ -9,9 +9,9 @@ export function readStoredSettings(): Settings {
     return {
         showSettings: false,
         openLinkInNewTab: storedOpenLinkInNewTab ? (JSON.parse(storedOpenLinkInNewTab) as boolean) : false,
-        theme: localStorage.getItem('theme') ?? 'default',
-        titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
-        listSpacing: localStorage.getItem('listSpacing') ?? '0',
+        theme: localStorage.getItem('theme') || 'default',
+        titleFontSize: localStorage.getItem('titleFontSize') || '16',
+        listSpacing: localStorage.getItem('listSpacing') || '0',
     };
 }
 

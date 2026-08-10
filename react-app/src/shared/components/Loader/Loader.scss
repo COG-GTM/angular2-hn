@@ -1,6 +1,4 @@
-@use "sass:math";
 @use "../../scss/media" as *;
-@use "../../scss/theme_variables" as *;
 
 .loader {
   -webkit-animation: load1 1s infinite ease-in-out;

@@ -41,9 +41,9 @@ export default function Feed({ feedType }: { feedType: string }) {
         <div className="feed-page">
             <div className="main-content">
                 {!feed && !errorMessage && <Loader />}
-                {errorMessage !== '' && <ErrorMessage message={errorMessage} />}
+                {!feed && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
-                {feed && errorMessage === '' && (
+                {feed && (
                     <div>
                         {feedType === 'jobs' && (
                             <p className="job-header">

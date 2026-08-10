@@ -42,7 +42,7 @@ export default function ItemDetails() {
         };
     }, [id]);
 
-    const hasUrl = item ? item.url.indexOf('http') === 0 : false;
+    const hasUrl = item ? (item.url ?? '').indexOf('http') === 0 : false;
     const laptopClasses = ['laptop'];
     if (item && (item.comments_count > 0 || item.type === 'job')) {
         laptopClasses.push('item-header');

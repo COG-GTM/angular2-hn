@@ -7,7 +7,7 @@ import './item.component.scss';
 
 export default function Item({ item }: { item: Story }) {
     const { settings } = useSettings();
-    const hasUrl = item.url.indexOf('http') === 0;
+    const hasUrl = (item.url ?? '').indexOf('http') === 0;
     const titleStyle = { fontSize: settings.titleFontSize + 'px' };
 
     return (

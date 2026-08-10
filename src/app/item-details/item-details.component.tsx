@@ -119,7 +119,7 @@ export default function ItemDetails() {
                         </div>
                         {item.type === 'poll' && (
                             <div className="pollResults">
-                                {item.poll.map((pollResult, index) => (
+                                {(item.poll ?? []).map((pollResult, index) => (
                                     <div key={index} className="pollContent">
                                         <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
                                         <div className="subtext">{pollResult.points} points</div>
@@ -135,7 +135,7 @@ export default function ItemDetails() {
                         )}
                         <p className="subject" dangerouslySetInnerHTML={{ __html: item.content }}></p>
                         <ul className="comment-list">
-                            {item.comments.map(comment => (
+                            {(item.comments ?? []).map(comment => (
                                 <li key={comment.id}>
                                     <CommentItem comment={comment} />
                                 </li>

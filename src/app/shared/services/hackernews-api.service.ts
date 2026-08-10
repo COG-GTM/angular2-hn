@@ -22,14 +22,19 @@ export function fetchPollContent(id: number): Promise<PollResult> {
 
 export async function fetchItemContent(id: number): Promise<Story> {
     const story = await getJSON<Story>(`${baseUrl}/item/${id}`);
-    if (story.type === 'poll') {
+    if (story.type === 'poll' && story.poll) {
         const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
-        for (let i = 1; i <= numberOfPollOptions; i++) {
-            const pollResults = await fetchPollContent(story.id + i);
-            story.poll[i - 1] = pollResults;
-            story.poll_votes_count += pollResults.points;
-        }
+        const optionIndexes = Array.from({ length: numberOfPollOptions }, (_, index) => index + 1);
+        const pollResults = await Promise.all(
+            optionIndexes.map(i => fetchPollContent(story.id + i).catch(() => undefined))
+        );
+        pollResults.forEach((pollResult, index) => {
+            if (pollResult) {
+                story.poll[index] = pollResult;
+                story.poll_votes_count += pollResult.points;
+            }
+        });
     }
     return story;
 }

@@ -30,7 +30,7 @@ export default function CommentItem({ comment }: { comment: Comment }) {
                 <div hidden={collapse}>
                     <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
                     <ul className="subtree">
-                        {comment.comments.map(subComment => (
+                        {(comment.comments ?? []).map(subComment => (
                             <li key={subComment.id}>
                                 <CommentItem comment={subComment} />
                             </li>

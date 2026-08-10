@@ -44,3 +44,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# React app (pre-cutover)
+react-app/node_modules
+react-app/dist
+react-app/dev-dist

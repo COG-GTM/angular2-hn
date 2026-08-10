@@ -11,9 +11,8 @@ import './feed.component.scss';
 export default function Feed({ feedType }: { feedType: string }) {
     const { page } = useParams<{ page: string }>();
     const pageNum = page ? +page : 1;
-    const [items, setItems] = useState<Story[] | undefined>(undefined);
+    const [feed, setFeed] = useState<{ items: Story[]; listStart: number } | undefined>(undefined);
     const [errorMessage, setErrorMessage] = useState('');
-    const listStart = (pageNum - 1) * 30 + 1;
 
     useEffect(() => {
         let cancelled = false;
@@ -24,7 +23,7 @@ export default function Feed({ feedType }: { feedType: string }) {
                 if (cancelled) {
                     return;
                 }
-                setItems(stories);
+                setFeed({ items: stories, listStart: (pageNum - 1) * 30 + 1 });
                 window.scrollTo(0, 0);
             })
             .catch(() => {
@@ -41,10 +40,10 @@ export default function Feed({ feedType }: { feedType: string }) {
     return (
         <div className="feed-page">
             <div className="main-content">
-                {!items && !errorMessage && <Loader />}
-                {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
+                {!feed && !errorMessage && <Loader />}
+                {errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 
-                {items && (
+                {feed && errorMessage === '' && (
                     <div>
                         {feedType === 'jobs' && (
                             <p className="job-header">
@@ -52,20 +51,20 @@ export default function Feed({ feedType }: { feedType: string }) {
                                 YC startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
                             </p>
                         )}
-                        <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
-                            {items.map(item => (
+                        <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={feed.listStart}>
+                            {feed.items.map(item => (
                                 <li key={item.id} className="post">
                                     <Item item={item} />
                                 </li>
                             ))}
                         </ol>
                         <div className="nav">
-                            {listStart !== 1 && (
+                            {feed.listStart !== 1 && (
                                 <Link to={`/${feedType}/${pageNum - 1}`} className="prev">
                                     ‹ Prev
                                 </Link>
                             )}
-                            {items.length === 30 && (
+                            {feed.items.length === 30 && (
                                 <Link to={`/${feedType}/${pageNum + 1}`} className="more">
                                     More ›
                                 </Link>

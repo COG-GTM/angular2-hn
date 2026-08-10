@@ -21,28 +21,22 @@ export default function Feed() {
         setItems(null);
         setErrorMessage('');
 
-        fetchFeed(feedType, pageNum, controller.signal)
-            .then(
-                (feedItems) => {
-                    if (controller.signal.aborted) {
-                        return;
-                    }
-                    setItems(feedItems);
-                },
-                () => {
-                    if (controller.signal.aborted) {
-                        return;
-                    }
-                    setErrorMessage(`Could not load ${feedType} stories.`);
-                }
-            )
-            .then(() => {
+        fetchFeed(feedType, pageNum, controller.signal).then(
+            (feedItems) => {
                 if (controller.signal.aborted) {
                     return;
                 }
+                setItems(feedItems);
                 setListStart(((pageNum - 1) * 30) + 1);
                 window.scrollTo(0, 0);
-            });
+            },
+            () => {
+                if (controller.signal.aborted) {
+                    return;
+                }
+                setErrorMessage(`Could not load ${feedType} stories.`);
+            }
+        );
 
         return () => controller.abort();
     }, [feedType, pageNum]);

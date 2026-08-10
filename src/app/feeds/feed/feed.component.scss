@@ -101,6 +101,15 @@ ol {
   font-size: 15px;
   padding: 0 40px 10px;
 
+  a {
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   @media #{$mobile-only} {
     padding: 60px 15px 25px 15px;
   }

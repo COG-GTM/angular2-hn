@@ -19,7 +19,7 @@ export default function Item({ item }: { item: Story }) {
                         style={titleStyle}
                         href={item.url}
                         target={settings.openLinkInNewTab ? '_blank' : undefined}
-                        rel={settings.openLinkInNewTab ? 'noopener' : undefined}
+                        rel={settings.openLinkInNewTab ? 'noopener noreferrer' : undefined}
                     >
                         {item.title}
                     </a>

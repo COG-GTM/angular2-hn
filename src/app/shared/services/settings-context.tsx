@@ -13,18 +13,20 @@ export interface SettingsContextValue {
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
-const initialSettings: Settings = {
-    showSettings: false,
-    openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
-        ? JSON.parse(localStorage.getItem('openLinkInNewTab'))
-        : false,
-    theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'default',
-    titleFontSize: localStorage.getItem('titleFontSize') ? localStorage.getItem('titleFontSize') : '16',
-    listSpacing: localStorage.getItem('listSpacing') ? localStorage.getItem('listSpacing') : '0',
-};
+function readStoredSettings(): Settings {
+    return {
+        showSettings: false,
+        openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
+            ? JSON.parse(localStorage.getItem('openLinkInNewTab'))
+            : false,
+        theme: localStorage.getItem('theme') ? localStorage.getItem('theme') : 'default',
+        titleFontSize: localStorage.getItem('titleFontSize') ? localStorage.getItem('titleFontSize') : '16',
+        listSpacing: localStorage.getItem('listSpacing') ? localStorage.getItem('listSpacing') : '0',
+    };
+}
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
-    const [settings, setSettings] = useState<Settings>(initialSettings);
+    const [settings, setSettings] = useState<Settings>(readStoredSettings);
 
     const setTheme = useCallback((theme: string) => {
         localStorage.setItem('theme', theme);

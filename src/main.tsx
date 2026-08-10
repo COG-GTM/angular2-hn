@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { registerSW } from 'virtual:pwa-register';
 
+import './styles.scss';
 import App from './app/App';
 import { SettingsProvider } from './app/shared/services/settings-context';
-import './styles.scss';
 
 if (import.meta.env.PROD) {
     registerSW({ immediate: true });

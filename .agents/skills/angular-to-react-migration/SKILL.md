@@ -58,7 +58,7 @@ NODE_OPTIONS=--openssl-legacy-provider npm start   # http://localhost:4200
 | `[ngStyle]="{'font-size': n+'px'}"` | ``style={{ fontSize: `${n}px` }}`` |
 | `[attr.target]="c ? '_blank' : null"` | `target={c ? '_blank' : undefined}` (undefined omits it) |
 | `[routerLink]="['/item', id]"` | ``<Link to={`/item/${id}`}>`` |
-| route `data` / `params` | `useParams()` (feed type became a URL segment: `/:feedType/:page`) |
+| route `data` / `params` | `useParams()` — one `/:feedType/:page` route replaces the five per-feed Angular routes; the URLs are unchanged |
 | `@Pipe` + `transform()` | exported function, e.g. `formatCommentCount(n)` |
 | `@Injectable` service with RxJS | plain `async` functions returning promises |
 | injectable holding UI state (`SettingsService`) | React context + hook (`useSettings()`), immutable state |

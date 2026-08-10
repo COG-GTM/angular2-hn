@@ -43,7 +43,7 @@ export default function Item({ item }: { item: Story }) {
                     </div>
                 )}
                 <div className="details">
-                    {item.time_ago}
+                    {item.time_ago}{' '}
                     {!isJob && (
                         <Link to={`/item/${item.id}`} className="comment-number">
                             {' • '}
@@ -57,9 +57,9 @@ export default function Item({ item }: { item: Story }) {
                     <span>
                         {item.points} points by <Link to={`/user/${item.user}`}>{item.user}</Link>
                     </span>
-                )}
+                )}{' '}
                 <span className={isJob ? undefined : 'item-details'}>
-                    {item.time_ago}
+                    {item.time_ago}{' '}
                     {!isJob && (
                         <span>
                             {' | '}

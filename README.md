@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 <p align="center">
@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) (Workbox) to generate a service worker as part of the production build step to load quickly and work offline.
 
 ## Manifest
 
@@ -71,18 +71,25 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Stack
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+ - [React](https://react.dev/) with TypeScript
+ - [React Router](https://reactrouter.com/) for routing (`ItemDetails` and `User` are lazy loaded)
+ - [Vite](https://vitejs.dev/) for the dev server and production build
+ - [Sass](https://sass-lang.com/) for the theme engine
+ - [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/) for tests
+
+## Build process
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the application with the Vite dev server (http://localhost:5173)
+ - `npm run build` to type check and produce a production build in `dist/`
+ - `npm run lint` and `npm test` to lint and run the test suite
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: the service worker is only generated for production builds. To test service worker changes:
+ - `npm run build`
+ - `npm run preview` to serve `dist/` along with the generated service worker
 
 ## Contributors
 

@@ -1,5 +1,6 @@
-@import "./media";
-@import "./theme_variables";
+@use "sass:math";
+@use "./media" as *;
+@use "./theme_variables" as *;
 
 /* ----------------------------------
 
@@ -142,10 +143,10 @@
               }
 
               &:before {
-                border-top: $skull-size / 8 solid $wrapper-background-color;
+                border-top: math.div($skull-size, 8) solid $wrapper-background-color;
 
                 @media #{$mobile-only} {
-                  border-top: $skull-size / 8 solid $wrapper-mobile-background-color;
+                  border-top: math.div($skull-size, 8) solid $wrapper-mobile-background-color;
                 }
               }
             }

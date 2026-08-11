@@ -14,6 +14,7 @@ export default function Feed({ feedType }: { feedType: string }) {
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
     const listStart = (pageNum - 1) * 30 + 1;
+    const feedItems = Array.isArray(items) ? items : [];
 
     useEffect(() => {
         const controller = new AbortController();
@@ -48,7 +49,7 @@ export default function Feed({ feedType }: { feedType: string }) {
                         </p>
                     )}
                     <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
-                        {items.map((item) => (
+                        {feedItems.map((item) => (
                             <li key={item.id} className="post">
                                 <Item item={item} />
                             </li>
@@ -60,7 +61,7 @@ export default function Feed({ feedType }: { feedType: string }) {
                                 ‹ Prev
                             </Link>
                         )}
-                        {items.length === 30 && (
+                        {feedItems.length === 30 && (
                             <Link to={`/${feedType}/${pageNum + 1}`} className="more">
                                 More ›
                             </Link>

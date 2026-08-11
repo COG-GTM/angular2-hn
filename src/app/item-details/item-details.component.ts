@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
 
-import { Story } from '../shared/models/story';
-import { Settings } from '../shared/models/settings';
+import { Story } from '../../models/story';
+import { Settings } from '../../models/settings';
 
 @Component({
   selector: 'app-item-details',

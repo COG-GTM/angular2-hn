@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { SettingsService } from './shared/services/settings.service';
-import { Settings } from './shared/models/settings';
+import { Settings } from '../models/settings';
 
 declare let ga: Function;
 

@@ -8,6 +8,7 @@ import { fetchItemContent } from '../../api/hackerNewsApi';
 import { useSettings } from '../../context/SettingsContext';
 import type { Story } from '../../models/story';
 import { formatComment } from '../../utils/formatComment';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './ItemDetails.scss';
 
 export default function ItemDetails() {
@@ -40,6 +41,8 @@ export default function ItemDetails() {
     const hasUrl = item ? (item.url ?? '').indexOf('http') === 0 : false;
     const linkTarget = settings.openLinkInNewTab ? '_blank' : undefined;
     const linkRel = settings.openLinkInNewTab ? 'noopener' : undefined;
+    const pollResults = item?.poll ?? [];
+    const comments = item?.comments ?? [];
 
     return (
         <div className="item-details main-content">
@@ -104,9 +107,9 @@ export default function ItemDetails() {
                     </div>
                     {item.type === 'poll' && (
                         <div className="pollResults">
-                            {item.poll.map((pollResult, index) => (
+                            {pollResults.map((pollResult, index) => (
                                 <div className="pollContent" key={index}>
-                                    <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
@@ -116,9 +119,9 @@ export default function ItemDetails() {
                             ))}
                         </div>
                     )}
-                    <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                    <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }}></p>
                     <ul className="comment-list">
-                        {item.comments.map((comment) => (
+                        {comments.map((comment) => (
                             <li key={comment.id}>
                                 <Comment comment={comment} />
                             </li>

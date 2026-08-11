@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import type { Comment as CommentModel } from '../../models/comment';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './Comment.scss';
 
 export default function Comment({ comment }: { comment: CommentModel }) {
     const [collapse, setCollapse] = useState(false);
+    const subComments = comment.comments ?? [];
 
     if (comment.deleted) {
         return (
@@ -28,9 +30,9 @@ export default function Comment({ comment }: { comment: CommentModel }) {
             </div>
             <div className="comment-tree">
                 <div hidden={collapse}>
-                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
                     <ul className="subtree">
-                        {comment.comments.map((subComment) => (
+                        {subComments.map((subComment) => (
                             <li key={subComment.id}>
                                 <Comment comment={subComment} />
                             </li>

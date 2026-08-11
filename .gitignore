@@ -44,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# vite
+/dev-dist
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts

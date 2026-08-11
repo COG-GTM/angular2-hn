@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Feed from './components/Feed/Feed';
+import Item from './components/Item/Item';
+import ItemDetails from './components/ItemDetails/ItemDetails';
 import { useSettings } from './context/SettingsContext';
 import { trackPageView } from './utils/analytics';
 import './App.scss';
@@ -21,7 +23,7 @@ export default function App() {
         <Route path="/show/:page" element={<Feed feedType="show" />} />
         <Route path="/ask/:page" element={<Feed feedType="ask" />} />
         <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
-        <Route path="/item/:id" element={<Placeholder />} />
+        <Route path="/item/:id" element={<ItemDetails />} />
         <Route path="/user/:id" element={<Placeholder />} />
     </Routes><Footer /></div></div>;
 }

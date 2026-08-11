@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
-import { User } from '../shared/models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user',

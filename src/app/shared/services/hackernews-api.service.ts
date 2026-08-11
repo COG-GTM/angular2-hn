@@ -3,9 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
 
-import { Story } from '../models/story';
-import { User } from '../models/user';
-import { PollResult } from '../models/poll-result';
+import { Story } from '../../../models/story';
+import { User } from '../../../models/user';
+import { PollResult } from '../../../models/poll-result';
 
 // wrap fetch in observable so we can keep it chill
 @Injectable()

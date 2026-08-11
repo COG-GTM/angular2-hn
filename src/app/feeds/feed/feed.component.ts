@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
-import { Story } from '../../shared/models/story';
+import { Story } from '../../../models/story';
 
 @Component({
   selector: 'app-feed',

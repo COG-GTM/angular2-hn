@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Feed from './components/Feed/Feed';
-import Item from './components/Item/Item';
 import ItemDetails from './components/ItemDetails/ItemDetails';
 import { useSettings } from './context/SettingsContext';
 import { trackPageView } from './utils/analytics';

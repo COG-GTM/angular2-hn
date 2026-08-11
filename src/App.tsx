@@ -15,12 +15,16 @@ const feedTypes = ['news', 'newest', 'show', 'ask', 'jobs'];
 
 declare const ga: ((...args: unknown[]) => void) | undefined;
 
+// Routes that render content; every other path redirects, and the intermediate
+// URL should not be reported as a pageview.
+const trackedPath = new RegExp(`^/(?:${feedTypes.join('|')}|item|user)/[^/]+$`);
+
 export default function App() {
     const { settings } = useSettings();
     const location = useLocation();
 
     useEffect(() => {
-        if (typeof ga !== 'undefined') {
+        if (typeof ga !== 'undefined' && trackedPath.test(location.pathname)) {
             ga('set', 'page', location.pathname + location.search);
             ga('send', 'pageview');
         }

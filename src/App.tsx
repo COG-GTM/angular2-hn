@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -13,8 +13,18 @@ const User = lazy(() => import('./pages/User'));
 
 const feedTypes = ['news', 'newest', 'show', 'ask', 'jobs'];
 
+declare const ga: ((...args: unknown[]) => void) | undefined;
+
 export default function App() {
     const { settings } = useSettings();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (typeof ga !== 'undefined') {
+            ga('set', 'page', location.pathname + location.search);
+            ga('send', 'pageview');
+        }
+    }, [location]);
 
     return (
         <div className={settings.theme}>

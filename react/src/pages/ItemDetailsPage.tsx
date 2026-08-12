@@ -14,7 +14,9 @@ export default function ItemDetailsPage() {
     const itemId = Number(id);
     const navigate = useNavigate();
     const { settings } = useSettings();
-    const { data: item, isError } = useItem(itemId);
+    const { data, isError } = useItem(itemId);
+    // The API answers 200 with an `{ error }` body for unknown ids.
+    const item = data?.id ? data : undefined;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -23,7 +25,7 @@ export default function ItemDetailsPage() {
     if (!item) {
         return (
             <div className="main-content">
-                {isError ? (
+                {isError || data ? (
                     <div className="error-section">
                         <div className="skull">
                             <div className="head">

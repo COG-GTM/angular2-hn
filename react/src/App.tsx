@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import { SettingsProvider } from './context/SettingsContext';
 import FeedPage from './pages/FeedPage';
-import ItemPage from './pages/ItemPage';
+import ItemDetailsPage from './pages/ItemDetailsPage';
 import UserPage from './pages/UserPage';
 
 const queryClient = new QueryClient();
@@ -18,7 +18,7 @@ export default function App() {
                         <Route element={<Layout />}>
                             <Route path="/" element={<Navigate to="/news/1" replace />} />
                             <Route path="/:feedType/:page" element={<FeedPage />} />
-                            <Route path="/item/:id" element={<ItemPage />} />
+                            <Route path="/item/:id" element={<ItemDetailsPage />} />
                             <Route path="/user/:id" element={<UserPage />} />
                             <Route path="*" element={<Navigate to="/news/1" replace />} />
                         </Route>

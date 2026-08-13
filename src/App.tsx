@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
-import Feed from './components/Feed';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { useSettings } from './context/SettingsContext';
+import Feed from './features/feeds/Feed';
 
 const ItemDetails = lazy(() => import('./components/ItemDetails'));
 const UserDetails = lazy(() => import('./components/UserDetails'));

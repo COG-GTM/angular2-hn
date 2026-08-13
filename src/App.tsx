@@ -7,7 +7,7 @@ import Header from './components/Header';
 import { useSettings } from './context/SettingsContext';
 
 const ItemDetails = lazy(() => import('./components/ItemDetails'));
-const UserDetails = lazy(() => import('./components/UserDetails'));
+const User = lazy(() => import('./features/user/User'));
 
 declare global {
     interface Window {
@@ -48,7 +48,7 @@ export default function App() {
                         <Route path="/jobs" element={<Navigate to="/jobs/1" replace />} />
                         <Route path="/jobs/:page" element={<Feed feedType="jobs" />} />
                         <Route path="/item/:id" element={<ItemDetails />} />
-                        <Route path="/user/:id" element={<UserDetails />} />
+                        <Route path="/user/:id" element={<User />} />
                     </Routes>
                 </Suspense>
                 <Footer />

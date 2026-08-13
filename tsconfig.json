@@ -17,5 +17,15 @@
         "noFallthroughCasesInSwitch": true,
         "types": ["vite/client", "vite-plugin-pwa/client", "vitest/globals"]
     },
-    "include": ["src/api", "src/components", "src/context", "src/models", "src/App.tsx", "src/main.tsx", "vite.config.ts"]
+    "include": [
+        "src/api",
+        "src/components",
+        "src/context",
+        "src/core",
+        "src/models",
+        "src/App.tsx",
+        "src/main.tsx",
+        "src/test-setup.ts",
+        "vite.config.ts"
+    ]
 }

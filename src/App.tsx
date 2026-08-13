@@ -2,8 +2,9 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import Feed from './components/Feed';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Loader from './components/Loader';
+import Footer from './core/Footer';
+import Header from './core/Header';
 import { useSettings } from './context/SettingsContext';
 
 const ItemDetails = lazy(() => import('./components/ItemDetails'));
@@ -34,7 +35,7 @@ export default function App() {
             <div className="body-cover" />
             <div className="wrapper">
                 <Header />
-                <Suspense fallback={<div className="loading">Loading...</div>}>
+                <Suspense fallback={<Loader />}>
                     <Routes>
                         <Route path="/" element={<Navigate to="/news/1" replace />} />
                         <Route path="/news" element={<Navigate to="/news/1" replace />} />

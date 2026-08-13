@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { useSettings } from './context/SettingsContext';
 
-const ItemDetails = lazy(() => import('./components/ItemDetails'));
+const ItemDetails = lazy(() => import('./features/item-details/ItemDetails'));
 const UserDetails = lazy(() => import('./components/UserDetails'));
 
 declare global {

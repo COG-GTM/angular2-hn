@@ -39,7 +39,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
             setTheme(event.matches ? 'night' : 'default');
         };
 
-        // Only follow the system preference while the user has not picked a theme.
         if (!localStorage.getItem('theme')) {
             handleChange(darkColorSchemeMedia);
         }

@@ -12,7 +12,7 @@ export default defineConfig({
             includeAssets: ['favicon.ico', 'manifest.json', 'assets/**/*'],
             workbox: {
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,json,webmanifest}'],
-                navigateFallback: 'index.html',
+                navigateFallback: '/index.html',
                 runtimeCaching: [
                     {
                         urlPattern: /^https:\/\/node-hnapi\.herokuapp\.com\/.*$/,

@@ -20,12 +20,19 @@ export function fetchPollContent(id: number, init?: RequestInit): Promise<PollRe
 
 export async function fetchItemContent(id: number, init?: RequestInit): Promise<Story> {
   const story = await getJson<Story>(`/item/${id}`, init);
-  if (story.type === 'poll' && story.poll) {
-    const results = await Promise.all(
-      story.poll.map((_, index) => fetchPollContent(story.id + index + 1, init))
+  if (story.type === 'poll') {
+    const options = story.poll ?? [];
+    const settled = await Promise.allSettled(
+      options.map((_, index) => fetchPollContent(story.id + index + 1, init))
     );
-    story.poll = results;
-    story.poll_votes_count = results.reduce((total, result) => total + result.points, 0);
+    story.poll = options.map((option, index) => {
+      const result = settled[index];
+      return result.status === 'fulfilled' ? result.value : option;
+    });
+    story.poll_votes_count = settled.reduce(
+      (total, result) => (result.status === 'fulfilled' ? total + result.value.points : total),
+      0
+    );
   }
   return story;
 }

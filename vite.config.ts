@@ -9,7 +9,6 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             injectRegister: null,
-            includeAssets: ['favicon.ico', 'assets/icons/**/*', 'assets/images/**/*'],
             manifest: {
                 name: 'Angular 2 HN',
                 short_name: 'Angular 2 HN',
@@ -25,7 +24,9 @@ export default defineConfig({
                 start_url: './?utm_source=web_app_manifest',
             },
             workbox: {
+                inlineWorkboxRuntime: true,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+                globIgnores: ['**/assets/icons/android-chrome-*.png'],
                 navigateFallback: '/index.html',
                 runtimeCaching: [
                     {

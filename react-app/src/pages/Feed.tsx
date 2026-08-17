@@ -1,12 +1,75 @@
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import type { Story } from '../models';
+import { fetchFeed } from '../services/hackernewsApi';
+import { Loader } from '../components/Loader';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { Item } from '../components/Item';
 
 export function Feed({ feedType }: { feedType: string }) {
     const { page } = useParams();
+    const pageNum = page ? +page : 1;
+    const [items, setItems] = useState<Story[] | null>(null);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const controller = new AbortController();
+        setItems(null);
+        setErrorMessage('');
+
+        fetchFeed(feedType, pageNum, controller.signal)
+            .then((stories) => {
+                setItems(stories);
+                window.scrollTo(0, 0);
+            })
+            .catch((error: unknown) => {
+                if (error instanceof DOMException && error.name === 'AbortError') {
+                    return;
+                }
+                setErrorMessage(`Could not load ${feedType} stories.`);
+            });
+
+        return () => controller.abort();
+    }, [feedType, pageNum]);
+
+    const listStart = (pageNum - 1) * 30 + 1;
+
     return (
         <div className="main-content">
-            <p>
-                {feedType} feed, page {page ?? '1'}
-            </p>
+            {!items && !errorMessage && <Loader />}
+            {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
+
+            {items && (
+                <div>
+                    {feedType === 'jobs' && (
+                        <p className="job-header">
+                            These are jobs at startups that were funded by Y Combinator. You can also get a job at a YC
+                            startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
+                        </p>
+                    )}
+                    <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
+                        {items.map((item) => (
+                            <li key={item.id} className="post">
+                                <div className="item-block">
+                                    <Item item={item} />
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
+                    <div className="nav">
+                        {listStart !== 1 && (
+                            <Link to={`/${feedType}/${pageNum - 1}`} className="prev">
+                                ‹ Prev
+                            </Link>
+                        )}
+                        {items.length === 30 && (
+                            <Link to={`/${feedType}/${pageNum + 1}`} className="more">
+                                More ›
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

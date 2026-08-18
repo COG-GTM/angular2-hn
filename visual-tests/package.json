@@ -1,0 +1,22 @@
+{
+  "name": "visual-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright + pixelmatch visual regression harness comparing the Angular app with the React port",
+  "scripts": {
+    "capture:source": "tsx capture-source.ts",
+    "capture:react": "tsx capture-react.ts",
+    "capture:both": "tsx capture-both.ts",
+    "compare": "tsx compare.ts"
+  },
+  "dependencies": {
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.62.1",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.23.12"
+  }
+}

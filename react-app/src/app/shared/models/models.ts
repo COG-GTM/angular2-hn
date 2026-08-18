@@ -1,0 +1,53 @@
+export type FeedType = 'poll' | 'story' | 'job' | 'link' | 'ask';
+
+export interface Comment {
+    id: number;
+    level: number;
+    user: string;
+    time: number;
+    time_ago: string;
+    content: string;
+    deleted?: boolean;
+    comments: Comment[];
+}
+
+export interface PollResult {
+    points: number;
+    content: string;
+}
+
+export interface Story {
+    id: number;
+    title: string;
+    points: number;
+    user: string;
+    time: number;
+    time_ago: string;
+    type: FeedType;
+    url: string;
+    domain?: string;
+    content?: string;
+    text?: string;
+    comments?: Comment[];
+    comments_count: number;
+    poll?: PollResult[];
+    poll_votes_count?: number;
+    deleted?: boolean;
+    dead?: boolean;
+}
+
+export interface User {
+    id: string;
+    created: string;
+    karma: number;
+    avg?: number | null;
+    about?: string;
+}
+
+export interface Settings {
+    showSettings: boolean;
+    openLinkInNewTab: boolean;
+    theme: string;
+    titleFontSize: string;
+    listSpacing: string;
+}

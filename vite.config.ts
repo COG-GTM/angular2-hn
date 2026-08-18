@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'assets/icons/*', 'assets/images/*'],
+            includeAssets: ['assets/icons/browserconfig.xml'],
             manifest: {
                 name: 'Angular 2 HN',
                 short_name: 'Angular 2 HN',
@@ -26,6 +26,9 @@ export default defineConfig({
             },
             workbox: {
                 globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+                // the manifest icons are injected separately, globbing them too would
+                // create conflicting precache entries and break the install step
+                globIgnores: ['**/android-chrome-*.png'],
                 navigateFallback: 'index.html',
                 runtimeCaching: [
                     {

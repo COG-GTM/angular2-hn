@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import { App } from './App';
 import { Feed } from './pages/Feed';
@@ -11,11 +11,11 @@ export const routes: RouteObject[] = [
         path: '/',
         element: <App />,
         children: [
-            { index: true, element: <Navigate to="/news/1" replace /> },
+            { index: true, loader: () => redirect('/news/1') },
             ...FEED_NAMES.map((feedType) => ({
                 path: feedType,
                 children: [
-                    { index: true, element: <Navigate to={`/${feedType}/1`} replace /> },
+                    { index: true, loader: () => redirect(`/${feedType}/1`) },
                     { path: ':page', element: <Feed feedType={feedType} /> },
                 ],
             })),

@@ -6,12 +6,29 @@ import type { SettingsContextValue } from './settingsContext';
 
 const DARK_COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
+function systemTheme(): string {
+    return typeof window.matchMedia === 'function' && window.matchMedia(DARK_COLOR_SCHEME_QUERY).matches
+        ? 'night'
+        : 'default';
+}
+
+function storedOpenLinkInNewTab(): boolean {
+    const stored = localStorage.getItem('openLinkInNewTab');
+    if (!stored) {
+        return false;
+    }
+    try {
+        return JSON.parse(stored) === true;
+    } catch {
+        return false;
+    }
+}
+
 export function initialSettings(): Settings {
-    const storedOpenLinkInNewTab = localStorage.getItem('openLinkInNewTab');
     return {
         showSettings: false,
-        openLinkInNewTab: storedOpenLinkInNewTab ? JSON.parse(storedOpenLinkInNewTab) : false,
-        theme: 'default',
+        openLinkInNewTab: storedOpenLinkInNewTab(),
+        theme: localStorage.getItem('theme') ?? systemTheme(),
         titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
         listSpacing: localStorage.getItem('listSpacing') ?? '0',
     };

@@ -21,7 +21,7 @@ export function Comment({ comment }: { comment: CommentModel }): JSX.Element {
                         <div hidden={collapse}>
                             <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
                             <ul className="subtree">
-                                {comment.comments.map((subComment) => (
+                                {(comment.comments ?? []).map((subComment) => (
                                     <li key={subComment.id}>
                                         <Comment comment={subComment} />
                                     </li>

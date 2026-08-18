@@ -5,7 +5,8 @@ import { PNG } from 'pngjs';
 import { screenshotDir } from './capture';
 import { VIEWPORTS, VIEWS } from './matrix';
 
-const THRESHOLD_PCT = Number(process.env.MISMATCH_THRESHOLD ?? '2');
+const configuredThreshold = Number(process.env.MISMATCH_THRESHOLD);
+const THRESHOLD_PCT = Number.isFinite(configuredThreshold) && configuredThreshold > 0 ? configuredThreshold : 2;
 const diffDir = path.join(__dirname, 'screenshots', 'diff');
 
 interface Result {

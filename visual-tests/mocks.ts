@@ -17,7 +17,8 @@ function fixtureFor(url: URL): string | null {
     const segments = url.pathname.split('/').filter(Boolean);
     if (segments.length === 1 && ['news', 'newest', 'show', 'ask', 'jobs'].includes(segments[0])) {
         const page = url.searchParams.get('page') || '1';
-        return `${segments[0]}-${page}`;
+        const name = `${segments[0]}-${page}`;
+        return fs.existsSync(path.join(FIXTURES, `${name}.json`)) ? name : null;
     }
     if (segments[0] === 'item') {
         if (segments[1] === String(ASK_ID)) {

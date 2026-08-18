@@ -31,7 +31,7 @@ export function ItemDetails(): JSX.Element {
         return () => controller.abort();
     }, [id]);
 
-    const hasUrl = item ? item.url.indexOf('http') === 0 : false;
+    const hasUrl = item ? (item.url ?? '').indexOf('http') === 0 : false;
     const linkTarget = settings.openLinkInNewTab ? '_blank' : undefined;
     const linkRel = settings.openLinkInNewTab ? 'noopener' : undefined;
     const laptopClasses = item

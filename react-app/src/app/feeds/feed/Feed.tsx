@@ -9,7 +9,8 @@ import './feed.scss';
 
 export function Feed({ feedType }: { feedType: string }): JSX.Element {
     const { page } = useParams<{ page: string }>();
-    const pageNum = page ? Number(page) : 1;
+    const parsedPage = Number(page);
+    const pageNum = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
     const listStart = (pageNum - 1) * 30 + 1;

@@ -22,6 +22,10 @@ function fetchPollContent(id: number, signal?: AbortSignal): Promise<PollResult>
 /** Polls expose each option as its own item, mirroring the Angular service's fan-out. */
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await request<Story>(`${BASE_URL}/item/${id}`, signal);
+    if (typeof story !== 'object' || story === null || typeof story.id !== 'number') {
+        /* Unknown ids come back as HTTP 200 with an `{ error }` payload. */
+        throw new Error(`Item ${id} not found`);
+    }
     if (story.type === 'poll' && story.poll) {
         try {
             const options = await Promise.all(
@@ -29,9 +33,12 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
             );
             story.poll = options;
             story.poll_votes_count = options.reduce((total, option) => total + option.points, 0);
-        } catch {
+        } catch (error: unknown) {
             /* Angular fetched poll options fire-and-forget: a failure leaves the bars empty
-               rather than failing the whole item page. */
+               rather than failing the whole item page. Cancellation must still propagate. */
+            if (signal?.aborted) {
+                throw error;
+            }
         }
     }
     return story;

@@ -21,9 +21,9 @@ function initialSettings(): Settings {
     return {
         showSettings: false,
         openLinkInNewTab: storedOpenLinkInNewTab ? (JSON.parse(storedOpenLinkInNewTab) as boolean) : false,
-        theme: storedTheme ?? (darkColorSchemeMedia().matches ? 'night' : 'default'),
-        titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
-        listSpacing: localStorage.getItem('listSpacing') ?? '0',
+        theme: storedTheme || (darkColorSchemeMedia().matches ? 'night' : 'default'),
+        titleFontSize: localStorage.getItem('titleFontSize') || '16',
+        listSpacing: localStorage.getItem('listSpacing') || '0',
     };
 }
 

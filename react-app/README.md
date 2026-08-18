@@ -23,6 +23,8 @@ npm run build    # tsc -b && vite build
 
 ## Notes
 
+- `VITE_HN_API` overrides the API base URL (defaults to the upstream host); useful for pointing the app
+  at a local fixture proxy while the upstream `/user/:id` endpoint is down.
 - Comment/item bodies come from the API as HTML and are rendered with `dangerouslySetInnerHTML`,
   matching the Angular `[innerHTML]` binding.
 - Angular's `ViewEncapsulation` is emulated by scoping each component's SCSS under its custom

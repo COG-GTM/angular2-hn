@@ -6,7 +6,7 @@ import './item.scss';
 
 export function Item({ item }: { item: Story }): JSX.Element {
     const { settings } = useSettings();
-    const hasUrl = item.url.indexOf('http') === 0;
+    const hasUrl = (item.url ?? '').indexOf('http') === 0;
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
     const linkTarget = settings.openLinkInNewTab ? '_blank' : undefined;
     const linkRel = settings.openLinkInNewTab ? 'noopener' : undefined;

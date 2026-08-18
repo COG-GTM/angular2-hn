@@ -1,6 +1,6 @@
 import type { PollResult, Story, User } from '../models/models';
 
-const BASE_URL = 'https://node-hnapi.herokuapp.com';
+const BASE_URL = import.meta.env.VITE_HN_API ?? 'https://node-hnapi.herokuapp.com';
 
 async function request<T>(url: string, signal?: AbortSignal): Promise<T> {
     const response = await fetch(url, { signal });
@@ -23,11 +23,16 @@ function fetchPollContent(id: number, signal?: AbortSignal): Promise<PollResult>
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await request<Story>(`${BASE_URL}/item/${id}`, signal);
     if (story.type === 'poll' && story.poll) {
-        const options = await Promise.all(
-            story.poll.map((_option, index) => fetchPollContent(story.id + index + 1, signal))
-        );
-        story.poll = options;
-        story.poll_votes_count = options.reduce((total, option) => total + option.points, 0);
+        try {
+            const options = await Promise.all(
+                story.poll.map((_option, index) => fetchPollContent(story.id + index + 1, signal))
+            );
+            story.poll = options;
+            story.poll_votes_count = options.reduce((total, option) => total + option.points, 0);
+        } catch {
+            /* Angular fetched poll options fire-and-forget: a failure leaves the bars empty
+               rather than failing the whole item page. */
+        }
     }
     return story;
 }

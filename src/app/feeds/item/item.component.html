@@ -20,6 +20,7 @@
     <a [routerLink]="['/item', item.id]" routerLinkActive="active" class="comment-number" *ngIf="item.type !== 'job'"> •
       {{item.comments_count | comment }}
     </a>
+    <ng-container *ngTemplateOutlet="saveToggle"></ng-container>
     </div>
   </div>
   <div class="subtext-laptop">
@@ -35,5 +36,13 @@
         </a>
       </span>
     </span>
+    <ng-container *ngTemplateOutlet="saveToggle"></ng-container>
   </div>
 </div>
+
+<ng-template #saveToggle>
+  <a class="save-toggle" (click)="toggleSaved()" [title]="isSaved ? 'Remove from saved' : 'Save this post'">
+    <img class="bookmark" [src]="isSaved ? 'assets/images/bookmark-filled.svg' : 'assets/images/bookmark.svg'" alt="">
+    {{ isSaved ? 'saved' : 'save' }}
+  </a>
+</ng-template>

@@ -66,3 +66,19 @@ p {
   .item-details {
     padding: 10px;
   }
+
+  .save-toggle {
+    margin-left: 10px;
+    color: #828282;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    .bookmark {
+      width: 10px;
+      height: 10px;
+      margin-right: 3px;
+      vertical-align: baseline;
+    }
+  }

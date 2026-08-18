@@ -5,6 +5,8 @@ import { stubHackerNewsApi } from './fixtures/hnApi';
 
 const distDir = fileURLToPath(new URL('../dist/', import.meta.url));
 
+test.use({ serviceWorkers: 'allow' });
+
 test('the production build emits the PWA assets', async () => {
     expect(existsSync(`${distDir}manifest.webmanifest`)).toBe(true);
     expect(existsSync(`${distDir}sw.js`)).toBe(true);

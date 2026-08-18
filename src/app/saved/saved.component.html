@@ -1,0 +1,10 @@
+<div class="main-content">
+  <p class="empty-message" *ngIf="items.length === 0">
+    You haven't saved any posts yet. Tap save on a story to keep it here.
+  </p>
+  <ol class="list-margin" *ngIf="items.length > 0">
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+    </li>
+  </ol>
+</div>

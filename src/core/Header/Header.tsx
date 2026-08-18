@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <header>
       <div id="header">
-        <NavLink className="home-link" to="/news/1" onClick={scrollTop}>
+        <NavLink className={({ isActive }) => (isActive ? 'home-link active' : 'home-link')} to="/news/1" onClick={scrollTop}>
           <div className="logo-inner"></div>
           <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
         </NavLink>

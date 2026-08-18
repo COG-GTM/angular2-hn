@@ -8,6 +8,8 @@ import Loader from './shared/components/Loader/Loader';
 import { useSettings } from './context/SettingsContext';
 import './App.scss';
 
+const FEED_TYPES = ['news', 'newest', 'show', 'ask', 'jobs'];
+
 const ItemDetails = lazy(() => import('./item-details/ItemDetails'));
 const User = lazy(() => import('./user/User'));
 
@@ -38,7 +40,9 @@ export default function App() {
             <Route path="/" element={<Navigate to="/news/1" replace />} />
             <Route path="/item/:id" element={<ItemDetails />} />
             <Route path="/user/:id" element={<User />} />
-            <Route path="/:feedType/:page" element={<Feed />} />
+            {FEED_TYPES.map((feedType) => (
+              <Route key={feedType} path={`/${feedType}/:page`} element={<Feed feedType={feedType} />} />
+            ))}
           </Routes>
         </Suspense>
         <Footer />

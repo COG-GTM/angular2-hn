@@ -8,8 +8,8 @@ import { fetchFeed } from '../../services/hackernews-api';
 import type { Story } from '../../models/story';
 import './feed.scss';
 
-export default function Feed() {
-  const { feedType = 'news', page } = useParams();
+export default function Feed({ feedType }: { feedType: string }) {
+  const { page } = useParams();
   const pageNum = page ? +page : 1;
   const [items, setItems] = useState<Story[] | null>(null);
   const [errorMessage, setErrorMessage] = useState('');

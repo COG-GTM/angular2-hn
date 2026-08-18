@@ -49,7 +49,9 @@
 }
 
 .item > .mobile a,
-.item > .laptop a {
+.item > .laptop a,
+.item > .subject a,
+.item > .pollResults a {
   cursor: pointer;
   text-decoration: none;
 }

@@ -6,6 +6,7 @@ import ErrorMessage from '../shared/components/ErrorMessage/ErrorMessage';
 import Loader from '../shared/components/Loader/Loader';
 import { fetchItemContent } from '../services/hackernews-api';
 import { formatCommentCount } from '../utils/comment';
+import { sanitizedHtml } from '../utils/html';
 import { useSettings } from '../context/SettingsContext';
 import type { Story } from '../models/story';
 import './item-details.scss';
@@ -110,7 +111,7 @@ export default function ItemDetails() {
           <div className="pollResults">
             {item.poll.map((pollResult, index) => (
               <div key={index} className="pollContent">
-                <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                <div dangerouslySetInnerHTML={sanitizedHtml(pollResult.content)}></div>
                 <div className="subtext">{pollResult.points} points</div>
                 <div
                   className="pollBar"
@@ -120,7 +121,7 @@ export default function ItemDetails() {
             ))}
           </div>
         )}
-        <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+        <p className="subject" dangerouslySetInnerHTML={sanitizedHtml(item.content)}></p>
         <ul className="comment-list">
           {item.comments?.map((comment) => (
             <li key={comment.id}>

@@ -19,12 +19,16 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
   if (story.type === 'poll') {
     const numberOfPollOptions = story.poll.length;
     story.poll_votes_count = 0;
-    const pollResults = await Promise.all(
+    // A failing option must not prevent the story itself from rendering.
+    const pollResults = await Promise.allSettled(
       Array.from({ length: numberOfPollOptions }, (_, i) => fetchPollContent(story.id + i + 1, signal))
     );
     pollResults.forEach((pollResult, index) => {
-      story.poll[index] = pollResult;
-      story.poll_votes_count += pollResult.points;
+      if (pollResult.status !== 'fulfilled') {
+        return;
+      }
+      story.poll[index] = pollResult.value;
+      story.poll_votes_count += pollResult.value.points;
     });
   }
 

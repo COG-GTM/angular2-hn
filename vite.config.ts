@@ -3,13 +3,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      disable: process.env.NODE_ENV !== 'production',
+      // The service worker is only generated for production builds, as with ngsw before.
+      disable: command !== 'build',
       manifest: false,
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,xml}'],
@@ -41,4 +42,4 @@ export default defineConfig({
     setupFiles: './src/setupTests.ts',
     css: false,
   },
-});
+}));

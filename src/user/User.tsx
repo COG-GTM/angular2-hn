@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ErrorMessage from '../shared/components/ErrorMessage/ErrorMessage';
 import Loader from '../shared/components/Loader/Loader';
 import { fetchUser } from '../services/hackernews-api';
+import { sanitizedHtml } from '../utils/html';
 import type { User as UserModel } from '../models/user';
 import './user.scss';
 
@@ -51,7 +52,7 @@ export default function User() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+              <p dangerouslySetInnerHTML={sanitizedHtml(user.about)}></p>
             </div>
           )}
         </div>

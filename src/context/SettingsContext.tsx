@@ -58,12 +58,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       settings,
       setTheme,
       toggleSettings: () => setSettings((current) => ({ ...current, showSettings: !current.showSettings })),
-      toggleOpenLinksInNewTab: () =>
-        setSettings((current) => {
-          const openLinkInNewTab = !current.openLinkInNewTab;
-          localStorage.setItem('openLinkInNewTab', JSON.stringify(openLinkInNewTab));
-          return { ...current, openLinkInNewTab };
-        }),
+      toggleOpenLinksInNewTab: () => {
+        const openLinkInNewTab = !settings.openLinkInNewTab;
+        setSettings((current) => ({ ...current, openLinkInNewTab }));
+        localStorage.setItem('openLinkInNewTab', JSON.stringify(openLinkInNewTab));
+      },
       setFont: (titleFontSize: string) => {
         setSettings((current) => ({ ...current, titleFontSize }));
         localStorage.setItem('titleFontSize', titleFontSize);

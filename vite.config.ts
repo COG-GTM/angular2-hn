@@ -13,7 +13,7 @@ export default defineConfig(({ command }) => ({
       disable: command !== 'build',
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,xml}'],
+        globPatterns: ['**/*.{js,css,html,ico,json,png,svg,xml}'],
         navigateFallback: 'index.html',
         runtimeCaching: [
           {

@@ -41,7 +41,7 @@ export default function App() {
             <Route path="/item/:id" element={<ItemDetails />} />
             <Route path="/user/:id" element={<User />} />
             {FEED_TYPES.map((feedType) => (
-              <Route key={feedType} path={`/${feedType}/:page`} element={<Feed feedType={feedType} />} />
+              <Route key={feedType} path={`/${feedType}/:page`} element={<Feed key={feedType} feedType={feedType} />} />
             ))}
           </Routes>
         </Suspense>

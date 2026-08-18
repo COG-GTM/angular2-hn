@@ -23,6 +23,9 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
     const pollResults = await Promise.allSettled(
       Array.from({ length: numberOfPollOptions }, (_, i) => fetchPollContent(story.id + i + 1, signal))
     );
+    if (signal?.aborted) {
+      throw new DOMException('Aborted', 'AbortError');
+    }
     pollResults.forEach((pollResult, index) => {
       if (pollResult.status !== 'fulfilled') {
         return;

@@ -6,6 +6,7 @@
         "moduleResolution": "bundler",
         "jsx": "react-jsx",
         "strict": true,
+        "strictPropertyInitialization": false,
         "noEmit": true,
         "isolatedModules": true,
         "resolveJsonModule": true,
@@ -14,5 +15,5 @@
         "forceConsistentCasingInFileNames": true,
         "types": ["vite/client"]
     },
-    "include": ["src/main.tsx", "src/react", "vite.config.ts"]
+    "include": ["src/main.tsx", "src/react", "src/api", "vite.config.ts"]
 }

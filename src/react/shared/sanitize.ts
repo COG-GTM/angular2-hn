@@ -1,30 +1,16 @@
-/**
- * Angular sanitized every `[innerHTML]` binding through its DomSanitizer, which
- * drops unsafe elements and attributes while leaving the formatting markup that
- * the Hacker News API returns (`<p>`, `<a>`, `<pre>`, `<i>`) untouched. React's
- * `dangerouslySetInnerHTML` has no such step, so the same filtering is applied
- * here to keep the migrated views both identical and equally safe.
- */
-const unsafeElements = ['script', 'style', 'iframe', 'object', 'embed', 'link', 'meta', 'base', 'form'];
+import DOMPurify from 'dompurify';
 
-const safeUrl = /^(?!javascript:|data:(?!image\/(png|gif|jpe?g|webp);))/i;
+/**
+ * Angular ran every `[innerHTML]` binding through its DomSanitizer, which kept an
+ * allowlist of elements and attributes and dropped everything else. React's
+ * `dangerouslySetInnerHTML` has no such step, so the Hacker News markup is filtered
+ * here instead — restricted to the formatting tags the API actually returns.
+ */
+const config = {
+    ALLOWED_TAGS: ['a', 'b', 'i', 'em', 'strong', 'code', 'pre', 'p', 'br', 'blockquote', 'span', 'ul', 'ol', 'li'],
+    ALLOWED_ATTR: ['href', 'title', 'rel', 'target'],
+};
 
 export function sanitizeHtml(html: string): string {
-    const template = document.createElement('template');
-    template.innerHTML = html;
-
-    template.content.querySelectorAll(unsafeElements.join(',')).forEach(element => element.remove());
-
-    template.content.querySelectorAll('*').forEach(element => {
-        for (const attribute of Array.from(element.attributes)) {
-            const name = attribute.name.toLowerCase();
-            const isUrl = name === 'href' || name === 'src' || name === 'xlink:href';
-
-            if (name.startsWith('on') || (isUrl && !safeUrl.test(attribute.value.trim()))) {
-                element.removeAttribute(attribute.name);
-            }
-        }
-    });
-
-    return template.innerHTML;
+    return DOMPurify.sanitize(html, config);
 }

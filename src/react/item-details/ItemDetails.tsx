@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { fetchItemContent } from '../../api/hackernews';
@@ -23,6 +23,8 @@ export function ItemDetails() {
 
     const [item, setItem] = useState<ItemContent | undefined>(undefined);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const text = useMemo(() => sanitizeHtml(item?.content ?? ''), [item?.content]);
 
     useEffect(() => {
         let cancelled = false;
@@ -150,7 +152,7 @@ export function ItemDetails() {
                             ))}
                         </div>
                     )}
-                    <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }} {...c}></p>
+                    <p className="subject" dangerouslySetInnerHTML={{ __html: text }} {...c}></p>
                     <ul className="comment-list" {...c}>
                         {(item.comments ?? []).map(itemComment => (
                             <li key={itemComment.id} {...c}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../app/item-details/comment/comment.component.scss';
@@ -10,6 +10,7 @@ const c = content('comment');
 
 export function Comment({ comment }: { comment: CommentModel }) {
     const [collapse, setCollapse] = useState(false);
+    const text = useMemo(() => sanitizeHtml(comment.content), [comment.content]);
 
     if (comment.deleted) {
         return (
@@ -39,7 +40,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
             </div>
             <div className="comment-tree" {...c}>
                 <div hidden={collapse} {...c}>
-                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }} {...c}></p>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: text }} {...c}></p>
                     <ul className="subtree" {...c}>
                         {(comment.comments ?? []).map(subComment => (
                             <li key={subComment.id} {...c}>

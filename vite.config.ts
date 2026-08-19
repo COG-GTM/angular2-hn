@@ -112,10 +112,16 @@ export default defineConfig({
                 navigateFallback: '/index.html',
                 runtimeCaching: [
                     {
-                        urlPattern: /\/assets\/.*$|\.(?:eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                        urlPattern: ({ url }: { url: URL }) =>
+                            url.origin === self.location.origin &&
+                            /\/assets\/|\.(?:eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/.test(url.pathname),
                         handler: 'StaleWhileRevalidate',
                         options: {
                             cacheName: 'assets',
+                            expiration: {
+                                maxEntries: 100,
+                                maxAgeSeconds: 60 * 60 * 24 * 30,
+                            },
                         },
                     },
                 ],

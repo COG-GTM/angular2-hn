@@ -45,10 +45,14 @@ function fixtureFor(url: URL): unknown | undefined {
     return existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as unknown) : undefined;
 }
 
-async function preparePage(page: Page, theme: string) {
+async function preparePage(page: Page, theme: string, unmatched: Set<string>) {
     await page.route('**/node-hnapi.herokuapp.com/**', async route => {
-        const payload = fixtureFor(new URL(route.request().url()));
+        const url = new URL(route.request().url());
+        const payload = fixtureFor(url);
         if (payload === undefined) {
+            // Otherwise both apps render their error view and the case would pass
+            // without the route ever being exercised.
+            unmatched.add(`${url.pathname}${url.search}`);
             await route.fulfill({ status: 404, body: 'not in fixtures' });
             return;
         }
@@ -120,7 +124,8 @@ test.describe('Angular vs React pixel parity', () => {
                         deviceScaleFactor: 1,
                     });
                     const page = await context.newPage();
-                    await preparePage(page, theme);
+                    const unmatched = new Set<string>();
+                    await preparePage(page, theme, unmatched);
 
                     const angularFile = join(outputDir, `${name}-angular.png`);
                     const reactFile = join(outputDir, `${name}-react.png`);
@@ -129,6 +134,8 @@ test.describe('Angular vs React pixel parity', () => {
                     await capture(page, angularUrl, route.path, angularFile);
                     await capture(page, reactUrl, route.path, reactFile);
                     await context.close();
+
+                    expect([...unmatched], 'API requests without a recorded fixture').toEqual([]);
 
                     const result = compare(angularFile, reactFile, diffFile);
                     console.log(`${name}: ${JSON.stringify(result)}`);

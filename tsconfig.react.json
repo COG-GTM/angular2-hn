@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": ["ES2018", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "react-jsx",
+        "strict": true,
+        "noEmit": true,
+        "isolatedModules": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["vite/client"]
+    },
+    "include": ["src/main.tsx", "src/react", "vite.config.ts"]
+}

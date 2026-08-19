@@ -5,6 +5,7 @@ import '../app/app.component.scss';
 import { Footer } from './core/Footer';
 import { Feed } from './feeds/Feed';
 import { ItemDetails } from './item-details/ItemDetails';
+import { UserProfile } from './user/UserProfile';
 import { Header } from './core/Header';
 import { content, host } from './scope';
 import { SettingsProvider, useSettings } from './settings/SettingsContext';
@@ -64,7 +65,14 @@ function Shell() {
                             </app-item-details>
                         }
                     />
-                    <Route path="/user/:id" element={null} />
+                    <Route
+                        path="/user/:id"
+                        element={
+                            <app-user {...c} {...host('user')}>
+                                <UserProfile />
+                            </app-user>
+                        }
+                    />
                 </Routes>
                 <app-footer {...c} {...host('footer')}>
                     <Footer />

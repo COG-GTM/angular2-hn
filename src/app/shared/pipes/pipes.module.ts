@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommentPipe } from './comment.pipe';
+import { SanitizeHtmlPipe } from './sanitize-html.pipe';
 
 @NgModule({
-  declarations: [CommentPipe],
-  exports: [CommentPipe]
+  declarations: [CommentPipe, SanitizeHtmlPipe],
+  exports: [CommentPipe, SanitizeHtmlPipe]
 })
 export class PipesModule {}

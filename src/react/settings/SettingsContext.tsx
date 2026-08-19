@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { Settings } from '../models/settings';
 
@@ -33,12 +33,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         setSettings(current => ({ ...current, theme }));
     }, []);
 
-    const setThemeRef = useRef(setTheme);
-    setThemeRef.current = setTheme;
-
     useEffect(() => {
         const darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-        const handleChange = (event: MediaQueryListEvent) => setThemeRef.current(event.matches ? 'night' : 'default');
+        const handleChange = (event: MediaQueryListEvent) => setTheme(event.matches ? 'night' : 'default');
 
         darkColorSchemeMedia.addEventListener('change', handleChange);
 
@@ -46,11 +43,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         if (savedTheme) {
             setSettings(current => ({ ...current, theme: savedTheme }));
         } else {
-            setThemeRef.current(darkColorSchemeMedia.matches ? 'night' : 'default');
+            setTheme(darkColorSchemeMedia.matches ? 'night' : 'default');
         }
 
         return () => darkColorSchemeMedia.removeEventListener('change', handleChange);
-    }, []);
+    }, [setTheme]);
 
     const value = useMemo<SettingsContextValue>(
         () => ({

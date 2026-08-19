@@ -25,6 +25,7 @@ export function ItemDetails() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const text = useMemo(() => sanitizeHtml(item?.content ?? ''), [item?.content]);
+    const pollOptions = useMemo(() => (item?.poll ?? []).map(option => sanitizeHtml(option.content)), [item?.poll]);
 
     useEffect(() => {
         let cancelled = false;
@@ -139,7 +140,7 @@ export function ItemDetails() {
                         <div className="pollResults" {...c}>
                             {item.poll.map((pollResult, index) => (
                                 <div key={index} className="pollContent" {...c}>
-                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} {...c}></div>
+                                    <div dangerouslySetInnerHTML={{ __html: pollOptions[index] }} {...c}></div>
                                     <div className="subtext" {...c}>
                                         {pollResult.points} points
                                     </div>

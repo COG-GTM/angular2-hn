@@ -114,7 +114,9 @@ export default defineConfig({
                     {
                         urlPattern: ({ url }: { url: URL }) =>
                             url.origin === self.location.origin &&
-                            /\/assets\/|\.(?:eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/.test(url.pathname),
+                            /^\/assets\/(images|icons)\/|\.(?:eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/.test(
+                                url.pathname
+                            ),
                         handler: 'StaleWhileRevalidate',
                         options: {
                             cacheName: 'assets',

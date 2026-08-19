@@ -11,6 +11,12 @@ const config = {
     ALLOWED_ATTR: ['href', 'title', 'rel', 'target'],
 };
 
+DOMPurify.addHook('afterSanitizeAttributes', node => {
+    if (node instanceof Element && node.getAttribute('target') === '_blank') {
+        node.setAttribute('rel', 'noopener noreferrer');
+    }
+});
+
 export function sanitizeHtml(html: string): string {
     return DOMPurify.sanitize(html, config);
 }

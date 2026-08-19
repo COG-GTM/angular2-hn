@@ -15,7 +15,7 @@
     ],
     "headers": [
       {
-        "source": "/sw.js",
+        "source": "/@(sw.js|registerSW.js|index.html)",
         "headers": [
           {
             "key": "Cache-Control",

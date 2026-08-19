@@ -12,7 +12,8 @@ function scrollTop() {
 }
 
 function activeClass(baseClass?: string) {
-    return ({ isActive }: { isActive: boolean }) => [baseClass, isActive ? 'active' : null].filter(Boolean).join(' ');
+    return ({ isActive }: { isActive: boolean }) =>
+        [baseClass, isActive ? 'active' : null].filter(Boolean).join(' ') || undefined;
 }
 
 export function Header() {

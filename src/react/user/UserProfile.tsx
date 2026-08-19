@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { fetchUser } from '../../api/hackernews';
@@ -17,6 +17,8 @@ export function UserProfile() {
 
     const [user, setUser] = useState<User | undefined>(undefined);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const about = useMemo(() => sanitizeHtml(user?.about ?? ''), [user?.about]);
 
     useEffect(() => {
         let cancelled = false;
@@ -73,7 +75,7 @@ export function UserProfile() {
                     </div>
                     {user.about && (
                         <div className="other-details" {...c}>
-                            <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} {...c}></p>
+                            <p dangerouslySetInnerHTML={{ __html: about }} {...c}></p>
                         </div>
                     )}
                 </div>

@@ -40,7 +40,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
                 <div hidden={collapse} {...c}>
                     <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }} {...c}></p>
                     <ul className="subtree" {...c}>
-                        {comment.comments.map(subComment => (
+                        {(comment.comments ?? []).map(subComment => (
                             <li key={subComment.id} {...c}>
                                 <app-comment {...c} {...host('comment')}>
                                     <Comment comment={subComment} />

@@ -151,7 +151,7 @@ export function ItemDetails() {
                     )}
                     <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }} {...c}></p>
                     <ul className="comment-list" {...c}>
-                        {item.comments.map(itemComment => (
+                        {(item.comments ?? []).map(itemComment => (
                             <li key={itemComment.id} {...c}>
                                 <app-comment {...c} {...host('comment')}>
                                     <Comment comment={itemComment} />

@@ -19,7 +19,7 @@ function initialSettings(): Settings {
     return {
         showSettings: false,
         openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) : false,
-        theme: 'default',
+        theme: localStorage.getItem('theme') || 'default',
         titleFontSize: localStorage.getItem('titleFontSize') || '16',
         listSpacing: localStorage.getItem('listSpacing') || '0',
     };
@@ -39,10 +39,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
         darkColorSchemeMedia.addEventListener('change', handleChange);
 
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setSettings(current => ({ ...current, theme: savedTheme }));
-        } else {
+        if (!localStorage.getItem('theme')) {
             setTheme(darkColorSchemeMedia.matches ? 'night' : 'default');
         }
 

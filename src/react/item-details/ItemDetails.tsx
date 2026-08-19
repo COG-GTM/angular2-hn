@@ -117,7 +117,7 @@ export function ItemDetails() {
                                         {item.user}
                                     </Link>
                                 </span>
-                            )}{' '}
+                            )}
                             <span className={item.type !== 'job' ? 'item-details' : undefined} {...c}>
                                 {item.time_ago}
                                 {item.type !== 'job' && (

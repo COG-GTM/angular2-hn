@@ -20,7 +20,11 @@ export default function ItemDetails() {
         const controller = new AbortController();
 
         fetchItemContent(Number(id), controller.signal).then(
-            story => setItem(story),
+            story => {
+                if (!controller.signal.aborted) {
+                    setItem(story);
+                }
+            },
             () => {
                 if (!controller.signal.aborted) {
                     setErrorMessage('Could not load item comments.');
@@ -104,7 +108,9 @@ export default function ItemDetails() {
                                         <div
                                             className="pollBar"
                                             style={{
-                                                width: `${(pollResult.points / item.poll_votes_count) * 100}%`,
+                                                width: item.poll_votes_count
+                                                    ? `${(pollResult.points / item.poll_votes_count) * 100}%`
+                                                    : undefined,
                                             }}
                                         ></div>
                                     </div>

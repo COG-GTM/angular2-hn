@@ -19,6 +19,10 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {}
 
+  get isHot(): boolean {
+    return this.item.points >= 300;
+  }
+
   get hasUrl(): boolean {
     return this.item.url.indexOf('http') === 0;
   }

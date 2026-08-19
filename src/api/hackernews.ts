@@ -17,12 +17,16 @@ export async function fetchItemContent(id: number): Promise<Story> {
     const story = await getJson<Story>(`${baseUrl}/item/${id}`);
 
     if (story.type === 'poll') {
-        const pollResults = await Promise.all(story.poll.map((_, index) => fetchPollContent(story.id + index + 1)));
+        const pollResults = await Promise.allSettled(
+            story.poll.map((_, index) => fetchPollContent(story.id + index + 1))
+        );
 
         story.poll_votes_count = 0;
         pollResults.forEach((pollResult, index) => {
-            story.poll[index] = pollResult;
-            story.poll_votes_count += pollResult.points;
+            if (pollResult.status === 'fulfilled') {
+                story.poll[index] = pollResult.value;
+                story.poll_votes_count += pollResult.value.points;
+            }
         });
     }
 

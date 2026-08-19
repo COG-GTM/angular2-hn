@@ -82,6 +82,17 @@ Note: the service worker is only generated for production builds. To test it:
  - `npm run build`
  - `npm run preview` to serve `dist/` along with the generated service worker
 
+## Testing
+
+Unit and component tests run on [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) in a `jsdom` environment. Tests live next to the code they cover (`*.test.tsx` / `*.test.ts`); shared helpers and fixtures live in `src/test/`.
+
+ - `npm test` runs Vitest in iterative watch mode: it re-runs only the tests affected by each file you save, so keep it running while developing
+ - `npm run test:run` performs a single run (used in CI)
+ - `npm run test:ui` opens the interactive Vitest browser UI
+ - `npm run test:coverage` performs a single run and produces a V8 coverage report (text summary plus HTML in `coverage/`)
+
+The API layer (`src/api/hackerNewsApi.ts`) is mocked with `vi.mock` in component tests, so no network requests are made. `renderWithProviders` from `src/test/renderWithProviders.tsx` wraps a component in the settings context and a `MemoryRouter`.
+
 ## Contributors
 
 A million thanks to some awesome people :)

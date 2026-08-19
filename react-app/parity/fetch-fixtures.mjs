@@ -41,6 +41,9 @@ for (const endpoint of endpoints) {
 
 const news = feeds['news?page=1'];
 const story = news.find(item => item.comments_count > 5 && item.url?.startsWith('http'));
+if (!story) {
+    throw new Error('No news story with an external URL and >5 comments to use as the link-story fixture.');
+}
 const ask = feeds['ask?page=1'];
 const textStory = ask.find(item => !item.url?.startsWith('http')) ?? ask[0];
 

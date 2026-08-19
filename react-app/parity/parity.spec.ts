@@ -100,6 +100,7 @@ function compare(angularFile: string, reactFile: string, diffFile: string) {
         ratio: mismatched / (width * height),
         mismatched,
         sizeDelta: Math.abs(angular.height - react.height),
+        widthDelta: Math.abs(angular.width - react.width),
         angularSize: `${angular.width}x${angular.height}`,
         reactSize: `${react.width}x${react.height}`,
     };
@@ -132,6 +133,7 @@ test.describe('Angular vs React pixel parity', () => {
                     const result = compare(angularFile, reactFile, diffFile);
                     console.log(`${name}: ${JSON.stringify(result)}`);
 
+                    expect(result.widthDelta, `page width differs (${result.angularSize} vs ${result.reactSize})`).toBe(0);
                     expect(result.sizeDelta, `page height differs (${result.angularSize} vs ${result.reactSize})`).toBeLessThanOrEqual(2);
                     expect(result.ratio, `pixel diff ${(result.ratio * 100).toFixed(3)}% (${diffFile})`).toBeLessThanOrEqual(maxDiffRatio);
                 });

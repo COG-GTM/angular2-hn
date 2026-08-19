@@ -20,12 +20,16 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
 
     if (story.type === 'poll') {
         story.poll_votes_count = 0;
-        const results = await Promise.all(
+        // A failing option must not take down the whole story, the way each option
+        // was subscribed to separately in the Angular service.
+        const results = await Promise.allSettled(
             story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal))
         );
-        results.forEach((pollResult, index) => {
-            story.poll[index] = pollResult;
-            story.poll_votes_count += pollResult.points;
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled') {
+                story.poll[index] = result.value;
+                story.poll_votes_count += result.value.points;
+            }
         });
     }
 

@@ -23,7 +23,7 @@ export function Settings() {
                             checked={settings.openLinkInNewTab}
                             onChange={toggleOpenLinksInNewTab}
                             {...c}
-                        />
+                        />{' '}
                         Open links in a new tab
                     </div>
                     <div className="theme-controls" {...c}>
@@ -38,7 +38,7 @@ export function Settings() {
                                         checked={settings.theme === 'default'}
                                         onChange={() => setTheme('default')}
                                         {...c}
-                                    />
+                                    />{' '}
                                     Default
                                 </label>
                             </div>
@@ -51,7 +51,7 @@ export function Settings() {
                                         checked={settings.theme === 'night'}
                                         onChange={() => setTheme('night')}
                                         {...c}
-                                    />
+                                    />{' '}
                                     Night
                                 </label>
                             </div>
@@ -64,7 +64,7 @@ export function Settings() {
                                         checked={settings.theme === 'amoledblack'}
                                         onChange={() => setTheme('amoledblack')}
                                         {...c}
-                                    />
+                                    />{' '}
                                     Black (AMOLED)
                                 </label>
                             </div>

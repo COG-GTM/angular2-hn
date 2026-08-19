@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import '../app/app.component.scss';
 import { Footer } from './core/Footer';
 import { Feed } from './feeds/Feed';
+import { ItemDetails } from './item-details/ItemDetails';
 import { Header } from './core/Header';
 import { content, host } from './scope';
 import { SettingsProvider, useSettings } from './settings/SettingsContext';
@@ -55,7 +56,14 @@ function Shell() {
                             }
                         />
                     ))}
-                    <Route path="/item/:id" element={null} />
+                    <Route
+                        path="/item/:id"
+                        element={
+                            <app-item-details {...c} {...host('item-details')}>
+                                <ItemDetails />
+                            </app-item-details>
+                        }
+                    />
                     <Route path="/user/:id" element={null} />
                 </Routes>
                 <app-footer {...c} {...host('footer')}>

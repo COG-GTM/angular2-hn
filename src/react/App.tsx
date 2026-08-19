@@ -15,6 +15,10 @@ function usePageViews() {
     const location = useLocation();
 
     useEffect(() => {
+        if (location.pathname === '/') {
+            return;
+        }
+
         if (typeof ga === 'function') {
             ga('set', 'page', location.pathname + location.search);
             ga('send', 'pageview');

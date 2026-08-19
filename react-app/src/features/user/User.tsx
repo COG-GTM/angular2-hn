@@ -16,7 +16,11 @@ export default function User() {
         const controller = new AbortController();
 
         fetchUser(id ?? '', controller.signal).then(
-            data => setUser(data),
+            data => {
+                if (!controller.signal.aborted) {
+                    setUser(data);
+                }
+            },
             () => {
                 if (!controller.signal.aborted) {
                     setErrorMessage(`Could not load user ${id}.`);

@@ -19,6 +19,9 @@ export default function Feed({ feedType }: { feedType: string }) {
 
         fetchFeed(feedType, pageNum, controller.signal).then(
             stories => {
+                if (controller.signal.aborted) {
+                    return;
+                }
                 setItems(stories);
                 setListStart((pageNum - 1) * 30 + 1);
                 window.scrollTo(0, 0);

@@ -46,6 +46,9 @@ if (!story) {
 }
 const ask = feeds['ask?page=1'];
 const textStory = ask.find(item => !item.url?.startsWith('http')) ?? ask[0];
+if (!textStory) {
+    throw new Error('The ask feed came back empty, so there is no text-story fixture to record.');
+}
 
 for (const item of new Set([story.id, textStory.id])) {
     await save(`item/${item}`, await download(`item/${item}`));

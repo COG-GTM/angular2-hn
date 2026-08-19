@@ -1,4 +1,4 @@
-export type FeedType = 'poll' | 'story' | 'job';
+export type FeedType = 'ask' | 'job' | 'link' | 'poll' | 'story';
 
 export interface Comment {
     id: number;

@@ -1,0 +1,2362 @@
+{
+  "id": 49332495,
+  "title": "Ask HN: GitHub employees what's going on? Why?",
+  "points": 304,
+  "user": "sharts",
+  "time": 1786979971,
+  "time_ago": "2 days ago",
+  "type": "link",
+  "content": "<p>Pretty self explanatory. Could you folks shed some light on why these issues keep happening?<p>I’ve noticed most posts and replies are just people coming to their own conclusions based on whatever published data.<p>I think it would be helpful to get some actual, non-corporate&#x2F;marketing information on the goings-on by those that actually see what’s happening on the inside.<p>Thanks",
+  "url": "item?id=49332495",
+  "comments": [
+    {
+      "id": 49332666,
+      "level": 0,
+      "user": "tristanj",
+      "time": 1786980606,
+      "time_ago": "2 days ago",
+      "content": "<p>Github is struggling because AI-boosted coding increased the number of commits 14x in the past year, and the pace is still accelerating. The site is struggling to keep up.\nGithub&#x27;s COO confirms it here: <a href=\"https:&#x2F;&#x2F;x.com&#x2F;kdaigle&#x2F;status&#x2F;2040164759836778878\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;kdaigle&#x2F;status&#x2F;2040164759836778878</a><p>Platform activity is surging. There were 1 billion commits in 2025. As of three months ago, it was 275 million per week, on pace for 14 billion this year if growth remains linear (spoiler: it won&#x27;t.)<p>20% of all GitHub accounts were created in the past 6 months <a href=\"https:&#x2F;&#x2F;x.com&#x2F;kdaigle&#x2F;status&#x2F;2082604368399159542\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;kdaigle&#x2F;status&#x2F;2082604368399159542</a>",
+      "comments": [
+        {
+          "id": 49350393,
+          "level": 1,
+          "user": "maccard",
+          "time": 1787078076,
+          "time_ago": "a day ago",
+          "content": "<p>GitHub’s reliability issues started earlier than the boom in agentic coding they talk about. I have comments on here from 2025 talking about massive outages with actions and issues.",
+          "comments": [
+            {
+              "id": 49350712,
+              "level": 2,
+              "user": "fooey",
+              "time": 1787079114,
+              "time_ago": "a day ago",
+              "content": "<p>When you&#x27;re the uncontested market leader, you don&#x27;t budget operations to be perfectly reliable, you budget to not be too unreliable. All those 9&#x27;s are expensive after all.<p>The AI boom caught them napping though, and they&#x27;re slipping well into the too unreliable category",
+              "comments": [
+                {
+                  "id": 49352097,
+                  "level": 3,
+                  "user": "aleph_minus_one",
+                  "time": 1787084437,
+                  "time_ago": "a day ago",
+                  "content": "<p>&gt; The AI boom caught them napping though<p>Microsoft, who invested eyewatering sums into AI, even near to betting the whole company on an AI boom, is surprised about the AI boom?",
+                  "comments": [
+                    {
+                      "id": 49352627,
+                      "level": 4,
+                      "user": "minraws",
+                      "time": 1787086791,
+                      "time_ago": "a day ago",
+                      "content": "<p>Microsoft bet everything on possible AGI, no one thought the result would be a bonafide commit printing machine.",
+                      "comments": [
+                        {
+                          "id": 49354298,
+                          "level": 5,
+                          "user": "jasonvorhe",
+                          "time": 1787095333,
+                          "time_ago": "21 hours ago",
+                          "content": "<p>That&#x27;s not what Nadella said 1-2 years ago. Everyone seemed pretty aware of LLMs soon being able to handle a lot of steps of software development.<p>I bet it&#x27;s mostly due to Azure being brittle and the AI boom is just a nice cover story (not saying it&#x27;s not challenging to handle all that new load) to save face and sell more Azure services.",
+                          "comments": [
+                            {
+                              "id": 49360972,
+                              "level": 6,
+                              "user": "redshiftza",
+                              "time": 1787144158,
+                              "time_ago": "8 hours ago",
+                              "content": "<p>100% if this post (<a href=\"https:&#x2F;&#x2F;isolveproblems.substack.com&#x2F;p&#x2F;how-microsoft-vaporized-a-trillion\" rel=\"nofollow\">https:&#x2F;&#x2F;isolveproblems.substack.com&#x2F;p&#x2F;how-microsoft-vaporize...</a>) is anything to go by, it could explain much of the scaling &amp; reliability issues.Perhaps github not being built to scale this fast + being hosted on azure is closer to the truth.",
+                              "comments": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": 49353303,
+                          "level": 5,
+                          "user": "samudrijan",
+                          "time": 1787090258,
+                          "time_ago": "a day ago",
+                          "content": "<p>PRRRR",
+                          "comments": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 49357702,
+                      "level": 4,
+                      "user": "creshal",
+                      "time": 1787121267,
+                      "time_ago": "14 hours ago",
+                      "content": "<p>Microsoft considers it a bonus if a hype lets one department cripple another department.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49350927,
+              "level": 2,
+              "user": "chocrates",
+              "time": 1787079872,
+              "time_ago": "a day ago",
+              "content": "<p>GitHub uptime is cyclical.  It&#x27;s bad because they won&#x27;t focus on the core, and then the right users complain and GitHub focuses on core again before it repeats.  This is just the latest round exacerbated by vibe coding",
+              "comments": [
+                {
+                  "id": 49356966,
+                  "level": 3,
+                  "user": "infamouscow",
+                  "time": 1787114860,
+                  "time_ago": "16 hours ago",
+                  "content": "<p>Another commenter replied, but was downvoted by angry employees of Microsoft for a fairly anodyne statement.<p>Microsoft management knows this. It&#x27;s not like there haven&#x27;t been attempts to solve these core problems. The issue is GitHub was built by exceptional engineers, and none of those people are still around.<p>I maintain all these problems began when they migrated off Erlang and egitd. :)",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49365114,
+              "level": 2,
+              "user": "Klonoar",
+              "time": 1787163386,
+              "time_ago": "2 hours ago",
+              "content": "<p>Nobody disputes they had issues before, it’s the rate of issues that is even more noticeable now.",
+              "comments": []
+            },
+            {
+              "id": 49353740,
+              "level": 2,
+              "user": "dgellow",
+              "time": 1787092365,
+              "time_ago": "a day ago",
+              "content": "<p>It was related to their migration to Azure as far as I know",
+              "comments": [
+                {
+                  "id": 49358961,
+                  "level": 3,
+                  "user": "chanux",
+                  "time": 1787130563,
+                  "time_ago": "12 hours ago",
+                  "content": "<p>So they completed the migration? Didn&#x27;t see that being reported.",
+                  "comments": [
+                    {
+                      "id": 49359731,
+                      "level": 4,
+                      "user": "dgellow",
+                      "time": 1787136571,
+                      "time_ago": "10 hours ago",
+                      "content": "<p>I don’t know",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49335473,
+          "level": 1,
+          "user": "sharts",
+          "time": 1786991169,
+          "time_ago": "2 days ago",
+          "content": "<p>I would take what C-level execs say with a grain of salt. Remember these folks hire people with plenty of system design experience. They likely also have the money for hardware resources.<p>If load was an issue these things would have been solved already. Or they are purposely causing millions of dollars of productivity loss daily by not solving this.<p>Something more serious is at play. And I want to hear from the actual underlings.",
+          "comments": [
+            {
+              "id": 49350339,
+              "level": 2,
+              "user": "Illniyar",
+              "time": 1787077911,
+              "time_ago": "a day ago",
+              "content": "<p>More load does not just mean needing to increase capacity, which would be simple for Microsoft to do.<p>Additional load reveals limits and breaklines that were never known before - your temporary integer IDs are suddenly too small, you reach the maximum file descriptors in a Linux distro, your hash function suddenly has repeating conflicts, your DB index is suddenly oversaturated.<p>Having massive exponential growth of your traffic would probably require constant refactoring to meet the ever changing system limits.",
+              "comments": [
+                {
+                  "id": 49352871,
+                  "level": 3,
+                  "user": "lokar",
+                  "time": 1787087919,
+                  "time_ago": "a day ago",
+                  "content": "<p>A good rule of thumb I once heard (from Jeff Dean, I think) was that (in a complex system) every 10X you go up in scale you need to re-consider basic design elements, trade-offs, etc, and probably change some of them.<p>It&#x27;s hard to design something (large and complex) for much more than 10X scale with only HW capacity increases.",
+                  "comments": [
+                    {
+                      "id": 49364901,
+                      "level": 4,
+                      "user": "transcriptase",
+                      "time": 1787162308,
+                      "time_ago": "3 hours ago",
+                      "content": "<p>There are iirc some good write ups from years ago by employees at Blizzard about these things and why “spinning up more servers” wouldn’t suddenly let millions of people login to games simultaneously on launch days.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49336408,
+              "level": 2,
+              "user": "pan69",
+              "time": 1786995152,
+              "time_ago": "2 days ago",
+              "content": "<p>&gt; I would take what C-level execs say with a grain of salt.<p>100% agree.<p>&gt; Remember these folks hire people with plenty of system design experience.<p>Not my overall experience 30 years in the industry.<p>&gt; They likely also have the money for hardware resources.<p>You&#x27;ll always be asked to do more with less, at least, that&#x27;s my own experience.",
+              "comments": [
+                {
+                  "id": 49348347,
+                  "level": 3,
+                  "user": "joshspankit",
+                  "time": 1787071179,
+                  "time_ago": "a day ago",
+                  "content": "<p>Also my experience",
+                  "comments": [
+                    {
+                      "id": 49352379,
+                      "level": 4,
+                      "user": "jasper1111",
+                      "time": 1787085633,
+                      "time_ago": "a day ago",
+                      "content": "<p>Also my experience",
+                      "comments": [
+                        {
+                          "id": 49353386,
+                          "level": 5,
+                          "user": "rawland",
+                          "time": 1787090655,
+                          "time_ago": "a day ago",
+                          "content": "<p>+1",
+                          "comments": [
+                            {
+                              "id": 49353991,
+                              "level": 6,
+                              "user": "haddr",
+                              "time": 1787093775,
+                              "time_ago": "a day ago",
+                              "content": "<p>Also my experience",
+                              "comments": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49349351,
+              "level": 2,
+              "user": "browningstreet",
+              "time": 1787074574,
+              "time_ago": "a day ago",
+              "content": "<p>&gt; They likely also have the money for hardware resources.<p>Amazing you can say this with a straight face in these DC building times.<p>Have you tried getting Azure east instances anytime lately?",
+              "comments": [
+                {
+                  "id": 49353802,
+                  "level": 3,
+                  "user": "mckee_plus_plus",
+                  "time": 1787092746,
+                  "time_ago": "a day ago",
+                  "content": "<p>I&#x27;ve actually never tried to get an Azure instance. Azure can&#x27;t earn my trust with SSO, let alone hosting my compute.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49350792,
+              "level": 2,
+              "user": "fooey",
+              "time": 1787079340,
+              "time_ago": "a day ago",
+              "content": "<p>I think owning GitHub is a prestige play, not necessarily thought of as a profit center.<p>Now however, it&#x27;s competing for resources directly with the corporations core strategic plans.<p>GitHub having issues is embarrassing, but the shareholders don&#x27;t really care.",
+              "comments": [
+                {
+                  "id": 49352889,
+                  "level": 3,
+                  "user": "lokar",
+                  "time": 1787088018,
+                  "time_ago": "a day ago",
+                  "content": "<p>I&#x27;ve always wondered about that.  I&#x27;ve suspected the same as you, it&#x27;s mostly a brand &#x2F; &quot;ecosystem&quot; thing.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49349094,
+              "level": 2,
+              "user": "srmatto",
+              "time": 1787073732,
+              "time_ago": "a day ago",
+              "content": "<p>Infra is a cost center for a business unless your a PaaS and even then maybe still. Cost centers are usually ferreted out for savings, not investment.",
+              "comments": [
+                {
+                  "id": 49350331,
+                  "level": 3,
+                  "user": "roughly",
+                  "time": 1787077887,
+                  "time_ago": "a day ago",
+                  "content": "<p>Infra is a cost center right up until its absence begins to undercut your value proposition to customers, and then it becomes an investment. GitHub seems well on the wrong side of that equation right now.",
+                  "comments": [
+                    {
+                      "id": 49351316,
+                      "level": 4,
+                      "user": "geodel",
+                      "time": 1787081344,
+                      "time_ago": "a day ago",
+                      "content": "<p>In general true. But most of paying customers, including enterprise have made a bet that they cut down expense and resources on operational experience, system management knowledge to minimum because <i>cloud</i> .<p>So even if these cloud&#x2F;SAAS solutions perform poorly it is not like customers have wherewithal to create alternate solutions.",
+                      "comments": [
+                        {
+                          "id": 49352556,
+                          "level": 5,
+                          "user": "conartist6",
+                          "time": 1787086451,
+                          "time_ago": "a day ago",
+                          "content": "<p>&gt; it is not like customers have wherewithal to create alternate solutions.<p>it&#x27;s not impossible. they don&#x27;t, right up until they do",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49349353,
+              "level": 2,
+              "user": "nobodysaidso",
+              "time": 1787074576,
+              "time_ago": "a day ago",
+              "content": "<p>&gt;<i>They likely also have the money for hardware resources.</i><p>Hey man, in case you hadn&#x27;t heard, the hardware industry is having a lot of trouble keeping up. &quot;Expand our capacity&quot; isn&#x27;t as easy as it was 2 years ago.",
+              "comments": []
+            },
+            {
+              "id": 49352517,
+              "level": 2,
+              "user": "27183",
+              "time": 1787086251,
+              "time_ago": "a day ago",
+              "content": "<p>My pet theory is they backed themselves into a corner with Actions. That was a step change in computational scaling effort. It also fell immediately on the heels of the Microsoft acquisition.<p>Something about these two factors seems to have conspired to wreak absolute havoc on their uptime in the ~7yr hence. The AI slopocalypse hasn&#x27;t helped matters, but the foundations were laid far earlier.<p>Would love to hear from an insider, either for or against this conspiracy theory.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49333350,
+          "level": 1,
+          "user": "evanelias",
+          "time": 1786983120,
+          "time_ago": "2 days ago",
+          "content": "<p>My sense is that a lot of this activity isn&#x27;t even legitimate use. As one example: my company has a GitHub app, and last night some bot added my app to 1700 repos. Then the bot immediately started rapid-firing commits which each affected hundreds of files, triggering a deluge of GitHub webhooks to my servers.<p>The repo names all matched other GitHub apps, so my sense is this bot had added 1700 GitHub apps to 1700 repos, with that number rapidly increasing at the upper bound of whatever GitHub&#x27;s rate limit is.<p>My systems caught it quickly and auto-booted the bot, but the whole situation is ridiculous.",
+          "comments": [
+            {
+              "id": 49352439,
+              "level": 2,
+              "user": "phoenixy1",
+              "time": 1787085897,
+              "time_ago": "a day ago",
+              "content": "<p>The GitHub bot situation is so frustrating! A good ~50% of community traffic on our repos is spam and bots and to report them I have to fill out a lengthy form and MAYBE GitHub will ban them six weeks later. And I also can&#x27;t tell whether our repos are being used (and thus worth investing in): GitHib only shows two weeks of traffic data and what they do have is completely useless because they can&#x27;t filter out bot traffic.",
+              "comments": []
+            },
+            {
+              "id": 49333507,
+              "level": 2,
+              "user": "digitalsushi",
+              "time": 1786983639,
+              "time_ago": "2 days ago",
+              "content": "<p>there&#x27;s this attack on youtube where people who dont want their real names known will autoblock comments with their real names; bots will spam comments with every word and note the ones that were not visible.<p>kinda reminds me of it. not my most valuable contribution to forensics, admittedly.",
+              "comments": [
+                {
+                  "id": 49353308,
+                  "level": 3,
+                  "user": "chrisjj",
+                  "time": 1787090293,
+                  "time_ago": "a day ago",
+                  "content": "<p>This works on only people dumb enough to block <i>only</i> their own name, right?",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49352611,
+              "level": 2,
+              "user": "conartist6",
+              "time": 1787086700,
+              "time_ago": "a day ago",
+              "content": "<p>Yeah I think that&#x27;s really important. The average value of each commit, action, or hook has become significantly lower, and that necessarily means that they can&#x27;t spend on quality. If you set the quality bar to cater to the top 10% of value-creating users (us) the amount you&#x27;d pay for quality at times when quality matters none would truly and completely sink you",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49352167,
+          "level": 1,
+          "user": "LarsDu88",
+          "time": 1787084699,
+          "time_ago": "a day ago",
+          "content": "<p>The fools thought we needed data centers for agents, but we actually needed data centers for Github!",
+          "comments": []
+        },
+        {
+          "id": 49350846,
+          "level": 1,
+          "user": "jjice",
+          "time": 1787079532,
+          "time_ago": "a day ago",
+          "content": "<p>I want to believe that it&#x27;s justification, but looking at the historical uptime [0] (early data is actually overly positive on this graph since it had to scrape historical data instead of realtime), I can&#x27;t be convinced of this anymore. They do have more load - that&#x27;s for sure. I just don&#x27;t believe it&#x27;s an excuse for their god awful uptime.<p>[0] <a href=\"https:&#x2F;&#x2F;damrnelson.github.io&#x2F;github-historical-uptime&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;damrnelson.github.io&#x2F;github-historical-uptime&#x2F;</a>",
+          "comments": []
+        },
+        {
+          "id": 49332793,
+          "level": 1,
+          "user": "bhouston",
+          "time": 1786981156,
+          "time_ago": "2 days ago",
+          "content": "<p>&gt; Github is struggling because AI-boosted coding increased the number of commits 14x in the past year, and the pace is still accelerating.<p>Sure, but how is OpenAI, and Claude handling the increased usage?  They are handling it a lot better than Github.  Just because you have fast growth does not mean you can not handle it.<p>Instead you have to realize that you are entering into a high growth phase and design around that.<p>It has been clear that we are in a high growth phase for around a year now and Github still hasn&#x27;t adapted to that properly.<p>At some point you have to admit that Github ready for the moment.",
+          "comments": [
+            {
+              "id": 49332851,
+              "level": 2,
+              "user": "traviswingo",
+              "time": 1786981375,
+              "time_ago": "2 days ago",
+              "content": "<p>GitHub is on Azure. Azure is notorious for being terrible. There was a post here recently from an ex-Azure engineer explaining all of this in a multi-part series.<p>Edit: Found the thread: <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47616242\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47616242</a>",
+              "comments": [
+                {
+                  "id": 49352452,
+                  "level": 3,
+                  "user": "Peanuts99",
+                  "time": 1787085974,
+                  "time_ago": "a day ago",
+                  "content": "<p>I didn&#x27;t think they&#x27;d completed the move yet, it&#x27;s only partially on Azure - which to be fair could be another problem in itself.",
+                  "comments": []
+                },
+                {
+                  "id": 49332924,
+                  "level": 3,
+                  "user": "Tiberium",
+                  "time": 1786981621,
+                  "time_ago": "2 days ago",
+                  "content": "<p>Isn&#x27;t a lot of OpenAI infra also on Azure? They seem to be faring better than GitHub.",
+                  "comments": [
+                    {
+                      "id": 49333217,
+                      "level": 4,
+                      "user": "bhouston",
+                      "time": 1786982676,
+                      "time_ago": "2 days ago",
+                      "content": "<p>I bet OpenAI has failovers to other data centers.  I think they have a variety of data center provides all over the place.",
+                      "comments": [
+                        {
+                          "id": 49333705,
+                          "level": 5,
+                          "user": "prewett",
+                          "time": 1786984196,
+                          "time_ago": "2 days ago",
+                          "content": "<p>There&#x27;s already a noun for this: &quot;resources&quot;",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49349712,
+                  "level": 3,
+                  "user": "moralestapia",
+                  "time": 1787075806,
+                  "time_ago": "a day ago",
+                  "content": "<p>Q. how can someone publish an article like that, with their name, etc...<p>Don&#x27;t they sign NDAs? Do they not care? Are they not enforceable?<p>Very curious to know.",
+                  "comments": [
+                    {
+                      "id": 49349948,
+                      "level": 4,
+                      "user": "ornornor",
+                      "time": 1787076588,
+                      "time_ago": "a day ago",
+                      "content": "<p>Maybe they didn’t take the severance part that makes the NDA valid? IIRC for an NDA to be enforceable there has to be a monetary consideration to it. Or maybe it’s for no competes?",
+                      "comments": []
+                    },
+                    {
+                      "id": 49353324,
+                      "level": 4,
+                      "user": "dmitrygr",
+                      "time": 1787090366,
+                      "time_ago": "a day ago",
+                      "content": "<p>Some people reach a level of DGAF where it will not matter<p>Some fuck-ups have such long-lasting effects that they outlast the NDAs that would cover them",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49333175,
+              "level": 2,
+              "user": "remus",
+              "time": 1786982543,
+              "time_ago": "2 days ago",
+              "content": "<p>&gt; Sure, but how is OpenAI, and Claude handling the increased usage?<p>By spending tens of billions in investor cash. It is not clear what a sustainable business model looks like for these companies at the moment.<p>&gt; They are handling it a lot better than Github.<p>Are they? Anthropic has fairly frequent issues.<p>There&#x27;s high growth and then there&#x27;s demand increasing 10x in a year. For a mature business like github that&#x27;s a massive, and I can&#x27;t think of many big businesses who would be able to scale smoothly to accommodate that kind of demand.",
+              "comments": [
+                {
+                  "id": 49354801,
+                  "level": 3,
+                  "user": "mixmastamyk",
+                  "time": 1787098377,
+                  "time_ago": "20 hours ago",
+                  "content": "<p>Yes, OAI is losing tens of billions, Anthro is losing billions, and MS is cashflow positive and rewarded for that by Wall St, according to recent earnings reports.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49332896,
+              "level": 2,
+              "user": "tekno45",
+              "time": 1786981532,
+              "time_ago": "2 days ago",
+              "content": "<p>OpenAI and Claude don&#x27;t accept commits and host PRs? How are they the same?",
+              "comments": [
+                {
+                  "id": 49332962,
+                  "level": 3,
+                  "user": "dumberquestions",
+                  "time": 1786981747,
+                  "time_ago": "2 days ago",
+                  "content": "<p>They&#x27;re getting increasing demand for tokens at an accelerating pace.",
+                  "comments": [
+                    {
+                      "id": 49333146,
+                      "level": 4,
+                      "user": "pixelesque",
+                      "time": 1786982432,
+                      "time_ago": "2 days ago",
+                      "content": "<p>Is that the same as storing state in a DB and on a filesystem though?<p>Like, I get there are other features they have, and things like history, but I don&#x27;t think it&#x27;s quite the same.<p>Isn&#x27;t most (not all) of the LLM&#x27;s resources stateless compute to a large degree?<p>(Not defending MS at all though, I currently can&#x27;t create a PR on the required branch for my work (won&#x27;t load the branch list) and their availability is really bad recently).",
+                      "comments": [
+                        {
+                          "id": 49355855,
+                          "level": 5,
+                          "user": "DANmode",
+                          "time": 1787106544,
+                          "time_ago": "18 hours ago",
+                          "content": "<p>&gt; Is that the same as storing state in a DB and on a filesystem though?<p>Google “RLHF”.",
+                          "comments": [
+                            {
+                              "id": 49359478,
+                              "level": 6,
+                              "user": "adithyassekhar",
+                              "time": 1787134844,
+                              "time_ago": "10 hours ago",
+                              "content": "<p>Didn’t knew they did that.",
+                              "comments": [
+                                {
+                                  "id": 49366046,
+                                  "level": 7,
+                                  "user": "DANmode",
+                                  "time": 1787167449,
+                                  "time_ago": "an hour ago",
+                                  "content": "<p>How else?",
+                                  "comments": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49333138,
+                  "level": 3,
+                  "user": "fragmede",
+                  "time": 1786982393,
+                  "time_ago": "2 days ago",
+                  "content": "<p>Fundamentally, there&#x27;s incoming requests, an application server, and a database. The devil is in the nature of those requests, and how do you process those requests and stick them in the database. And then serve them back out again. Different application, different database, but fundamentally, it&#x27;s the same problem. Google managed to do this very well. Microsoft has not.",
+                  "comments": []
+                },
+                {
+                  "id": 49332948,
+                  "level": 3,
+                  "user": "logicchains",
+                  "time": 1786981701,
+                  "time_ago": "2 days ago",
+                  "content": "<p>They&#x27;re undergoing the same kind of load. Almost every AI commit that&#x27;s putting pressure on GitHub&#x27;s servers was written on OpenAI and Anthropic&#x27;s servers.",
+                  "comments": [
+                    {
+                      "id": 49333127,
+                      "level": 4,
+                      "user": "simonw",
+                      "time": 1786982326,
+                      "time_ago": "2 days ago",
+                      "content": "<p>Scaling ChatGPT and scaling GitHub are very different problems.<p>For LLMs, prompt handling is effectively stateless. They do try to route follow-up prompts to the same cluster to benefit from prompt caching, but those can be effectively sharded. They also need to write results to storage but that&#x27;s on a per-customer basis, so also easy to shard.<p>GitHub is a shared space, where commits and issues and PRs need to become instantly available to all readers across all geographies. They have a very different shape of scaling challenge to the LLM vendors.",
+                      "comments": [
+                        {
+                          "id": 49333157,
+                          "level": 5,
+                          "user": "bhouston",
+                          "time": 1786982494,
+                          "time_ago": "2 days ago",
+                          "content": "<p>&gt; GitHub is a shared space, where commits and issues and PRs need to become instantly available to all readers across all geographies. They have a very different shape of scaling challenge to the LLM vendors.<p>Github data is accessible by all (if open source), but they should be partition-able by individual repository (and their related forks.). Thus while there is more shared state across users, it isn&#x27;t fully shared state.<p>And they have been working on this semi-shared state design for over 10 years now.",
+                          "comments": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 49351994,
+                      "level": 4,
+                      "user": "etc-hosts",
+                      "time": 1787084052,
+                      "time_ago": "a day ago",
+                      "content": "<p>Every response from GitHub must be deterministic.  OpenAI and Anthropic do not have this problem.",
+                      "comments": [
+                        {
+                          "id": 49352661,
+                          "level": 5,
+                          "user": "27183",
+                          "time": 1787086942,
+                          "time_ago": "a day ago",
+                          "content": "<p>OpenAI, Anthropic, OpenRouter, Gemeni, etc also have another escape hatch: they can arbitrarily and potentially invisibly reduce your quality of service at their discretion. They can choose to route your request to an expensive model or a cheap one. By contrast, the best Github can do is slow your request down.",
+                          "comments": [
+                            {
+                              "id": 49363453,
+                              "level": 6,
+                              "user": "chermi",
+                              "time": 1787155723,
+                              "time_ago": "5 hours ago",
+                              "content": "<p>And they never even have to admit they do it.",
+                              "comments": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49333140,
+                  "level": 3,
+                  "user": "bhouston",
+                  "time": 1786982398,
+                  "time_ago": "2 days ago",
+                  "content": "<p>I am pretty sure OpenAI and Claude actually have a higher hardware cost per request that Microsoft.  Github is actually most just a standard REST API app, although with some caching and git specific operations in the background.  It is not as hardware intensive as GPU-based inference per quest with huge contexts and low latency.<p>Also Github&#x27;s feature offering has been incredibly stable for the last 6 years.  There isn&#x27;t an excuse for it to be unstable like this.",
+                  "comments": [
+                    {
+                      "id": 49333247,
+                      "level": 4,
+                      "user": "pixelesque",
+                      "time": 1786982766,
+                      "time_ago": "2 days ago",
+                      "content": "<p>Yes, but come on...<p>That&#x27;s due to the need for ultra-fast memory and inference compute, it&#x27;s not the same thing.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49336865,
+              "level": 2,
+              "user": "baal80spam",
+              "time": 1786997388,
+              "time_ago": "2 days ago",
+              "content": "<p>&gt; They are handling it a lot better than Github.<p>No, they are not.<p><a href=\"https:&#x2F;&#x2F;status.claude.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;status.claude.com&#x2F;</a><p><a href=\"https:&#x2F;&#x2F;www.githubstatus.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.githubstatus.com&#x2F;</a>",
+              "comments": []
+            },
+            {
+              "id": 49358184,
+              "level": 2,
+              "user": "sigseg1v",
+              "time": 1787124725,
+              "time_ago": "13 hours ago",
+              "content": "<p>Claude has 1 to 2 nines of uptime if you check their uptime history on their site. And I&#x27;ll note that their definition of up is... generous. Plenty of times I encounter it saying no issues when there are abundant service issues.",
+              "comments": []
+            },
+            {
+              "id": 49332972,
+              "level": 2,
+              "user": "SamBam",
+              "time": 1786981784,
+              "time_ago": "2 days ago",
+              "content": "<p>OpenAI and Anthropic are spending hundreds of billions of dollars that they may never recoup forcing the building massive new data centers in the face of widespread protest.<p>You think GitHub ought to match that?",
+              "comments": [
+                {
+                  "id": 49333116,
+                  "level": 3,
+                  "user": "bhouston",
+                  "time": 1786982284,
+                  "time_ago": "2 days ago",
+                  "content": "<p>&gt; OpenAI and Anthropic are spending hundreds of billions of dollars that they may never recoup forcing the building massive new data centers in the face of widespread protest.<p>So has Github&#x27;s owner Microsoft.  It&#x27;s build out is on par with OpenAI and Anthropic.<p>&gt; You think GitHub ought to match that?<p>Microsoft is.<p>The issue is that the software stack is not stable.  That is clearly the issue here.<p>It isn&#x27;t a hardware build out issue.  It is related to the architecture of Github.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49333054,
+              "level": 2,
+              "user": "theappsecguy",
+              "time": 1786982094,
+              "time_ago": "2 days ago",
+              "content": "<p>Well they heavily limit free tier usage and for paid users they are charging a tiered pricing model that ramps up very aggressively. Github is a lot more generous in this sense and it has a lot more surface area in terms of the functionality it serves",
+              "comments": []
+            },
+            {
+              "id": 49357634,
+              "level": 2,
+              "user": "never_inline",
+              "time": 1787120744,
+              "time_ago": "14 hours ago",
+              "content": "<p>GitHub is not able to charge in proportion to commits pushed, and can&#x27;t scale in proportion either without it being too expensive.",
+              "comments": []
+            },
+            {
+              "id": 49350422,
+              "level": 2,
+              "user": "maccard",
+              "time": 1787078167,
+              "time_ago": "a day ago",
+              "content": "<p>For a very long time this year Claude was down multiple times a week. Can’t speak for OpenAI",
+              "comments": []
+            },
+            {
+              "id": 49352784,
+              "level": 2,
+              "user": "fl0id",
+              "time": 1787087557,
+              "time_ago": "a day ago",
+              "content": "<p>anthropic frequently rate limits or is just unavailable... so I wouldn&#x27;t exactly say they are handling it better.",
+              "comments": []
+            },
+            {
+              "id": 49350523,
+              "level": 2,
+              "user": "stronglikedan",
+              "time": 1787078471,
+              "time_ago": "a day ago",
+              "content": "<p>Open AI and Claude were not nearly as mature as Github when the boom started. That&#x27;s a lot of legacy infra to scale up.",
+              "comments": []
+            },
+            {
+              "id": 49347733,
+              "level": 2,
+              "user": "1attice",
+              "time": 1787068834,
+              "time_ago": "a day ago",
+              "content": "<p>This would require foresight, budget, and attention. MS currently has none of these.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49360324,
+          "level": 1,
+          "user": "zldar",
+          "time": 1787140650,
+          "time_ago": "9 hours ago",
+          "content": "<p>COOs lie. There is no chance that MSFT would openly admit that its mandated vibe coding activities at GitHub have failed.<p>What speaks against the volume activity is that GitHub works perfectly after an outage. People don&#x27;t just stop AI coding after an outage. If anything, the volume should be higher for people to catch up.<p>It is more like rebooting a vibe coded WIN-95 because of a vibe coded integer overflow (joke).",
+          "comments": []
+        },
+        {
+          "id": 49332865,
+          "level": 1,
+          "user": "arjie",
+          "time": 1786981422,
+          "time_ago": "2 days ago",
+          "content": "<p>The obvious answer is to end free unlimited private repos. Source is no longer a specific thing. GitHub is just a free S3 or Azure provider.",
+          "comments": [
+            {
+              "id": 49352367,
+              "level": 2,
+              "user": "swingboy",
+              "time": 1787085557,
+              "time_ago": "a day ago",
+              "content": "<p>A lot of private repos are probably just taking up cheap storage space, not seeing activity that would cause additional load.",
+              "comments": []
+            },
+            {
+              "id": 49332990,
+              "level": 2,
+              "user": "SoftTalker",
+              "time": 1786981821,
+              "time_ago": "2 days ago",
+              "content": "<p>I think this would cut out a lot of the mindless commit activity.<p>Charge $1&#x2F;month per repo. If your project isn&#x27;t worth that, run your own git or use another free forge.",
+              "comments": [
+                {
+                  "id": 49352880,
+                  "level": 3,
+                  "user": "zmj",
+                  "time": 1787087957,
+                  "time_ago": "a day ago",
+                  "content": "<p>The incentives that creates are really bad: it encourages users to organize their code across the smallest number of repos, and I&#x27;d bet anything that larger repos are disproportionately more expensive for GitHub than smaller ones. It&#x27;s very possible that a per-repo charge would make things worse.",
+                  "comments": []
+                },
+                {
+                  "id": 49354189,
+                  "level": 3,
+                  "user": "CrimsonCape",
+                  "time": 1787094796,
+                  "time_ago": "21 hours ago",
+                  "content": "<p>You are way too optimistic. What will realistically happen is they charge $2 per month and the quality doesn&#x27;t change. The $2 per month gross will go where it always goes: launches, exec salaries, shareholders.",
+                  "comments": []
+                },
+                {
+                  "id": 49333097,
+                  "level": 3,
+                  "user": "odo1242",
+                  "time": 1786982224,
+                  "time_ago": "2 days ago",
+                  "content": "<p>I think GitHub leans on this free repos thing a lot for getting new users though. Like I could see people just moving to GitLab",
+                  "comments": [
+                    {
+                      "id": 49335594,
+                      "level": 4,
+                      "user": "neko_ranger",
+                      "time": 1786991612,
+                      "time_ago": "2 days ago",
+                      "content": "<p>Free private repos on github is relatively new, only introduced after a rise in popularity of gitlab (which has free private repos).<p>Seems like github is too popular for itself.",
+                      "comments": [
+                        {
+                          "id": 49349419,
+                          "level": 5,
+                          "user": "klausa",
+                          "time": 1787074832,
+                          "time_ago": "a day ago",
+                          "content": "<p>I know you said &quot;relatively&quot;, but it&#x27;s been seven and a half years: <a href=\"https:&#x2F;&#x2F;github.blog&#x2F;changelog&#x2F;2019-01-08-pricing-changes&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;github.blog&#x2F;changelog&#x2F;2019-01-08-pricing-changes&#x2F;</a>",
+                          "comments": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 49333133,
+                      "level": 4,
+                      "user": "hakunin",
+                      "time": 1786982374,
+                      "time_ago": "2 days ago",
+                      "content": "<p>…and encountering the same issues most likely.",
+                      "comments": [
+                        {
+                          "id": 49333169,
+                          "level": 5,
+                          "user": "odo1242",
+                          "time": 1786982522,
+                          "time_ago": "2 days ago",
+                          "content": "<p>Fair, but the point is GitHub’s model is:<p>Free Users use GitHub =&gt; when a company needs source control =&gt; all their coders use GitHub =&gt; company buys expensive enterprise contract.<p>If there’s less of an advantage to using free GitHub then that funnel works less effectively.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49333268,
+                  "level": 3,
+                  "user": "hei-lima",
+                  "time": 1786982836,
+                  "time_ago": "2 days ago",
+                  "content": "<p>GH isn&#x27;t good enough to charge that much for its core services. 90% of its user base would just find better or cheaper alternatives, and the only ones remaining would be legacy enterprise codebases that are just impossible or too expensive to migrate.",
+                  "comments": []
+                },
+                {
+                  "id": 49348369,
+                  "level": 3,
+                  "user": "joshspankit",
+                  "time": 1787071243,
+                  "time_ago": "a day ago",
+                  "content": "<p>What about $1&#x2F;year per private repo?",
+                  "comments": []
+                },
+                {
+                  "id": 49338075,
+                  "level": 3,
+                  "user": "kypro",
+                  "time": 1787002957,
+                  "time_ago": "2 days ago",
+                  "content": "<p>80&#x2F;20 rule would suggest that you don&#x27;t need to apply $1 to all users, just those who create an excessive number of AI slop repos or make an excessive number of commits.<p>Could do similar for GH actions usage.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49357649,
+              "level": 2,
+              "user": "never_inline",
+              "time": 1787120841,
+              "time_ago": "14 hours ago",
+              "content": "<p>You can also limit number of free commits to, say 100 per month.",
+              "comments": [
+                {
+                  "id": 49360491,
+                  "level": 3,
+                  "user": "gspr",
+                  "time": 1787141701,
+                  "time_ago": "8 hours ago",
+                  "content": "<p>So if I want to push an existing project with 1000 commits to GitHub for the first time, I gotta do it over the course of 10 months?<p>Encouraging big commits seems antithetical to the idea of git in general.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49349129,
+              "level": 2,
+              "user": "imjonse",
+              "time": 1787073833,
+              "time_ago": "a day ago",
+              "content": "<p>I would have thought it&#x27;s public repos that got the most AI slop recently as a form of gathering karma and boost CVs. It would be nice to know if private repo commits increased instead.",
+              "comments": []
+            },
+            {
+              "id": 49359578,
+              "level": 2,
+              "user": "fg137",
+              "time": 1787135513,
+              "time_ago": "10 hours ago",
+              "content": "<p>Public or private doesn&#x27;t matter. Vibe coders aren&#x27;t worried about others using their AI slop",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49361933,
+          "level": 1,
+          "user": "bcx",
+          "time": 1787148907,
+          "time_ago": "6 hours ago",
+          "content": "<p>14X at github&#x27;s scale is unlikely an easy problem to solve.<p>Additionally, there is a strategic reason to be the repository for all code, free, or not which is likely at conflict with reliability goals.<p>(e.g. they could get rid of their free tier which would improve reliability at the cost of allowing a new competitor to be the repository for all new AI driven code)<p>The long term strategic benefit of being the home to all code (or most of it) is enormous. They are likely balancing that strategic goal with what is seen as short-term internally as reliability.",
+          "comments": []
+        },
+        {
+          "id": 49349598,
+          "level": 1,
+          "user": "vb-8448",
+          "time": 1787075410,
+          "time_ago": "a day ago",
+          "content": "<p>I&#x27;m curios what is the bottleneck then? Because github(ms) has enough resources to hire competent people and provision needed hw to solve scaling the issues.",
+          "comments": [
+            {
+              "id": 49359333,
+              "level": 2,
+              "user": "dspillett",
+              "time": 1787133789,
+              "time_ago": "11 hours ago",
+              "content": "<p>Ignoring the possibility of plain ol&#x27; management incompetence, when things are changing as fast as they are the problem becomes one of lead time. Hiring competent people does not happen at the click of a finger, nor in the current climate does getting new hardware resources.<p>Hardware probably isn&#x27;t going to do a lot with demand rising 10x or more at peak times, if they had scaled and tested systems with a view to supporting an order of magnitude more requests than expected then all that contingency resource is already gone. Adding 10% more hardware is going to be very expensive and will likely not have <i>that</i> much effect anyway without design changes to make better use of that hardware, scaling by orders of magnitude often reveals bottlenecks that were not apparent at the previous scales, or were apparent but dismissed (I imagine somewhere in a comment or design doc someone having written “we will need to rethink this if the system is to be asked to process 10ˣ⁺¹ things&#x2F;period rather than 10ˣ”).<p>And once you&#x27;ve hired those people, even if they get up to speed pretty much instantly, a system change isn&#x27;t going to be designed&#x2F;made&#x2F;rolled-out in short order so patchwork fixes are still needed in the meantime, and any roll-out probably needs to be gradual which adds further complication.<p>Scaling isn&#x27;t easy. Scaling fast is a royal PITA.",
+              "comments": []
+            },
+            {
+              "id": 49349647,
+              "level": 2,
+              "user": "c0rruptbytes",
+              "time": 1787075592,
+              "time_ago": "a day ago",
+              "content": "<p>need competent people to hire competent people first - it seems like their only directive is to raise $MSFT not make good tech<p>(talking about leadership, not my lovely msft engineers reading this)",
+              "comments": []
+            },
+            {
+              "id": 49352368,
+              "level": 2,
+              "user": "tsss",
+              "time": 1787085560,
+              "time_ago": "a day ago",
+              "content": "<p>Looking at the design of Github Actions, I don&#x27;t see any competency.",
+              "comments": []
+            },
+            {
+              "id": 49349667,
+              "level": 2,
+              "user": "moralestapia",
+              "time": 1787075639,
+              "time_ago": "a day ago",
+              "content": "<p>Yeah, aren&#x27;t they super geniuses with infra that scales with a button, etc.?",
+              "comments": [
+                {
+                  "id": 49349845,
+                  "level": 3,
+                  "user": "aleph_minus_one",
+                  "time": 1787076205,
+                  "time_ago": "a day ago",
+                  "content": "<p>&gt; infra that scales with a button<p>That is how Microsoft markets Azure. :-)",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49350328,
+              "level": 2,
+              "user": "lallysingh",
+              "time": 1787077878,
+              "time_ago": "a day ago",
+              "content": "<p>Probably contention on databases.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49361143,
+          "level": 1,
+          "user": "smcleod",
+          "time": 1787144909,
+          "time_ago": "8 hours ago",
+          "content": "<p>GitHub&#x27;s reliability has been going downhill longer than AI has been becoming popular. I feel like the load is becoming the scapegoat.",
+          "comments": []
+        },
+        {
+          "id": 49332899,
+          "level": 1,
+          "user": "fourseventy",
+          "time": 1786981550,
+          "time_ago": "2 days ago",
+          "content": "<p>Github is owned by Microsoft, its not like its some boostrapped startup who has a closet of servers that are melting.",
+          "comments": [
+            {
+              "id": 49350976,
+              "level": 2,
+              "user": "platevoltage",
+              "time": 1787080060,
+              "time_ago": "a day ago",
+              "content": "<p>And on top of that, Microsoft is one of the companies that created this problem in the first place.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49332729,
+          "level": 1,
+          "user": "pluc",
+          "time": 1786980884,
+          "time_ago": "2 days ago",
+          "content": "<p>Nobody at Microsoft could&#x27;ve predicted AI was going to be so popular!",
+          "comments": [
+            {
+              "id": 49350037,
+              "level": 2,
+              "user": "blipvert",
+              "time": 1787076920,
+              "time_ago": "a day ago",
+              "content": "<p>Like the way that they shipped ‘95 without a browser?",
+              "comments": [
+                {
+                  "id": 49353338,
+                  "level": 3,
+                  "user": "aleph_minus_one",
+                  "time": 1787090420,
+                  "time_ago": "a day ago",
+                  "content": "<p>&gt; Like the way that they shipped ‘95 without a browser?<p>Around the time when Windows 95 was released, Microsoft <i>did</i> predict that the internet will become popular also among private users. That is why<p>- they included  Winsock (Windows&#x27; TCP&#x2F;UDP&#x2F;IP stack) as native part of Windows 95 (in opposite to Windows 3.x where you had to install a third-party implementation of the Winsock API such as Trumpet Winsock), though it was typically not installed by default,<p>- support to use MSN (the dial-up online service and internet servicen provider [1]) was pre-installed with Windows 95.<p>What was not clear at that time was that the world wide web would become the killer application for the internet for consumer users (at that time, the more likely killer application of the internet for consumers was seen in proprietary content providers such as AOL, Compuserve or MSN), so Microsoft provided no web browser with the original version of Windows 95.<p>But even at that time, it was conceivable, though not clear that the world wide web could become important. So, already at the release time of Windows 95, Microsoft provided Internet Explorer 1.0 as part of the Plus! add-on pack for Windows 95. With Windows 95 OEM Service Release 1, the Internet Explorer 2.0 got part of Windows 95, and Windows 98 introduced the (optional) Active Desktop [2], in was centered around the Internet Explorer.<p>So, in my opinion Microsoft <i>did</i> everything &quot;correct&quot; here: they provided Internet Explorer from beginning on as an optional separate component (Plus! add-on pack), and once it was obvious that the world wide web would become very important, they reacted fast and included the Internet Explorer in the next service release of Windows 95 (Windows 95 OEM Service Release 1).<p>--<p>[1] <a href=\"https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;MSN_Dial-Up_Internet_Access\" rel=\"nofollow\">https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;MSN_Dial-Up_Internet_Access</a><p>[2] <a href=\"https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Active_Desktop\" rel=\"nofollow\">https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Active_Desktop</a>",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49350547,
+          "level": 1,
+          "user": "meerita",
+          "time": 1787078525,
+          "time_ago": "a day ago",
+          "content": "<p>I can&#x27;t believe they&#x27;ve been asleep all these months, not foreseeing that AI would generate more commits and Git usage and, consequently, not preparing themselves to scale.",
+          "comments": []
+        },
+        {
+          "id": 49356694,
+          "level": 1,
+          "user": "rpearl",
+          "time": 1787112656,
+          "time_ago": "17 hours ago",
+          "content": "<p>That is 455 commits per second. I know that&#x27;s not qps over the system but it&#x27;s not that huge of an input number either. Not for big tech like msft.",
+          "comments": []
+        },
+        {
+          "id": 49352163,
+          "level": 1,
+          "user": "lluisantoni",
+          "time": 1787084688,
+          "time_ago": "a day ago",
+          "content": "<p>That is a good point. And this issue looks analogous to what is happening in the research publication world (arxiv, peer-review, etc). In particular, I wonder whether code pushed is of lesser quality, CI pipelines break more often too, and this saturates github servers.",
+          "comments": []
+        },
+        {
+          "id": 49332709,
+          "level": 1,
+          "user": "TZubiri",
+          "time": 1786980799,
+          "time_ago": "2 days ago",
+          "content": "<p>Are these disproportionately in the free tier? Or is the increased storage load similar across the paid tiers?<p>Might be worth considering a &#x2F;GB&#x2F;MO fee. Let&#x27;s face it, VCS is a (glorified) storage service.",
+          "comments": [
+            {
+              "id": 49332862,
+              "level": 2,
+              "user": "cute_boi",
+              "time": 1786981410,
+              "time_ago": "2 days ago",
+              "content": "<p>I think Github should start charging who goes beyond fair usages.<p>I just checked no 1 vibe coder <a href=\"https:&#x2F;&#x2F;github.com&#x2F;steipete\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;steipete</a> and he has like 279,440.  Compared this to Taylor who works on huge project like Laravel and is only around 8k commits.",
+              "comments": [
+                {
+                  "id": 49332920,
+                  "level": 3,
+                  "user": "ProofHouse",
+                  "time": 1786981614,
+                  "time_ago": "2 days ago",
+                  "content": "<p>The scam that anthropic pulled, is they remove free tier (bad idea for Github honestly), but blame it on AI vibe code abusers. Instead of for example finding the 1-5% of absolutely aggregous users like Steipete and restricting them.",
+                  "comments": [
+                    {
+                      "id": 49333055,
+                      "level": 4,
+                      "user": "logicallee",
+                      "time": 1786982094,
+                      "time_ago": "2 days ago",
+                      "content": "<p>it&#x27;s a bit of a stretch to call removing a free tier a scam. as you can see a lot of people in this thread are saying Github should start charging.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49355461,
+          "level": 1,
+          "user": "winrid",
+          "time": 1787103465,
+          "time_ago": "19 hours ago",
+          "content": "<p>That doesn&#x27;t answer the question at all. I suspect most components are already horizontally scalable, if not, which ones? That would be an interesting discussion for HN.",
+          "comments": []
+        },
+        {
+          "id": 49360395,
+          "level": 1,
+          "user": "ksec",
+          "time": 1787141112,
+          "time_ago": "9 hours ago",
+          "content": "<p>This is the part Github is doing really bad at, it&#x27;s PR.<p>Had these DATA and message been tossed around more people wouldn&#x27;t be so frustrated and would be more understanding.",
+          "comments": []
+        },
+        {
+          "id": 49351836,
+          "level": 1,
+          "user": "layer8",
+          "time": 1787083366,
+          "time_ago": "a day ago",
+          "content": "<p>Turns out that the cloud doesn’t scale that easily by itself after all?",
+          "comments": [
+            {
+              "id": 49352128,
+              "level": 2,
+              "user": "aleph_minus_one",
+              "time": 1787084562,
+              "time_ago": "a day ago",
+              "content": "<p>&gt; Turns out that the cloud doesn’t scale that easily by itself after all?<p>The <i>cloud</i> does scale that easily, the software doesn&#x27;t. :-)",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49332791,
+          "level": 1,
+          "user": "cute_boi",
+          "time": 1786981154,
+          "time_ago": "2 days ago",
+          "content": "<p>It is just an excuse. If they can&#x27;t support paid member or don&#x27;t have infra they should start charging these slop projects who are committing relentlessly.",
+          "comments": []
+        },
+        {
+          "id": 49333107,
+          "level": 1,
+          "user": "0xbadcafebee",
+          "time": 1786982256,
+          "time_ago": "2 days ago",
+          "content": "<p>If that&#x27;s the superficial cause, then the root cause is a lack of limits. Any production system in the world will go down from too much load if you don&#x27;t limit the load. You have to do performance testing to determine what the system&#x27;s peak utilization is, and put limits in place to prevent exceeding that limit.<p>There are multiple kinds of limits you need. First you need the raw i&#x2F;o limits on things like networking, load balancer requests per second, etc so you don&#x27;t slow to a crawl on high load; you can throttle max i&#x2F;o so demanding users don&#x27;t steal performance for others, or even throttle network traffic to the client IP and internal services. Then you need additional limits at app layer, like number of requests you can process that make DB calls (as most DBs have a connection and request limit), or limit API requests to X&#x2F;minute. Then you need more business logic limits, like max number of concurrent logged-in users, max number of repos a user can have, max number of requests for free users, priority for paid requests, etc.<p>When you hit a limit, you have a couple choices. You can shed load (dropping calls immediately, which results in 503 errors for users, or even network disconnects), but it makes a very poor user experience, and can cause larger issues&#x2F;conflicts in a distributed system. You can instead keep a max number of active sessions, and adjust that number over time, to ensure that (on average) your users have a stable experience; this requires implementing a &quot;waiting room&quot; for new sessions when old ones expire or log out; still not great for users, but it prevents <i>everyone</i> from getting random errors, which means the majority of users have a good experience.<p>There are way more kinds of limits to implement. Each business has to analyze its entire system to identify performance bottlenecks and implement limits to ensure the majority of users continue to have good service. Without those limits, you get a shit experience for everyone, your brand is tarnished, and customers run for the hills.<p>Finally, the performance testing helps you plan how much infrastructure you need to serve a given number of users. If you plan properly, you know X infra allows for Y number of users. Once you exceed Y users, you need to start throttling or stopping new user signup (and requests per minute) until you can increase capacity. Continuing to allow signups and additional usage, without the capacity to support it, results in what we see today.<p>But competent engineers know all this. If they had competent engineers, and it gets this bad anyway, the problem is management. Microsoft likely already made back what they acquired GitHub for. They probably figured they could keep riding the gravy train until the train went off the rails, and either eventually sell GitHub or write it off. Such is business.",
+          "comments": [
+            {
+              "id": 49363486,
+              "level": 2,
+              "user": "lilerjee",
+              "time": 1787155868,
+              "time_ago": "5 hours ago",
+              "content": "<p>Too complicated and the price is very huge.<p>Fixing small errors and keeping going on maybe is a good business strategy.<p>The last result is probably what you said.",
+              "comments": []
+            },
+            {
+              "id": 49351025,
+              "level": 2,
+              "user": "thex10",
+              "time": 1787080253,
+              "time_ago": "a day ago",
+              "content": "<p>I really enjoyed this read, as I am starting to grapple with some of this now. Do you have any resources for learning more about this stuff and these tradeoffs?",
+              "comments": []
+            },
+            {
+              "id": 49350211,
+              "level": 2,
+              "user": "darkr",
+              "time": 1787077488,
+              "time_ago": "a day ago",
+              "content": "<p>&gt; until the train went off the rails<p>Ironically the core application is written in rails, which may be part of the issue",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49333153,
+          "level": 1,
+          "user": "adzuci",
+          "time": 1786982472,
+          "time_ago": "2 days ago",
+          "content": "<p>I think that data is a bit dated and misleading, but I would love to see if AI slop is a contributing factor here once the dust settles and how Github will address it.   Looking at the return to mean in <a href=\"https:&#x2F;&#x2F;areyougoingexponential.rhys.dev&#x2F;kdaigle\" rel=\"nofollow\">https:&#x2F;&#x2F;areyougoingexponential.rhys.dev&#x2F;kdaigle</a> makes me think the COO spike could be a Karpathy wiki or an agent too.",
+          "comments": []
+        },
+        {
+          "id": 49332900,
+          "level": 1,
+          "user": "bluerooibos",
+          "time": 1786981552,
+          "time_ago": "2 days ago",
+          "content": "<p>&gt; Github is struggling because AI-boosted coding increased the number of commits 14x in the past year,<p>OK so then use the additional revenue to add more resources and employees?  What the f*k are they doing over there?",
+          "comments": [
+            {
+              "id": 49332926,
+              "level": 2,
+              "user": "flexagoon",
+              "time": 1786981626,
+              "time_ago": "2 days ago",
+              "content": "<p>&gt; OK so then use the additional revenue to add more resources and employees?<p>What revenue? I&#x27;d assume the people pushing thousands of AI-generated commits are not the people paying for GitHub Enterprise.",
+              "comments": [
+                {
+                  "id": 49333771,
+                  "level": 3,
+                  "user": "bluerooibos",
+                  "time": 1786984448,
+                  "time_ago": "2 days ago",
+                  "content": "<p>&gt; What revenue<p>I&#x27;d assume at least a portion of them are paying for GitHub Pro, and by now at least a small % would have converted to Enterprise.<p>If not, then they need to fix their operational model - I don&#x27;t understand people acting like this is some insurmountable challenge given Microsoft reported over $331 billion in total revenue and an operating income exceeding $155 billion in 2026.",
+                  "comments": [
+                    {
+                      "id": 49333981,
+                      "level": 4,
+                      "user": "roryirvine",
+                      "time": 1786985261,
+                      "time_ago": "2 days ago",
+                      "content": "<p>Changing the operating model can be surprisingly tough for an established business. Imagine the outcry if they started charging per git push, for example.<p>Clearly, something needs to change. But if they&#x27;re not careful they might provoke a reaction from their existing userbase that&#x27;s even more negative that the response to these outages.",
+                      "comments": [
+                        {
+                          "id": 49349192,
+                          "level": 5,
+                          "user": "oceanician",
+                          "time": 1787074023,
+                          "time_ago": "a day ago",
+                          "content": "<p>Sure, but max 100 pushes per day per account? Or should it be higher?",
+                          "comments": []
+                        },
+                        {
+                          "id": 49336187,
+                          "level": 5,
+                          "user": "bluerooibos",
+                          "time": 1786994237,
+                          "time_ago": "2 days ago",
+                          "content": "<p>&gt; can be tough<p>Of course it can - everything is tough at that scale, but their parent company has billions in profit.  They&#x27;ve had a year to come up with a plan&#x2F;fix and have failed miserably.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49332922,
+              "level": 2,
+              "user": "thevinter",
+              "time": 1786981617,
+              "time_ago": "2 days ago",
+              "content": "<p>What revenue do AI-boosted commits provide? Am I missing something?",
+              "comments": [
+                {
+                  "id": 49333805,
+                  "level": 3,
+                  "user": "bluerooibos",
+                  "time": 1786984597,
+                  "time_ago": "2 days ago",
+                  "content": "<p>You&#x27;re missing the fact that Microsoft reported over $331 billion in total revenue and an operating income exceeding $155 billion - this is a fixable problem.<p>If they&#x27;re really that cash-strapped at GitHub, then are they planning to just continue allowing this to happen and drown, or fix the issues?  This has been ongoing for over a year.",
+                  "comments": [
+                    {
+                      "id": 49334581,
+                      "level": 4,
+                      "user": "rurban",
+                      "time": 1786987631,
+                      "time_ago": "2 days ago",
+                      "content": "<p>So why did all the Azure and Github engineers leave then? There&#x27;s only management and outsourced cheap labor there, and management has no idea. Cheap labor even less",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49332925,
+              "level": 2,
+              "user": "pavel_lishin",
+              "time": 1786981624,
+              "time_ago": "2 days ago",
+              "content": "<p><i>Is there</i> additional revenue from a bunch of people pushing their vibe-coded stuff up to Github?",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49351587,
+      "level": 0,
+      "user": "andyjohnson0",
+      "time": 1787082397,
+      "time_ago": "a day ago",
+      "content": "<p>Github used to be built on mysql &#x2F; redis &#x2F; ruby on rails &#x2F; C &#x2F; shell, running on dedicated hardware. Microsoft left it like that after they acquired the company.<p>Eventually, though, they decided to migrate the whole thing to Azure. And they were far enough through that to be basically committed... when AI coding started hitting them with much higher workloads.<p>I personally think the reliability problems are more to do with the reliability of the Azure migration. But both factors are likely relevant.",
+      "comments": [
+        {
+          "id": 49353330,
+          "level": 1,
+          "user": "sosodev",
+          "time": 1787090384,
+          "time_ago": "a day ago",
+          "content": "<p>They didn&#x27;t leave the architecture alone, right? They shoved React in and created a weird SSR + React frankenstein that is objectively worse in many ways.",
+          "comments": [
+            {
+              "id": 49363744,
+              "level": 2,
+              "user": "Zanfa",
+              "time": 1787157070,
+              "time_ago": "4 hours ago",
+              "content": "<p>Wish they spent some AI tokens on that abomination to fix at least some of the countless issues it has, because their human engineers definitely won’t.",
+              "comments": []
+            },
+            {
+              "id": 49361803,
+              "level": 2,
+              "user": "esperent",
+              "time": 1787148338,
+              "time_ago": "7 hours ago",
+              "content": "<p>React apps with SSR is standard these days.",
+              "comments": [
+                {
+                  "id": 49362737,
+                  "level": 3,
+                  "user": "sosodev",
+                  "time": 1787152537,
+                  "time_ago": "5 hours ago",
+                  "content": "<p>SSR that is javascript native,  sure. This is still Ruby doing the rendering.",
+                  "comments": [
+                    {
+                      "id": 49363499,
+                      "level": 4,
+                      "user": "esperent",
+                      "time": 1787155944,
+                      "time_ago": "4 hours ago",
+                      "content": "<p>What&#x27;s the difference? If it&#x27;s SSR it&#x27;s happening on the server, the only benefit of using JS is ergonomics. Ruby is fine otherwise.",
+                      "comments": [
+                        {
+                          "id": 49365564,
+                          "level": 5,
+                          "user": "sosodev",
+                          "time": 1787165114,
+                          "time_ago": "2 hours ago",
+                          "content": "<p>Ruby can&#x27;t render React code. JavaScript can. With GitHub it seems that they sometimes can do SSR for the React bits, but that must mean that they&#x27;re invoking a JavaScript interpreter within the Ruby process. Which means they have the overhead of two runtimes and the jank that comes with the IPC between the two.<p>It&#x27;s just pointless hacks on hacks. GitHub didn&#x27;t need React on the frontend and any potential resource savings of client side rendering were lost when they realized they need to do SSR on that stuff too.<p>I&#x27;ve encountered so much frontend jank as they expanded that portion of the stack whereas it was always excellent when it was just Ruby SSR and minimal JS on the frontend.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49366069,
+              "level": 2,
+              "user": "phailhaus",
+              "time": 1787167584,
+              "time_ago": "an hour ago",
+              "content": "<p>And yet, the React&#x2F;SSR infra has never gone down.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49353769,
+          "level": 1,
+          "user": "dgellow",
+          "time": 1787092507,
+          "time_ago": "a day ago",
+          "content": "<p>This is the reason, at least what I know from people who worked there, the azure migration has been very painful as far as I’m aware",
+          "comments": [
+            {
+              "id": 49360017,
+              "level": 2,
+              "user": "0-sodium",
+              "time": 1787138511,
+              "time_ago": "9 hours ago",
+              "content": "<p>yep this was the same with LinkedIn who killed the migration after massive massive costs ~ <a href=\"https:&#x2F;&#x2F;www.theregister.com&#x2F;on-prem&#x2F;2023&#x2F;12&#x2F;14&#x2F;microsofts-linkedin-abandons-migration-to-microsoft-azure&#x2F;1350008\" rel=\"nofollow\">https:&#x2F;&#x2F;www.theregister.com&#x2F;on-prem&#x2F;2023&#x2F;12&#x2F;14&#x2F;microsofts-li...</a>",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49352638,
+          "level": 1,
+          "user": "cbeach",
+          "time": 1787086857,
+          "time_ago": "a day ago",
+          "content": "<p>After their infamous &quot;Fail Whale&quot; outages, Twitter replaced its Ruby on Rails &#x2F; MySQL stack with modern (at the time) technologies: Scala (functional language running on the JVM) &#x2F; Finagle (RPC) &#x2F; Thrift (framework) &#x2F; Kafka (message queues) and this made Twitter stable under the load of several hundred million users.<p>Ruby is single-threaded, slow with poor GC and memory leaks. As Twitter&#x27;s Alex Payne said publicly in 2008: &quot;there shouldn&#x27;t be doubt in anybody&#x27;s mind that Ruby itself is slow&quot; and that scaling Rails meant &quot;just throw more instances at it&quot;",
+          "comments": [
+            {
+              "id": 49356566,
+              "level": 2,
+              "user": "springtimesun",
+              "time": 1787111971,
+              "time_ago": "17 hours ago",
+              "content": "<p>Current Rails and Co are miles away from where they used to be then, but even then my feeling was that maybe it was the skill&#x2F;culture&#x2F;dev ops at Twitter that was at least partly responsible for the fail whale. But I don’t have any insight as to what was actually going on inside before and after that transition.",
+              "comments": []
+            },
+            {
+              "id": 49352972,
+              "level": 2,
+              "user": "lab14",
+              "time": 1787088566,
+              "time_ago": "a day ago",
+              "content": "<p>tell that to Shopify that handles 8.15 million requests per second and processes 5.1 million per minute in sales during Black Friday. You scale your architecture, not your programming language.",
+              "comments": []
+            },
+            {
+              "id": 49353247,
+              "level": 2,
+              "user": "azuanrb",
+              "time": 1787089992,
+              "time_ago": "a day ago",
+              "content": "<p>It’s 2026 and we’re still benchmarking Ruby using Twitter’s 2008 architecture. It was less about a language choice and more about years of architectural redesign. I thought we were past this by now.",
+              "comments": [
+                {
+                  "id": 49359939,
+                  "level": 3,
+                  "user": "cbeach",
+                  "time": 1787138006,
+                  "time_ago": "9 hours ago",
+                  "content": "<p>Ruby (language) on Rails (highly opinionated framework) is both a language and an architecture.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49332571,
+      "level": 0,
+      "user": "herpdyderp",
+      "time": 1786980295,
+      "time_ago": "2 days ago",
+      "content": "<p>non-helpful answer: the &quot;Microsoft Acquires GitHub&quot; line in this graph answers all questions <a href=\"https:&#x2F;&#x2F;damrnelson.github.io&#x2F;github-historical-uptime&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;damrnelson.github.io&#x2F;github-historical-uptime&#x2F;</a>",
+      "comments": [
+        {
+          "id": 49332966,
+          "level": 1,
+          "user": "flexagoon",
+          "time": 1786981759,
+          "time_ago": "2 days ago",
+          "content": "<p>Note that most of the downtime in that graph comes from Github Actions, which simply <i>didn&#x27;t exist</i> before the Microsoft acquisition.<p>The downtime also starts happening in 2020, which is a while after the acquisition. 2020 was the year many people started learning to code while being stuck at home.",
+          "comments": []
+        },
+        {
+          "id": 49350391,
+          "level": 1,
+          "user": "fallingbananna",
+          "time": 1787078072,
+          "time_ago": "a day ago",
+          "content": "<p>To be fair, before the aquisition, GitHub was super stable, but also it felt like they rarely changed or added anything.<p>After Microsoft acquired them, they started rolling out new features at an incredible pace. And if you look at the breakdown of the downtime, most of the downtime is in features that didn&#x27;t exist before the acquisition.<p>Though not all of the downtime is in new features. The core is also less stable than ever.",
+          "comments": [
+            {
+              "id": 49352272,
+              "level": 2,
+              "user": "a2ff6eeb0",
+              "time": 1787085129,
+              "time_ago": "a day ago",
+              "content": "<p>But I just want stable hosting for my shit. I barely even interact with the web UI, other than commenting on PRs.",
+              "comments": [
+                {
+                  "id": 49359647,
+                  "level": 3,
+                  "user": "dspillett",
+                  "time": 1787135972,
+                  "time_ago": "10 hours ago",
+                  "content": "<p>Unfortunately there isn&#x27;t as much money to be made¹² serving people who just want a stable host for basic repos. The money comes from the paid accounts, and those <i>do</i> tend to want the extra features - even if the end users don&#x27;t the management agreeing to the spend will see value in the integration³ of other parts of the development&#x2F;release&#x2F;support processes. The problem is they all want a different mix of features, meaning that the feature set needs to be wide to capture as much interest as possible especially in light of competitors that may offer something you don&#x27;t (yet).<p>--------<p>[1] Possibly none, are you paying for a pro or enterprise account?<p>[2] There will be a little indirect income perhaps, via deriving value from tracking users and being able to use the combined content for various analytics (including lately AI training).<p>[3] Potentially reducing the cost&#x2F;complexity of integrating disparate systems⁴, themselves.<p>[4] Sometimes in-house developed systems that might distract key devs from the company&#x27;s products&#x2F;services that they can sell.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49359494,
+              "level": 2,
+              "user": "dspillett",
+              "time": 1787134967,
+              "time_ago": "10 hours ago",
+              "content": "<p><i>&gt; To be fair, before the acquisition, GitHub was super stable</i><p>Having been through a couple of acquisitions (as a cog in the machine being acquired, not a founder or purchaser or such), the last one at the end of 2025, and seen others as an unofficial close observer via friends&#x2F;family, I think this is quite normal. No matter how thorough the due diligence and other investigations are pre-purchase, there will usually be an information gathering time before <i>any</i> significant changes are made. Even without that there are a couple of months being very careful not to rock the boat too much, so as to not put the willies up shareholders and key human resources. The first significant changes often won&#x27;t happen for 3-to-6 months, unless part of the reason for the acquisition is that the company was on the verge of failing or was growing too fast to cope. During that time, unless key people jump ship early forcing change to an extent, things below certain management levels are much more business-as-usual than you might expect.",
+              "comments": []
+            },
+            {
+              "id": 49351073,
+              "level": 2,
+              "user": "nrr",
+              "time": 1787080416,
+              "time_ago": "a day ago",
+              "content": "<p>My (actuarial) read on this is that pre-Microsoft GitHub acknowledged that the complexity inherent in their technology stack imparted a lot of change risk, and that probably informed their decisions around shipping new features.<p>My (not-so-actuarial 1990&#x27;s-experience-colored) feeling is that this is Microsoft doing what Microsoft does best, namely including a lot of seemingly compelling features in a product to get people hooked and to keep competitors in a position of trying to keep up.",
+              "comments": []
+            },
+            {
+              "id": 49358965,
+              "level": 2,
+              "user": "flr03",
+              "time": 1787130582,
+              "time_ago": "12 hours ago",
+              "content": "<p>Nobody wants to trade stability for feature, especially for a product like Github...",
+              "comments": []
+            },
+            {
+              "id": 49358028,
+              "level": 2,
+              "user": "qnleigh",
+              "time": 1787123716,
+              "time_ago": "13 hours ago",
+              "content": "<p>This is no excuse. Prioritizing new features so far above reliability is exactly what makes most Microsoft products infuriating to use.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49352200,
+          "level": 1,
+          "user": "jm4",
+          "time": 1787084805,
+          "time_ago": "a day ago",
+          "content": "<p>In all fairness, the features expanded substantially <i>after</i> the acquisition so there&#x27;s are a lot more components that can experience downtime. Pre-acquisition, github was a fairly simple code repository with issues bolted on. Actions, Dependabot, Codespaces, Advanced Security, Package Registry, Copilot, etc. all came after the acquisition and probably involve much more overhead than what github was prior to the acquisition. It basically went from code hosting platform where machines are sitting idle when pushes and pulls aren&#x27;t happening to a fully integrated developer ecosystem. Any one of those things experiencing degraded performance is going to show up on an uptime chart.",
+          "comments": [
+            {
+              "id": 49354571,
+              "level": 2,
+              "user": "rcxdude",
+              "time": 1787096789,
+              "time_ago": "21 hours ago",
+              "content": "<p>True, but you could argue whether these were good product decisions especially given they&#x27;ve probably contributed to the cost of running the platform and the instability substantially.<p>(Github did probably want a native CI implementation but I&#x27;m not really sure Actions was the way to do it. It seems so needlessly complex to me, not to mention the massive security issues. The rest of those features are just far from something I&#x27;d ever use so I don&#x27;t even really know how to comment on them)",
+              "comments": [
+                {
+                  "id": 49354732,
+                  "level": 3,
+                  "user": "jm4",
+                  "time": 1787098028,
+                  "time_ago": "21 hours ago",
+                  "content": "<p>I dunno. Those features are valuable to somebody. Probably enterprise and government, which is where the money is. They basically get a full stack - and if we&#x27;re being honest, it&#x27;s actually pretty damn good aside from the downtime - from one vendor and that&#x27;s important. The Universal Blue people have done some interesting things with Actions too. I guess if you don&#x27;t need any of that stuff it&#x27;s an easy migration for you. I&#x27;m in that boat. I switched to Forgejo and there&#x27;s nothing I miss. Even that&#x27;s overkill for my use case.",
+                  "comments": [
+                    {
+                      "id": 49358498,
+                      "level": 4,
+                      "user": "rcxdude",
+                      "time": 1787126740,
+                      "time_ago": "13 hours ago",
+                      "content": "<p>TBH I looked at forgejo as an alternative to Gitlab and the fact that they had cloned Actions is what persuaded me to drop it. IMO Gitlab&#x27;s CI has been their killer feature for a while.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49332640,
+          "level": 1,
+          "user": "joshdavham",
+          "time": 1786980532,
+          "time_ago": "2 days ago",
+          "content": "<p>Microsoft acquiring GitHub is not a valid root cause analysis explaining Github’s degraded SLA.",
+          "comments": [
+            {
+              "id": 49344922,
+              "level": 2,
+              "user": "ryandvm",
+              "time": 1787057606,
+              "time_ago": "a day ago",
+              "content": "<p>Mmmm - I don&#x27;t do root cause analysis for free. Best I can do is correlation.",
+              "comments": []
+            },
+            {
+              "id": 49332827,
+              "level": 2,
+              "user": "cwnyth",
+              "time": 1786981303,
+              "time_ago": "2 days ago",
+              "content": "<p>According to that graph, performance drops widely after Microsoft&#x27;s acquisition before AI enters the scene. If not Microsoft, how else do you explain it, or is the graph somehow misleading?",
+              "comments": [
+                {
+                  "id": 49332850,
+                  "level": 3,
+                  "user": "lordgilman",
+                  "time": 1786981372,
+                  "time_ago": "2 days ago",
+                  "content": "<p>You&#x27;re the one making the argument! You need to show causality instead of correlation.",
+                  "comments": [
+                    {
+                      "id": 49333318,
+                      "level": 4,
+                      "user": "cwnyth",
+                      "time": 1786983009,
+                      "time_ago": "2 days ago",
+                      "content": "<p>I&#x27;ve made no argument at all. I&#x27;m asking a question to a person who made the claim that &quot;Microsoft acquiring GitHub is not a valid root cause analysis.&quot;",
+                      "comments": []
+                    },
+                    {
+                      "id": 49353792,
+                      "level": 4,
+                      "user": "dgellow",
+                      "time": 1787092670,
+                      "time_ago": "a day ago",
+                      "content": "<p>No they don’t? They don’t need to do anything. It’s a forum, not a formal debate performance",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49356410,
+                  "level": 3,
+                  "user": "itemize123",
+                  "time": 1787110624,
+                  "time_ago": "17 hours ago",
+                  "content": "<p>it&#x27;s just inaccurate data prior to microsft acq",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49349979,
+          "level": 1,
+          "user": "ornornor",
+          "time": 1787076698,
+          "time_ago": "a day ago",
+          "content": "<p>I’ve noticed the same thing with computers, whenever I install MS windows on them uptime tanks ;)",
+          "comments": []
+        },
+        {
+          "id": 49353269,
+          "level": 1,
+          "user": "chem83",
+          "time": 1787090080,
+          "time_ago": "a day ago",
+          "content": "<p>Seems to be a pattern that infra teams in and around Azure don&#x27;t know how to deal with age-of-AI levels of demand and struggle when internal politics + technical hubris get in the way: <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47616242\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47616242</a>",
+          "comments": []
+        },
+        {
+          "id": 49332596,
+          "level": 1,
+          "user": "ciupicri",
+          "time": 1786980379,
+          "time_ago": "2 days ago",
+          "content": "<p>On the other hand I think usage increased and GitHub operates now at a different scale.",
+          "comments": []
+        },
+        {
+          "id": 49332874,
+          "level": 1,
+          "user": "traviswingo",
+          "time": 1786981440,
+          "time_ago": "2 days ago",
+          "content": "<p>Microsoft acquires GitHub and subsequently moves all infrastructure to Azure",
+          "comments": []
+        },
+        {
+          "id": 49333076,
+          "level": 1,
+          "user": "preciousoo",
+          "time": 1786982148,
+          "time_ago": "2 days ago",
+          "content": "<p>No one hates msft more than me, but there’s no way you think this one data point is useful to explain anything at all",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49333183,
+      "level": 0,
+      "user": "qrush",
+      "time": 1786982569,
+      "time_ago": "2 days ago",
+      "content": "<p>I got an &quot;it is unacceptable&quot; from their CPO on 8&#x2F;7, and that they are &quot;working around the clock on it&quot;.<p><a href=\"https:&#x2F;&#x2F;x.com&#x2F;mariorod1&#x2F;status&#x2F;2085800861469495465\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;mariorod1&#x2F;status&#x2F;2085800861469495465</a><p>I really think something deeper is going wrong there, and they&#x27;re not being honest with their paying customers (and enterprises) about it.",
+      "comments": [
+        {
+          "id": 49352492,
+          "level": 1,
+          "user": "tibbar",
+          "time": 1787086149,
+          "time_ago": "a day ago",
+          "content": "<p>The reality is that it&#x27;s probably a skill issue. Scaling a mature platform 10x can be a really, really hard problem, they obviously don&#x27;t have their arms around a solution, and are probably spending a majority of their time on ops to keep the bleeding down. In the old days you would have Jeff Dean come down from heaven and invent a new database for you or something like that. It doesn&#x27;t really seem like Github has that kind of technical ability, so they&#x27;re probably trying to cobble together Azure ops with internal bandaids while everyone internally is cranking out AI code and it&#x27;s just not going to be enough.",
+          "comments": [
+            {
+              "id": 49352645,
+              "level": 2,
+              "user": "conartist6",
+              "time": 1787086879,
+              "time_ago": "a day ago",
+              "content": "<p>May I just leave this for you here? <a href=\"https:&#x2F;&#x2F;isolveproblems.substack.com&#x2F;p&#x2F;how-microsoft-vaporized-a-trillion\" rel=\"nofollow\">https:&#x2F;&#x2F;isolveproblems.substack.com&#x2F;p&#x2F;how-microsoft-vaporize...</a><p>A technical foundation is not infinitely strong. Put a big enough castle on a swamp, and it will sink into the swamp.",
+              "comments": [
+                {
+                  "id": 49356658,
+                  "level": 3,
+                  "user": "tibbar",
+                  "time": 1787112474,
+                  "time_ago": "17 hours ago",
+                  "content": "<p>This is nightmarish.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49352106,
+          "level": 1,
+          "user": "Pseudocrat",
+          "time": 1787084495,
+          "time_ago": "a day ago",
+          "content": "<p>I mean they may be working around the clock, but after 5 or 6 layoffs in 3 years… half their engineers are probably still learning the code base.",
+          "comments": [
+            {
+              "id": 49353841,
+              "level": 2,
+              "user": "dgellow",
+              "time": 1787092932,
+              "time_ago": "a day ago",
+              "content": "<p>I don’t think their engineers « learn the codebase » anymore, that’s so 2025. It’s all agentic now, the model learns the codebase, the engineer ask the agents to do their best and believe in themselves",
+              "comments": [
+                {
+                  "id": 49359636,
+                  "level": 3,
+                  "user": "fg137",
+                  "time": 1787135835,
+                  "time_ago": "10 hours ago",
+                  "content": "<p>Which is why my colleague pushed fix after fix but still failed at addressing the root cause of a bug. Turns out outsourcing all your thinking to a machine that doesn&#x27;t truly understand your system yet hallucinates isn&#x27;t going to work.",
+                  "comments": []
+                },
+                {
+                  "id": 49364508,
+                  "level": 3,
+                  "user": "owebmaster",
+                  "time": 1787160451,
+                  "time_ago": "3 hours ago",
+                  "content": "<p>Missing the &#x2F;s?<p>This behavior is what led them to the current situation and will only get worse.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49352286,
+              "level": 2,
+              "user": "a2ff6eeb0",
+              "time": 1787085199,
+              "time_ago": "a day ago",
+              "content": "<p>Yeah, and the rest are probably not quite so invested.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49353816,
+          "level": 1,
+          "user": "dgellow",
+          "time": 1787092806,
+          "time_ago": "a day ago",
+          "content": "<p>I wouldn’t be surprised if that tweet response you got was written by an LLM",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49332787,
+      "level": 0,
+      "user": "toomuchtodo",
+      "time": 1786981132,
+      "time_ago": "2 days ago",
+      "content": "<p><i>GitHub Will Prioritize Migrating to Azure Over Feature Development</i> - <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=45517173\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=45517173</a> - October 2025 (63 comments)<p><i>HN Search: azure capacity</i> - <a href=\"https:&#x2F;&#x2F;hn.algolia.com&#x2F;?dateRange=all&amp;page=0&amp;prefix=true&amp;query=azure%20capacity&amp;sort=byDate&amp;type=comment\" rel=\"nofollow\">https:&#x2F;&#x2F;hn.algolia.com&#x2F;?dateRange=all&amp;page=0&amp;prefix=true&amp;que...</a><p><i>Azure Capacity Crunch Extends into 2026 Amid Data Center Constraints</i> - <a href=\"https:&#x2F;&#x2F;windowsforum.com&#x2F;threads&#x2F;azure-capacity-crunch-extends-into-2026-amid-data-center-constraints.383836&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;windowsforum.com&#x2F;threads&#x2F;azure-capacity-crunch-exten...</a> - October 9th, 2025<p><a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47427779\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=47427779</a>",
+      "comments": []
+    },
+    {
+      "id": 49332619,
+      "level": 0,
+      "user": "solfox",
+      "time": 1786980455,
+      "time_ago": "2 days ago",
+      "content": "<p>Many microsoft services are down&#x2F;failing today, including sites hosted on Azure. I&#x27;m guessing it&#x27;s a larger MS outage.",
+      "comments": [
+        {
+          "id": 49332667,
+          "level": 1,
+          "user": "joshdavham",
+          "time": 1786980607,
+          "time_ago": "2 days ago",
+          "content": "<p>So perhaps we should be asking Azure engineers, not Guthub engineers?",
+          "comments": [
+            {
+              "id": 49332957,
+              "level": 2,
+              "user": "adzuci",
+              "time": 1786981724,
+              "time_ago": "2 days ago",
+              "content": "<p>Are they? <a href=\"https:&#x2F;&#x2F;azure.status.microsoft&#x2F;en-us&#x2F;status\" rel=\"nofollow\">https:&#x2F;&#x2F;azure.status.microsoft&#x2F;en-us&#x2F;status</a> doesn&#x27;t support this afaict.",
+              "comments": [
+                {
+                  "id": 49333081,
+                  "level": 3,
+                  "user": "tux3",
+                  "time": 1786982164,
+                  "time_ago": "2 days ago",
+                  "content": "<p>The page shows all green, which coincidentally is also how it looks when Azure is down. That page is for SLA&#x2F;billing purposes, it won&#x27;t show live incidents as they occur.",
+                  "comments": [
+                    {
+                      "id": 49334966,
+                      "level": 4,
+                      "user": "palerdot",
+                      "time": 1786989192,
+                      "time_ago": "2 days ago",
+                      "content": "<p>&gt; That page is for SLA&#x2F;billing purposes, it won&#x27;t show live incidents as they occur.<p>lol ... That is absolutely hilarious ... I&#x27;m not sure if it is &#x2F;s, but if this is true, enterprise stupidity has reached a new level.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49333007,
+                  "level": 3,
+                  "user": "jdelsman",
+                  "time": 1786981878,
+                  "time_ago": "2 days ago",
+                  "content": "<p>How sure are we that their status page is accurate? AWS&#x27;s status page often lags actual issues.",
+                  "comments": [
+                    {
+                      "id": 49349428,
+                      "level": 4,
+                      "user": "jaggederest",
+                      "time": 1787074856,
+                      "time_ago": "a day ago",
+                      "content": "<p>AWS&#x27;s status page would be green after a microsingularity swallowed the solar system. Azure&#x27;s status page is very similar.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49352353,
+              "level": 2,
+              "user": "thoughtpeddler",
+              "time": 1787085481,
+              "time_ago": "a day ago",
+              "content": "<p>GutHub, a SaaS for tracking your gut microbiome",
+              "comments": []
+            },
+            {
+              "id": 49353859,
+              "level": 2,
+              "user": "dgellow",
+              "time": 1787093041,
+              "time_ago": "a day ago",
+              "content": "<p>You mean azure agents? Sorry, azure copilots?",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49350457,
+      "level": 0,
+      "user": "alightsoul",
+      "time": 1787078270,
+      "time_ago": "a day ago",
+      "content": "<p>Lovable only uses GitHub for storing projects. And requires people to provide their own GitHub account. Lots of vibe coders with no technical background are now having lovable push commits to GitHub",
+      "comments": []
+    },
+    {
+      "id": 49363350,
+      "level": 0,
+      "user": "chermi",
+      "time": 1787155333,
+      "time_ago": "5 hours ago",
+      "content": "<p>Edit- does anyone know the breakdown of the load and load types that are actually bottlenecking GitHub? Is it just plain PRs? Is it the actions? Other stuff I never messed with?<p>Couldn&#x27;t they charge just a teeny tiny amount per PR or diff size or something and this would basically go away? I don&#x27;t actually know what is the heaviest load. Probably actions? I understand it would be nice if it was free, but they have to pay for their infrastructure.<p>Or maybe pay extra for priority. Does everyone pushing llm generated code they&#x27;ll rewrite or abandon in a week need all of the GitHub processes executed instantly? I&#x27;m probably way out of my depth here on what the actual bottlenecks are.<p>Could they break out reliability promises and reserve capacity for just the basics?",
+      "comments": []
+    },
+    {
+      "id": 49365638,
+      "level": 0,
+      "user": "ejboy",
+      "time": 1787165403,
+      "time_ago": "2 hours ago",
+      "content": "<p>My guess is that two factors are amplifying each other - Microsoft pushing for AI-assisted development internally and external agentic tools putting a lot of pressure on GitHub.",
+      "comments": []
+    },
+    {
+      "id": 49333048,
+      "level": 0,
+      "user": "VCFundedGenYer",
+      "time": 1786982068,
+      "time_ago": "2 days ago",
+      "content": "<p>I think it&#x27;s two things:<p>- GitHub attempting (and seemingly failing) to move to Azure infrastucture for its website backend<p>- AI generated code wrecking the site due to the volume of activities.",
+      "comments": []
+    },
+    {
+      "id": 49364773,
+      "level": 0,
+      "user": "merelydev",
+      "time": 1787161770,
+      "time_ago": "3 hours ago",
+      "content": "<p>Allot of people claiming it&#x27;s because of increased load from AI. If that&#x27;s true why do their systems sometime take  hours to come back online, just restart the servers and you&#x27;re back online, it&#x27;s not like a nuclear reactor.",
+      "comments": []
+    },
+    {
+      "id": 49350713,
+      "level": 0,
+      "user": "Tbarlow",
+      "time": 1787079115,
+      "time_ago": "a day ago",
+      "content": "<p>14x commit growth in one year is brutal for any infrastructure. Scaling isn&#x27;t just adding hardware.",
+      "comments": [
+        {
+          "id": 49353847,
+          "level": 1,
+          "user": "dgellow",
+          "time": 1787092961,
+          "time_ago": "a day ago",
+          "content": "<p>GitHub is unstable since around 2020",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49353143,
+      "level": 0,
+      "user": "pianopatrick",
+      "time": 1787089530,
+      "time_ago": "a day ago",
+      "content": "<p>Would be funny &#x2F; interesting &#x2F; scary if it was another AI related incident like happened with hugging face.<p>A whole lot of AI agents are presumably using Github as part of a workflow.<p>Would be story worthy if one of them mis interpreted their instructions and is causing havoc.<p>Like &quot;Really make sure changes are saved to git&quot; -&gt; agent &quot;I have to hack into github backend to really make sure the changes are saved to disk&quot;",
+      "comments": []
+    },
+    {
+      "id": 49363180,
+      "level": 0,
+      "user": "lilerjee",
+      "time": 1787154699,
+      "time_ago": "5 hours ago",
+      "content": "<p>This is business secret.<p>No employee with professional ethics would tell you that (the real internal situation).<p>You can observe and analyze the reasons from some things.<p>Use it and tolerate the bad things, or on some time point go to other place (use other tool).",
+      "comments": []
+    },
+    {
+      "id": 49352672,
+      "level": 0,
+      "user": "ionwake",
+      "time": 1787086994,
+      "time_ago": "a day ago",
+      "content": "<p>I remember someone in that place telling me &quot;i cant mention AI in my plans because they will laugh at me&quot;.<p>That was about 2 years ago. Im not kidding.<p>I dont know what the moral of the story is, but I found it weird at the time ( for added context - i was using AI back then about 10 hours a day, BUT I think sentiment on HN was &quot;still&quot; around the vibe of &quot;you use AI to code without checking every line? I doubt your projects work&quot; - but I had nothing better to do then wrestle with it and was surprised how I hadnt checked my code in weeks but stuff &quot;worked&quot;. Its much better now and agents are accepted ofcourse but it sort of &quot;snuck up&quot; on people even in the tech community as recently as that.<p>I guess what Im saying is time is going quickly.",
+      "comments": [
+        {
+          "id": 49352824,
+          "level": 1,
+          "user": "Crusoe123",
+          "time": 1787087708,
+          "time_ago": "a day ago",
+          "content": "<p>So you&#x27;re spamming github with slop and actual good code can&#x27;t be merged? Got it.",
+          "comments": [
+            {
+              "id": 49359083,
+              "level": 2,
+              "user": "ionwake",
+              "time": 1787131656,
+              "time_ago": "11 hours ago",
+              "content": "<p>I dont use github much. I dont understand why you are upset. I literally have not criticised github either. Are you some sort of emotional idiot?",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49332931,
+      "level": 0,
+      "user": "zeafoamrun",
+      "time": 1786981633,
+      "time_ago": "2 days ago",
+      "content": "<p>So you&#x27;re asking github employees to violate their NDA?",
+      "comments": [
+        {
+          "id": 49359681,
+          "level": 1,
+          "user": "fg137",
+          "time": 1787136201,
+          "time_ago": "10 hours ago",
+          "content": "<p>People share bits of their company internals all the time, and often in such a way they that is so vague and general that they don&#x27;t really violate any NDAs. Your NDA likely isn&#x27;t that strict anyway.<p>See: <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49353915\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49353915</a><p>Disclaimer: not a lawyer",
+          "comments": []
+        },
+        {
+          "id": 49355832,
+          "level": 1,
+          "user": "xpct",
+          "time": 1787106332,
+          "time_ago": "18 hours ago",
+          "content": "<p>Not necessarily. It&#x27;s quite common for friends of friends to spread half-truth rumors.",
+          "comments": []
+        },
+        {
+          "id": 49335521,
+          "level": 1,
+          "user": "sharts",
+          "time": 1786991299,
+          "time_ago": "2 days ago",
+          "content": "<p>Frankly yes. Do it in a way that doesn’t violate outright or cover your tracks. Customers deserve to know the truth of the type of company they are dealing with.",
+          "comments": [
+            {
+              "id": 49337243,
+              "level": 2,
+              "user": "zeafoamrun",
+              "time": 1786998854,
+              "time_ago": "2 days ago",
+              "content": "<p>So someone should potentially get fired and face legal action to satisfy your curiosity which you&#x27;ll get sated anyway when you read the postmortem in a few days?",
+              "comments": [
+                {
+                  "id": 49350000,
+                  "level": 3,
+                  "user": "ornornor",
+                  "time": 1787076814,
+                  "time_ago": "a day ago",
+                  "content": "<p>It’s not like OP is putting a gun to anyone’s head!! If they want to share we’d appreciate but there is no obligation.<p>Are you also shocked that you can stand in the middle of the highway and get hit by a car and die? You <i>can</i> do it if someone asks you but you’re not forced to.",
+                  "comments": []
+                },
+                {
+                  "id": 49349493,
+                  "level": 3,
+                  "user": "stickfigure",
+                  "time": 1787075054,
+                  "time_ago": "a day ago",
+                  "content": "<p>We can only ask.<p>Don&#x27;t act shocked.<p>Also, gritty insider information is never the same as the official word.",
+                  "comments": []
+                },
+                {
+                  "id": 49349957,
+                  "level": 3,
+                  "user": "watt",
+                  "time": 1787076624,
+                  "time_ago": "a day ago",
+                  "content": "<p>It&#x27;s not the postmortem du jour that we want, the whole pattern is a mystery. Do they push releases every day and bring down the site every day by botched rollouts? What really is it why they can&#x27;t GH keep the core service running (e.g. pushing commits and pulling changes)?",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49356067,
+      "level": 0,
+      "user": "Group_B",
+      "time": 1787108038,
+      "time_ago": "18 hours ago",
+      "content": "<p>I think Microsoft will add in a daily or monthly commit limit. Gonna have to pay for commits that exceed it. Will stop the commit spam",
+      "comments": []
+    },
+    {
+      "id": 49352669,
+      "level": 0,
+      "user": "mawadev",
+      "time": 1787086976,
+      "time_ago": "a day ago",
+      "content": "<p>We need a Github Remake without multiplayer from the new Github Studios",
+      "comments": [
+        {
+          "id": 49361946,
+          "level": 1,
+          "user": "nullpoint420",
+          "time": 1787148973,
+          "time_ago": "6 hours ago",
+          "content": "<p>GitHub Quarter Evolved",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49332587,
+      "level": 0,
+      "user": "delduca",
+      "time": 1786980335,
+      "time_ago": "2 days ago",
+      "content": "<p>AI + Microsoft = kabum",
+      "comments": []
+    },
+    {
+      "id": 49350645,
+      "level": 0,
+      "user": "the_sleaze_",
+      "time": 1787078891,
+      "time_ago": "a day ago",
+      "content": "<p>Github moved to azure -&gt; infrastructure problems",
+      "comments": []
+    },
+    {
+      "id": 49333088,
+      "level": 0,
+      "user": "Alien1Being",
+      "time": 1786982187,
+      "time_ago": "2 days ago",
+      "content": "<p>GitHub is struggling because it is owned by Microsoft.",
+      "comments": []
+    },
+    {
+      "id": 49352262,
+      "level": 0,
+      "user": "llama052",
+      "time": 1787085098,
+      "time_ago": "a day ago",
+      "content": "<p><i>Github Status: Incident with GitHub.com<p>Aug 17, 21:15 UTC\nResolved - On August 17, 2026, from 13:28–21:15 UTC (7h 47m),<p>GitHub.com experienced elevated errors and latency across Issues, Pull Requests, APIs, Actions, and Copilot. At peak, web&#x2F;API error rates were approximately 20%, while archive and raw-content downloads reached approximately 50%. SAML&#x2F;OIDC authentication, SCIM, and Team Sync were also affected, as well as Actions workflows in GHEC with Data Residency that depend on public workflow step definitions hosted on GitHub.com. Most services recovered by 16:36 UTC as our Central US datacenter recovered; Actions was degraded until approximately 18:03 UTC; and Copilot Token Service fully recovered by 21:02.<p>Some of the failing traffic was moved from Central US to Northern Virginia where it was served successfully until the network failure in Central US was debugged and resolved. Delayed replies to a single internal endpoint triggered a latent retry bug in VS Code that amplified traffic by approximately 10x and caused delayed recovery for the Copilot Token Service.<p>The immediate cause of the failure was network saturation on load balancers in Central US due to a new peak in traffic. Originally this was caused by an Istio sidecar pod reaching its concurrency limits and failing to auto scale correctly because of a misconfigured policy that watched host service but not sidecar limits. One failure cascaded to more and eventually four HAProxy nodes exhausted their flow limits, degrading the gateway auth path and causing widespread authentication latency and failures. The problem was worsened by optimistic retry logic which overloaded internal load balancers. Pausing HAProxy on those nodes simultaneously produced immediate broad recovery.\nThe retry storm in Northern VA was fixed by 1) temporarily reducing gateway retry logic with a PR and 2) blocking inbound Copilot Token Service token requests at the load balancers with a 403, and then gradually ramping back up traffic per-site to allow callers to succeed.\nResidual Copilot authentication failures continued because client retry behavior amplified load: a failed token operation could generate many extra requests and enter a retry loop. Copilot Token Service traffic increased from a normal 7–9K RPS to 70–100K RPS. Reducing gateway authentication retries and blocking retry-triggering responses stabilized Copilot Token Service and completed recovery.<p>Complicating factors that impeded recovery included a number of scraping attacks on codeload endpoints.<p>To prevent recurrence, our follow-up actions include:<p>- Correcting autoscaling policies to account for service-mesh sidecar concurrency and capacity.<p>- Auditing Istio request, concurrency, and scaling limits across affected services.<p>- Reviewing retry limits and backoff behavior across gateways and clients.<p>- Addressing the VS Code retry behavior that amplified Copilot token traffic.</i><p>So basically bad code pushes that caused request amplification and then huge gaps in operational scaling and reliability standards. Oof.",
+      "comments": [
+        {
+          "id": 49352648,
+          "level": 1,
+          "user": "martinald",
+          "time": 1787086887,
+          "time_ago": "a day ago",
+          "content": "<p>I don&#x27;t think it was the bad code pushes itself, it was another new peak in traffic that exhausted load balancers that then caused retry storms internally in a badly configured plugin (in VS code).",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49355807,
+      "level": 0,
+      "user": "gverrilla",
+      "time": 1787106162,
+      "time_ago": "18 hours ago",
+      "content": "<p>Microsoft software is sloppy, has always been. I couldn&#x27;t join a Microsoft Teams meeting from my phone yesterday because I was caught in some kind of auth loop.",
+      "comments": []
+    },
+    {
+      "id": 49350902,
+      "level": 0,
+      "user": "iJohnDoe",
+      "time": 1787079772,
+      "time_ago": "a day ago",
+      "content": "<p>It&#x27;s bad karma to sling mud about outages or problems. Cloudflare used to sling mud back in the day and then they went through some really bad outages afterwards.",
+      "comments": []
+    },
+    {
+      "id": 49333525,
+      "level": 0,
+      "user": "rep_movsd",
+      "time": 1786983685,
+      "time_ago": "2 days ago",
+      "content": "<p>If you are doing 1000 commits a day, whats the point of git?<p>Does the AI ever look back at the shit trail it left behind?<p>Diffs are no longer diffs, they look like largescale delete and rewrite",
+      "comments": [
+        {
+          "id": 49335993,
+          "level": 1,
+          "user": "odo1242",
+          "time": 1786993382,
+          "time_ago": "2 days ago",
+          "content": "<p>AI definitely does look at git commit history in my experience",
+          "comments": [
+            {
+              "id": 49350853,
+              "level": 2,
+              "user": "boldlybold",
+              "time": 1787079557,
+              "time_ago": "a day ago",
+              "content": "<p>It certainly looks at the commit history more than I ever have. I find it quite cool when  it points out interesting hints from the history.",
+              "comments": []
+            },
+            {
+              "id": 49352535,
+              "level": 2,
+              "user": "sixothree",
+              "time": 1787086335,
+              "time_ago": "a day ago",
+              "content": "<p>It&#x27;s gotten me out of a few sticky merges by examining history and providing information about why changes were done.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49363734,
+          "level": 1,
+          "user": "punkbit",
+          "time": 1787157038,
+          "time_ago": "4 hours ago",
+          "content": "<p>This is such a good point!",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49341257,
+      "level": 0,
+      "user": "AregNoya",
+      "time": 1787027292,
+      "time_ago": "2 days ago",
+      "content": "<p>i guess its because of the new cursor platform",
+      "comments": []
+    },
+    {
+      "id": 49332710,
+      "level": 0,
+      "user": "pluc",
+      "time": 1786980805,
+      "time_ago": "2 days ago",
+      "content": "<p>Microsoft. Azure. AI.<p>Pick one!",
+      "comments": [
+        {
+          "id": 49332995,
+          "level": 1,
+          "user": "lexoj",
+          "time": 1786981836,
+          "time_ago": "2 days ago",
+          "content": "<p>Also the fact that its written in Ruby on Rails probably doesn’t make it easier, performance wise.",
+          "comments": [
+            {
+              "id": 49333123,
+              "level": 2,
+              "user": "t-writescode",
+              "time": 1786982311,
+              "time_ago": "2 days ago",
+              "content": "<p>Honestly. They’re already performing miracles with RoR.<p>How many <i>non</i> Ruby apps and all the databases and systems behind could climb their traffic 14x when they probably only perf-tested for a sustained 2-3x and, and paid for a profitable amount of rack space rather than a “lol, VC money, we’ll 10x later” amount of infra.",
+              "comments": [
+                {
+                  "id": 49350745,
+                  "level": 3,
+                  "user": "the_sleaze_",
+                  "time": 1787079180,
+                  "time_ago": "a day ago",
+                  "content": "<p>Systems engineers generally don&#x27;t run performance tests at 2x or any specific scale.<p>You load test and see how much it takes until the system falls over - basically you DDoS yourself and see what the numbers were when things broke, and what broke first second so on. Maybe in a sandbox maybe against prod.<p>It&#x27;s very telling that issues began almost to the day of the Microsoft acquisition.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49352994,
+              "level": 2,
+              "user": "lab14",
+              "time": 1787088667,
+              "time_ago": "a day ago",
+              "content": "<p>Tell that to Shopify that handles 8.15 million requests per second and processes $5.1M USD per minute in sales during Black Friday. You scale your architecture, not your programming language.",
+              "comments": []
+            },
+            {
+              "id": 49352876,
+              "level": 2,
+              "user": "Crusoe123",
+              "time": 1787087951,
+              "time_ago": "a day ago",
+              "content": "<p>Suddenly after 18 years, Ruby on Rails is the issue?",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49352510,
+          "level": 1,
+          "user": "gegtik",
+          "time": 1787086235,
+          "time_ago": "a day ago",
+          "content": "<p>I pick Azure but not Microsoft (?)",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49353915,
+      "level": 0,
+      "user": "SBArbeit",
+      "time": 1787093338,
+      "time_ago": "a day ago",
+      "content": "<p>Ex-Microsoft, ex-GitHub, laid off nine months ago, not going to violate any agreements, but I will give some context. A lot of this applies to any large engineering org, really. Hilarious that this entire thread is people speculating on things they have no idea about.<p>If it sounds like I&#x27;m defending GitHub a bit, yeah, I am. I can&#x27;t think of a comparable situation that any other web site has been through. This isn&#x27;t &quot;oops, we didn&#x27;t plan for the Black Friday sale&quot;, this is a once-in-a-generation event focused on one, important web property that no one would have handled perfectly. (Even us all-knowing commenters here on HN.)<p>You know that old trope in every submarine movie, where the captain tells the driver to dive lower than they&#x27;ve ever gone, and someone says &quot;I don&#x27;t know if the boat can take it!&quot; and then they switch the camera to some engineering room where the boat is groaning under the pressure and a bolt comes loose and water starts spraying everywhere but someone runs up with a giant wrench and tightens it and looks around at everyone else in the room like, &quot;whoa, that was close...&quot;?<p>Or Scotty and Star Trek, &quot;It canna take much more, Captain!&quot;<p>That&#x27;s what GitHub has been going through. It&#x27;s had problems, but it&#x27;s still here, and usually working well.<p>- Let me start with: GitHub is ~3,000 talented and really nice people trying to do the right thing, with a great culture. That&#x27;s the most important thing I want to communicate. While I&#x27;m sure no one at GitHub is happy about their uptime, believe me when I tell you that GitHub Engineering is exceptional. They have great leadership, depth at all levels (Distinguished &#x2F; Principal &#x2F; Staff &#x2F; Senior &#x2F; earlier-in-career) and if you ever get a chance to hire someone from GitHub, you should. I hope all of you get to work with engineers as good as GitHub&#x27;s.<p>- GitHub has been improving all aspects of its infrastructure steadily for many years now. The GitHub Engineering blog <a href=\"https:&#x2F;&#x2F;github.blog&#x2F;engineering&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;github.blog&#x2F;engineering&#x2F;</a> has been documenting this the entire time. Go point your favorite LLM at it and ask for a summary of all of the major system improvements since 2020. If that work hadn&#x27;t already been done, GitHub would be a smoking pile of servers at this point. There&#x27;s a lot I could list, I&#x27;m not sure which are already public, but improvements on the order of using thousands fewer CPU&#x27;s to serve even more traffic than before have been made, and still are, I&#x27;m sure.<p>- GitHub was already serving billions of requests&#x2F;day before agentic coding hit. Their challenge wasn&#x27;t scaling a fresh new system with a few users an order of magnitude; it was taking one of the busiest and most important sites on the Internet, and getting hit with 14x traffic in a year, and having to plan for 100x. If you think your systems and infrastructure would have survived that, if you think you would have been able to politically navigate and succeed in getting projects green-lit at a large company to prepare for 100x scaling <i>before</i> it hit, to get those resources for &quot;we might have scaling problems in a year or two&quot; instead of getting them to ramp up on AI coding and other features that were crucial to growth <i>right now</i>, you don&#x27;t understand large organizational dynamics. That&#x27;s not a complaint about GitHub or Microsoft; it&#x27;s an observation about capitalism and how any mature management group prioritizes things in software. I&#x27;d expect everyone in the San Francisco&#x2F;Silicon Valley Reality Distortion Field to understand that.<p>- We talk in terms of &quot;14x commits&quot; to Git but that&#x27;s only part of the story. GitHub Actions, webhooks, github.com itself, and other parts of GitHub, have all been under pressure. It&#x27;s the totality of it, the seams that have been exposed at scale that couldn&#x27;t have been exposed without that scale, that have caused the instability. That&#x27;s why architecture gets overhauled.<p>- Yeah, GitHub has had less consistent uptime since the 2018 Microsoft acquisition. The GitHub that existed before that had much less functionality, an order of magnitude fewer users, and had received very little improvement in the few years before. Microsoft invested and enabled GitHub to grow into something much bigger than it ever could have without them.<p>- Be grateful that Microsoft - with a 50-year history of shipping developer tools, and more experience operating enterprise software than any other company on the planet - acquired GitHub instead of Google, which was the other major player in contention. Spend a minute or two thinking about the product journey GitHub would have taken under Google, and then think about how many non-search, non-advertising products have succeeded there. Which amazing developer tools from Google do you use regularly? Yeah, I thought so. On behalf of Microsoft, you&#x27;re welcome.<p>- Did you notice that GitHub swapped out one of its data centers last year for one 3x larger? No? Maybe that&#x27;s because they executed it flawlessly, with no downtime. If you&#x27;ve ever done that on a massive web site with as much scrutiny as GitHub receives, you get a gold star.<p>- Did you notice that over 50% of GitHub read traffic is now being served from Azure instead of GitHub&#x27;s own data centers, and growing, and that all GitHub Monolith traffic is scheduled to be served from Azure instead of GitHub&#x27;s data centers by the end of CY26? This massive migration is taking place while traffic is going insane. From <a href=\"https:&#x2F;&#x2F;github.blog&#x2F;news-insights&#x2F;company-news&#x2F;github-availability-report-july-2026\" rel=\"nofollow\">https:&#x2F;&#x2F;github.blog&#x2F;news-insights&#x2F;company-news&#x2F;github-availa...</a>: &quot;GitHub can now serve a larger share of customer requests from independent Azure capacity, reducing reliance on any single datacenter while preserving performance. Monolith read traffic served from Azure Central US peaked at 52.75% on July 28—the first time we consistently remained above the halfway line. Git traffic in Azure reached 47%, up from 43% in June, and 29% of all repositories now have a second replica in Central US, making failover less disruptive when a region degrades.&quot;<p>- OpenAI and Anthropic obviously have significant scaling challenges as well, but there&#x27;s a huge separation between the GPU-based inference part, and the CPU-based front-end systems. Their CPU-based systems are significantly simpler and newer than GitHub&#x27;s, so I&#x27;m not surprised they have fewer outages, but it&#x27;s still non-zero.<p>- Ruby on Rails is not the problem (and, for the record, I don&#x27;t even like Ruby or Rails). Most of the performance-critical systems that were built on Ruby have been migrated to Go or some other language that takes full advantage of multithreading. The web endpoints still served by Ruby are fine.<p>- Spare me the &quot;Azure sucks&quot; comments. Please. Microsoft Azure is the second-largest computing system on the planet - only AWS is larger in terms of hardware but not in terms of the number of products they ship - and Microsoft&#x27;s first-party systems that run on it, all at the same time, are among the largest, busiest, most important systems on the planet. Entra ID, Azure SQL, Service Bus, Event Hubs, Office 365, Cosmos DB, OneDrive, etc. all in the tens-to-hundreds-of-billions requests&#x2F;day. I&#x27;m not even counting the massive customer-owned systems that run on it, including almost the entire Fortune 500. Nothing is perfect, everyone has downtime, we all always want more and better features, I want improvements from Azure, too, but, please, grow up. I have opinions, too, I&#x27;ve been programming since the Apple ][+, there are popular technologies that I don&#x27;t like, but I know that&#x27;s subjective. &quot;Your favorite technology sucks, mine is better&quot; is not an objective statement about anything.<p>Anyway, if you haven&#x27;t shipped at GitHub&#x27;s scale, in this dynamic of a world of feature churn, and one-of, if not <i>the</i> largest, traffic spikes in the history of the web, have fun saying whatever you&#x27;re going to say. I&#x27;ve never worked at Google or Amazon, I have opinions about their product design and culture, but there&#x27;s nothing I can say about their infrastructure and systems because I have no idea about them, and what we all do in this crazy world of programming is harder than it looks.<p>For some, this won&#x27;t be the answer to &quot;what&#x27;s going on?&quot; because I&#x27;m not pointing fingers at any one thing. To me, the real answer is: an unprecedented scaling event on what was already one of the busiest sites on the web exposed seams in their systems, including the need to move from their own data centers to a much more scalable cloud provider - that are being addressed as quickly as possible.<p>I&#x27;m not telling you not to look for alternatives, I&#x27;m not telling you what to do about it, I&#x27;m not saying that all of their problems will magically be solved soon, I have no idea. I&#x27;m even launching a new version control system myself very soon to compete with them. But I do know that the thought &quot;GitHub doesn&#x27;t know what they&#x27;re doing&quot; is wrong and unhelpful.",
+      "comments": [
+        {
+          "id": 49356002,
+          "level": 1,
+          "user": "altcognito",
+          "time": 1787107604,
+          "time_ago": "18 hours ago",
+          "content": "<p>14x is a lot commits, but I seriously have doubts that some pushes are putting them over the edge. (as many have suggested)<p>&gt; GitHub Actions<p>For me this is probably this biggest culprit along with the general pressure of AI against the hardware. Github actions became <i>really</i> popular. So many of those 14x commits are generating <i>real</i> CPU and network load.<p>This is a really non trivial problem. They can&#x27;t just wall it off. They have real customers on that stuff.",
+          "comments": [
+            {
+              "id": 49360330,
+              "level": 2,
+              "user": "martinald",
+              "time": 1787140686,
+              "time_ago": "9 hours ago",
+              "content": "<p>Why do you think that?<p>GitHub Actions is &#x27;simpler&#x27; to scale, it&#x27;s just a bunch of runners, and Azure has a lot of capacity for VMs (mostly). Git itself is a compute intensive process and is far more interlinked.",
+              "comments": [
+                {
+                  "id": 49360850,
+                  "level": 3,
+                  "user": "altcognito",
+                  "time": 1787143582,
+                  "time_ago": "8 hours ago",
+                  "content": "<p>Not sure how you see git repos as a compute intensive process. A single git commit takes milliseconds. It&#x27;s mostly a hash calculation and a small file transaction. They&#x27;ve added some database stuff around the edges, but that is pretty tame as well.<p>Actions are unbounded, take minutes to resolve - sometimes hours and there are megabytes, gigabytes of network transactions.<p>Scaling commits is a load balancer and some more instances of a thing you’ve built over and over.<p>Scaling actions is VMs, networking, imbalances in load, memory, insuring that folks aren’t running VM training against your infrastructure. Oh, and maybe you want to make sure folks aren’t trying to hack that infrastructure as well.<p>It is a very, very hard problem.",
+                  "comments": [
+                    {
+                      "id": 49362106,
+                      "level": 4,
+                      "user": "farfatched",
+                      "time": 1787149726,
+                      "time_ago": "6 hours ago",
+                      "content": "<p>I&#x27;m sure GitHub Actions are more intensive, but that doesn&#x27;t make it harder to scale, which is what martinald said.<p>&gt; Scaling actions is VMs, networking, imbalances in load, memory, insuring that folks aren’t running VM training against your infrastructure.<p>That infra scaling is what the cloud provider can easily offer.<p>Meanwhile, GitHub repos&#x2F;issues&#x2F;PRs is all the business logic that they&#x27;ve written, evolved over time.<p>Many coupled distributed DBs, indexes, consistency concerns, etc.<p>That&#x27;s trickier to scale.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49356683,
+          "level": 1,
+          "user": "discodave",
+          "time": 1787112602,
+          "time_ago": "17 hours ago",
+          "content": "<p>Lots of good points in there but when you say &quot;swapped out data center&quot; that sounds very un-cloudy and unreliable to me - workloads in AWS are spread across many buildings unless you try really hard or pay $$$$",
+          "comments": []
+        },
+        {
+          "id": 49354823,
+          "level": 1,
+          "user": "rcxdude",
+          "time": 1787098483,
+          "time_ago": "20 hours ago",
+          "content": "<p>&gt;Spare me the &quot;Azure sucks&quot; comments. Please. Microsoft Azure is the second-largest computing system on the planet<p>The fact that Azure is big and important has very little to do with the quality of the implementation (and my experience with the services on top of it suggests that quality is not great).",
+          "comments": [
+            {
+              "id": 49360133,
+              "level": 2,
+              "user": "greatgib",
+              "time": 1787139279,
+              "time_ago": "9 hours ago",
+              "content": "<p>Anyone that has to work with azure knows that the bad stability and quality of the platform impact them. Often they just don&#x27;t have the choice because only choice available on bigco huge framework contract.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49363955,
+          "level": 1,
+          "user": "VirusNewbie",
+          "time": 1787158017,
+          "time_ago": "4 hours ago",
+          "content": "<p>&gt; Spend a minute or two thinking about the product journey GitHub would have taken under Google, and then think about how many non-search, non-advertising products have succeeded there.<p>Android<p>Youtube<p>Waymo<p>Chrome<p>Workspace<p>GCP<p>&gt;Which amazing developer tools from Google do you use regularly?<p>Kubernetes<p>Jax<p>Tensorflow<p>gRPC<p>Go<p>Istio",
+          "comments": []
+        },
+        {
+          "id": 49357944,
+          "level": 1,
+          "user": "cantalopes",
+          "time": 1787123026,
+          "time_ago": "14 hours ago",
+          "content": "<p>I mean i&#x27;m sure github employs great engineers, nobody is telling they&#x27;re nor. But then you look at a graph like this... <a href=\"https:&#x2F;&#x2F;ibb.co&#x2F;Lffpmfd\" rel=\"nofollow\">https:&#x2F;&#x2F;ibb.co&#x2F;Lffpmfd</a>",
+          "comments": []
+        }
+      ]
+    }
+  ],
+  "comments_count": 249
+}

@@ -1,0 +1,2003 @@
+{
+  "id": 49364559,
+  "title": "OpenRouter is joining Stripe",
+  "points": 355,
+  "user": "rvz",
+  "time": 1787160758,
+  "time_ago": "3 hours ago",
+  "type": "link",
+  "content": "<p>Previously: Stripe will reportedly acquire OpenRouter for $7B+ <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49323381\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49323381</a>",
+  "url": "https://openrouter.ai/blog/announcements/openrouter-is-joining-stripe/",
+  "domain": "openrouter.ai",
+  "comments": [
+    {
+      "id": 49366396,
+      "level": 0,
+      "user": "apexalpha",
+      "time": 1787169406,
+      "time_ago": "an hour ago",
+      "content": "<p>Great product, been using it for a while.<p>Turns out even a proxy can be worth $8bn with the right business model behind it.<p>Users get an array of providers competing behind a single API, meaning they have to compete on price and quality not vendor lock-in. This encourages users to join OpenRouter over specific model vendors.<p>Providers get easy access to revenue (and data) and new customers with little to no ad spending, encouraging them onto the platform too.<p>And that&#x27;s all you need. Win win.<p>Well done and congratulations.",
+      "comments": []
+    },
+    {
+      "id": 49366755,
+      "level": 0,
+      "user": "hmokiguess",
+      "time": 1787171131,
+      "time_ago": "17 minutes ago",
+      "content": "<p>I rather have protocols be built and less middlemen PaaS.<p>One great example is Open Banking. I would support an Open Router that mirrors Open Banking, unfortunately the Open here doesn’t carry the same connotation.<p>Kudos to the team for succeeding in executing around a clear DX issue during the chaos of providers, though long term I am not really a fan of it staying as is even if Stripe gets to be the one carrying it forward.",
+      "comments": [
+        {
+          "id": 49366822,
+          "level": 1,
+          "user": "flexagoon",
+          "time": 1787171448,
+          "time_ago": "11 minutes ago",
+          "content": "<p>Every single Open Banking implementation I know also requires everyone to go through a useless certified middleman (eg. Plaid, GoCardless, ...) instead of letting people use the APIs directly",
+          "comments": [
+            {
+              "id": 49366863,
+              "level": 2,
+              "user": "hmokiguess",
+              "time": 1787171622,
+              "time_ago": "8 minutes ago",
+              "content": "<p>Brazil did PIX which in that case the middleman is the government and everyone got to benefit from",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49366931,
+          "level": 1,
+          "user": "Muromec",
+          "time": 1787171992,
+          "time_ago": "2 minutes ago",
+          "content": "<p>What open banking? I can&#x27;t even get a read-only token for my personal use to see the balance on my account and I sit two team calls away from people who cooked the API",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49366943,
+      "level": 0,
+      "user": "egorfine",
+      "time": 1787172069,
+      "time_ago": "a minute ago",
+      "content": "<p>So what&#x27;s the endgame? Typical late acquisitions are meant to destroy things. What will they destroy with this merger? Openrouter has no moat.",
+      "comments": []
+    },
+    {
+      "id": 49366919,
+      "level": 0,
+      "user": "momentmaker",
+      "time": 1787171943,
+      "time_ago": "3 minutes ago",
+      "content": "<p>Here&#x27;s Stripe&#x27;s letter to investors explaining its acquisition of OpenRouter (LEAKED)<p><a href=\"https:&#x2F;&#x2F;x.com&#x2F;EricNewcomer&#x2F;status&#x2F;2090133049291788434\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;EricNewcomer&#x2F;status&#x2F;2090133049291788434</a>",
+      "comments": [
+        {
+          "id": 49366937,
+          "level": 1,
+          "user": "xnickb",
+          "time": 1787172026,
+          "time_ago": "2 minutes ago",
+          "content": "<p>Any non X source for this so people who don&#x27;t use X can have a look?",
+          "comments": [
+            {
+              "id": 49366951,
+              "level": 2,
+              "user": "demo4567",
+              "time": 1787172114,
+              "time_ago": "a few seconds ago",
+              "content": "<p>for you and me: <a href=\"https:&#x2F;&#x2F;xcancel.com&#x2F;EricNewcomer&#x2F;status&#x2F;2090133049291788434\" rel=\"nofollow\">https:&#x2F;&#x2F;xcancel.com&#x2F;EricNewcomer&#x2F;status&#x2F;2090133049291788434</a>",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49366070,
+      "level": 0,
+      "user": "Oras",
+      "time": 1787167586,
+      "time_ago": "an hour ago",
+      "content": "<p>Happy for the OpenRouter team. Been using the platform since early stages and the ability to run any AI model with the same api key and same request has been great to experiment with new models and being able to switch models in prod with minimal effort.<p>They also support fallback by default so you don’t have to write wrappers and logic to choose models, it just works with their SDk using config.",
+      "comments": []
+    },
+    {
+      "id": 49365600,
+      "level": 0,
+      "user": "powvans",
+      "time": 1787165246,
+      "time_ago": "2 hours ago",
+      "content": "<p>AI products are going to have to deal with accounting. An agent performs some work. It uses some models and perhaps some other metered services. Someone has to meter that activity. They have to attribute costs, apply the product&#x27;s pricing rules, bill the customer, collect, reconcile with vendors, and maintain the ledger.<p>Stripe can use OpenRouter to build the financial and accounting infrastructure for every product that sells metered AI work.<p>I think the analogy is ADP. Payroll for all the work that&#x27;s going to be done by AI agents.",
+      "comments": [
+        {
+          "id": 49366244,
+          "level": 1,
+          "user": "aleqs",
+          "time": 1787168482,
+          "time_ago": "an hour ago",
+          "content": "<p>Every token&#x2F;llm provider already has usage metering...so not sure what exactly you&#x27;re imagining stripe adds here",
+          "comments": [
+            {
+              "id": 49366515,
+              "level": 2,
+              "user": "ygjb",
+              "time": 1787169999,
+              "time_ago": "36 minutes ago",
+              "content": "<p>A single policy location for multiple models with usage limits&#x2F;rate limits, spend limits all configurable using a common syntax + deep integration with account levels and high visibility into subscription&#x2F;payments related to meter usage to help understand whether or not your pricing model is underwater as costs change is exceptionally valuable.  AFAIK each product consuming model providers without an openrouter style proxy has to do that work themselves, and if you are already using stripe for subs&#x2F;payments, the direct integration is a huge value add for customers, especially if you can alert on &quot;upcoming price changes from your provider changes your unit economics for XYZ packages&#x2F;sub tiers&quot;.",
+              "comments": []
+            },
+            {
+              "id": 49366395,
+              "level": 2,
+              "user": "kridsdale1",
+              "time": 1787169405,
+              "time_ago": "an hour ago",
+              "content": "<p>Aggregation behind one interface, just like the actual token product.",
+              "comments": [
+                {
+                  "id": 49366442,
+                  "level": 3,
+                  "user": "aleqs",
+                  "time": 1787169615,
+                  "time_ago": "42 minutes ago",
+                  "content": "<p>That&#x27;s what OpenRouter already does, so the Stripe value add here is still unclear",
+                  "comments": [
+                    {
+                      "id": 49366774,
+                      "level": 4,
+                      "user": "pests",
+                      "time": 1787171225,
+                      "time_ago": "15 minutes ago",
+                      "content": "<p>Not OP, but I could see the vision. Right now OpenRouter is developer-paid with no way to pass costs onto the end user. Stripe could help bill and meter at the user level for per-user billing. I would also think more SDKs&#x2F;easier ways to add AI features (paid for via openrouter) into apps and websites.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49366216,
+          "level": 1,
+          "user": "nevi-me",
+          "time": 1787168300,
+          "time_ago": "an hour ago",
+          "content": "<p>IDK, that sounds like a solution in search of a problem. What would be different about this than what OpenRouter is currently doing with pricing?",
+          "comments": []
+        },
+        {
+          "id": 49366369,
+          "level": 1,
+          "user": "j45",
+          "time": 1787169275,
+          "time_ago": "an hour ago",
+          "content": "<p>At some point AI will be able to deal with the repetitive and template based parts of accounting better than accounting.<p>Which is saying a lot.",
+          "comments": []
+        },
+        {
+          "id": 49366418,
+          "level": 1,
+          "user": "shanev",
+          "time": 1787169510,
+          "time_ago": "44 minutes ago",
+          "content": "<p>I built modelrelay.ai that does this. Happy to give you an invite code if you want to play with it.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49364942,
+      "level": 0,
+      "user": "sidcool",
+      "time": 1787162495,
+      "time_ago": "3 hours ago",
+      "content": "<p>Good for OpenRouter.  They have a great DevEx.  The $7 billion is tad high, but Stripe can afford it.",
+      "comments": [
+        {
+          "id": 49366303,
+          "level": 1,
+          "user": "Karrot_Kream",
+          "time": 1787168892,
+          "time_ago": "an hour ago",
+          "content": "<p>It&#x27;s a mostly equity offer. Private capital is always more risky than publicly traded shares so probably less than $7bn risk adjusted, which makes sense for Stripe.",
+          "comments": []
+        },
+        {
+          "id": 49366706,
+          "level": 1,
+          "user": "BeetleB",
+          "time": 1787170949,
+          "time_ago": "20 minutes ago",
+          "content": "<p>They charge a premium of 10%. I would imagine that&#x27;s a lot of revenue.",
+          "comments": []
+        },
+        {
+          "id": 49365231,
+          "level": 1,
+          "user": "zamio",
+          "time": 1787163786,
+          "time_ago": "2 hours ago",
+          "content": "<p>What&#x27;s good about their DevEx?",
+          "comments": [
+            {
+              "id": 49365308,
+              "level": 2,
+              "user": "sarabande",
+              "time": 1787164070,
+              "time_ago": "2 hours ago",
+              "content": "<p>I manage our company&#x27;s model spend and build tools around it.<p>The good thing about the developer experience is that it is dead simple to create keys that are time-bound, model restricted, and have budgets against them in an easy, programmatic way (also in bulk). Costs are guaranteed to be on par or lower than any model provider, so it&#x27;s an easy sell to the finance department.<p>To look at it from the other side, Gemini is the absolute worse when it comes to key management. The labyrinth of actions that one has to navigate to generate budgeted keys for a team is not worth it and I still haven&#x27;t figured out how to manage the keys at a granularity I need.<p>OpenAI and Anthropic both have what I would consider to be middling DevEx. Most things work, but only on their platform, and there are some weirdnesses, like the fact that anthropic disabled its admin API key creation, so you can&#x27;t programmatically create keys against a budget.",
+              "comments": []
+            },
+            {
+              "id": 49365479,
+              "level": 2,
+              "user": "OleksandrC",
+              "time": 1787164754,
+              "time_ago": "2 hours ago",
+              "content": "<p>I am working on my own agent implementation (<a href=\"https:&#x2F;&#x2F;usehax.dev&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;usehax.dev&#x2F;</a>), and I can praise OpenRouter for being seemingly the only provider endpoint that actually gives proper API for gathering available models and their capabilities (context length, image support, pricing, etc), reports exact routing details and total cost in the response, and provides an endpoint for obtaining current available credits (for &quot;&#x2F;usage&quot;-like command). So for OpenRouter specifically I could deliver a really good experience out-of-the-box (always fresh models and metadata, exact pricing, etc).<p>You would think that these things would be standard fare, but they really are not. Other providers need metadata from a separate catalog, don&#x27;t report pricing, don&#x27;t really report available credits &#x2F; usage either.<p>So yes, OpenRouter does have a good DevEx.",
+              "comments": []
+            },
+            {
+              "id": 49365340,
+              "level": 2,
+              "user": "etskinner",
+              "time": 1787164158,
+              "time_ago": "2 hours ago",
+              "content": "<p>Speaking for myself (I&#x27;m not the GP comment): The platform &#x27;just works&#x27;, has great reporting interface to help understand excatly what usage happened when, and integrates well with lots of different harnesses.",
+              "comments": []
+            },
+            {
+              "id": 49366137,
+              "level": 2,
+              "user": "mhh__",
+              "time": 1787167980,
+              "time_ago": "an hour ago",
+              "content": "<p>It works",
+              "comments": []
+            },
+            {
+              "id": 49365295,
+              "level": 2,
+              "user": "jacobgold",
+              "time": 1787164045,
+              "time_ago": "2 hours ago",
+              "content": "<p>You create an account. Pay money. Get API key. Use APIs.",
+              "comments": [
+                {
+                  "id": 49365654,
+                  "level": 3,
+                  "user": "ApolloFortyNine",
+                  "time": 1787165477,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>But if you use any decent amount of tokens, it&#x27;s probably worth saving the 15% by moving to the provider they&#x27;re proxying.<p>And if it&#x27;s not worth it, then are you spending enough where it even effects Openrouter&#x27;s bottom line?<p>With enough devs playing with hobby projects I&#x27;m not doubting it&#x27;s profitable, only that $7 billion seems way too high.",
+                  "comments": [
+                    {
+                      "id": 49365957,
+                      "level": 4,
+                      "user": "asadm",
+                      "time": 1787167000,
+                      "time_ago": "an hour ago",
+                      "content": "<p>OR I can keep paying 15% markup till next month and then jump to newest &#x2F; cheapest model with one-liner change instead of being locked to a model&#x2F;provider.",
+                      "comments": [
+                        {
+                          "id": 49366433,
+                          "level": 5,
+                          "user": "cute_boi",
+                          "time": 1787169577,
+                          "time_ago": "43 minutes ago",
+                          "content": "<p>Which model&#x2F;provider locks like this, most of them use chatgpt style apis anyway.",
+                          "comments": []
+                        },
+                        {
+                          "id": 49366136,
+                          "level": 5,
+                          "user": "akho",
+                          "time": 1787167980,
+                          "time_ago": "an hour ago",
+                          "content": "<p>Aren&#x27;t they all the same api? Are you paying 15 % to change one line, and not, like, three?",
+                          "comments": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 49366444,
+                      "level": 4,
+                      "user": "Tepix",
+                      "time": 1787169623,
+                      "time_ago": "42 minutes ago",
+                      "content": "<p>15%? Isn&#x27;t the fee 5.5% with lower fees for enterprise customers?",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365302,
+          "level": 1,
+          "user": "film42",
+          "time": 1787164063,
+          "time_ago": "2 hours ago",
+          "content": "<p>Or rather, Stripe will find a way to make me pay for it as a Stripe and OpenRouter customer.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49364963,
+      "level": 0,
+      "user": "gavino",
+      "time": 1787162614,
+      "time_ago": "3 hours ago",
+      "content": "<p>Could someone explain why these routers are so valuable and pulling acquisitions in the billions?",
+      "comments": [
+        {
+          "id": 49365035,
+          "level": 1,
+          "user": "millicentricism",
+          "time": 1787163048,
+          "time_ago": "3 hours ago",
+          "content": "<p>It’s a marketplace with a markup on every token they sell. And I’d rather go to this shop, than sign up individually at the 70+ different providers they broker access to - even if it comes with a price.",
+          "comments": []
+        },
+        {
+          "id": 49366756,
+          "level": 1,
+          "user": "collingreen",
+          "time": 1787171142,
+          "time_ago": "16 minutes ago",
+          "content": "<p>It&#x27;s a simple marketplace and they control a ton of the demand side who trust them to find the best price and providers that work. The value is huge to users - one place, multiple models, providers bid for the traffic and the user doesn&#x27;t have to think about anything. The value they hold hostage against providers is gargantuan - nice model there it&#x27;d be a real shame if none of our users used it.<p>I don&#x27;t see how stripe adds any value here (and I&#x27;ve had such terrible experience with stripe automatically breaking my stuff I am worried I can&#x27;t trust openrouter now) but I can see stripe wanting to be in the middle of any two people giving each other money on the internet and this is squarely (lol) that.",
+          "comments": []
+        },
+        {
+          "id": 49365293,
+          "level": 1,
+          "user": "drob518",
+          "time": 1787164038,
+          "time_ago": "2 hours ago",
+          "content": "<p>I don’t understand it, but good for OpenRouter. Personally, I think OpenRouter’s value is somewhat perishable. In the early AI market where there are a jillion models and anew one every week, it’s great to be able to try them all without having to create accounts and keys for each one. OpenRouter, which I use, makes this easy for developers to do. Add some cost controls and other “management” knobs and it works great. But the market is not going to be this frothy forever. As things settle down and commoditize, the value of switching on a dime diminishes as people lock into their favorite models. And with the OpenAI and Anthropic APIs being defacto standards for how to talk to models, it’s easy enough to switch to another model every so often, as long as you aren’t doing it multiple times per week. The other alternative is that OpenRouter stays in the mix but its pricing gets ground down and down. If it’s (nearly) free and still adds some value, fine. But that doesn’t justify $7B. So, yea, I don’t get it from Stripe’s perspective.",
+          "comments": [
+            {
+              "id": 49365571,
+              "level": 2,
+              "user": "Majromax",
+              "time": 1787165139,
+              "time_ago": "2 hours ago",
+              "content": "<p>&gt; As things settle down and commoditize, the value of switching on a dime diminishes as people lock into their favorite models<p>I can imagine just the opposite outcome from the same scenario: as people settle into their favorite but commoditized models, competition for marginal inference cost will take over.  A company like OpenRouter that promises the cheapest tokens by the minute becomes essential on the low-cost margin.<p>I think that OpenRouter and equivalents get pushed out of the market only if the froth calms down (as you posit) <i>and</i> winning models stay proprietary, perhaps with their own unique API surfaces.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365317,
+          "level": 1,
+          "user": "znnajdla",
+          "time": 1787164111,
+          "time_ago": "2 hours ago",
+          "content": "<p>Read Ben Thompson to understand aggregation theory. Many of the largest internet companies, like Google and Amazon, are simply aggregators. OpenRouter is an aggregator of AI tooling. Stripe itself was just a convenience layer on top of merchant gateways (another aggregator). OpenRouter is so big they can negotiate special contracts with OpenAI for special rates.",
+          "comments": []
+        },
+        {
+          "id": 49365643,
+          "level": 1,
+          "user": "tancop",
+          "time": 1787165426,
+          "time_ago": "2 hours ago",
+          "content": "<p>You can save money and get higher uptime. Without it using a cheap provider for open models would be risky because they might go down a lot, but routers can detect that and instantly switch to a different provider. They basically take away all your exposure.<p>The other thing is convenience and centralized security from using one gateway to access everything. It&#x27;s a lot better than having to deal with N accounts with separate limits and monitoring. And giving your payment details to one company instead of 20 is obviously safer.<p>Investors like them because the pricing is inherently usage based so there&#x27;s zero risk of clients using more tokens than what they paid for. Guaranteed profit as long as they can keep a modest amount of customers.",
+          "comments": []
+        },
+        {
+          "id": 49365728,
+          "level": 1,
+          "user": "Digory",
+          "time": 1787165854,
+          "time_ago": "2 hours ago",
+          "content": "<p>On acquisition pricing: Why smarter AI models could drive up compute prices 10x (at least temporarily). [0]\nThis seems mind blowing, but the big boys seem to be behaving as if it&#x27;s directionally true.<p>If compute is constrained and expensive, OpenRouter is what you&#x27;ll use to get around the constraints at individual providers.<p>[0] <a href=\"https:&#x2F;&#x2F;x.com&#x2F;dwarkesh_sp&#x2F;status&#x2F;2084333160075055122?s=20\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;dwarkesh_sp&#x2F;status&#x2F;2084333160075055122?s=20</a>",
+          "comments": []
+        },
+        {
+          "id": 49365328,
+          "level": 1,
+          "user": "apitman",
+          "time": 1787164134,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s Netflix before the unbundling happened",
+          "comments": [
+            {
+              "id": 49365811,
+              "level": 2,
+              "user": "maciejgryka",
+              "time": 1787166225,
+              "time_ago": "2 hours ago",
+              "content": "<p>Ha that’s a really interesting comparison! I guess the difference is that OR directly sends revenue to model providers, so maybe they’re more likely to continue working together? But I can totally see it go the other way once a provider feels confident enough their users won’t switch away. At that point the OpenRouter tax, however small, will be a problem to solve.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49366761,
+          "level": 1,
+          "user": "mihaaly",
+          "time": 1787171162,
+          "time_ago": "16 minutes ago",
+          "content": "<p>PE is desperately competing other PE to get into the promise of some AI thingy NOW?<p>Just guessing. The frenzy around popular, good already, and successful services with the corporate crap flowing from this acquisition announcement too is appalling. The &quot;what&#x27;s best for you, the user&quot; heavy emphasis when this would be inherently evident in any honest service forecasts the opposite.<p>Some highlights from one of my agents asked for a no bullshit evaluation:<p>&quot;By buying OpenRouter, they own the routing layer that decides which model gets called and at what price.&quot;<p>&quot;Stripe wants to be the economic infrastructure for AI — meaning they want to be the toll booth and the traffic cop for the entire AI economy.&quot;<p>&quot;... insider market intelligence that OpenAI, Anthropic, and Google don&#x27;t fully have. Stripe would now have it.&quot;<p>&quot;The $7B+ price is absurd on any financial metric, but this isn&#x27;t a financial acquisition — it&#x27;s a strategic positioning play to own the platform layer of the next computing paradigm.&quot;<p>&quot;140x revenue multiple: At ~$50M revenue, this is not a financial valuation. It&#x27;s a strategic land grab — buying the chokepoint before someone else does.&quot;<p>I do not feel a particularly strong smell of &#x27;best for the user&#x27; here for some reason... More like the usual &#x27;how do we squeeze out more for our PE folks from this&#x27; kind of scent.",
+          "comments": []
+        },
+        {
+          "id": 49365341,
+          "level": 1,
+          "user": "Rebelgecko",
+          "time": 1787164161,
+          "time_ago": "2 hours ago",
+          "content": "<p>They&#x27;re selling shovels during a gold rush with a 5% markup",
+          "comments": []
+        },
+        {
+          "id": 49365021,
+          "level": 1,
+          "user": "wyre",
+          "time": 1787162961,
+          "time_ago": "3 hours ago",
+          "content": "<p>OpenRouter allows you to have 1 API key to access\nhundreds of models across dozens of providers.<p>Can’t explain the valuation since everything in this space is rationally overvalued, but I don’t think OpenRouters valuation is that surprising, all things considered.",
+          "comments": [
+            {
+              "id": 49365116,
+              "level": 2,
+              "user": "emdash",
+              "time": 1787163388,
+              "time_ago": "2 hours ago",
+              "content": "<p>I use it because it makes A&#x2F;B testing different models really easy",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49364973,
+          "level": 1,
+          "user": "atleastoptimal",
+          "time": 1787162676,
+          "time_ago": "3 hours ago",
+          "content": "<p>Distribution is a big moat and value-add.",
+          "comments": [
+            {
+              "id": 49365031,
+              "level": 2,
+              "user": "frabcus",
+              "time": 1787163024,
+              "time_ago": "3 hours ago",
+              "content": "<p>So much so that right now GPT-5.6 Sol tokens are half price from OpenRouter compared to OpenAI directly. Which I guess means enough people are using OpenRouter, that OpenAI are more concerned about getting those users to switch (from, presumably, Anthropic) than they are about encouraging OpenRouter to exist and long term reduce margins for them by competition &#x2F; lack of lock-in.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365037,
+          "level": 1,
+          "user": "qrios",
+          "time": 1787163051,
+          "time_ago": "3 hours ago",
+          "content": "<p>Contend of the LLM calls.",
+          "comments": []
+        },
+        {
+          "id": 49365403,
+          "level": 1,
+          "user": "croes",
+          "time": 1787164424,
+          "time_ago": "2 hours ago",
+          "content": "<p>They get all your prompts, the LLMs companies only some",
+          "comments": []
+        },
+        {
+          "id": 49364984,
+          "level": 1,
+          "user": "dcchambers",
+          "time": 1787162735,
+          "time_ago": "3 hours ago",
+          "content": "<p>Tokens are just a type of currency. Stripe is a middleman for currency.<p>Using something like OpenRouter (or any of the AI Gateways) is better than tying yourself to one LLM provider that can rug pull on pricing or change models in a way you don&#x27;t like.<p>The value is in the network effect I think. OpenRouter is popular and has a good head start over anything Stripe could build internally.",
+          "comments": [
+            {
+              "id": 49365017,
+              "level": 2,
+              "user": "dgellow",
+              "time": 1787162935,
+              "time_ago": "3 hours ago",
+              "content": "<p>Tokens are not a currency, tokens aren’t fungible and cannot be traded",
+              "comments": [
+                {
+                  "id": 49365272,
+                  "level": 3,
+                  "user": "polotics",
+                  "time": 1787163949,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>to a certain extent, openrouter did manage to turn tokens into a currency. The fungibility is there, as much as you don&#x27;t care so much if you&#x27;re getting your token from novita or some other player, these become fungible.",
+                  "comments": [
+                    {
+                      "id": 49365356,
+                      "level": 4,
+                      "user": "dgellow",
+                      "time": 1787164222,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>They aren’t trading tokens, they are a market for compute. The difference matters quite a lot. What you have in openrouter is the ability to exchange money for compute at the vendor of your choice.<p>We are basically back to 2020 trying to get people to understand that an NFT is NOT the underlying asset it abstractly represents…",
+                      "comments": [
+                        {
+                          "id": 49366817,
+                          "level": 5,
+                          "user": "pests",
+                          "time": 1787171419,
+                          "time_ago": "12 minutes ago",
+                          "content": "<p>&gt; The difference matters quite a lot.<p>Please go on as I do not get your point.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49365103,
+                  "level": 3,
+                  "user": "topato",
+                  "time": 1787163343,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>Isn’t this what Venice.AI is essentially trying to do?",
+                  "comments": []
+                },
+                {
+                  "id": 49365029,
+                  "level": 3,
+                  "user": "victorbjorklund",
+                  "time": 1787163014,
+                  "time_ago": "3 hours ago",
+                  "content": "<p>A dollar bill and a euro coin isn’t fungible either.",
+                  "comments": [
+                    {
+                      "id": 49365105,
+                      "level": 4,
+                      "user": "osculum",
+                      "time": 1787163345,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>? In general, it is, unless it has some collector value, for example.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49365045,
+                  "level": 3,
+                  "user": "13hours",
+                  "time": 1787163076,
+                  "time_ago": "3 hours ago",
+                  "content": "<p>Yet",
+                  "comments": [
+                    {
+                      "id": 49365269,
+                      "level": 4,
+                      "user": "dgellow",
+                      "time": 1787163943,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>Tokens are minted then consumed. You cannot trade them, by definition. What would it even mean to trade a token? You can maybe trade a voucher that allows you to then redeem it for some token generation (aka compute), but the tokens themselves don’t make sense to be tradeable. And because they aren’t fungible you cannot swap a token for another one, that’s just not what LLMs are",
+                      "comments": [
+                        {
+                          "id": 49366860,
+                          "level": 5,
+                          "user": "pests",
+                          "time": 1787171616,
+                          "time_ago": "9 minutes ago",
+                          "content": "<p>I think you are reading too much into the &quot;fungible&quot; term.<p>No one is talking about trading tokens.<p>The idea being that getting your tokens from Provider A is no different than Provider B, especially if they both offer the same model. You can change one value in a request to openrouter and suddenly be hitting a different provider but offering the same tokens, because they offer the same model and the same settings.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49365138,
+              "level": 2,
+              "user": "Taikhoom10",
+              "time": 1787163463,
+              "time_ago": "2 hours ago",
+              "content": "<p>Yeah, I mean, it looks like a network effect, but anybody can aggregate the models; rather, it is the switching costs in the logs and work, and the cost savings, etc.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365439,
+      "level": 0,
+      "user": "edoceo",
+      "time": 1787164570,
+      "time_ago": "2 hours ago",
+      "content": "<p>I&#x27;ve seen three or four others building routers. How hard is that really? The folk I spoke to needed only a few millions to build it (they claim). I&#x27;ve seen prototype of some too that looked pretty simple. Maybe the whole thing is driven by enterprise wanting the external vendor support?",
+      "comments": [
+        {
+          "id": 49365602,
+          "level": 1,
+          "user": "swatcoder",
+          "time": 1787165248,
+          "time_ago": "2 hours ago",
+          "content": "<p>The software is &quot;easy&quot;, it&#x27;s the business and operations that are hard: scaling the infrastructure reliably; finding revenue sources with secure margins; deflecting regulatory and risks responsibility; billing and collecting on massive low-margin high-volume transactions; enterprise sales; etc<p>It&#x27;s a business line more suited to finance, law, sales, and accounting people than tech people and a pretty laborious one. That&#x27;s often the case when the tech looks &quot;easy&quot; but the sector only seems to have a few big winners.",
+          "comments": []
+        },
+        {
+          "id": 49365487,
+          "level": 1,
+          "user": "computomatic",
+          "time": 1787164801,
+          "time_ago": "2 hours ago",
+          "content": "<p>My surface-level assessment is that building a router is easy, but routing efficiently is difficult. For the latter problem, traffic provides signals which you can use to improve routing rules, creating a feedback loop. More traffic =&gt; more feedback =&gt; better routing. So a lot of the value of Openrouter would be that they are the most adopted router (I think?) and so likely have the most data to (potentially) produce the best router. I&#x27;m only speculating.",
+          "comments": []
+        },
+        {
+          "id": 49366827,
+          "level": 1,
+          "user": "mihaaly",
+          "time": 1787171463,
+          "time_ago": "11 minutes ago",
+          "content": "<p>Probably they want to use the userbase, not the technology? There was a heavy emphasis - too heavy for my taste so it bounces me back - about that they will do what is the best for the user. I think that was already there, Stripe was not needed for that. This is more for the benefit of others.",
+          "comments": []
+        },
+        {
+          "id": 49365450,
+          "level": 1,
+          "user": "marcsnid",
+          "time": 1787164646,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s a fairly high scale, but yeah I don&#x27;t think it&#x27;s terribly hard. Negotiating rates with the providers seems like it&#x27;d be the hardest part to me.",
+          "comments": []
+        },
+        {
+          "id": 49365582,
+          "level": 1,
+          "user": "0xbadcafebee",
+          "time": 1787165172,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s hard.<p>- They support 400 different models, 80 different providers, and an unlimited number of new custom agents. Every single model, provider, and agent, has its own weirdness that has to be accounted for. Tool calls change by model. Effort changes by model. Backend APIs (messages, responses, etc) change by provider. There are thousands of specific tweaks, fixes, hacks, that need to be implemented to make this thing &quot;just work&quot;. And you have to keep updating it all, weekly.<p>- On top of that, they support providers running in multiple countries, which increases the legal, logistical, financial, and networking complexity.<p>- On top of that, they need to figure out pricing and deals with providers, and ensure the providers allocate the necessary networking and compute capacity. They need to work with providers directly to troubleshoot and fix all kinds of issues, from networking to application.<p>- On top of that, they implement multiple kinds of request routers. An auto router to route your request to the best general model, a fusion model to attempt the request on multiple models and pick the best response, a pareto router to route requests to the best coding model for your request.<p>- On top of that, they build custom features that businesses and users want, like Data Loss Prevention (which I&#x27;m blown away they actually <i>provide for free</i>). Lots of very useful business functionality for managing not only what model and provider to use, but also limits on usage, filters, etc. They also implement SSO, prompt injection guardrails, logging&#x2F;auditing, workspaces, etc.<p>- On top of that, you have to be very good at just implementing HTTP APIs. Most people aren&#x27;t good at it. API design is hard, HTTP is way more complicated than it seems, network traffic shaping is a black art.<p>- On top of that, running applications and infrastructure, and scaling it 10x every year, is a subtle yet critical skill. No matter how good your code is, it&#x27;s pointless without working hardware&#x2F;running apps.<p>- On top of that, they provide a generous free tier, which has to be subsidized, and is probably only partially subsidized by providers.<p>Why pay for this rather than build one? Because there&#x27;s no sense in building one. There&#x27;s a reason restaurants don&#x27;t build their own factories to manufacture their own pots and pans. Their business isn&#x27;t selling pots and pans, it&#x27;s selling people cooked steak. It&#x27;s a bad idea to waste time, effort, and money trying to make things you aren&#x27;t going to sell.",
+          "comments": [
+            {
+              "id": 49366126,
+              "level": 2,
+              "user": "ljlolel",
+              "time": 1787167952,
+              "time_ago": "an hour ago",
+              "content": "<p>I did almost all of that alone, for TrustedRouter.com",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365087,
+      "level": 0,
+      "user": "srameshc",
+      "time": 1787163297,
+      "time_ago": "2 hours ago",
+      "content": "<p>It is amazing how we watch from the sidelines these aquisitions and think .... why such big bill ?  But it takes a good team to sell and everytime someone is successful it is because probably they have great sellers who believe in their value and demand a price. It is certainly not an easy task to get to the finish line for a startup and pay back their investors.",
+      "comments": [
+        {
+          "id": 49365329,
+          "level": 1,
+          "user": "abixb",
+          "time": 1787164134,
+          "time_ago": "2 hours ago",
+          "content": "<p>Curious on what OpenRouter&#x27;s true moat is? It&#x27;s just an LLM API routing framework, right?",
+          "comments": [
+            {
+              "id": 49365372,
+              "level": 2,
+              "user": "rkangel",
+              "time": 1787164285,
+              "time_ago": "2 hours ago",
+              "content": "<p>Yeah, and Stripe is &quot;just&quot; a payments platform.<p>Openrouter is easy, reliable and performant (like Stripe).",
+              "comments": [
+                {
+                  "id": 49365587,
+                  "level": 3,
+                  "user": "Nextgrid",
+                  "time": 1787165201,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>&gt; Stripe is &quot;just&quot; a payments platform<p>Counterpoint: you can&#x27;t just go to Visa&#x2F;Mastercard or a merchant acquirer out there and set up an account on the same terms that Stripe can.<p>On the other hand, you can sign up to any LLM provider and get API access on terms that are the same <i>or better</i> (since I&#x27;m sure they don&#x27;t appreciate having a middleman and would benefit from incentivizing direct usage) than OpenRouter gets.",
+                  "comments": [
+                    {
+                      "id": 49365705,
+                      "level": 4,
+                      "user": "GTP",
+                      "time": 1787165718,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>Yes, you can get better pricing if you do it yourself. But the true advantage of OpenRouter is that, in a space where there&#x27;s a new model being released every week, you can easily switch to whatever model is best at any given time without having to set up accounts with multiple providers. Or you can just experiment with the latest release. Their product is the convenience. Of course if you decide to only use a specific provider or two, then you don&#x27;t need OpenRouter.",
+                      "comments": [
+                        {
+                          "id": 49365874,
+                          "level": 5,
+                          "user": "rob-lag",
+                          "time": 1787166541,
+                          "time_ago": "2 hours ago",
+                          "content": "<p>But it&#x27;s not really that difficult to make a clone of OpenRouter&#x27;s service. What they do isn&#x27;t really that original.<p>Their only value comes from the fact that the currently have lots of traffic. And I dkn&#x27;t think that their cumstomers are really bound to theur servuce. They could switch to a competitor without too much hassle.",
+                          "comments": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 49365787,
+                      "level": 4,
+                      "user": "ahepp",
+                      "time": 1787166157,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>Will that necessarily be true in the future? Would we not expect that openrouter will develop the ability to negotiate special pricing?",
+                      "comments": []
+                    },
+                    {
+                      "id": 49366290,
+                      "level": 4,
+                      "user": "surgical_fire",
+                      "time": 1787168832,
+                      "time_ago": "an hour ago",
+                      "content": "<p>To add to this; payment infrastructure requires a lot of heavy lifting. There&#x27;s a lot of regulations you need to adhere to, different payment systems in different countries, settlement, chargebacks, etc.<p>There is a reason why not doing your own payment processing is a thing.<p>OpenRouter may have some interesting things in streamlining the process of switching LLM providers, but it is indeed something easy to replicate in comparison to payment processing.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49365456,
+                  "level": 3,
+                  "user": "bubblegumcrisis",
+                  "time": 1787164673,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>Also it&#x27;s name has &quot;open&quot; in it.  Which means you can do what you want with it, and it&#x27;s all open source!<p>Just the other day, I tried to have openrouter route to my local ollama, and it refused.  Apparently I have to pay for this privilege.  How wonderful.<p>Open open (op)en.  Open open (op)en.  Clo-o-o-ooooo-sed.. (sing with Wagner flight of the V)",
+                  "comments": [
+                    {
+                      "id": 49365806,
+                      "level": 4,
+                      "user": "Animats",
+                      "time": 1787166203,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>Now that&#x27;s the value. OpenRouter has the power to step on the air hose of any provider they don&#x27;t like.<p>That&#x27;s Google&#x27;s real power. Works for them. Between search, ads, and the &quot;app store&quot;, they can crush most companies. OpenRouter&#x27;s power is only in one area. For now.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49366789,
+                  "level": 3,
+                  "user": "BeetleB",
+                  "time": 1787171300,
+                  "time_ago": "14 minutes ago",
+                  "content": "<p>Payments is quite hard, actually.<p>Payment platforms existed for years before Stripe came along. They solved the problems the others couldn&#x27;t.",
+                  "comments": []
+                },
+                {
+                  "id": 49365604,
+                  "level": 3,
+                  "user": "xmcp123",
+                  "time": 1787165254,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>There are already other providers that can say the same, some with very small teams and better rates.",
+                  "comments": []
+                },
+                {
+                  "id": 49365747,
+                  "level": 3,
+                  "user": "nonethewiser",
+                  "time": 1787165962,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>Yeah and the kids down the street are “just” a lemonade stand.",
+                  "comments": []
+                },
+                {
+                  "id": 49365821,
+                  "level": 3,
+                  "user": "verdverm",
+                  "time": 1787166277,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>Stripe operates in a very regulated industry where new entrance is difficult<p>OpenRouter is commodity stuff, I&#x27;ve never used it personally and picked alternatives. The sense I got from people who said they used it was that they are on average penny pinchers. That does not seem like an ideal user base",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49366781,
+              "level": 2,
+              "user": "BeetleB",
+              "time": 1787171240,
+              "time_ago": "15 minutes ago",
+              "content": "<p>They have enough customers to have leverage against providers. As an example, if they decide they can be &quot;punished&quot; if they claim ZDR but lie about it.",
+              "comments": []
+            },
+            {
+              "id": 49365520,
+              "level": 2,
+              "user": "meric_",
+              "time": 1787164928,
+              "time_ago": "2 hours ago",
+              "content": "<p>OpenRouter is already the entrenched go-to router tbh. There&#x27;s competitors (Vercel) but they&#x27;re already well known. Stripe can also make them more competitive because they can waive &#x2F; profit off the transaction cost. Considering stripe takes like a 3% fee, and the openrouter markup is 5%, that&#x27;s a pretty big boost.<p>Now is that enough revenue to earn back 7B.... I&#x27;m not too sure. I guess they&#x27;re betting realy big that these sorts of model routers will gain explosive token usage in the future",
+              "comments": [
+                {
+                  "id": 49366274,
+                  "level": 3,
+                  "user": "aleqs",
+                  "time": 1787168721,
+                  "time_ago": "an hour ago",
+                  "content": "<p>I don&#x27;t get the &#x27;transaction fee reduction&#x27; arguments. Yeah they can reduce the fee, which in turn reduces profit margin... any other product&#x2F;service in a similar position can do the same... it&#x27;s not some sort of free win",
+                  "comments": [
+                    {
+                      "id": 49366448,
+                      "level": 4,
+                      "user": "kridsdale1",
+                      "time": 1787169643,
+                      "time_ago": "41 minutes ago",
+                      "content": "<p>This was the same thinking behind Vanguard funds.",
+                      "comments": [
+                        {
+                          "id": 49366852,
+                          "level": 5,
+                          "user": "aleqs",
+                          "time": 1787171589,
+                          "time_ago": "9 minutes ago",
+                          "content": "<p>Not the same at all.",
+                          "comments": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 49365549,
+                  "level": 3,
+                  "user": "scrollop",
+                  "time": 1787165053,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>And trustedrouter which is a bit cheaper and more private",
+                  "comments": [
+                    {
+                      "id": 49365751,
+                      "level": 4,
+                      "user": "johndough",
+                      "time": 1787165970,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>Doesn&#x27;t TrustedRouter cost more than OpenRouter? (5.5% markup vs 5%)<p>Also, TrustedRouter&#x27;s website is full of slop, which does not inspire much confidence.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49365639,
+              "level": 2,
+              "user": "glerk",
+              "time": 1787165405,
+              "time_ago": "2 hours ago",
+              "content": "<p>I presume they are sitting on a lot of usage data and will be able to roll out efficient auto-routing based on it. There is a huge demand for this as most users are overwhelmed by provider options and just want to route to the best&#x2F;cheapest model based on the task.",
+              "comments": []
+            },
+            {
+              "id": 49365838,
+              "level": 2,
+              "user": "hgoel",
+              "time": 1787166363,
+              "time_ago": "2 hours ago",
+              "content": "<p>I think it&#x27;s kind of like what GitHub has despite getting rid of the quota system for Copilot: existing customers that are already setup to deal with them.<p>In this case I imagine that OpenRouter&#x27;s moat is going to be that businesses that already use Stripe will have a lower bar to choosing OpenRouter to provide the AI access, and clean integration with Stripe to pay for stuff like AI support bots.",
+              "comments": [
+                {
+                  "id": 49365971,
+                  "level": 3,
+                  "user": "dreamofwaves",
+                  "time": 1787167060,
+                  "time_ago": "an hour ago",
+                  "content": "<p>Isn&#x27;t copilot a cheaper harness than claude code and offers more flexibility?",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49365696,
+              "level": 2,
+              "user": "dzink",
+              "time": 1787165670,
+              "time_ago": "2 hours ago",
+              "content": "<p>As with Cursor it&#x27;s the data - all the prompts and responses that can be used to train AI models. Getting a head start on that at the pace of current development costs.",
+              "comments": []
+            },
+            {
+              "id": 49365702,
+              "level": 2,
+              "user": "jm4",
+              "time": 1787165708,
+              "time_ago": "2 hours ago",
+              "content": "<p>They are the leading LLM API routing tool. Stripe is the leading payments API. They are betting on OpenRouter being as important to developers as payments. Both let them take a small percentage of a shitload of transactions. Being the goto service for APIs and executing well is the moat. Someone else would have to beat the volume leader on price or beat them on execution. Good luck. The only realistic competitors would be Amazon, Google or Microsoft and none have shown any interest so far.",
+              "comments": [
+                {
+                  "id": 49365741,
+                  "level": 3,
+                  "user": "roncesvalles",
+                  "time": 1787165930,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>I don&#x27;t understand why one would let a router handle their LLM request (other than for routing it to the cheapest inference provider for open models).<p>When I build an application that uses LLMs, it&#x27;s tuned and tested for a specific model only. LLMs are not really drop-in replacements of each other, even different versions of the same series.<p>The pertinent question isn&#x27;t why OpenRouter but why a router company is worth 7B.",
+                  "comments": [
+                    {
+                      "id": 49365862,
+                      "level": 4,
+                      "user": "jm4",
+                      "time": 1787166506,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>You can use one key for multiple models, you can have many keys with a budget on each, you can manage all your keys in one piece of glass, you don&#x27;t have to deal with the upstream vendors directly just to name a few. These are all things that may be important to developers. I can&#x27;t even get an OpenAI API key because those morons can&#x27;t get their phone verification to work properly. OpenRouter is the only way I can use their models.",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49365652,
+              "level": 2,
+              "user": "Arshad-Talpur",
+              "time": 1787165474,
+              "time_ago": "2 hours ago",
+              "content": "<p>I dont know exactly but dont you think 90% of Vertical AI Companies are doing same?",
+              "comments": []
+            },
+            {
+              "id": 49365528,
+              "level": 2,
+              "user": "petesergeant",
+              "time": 1787164954,
+              "time_ago": "2 hours ago",
+              "content": "<p>OpenRouter’s “moat” is currently “why would I use anything else?”.<p>Stripe has presumably only purchased them because they think there’s consumer-surplus to monetize here, which presumably will soon be giving me lots of reasons to use something else.",
+              "comments": [
+                {
+                  "id": 49365618,
+                  "level": 3,
+                  "user": "xmcp123",
+                  "time": 1787165332,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>Because the others are cheaper",
+                  "comments": [
+                    {
+                      "id": 49365679,
+                      "level": 4,
+                      "user": "LPisGood",
+                      "time": 1787165598,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>The others have to charge a payment processing fee and take some profits.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49365611,
+                  "level": 3,
+                  "user": "bellowsgulch",
+                  "time": 1787165280,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>OpenCode Go is too good to be true, and I suspect it won&#x27;t last, like GitHub Copilot.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365798,
+          "level": 1,
+          "user": "baxtr",
+          "time": 1787166179,
+          "time_ago": "2 hours ago",
+          "content": "<p>Minor nitpick: don’t confuse sales with negotiations.<p>Negotiations start when sales is done.<p>These were highly capable negotiators.<p>But most likely also good salesmen.",
+          "comments": []
+        },
+        {
+          "id": 49365526,
+          "level": 1,
+          "user": "esafak",
+          "time": 1787164951,
+          "time_ago": "2 hours ago",
+          "content": "<p>If you meant that generally: because productivity is increasing; the world is getting richer. Not all of it flows down, but some does; top SV salaries are up too. By a lot.<p>edit: Inflation does not account for the observed growth.",
+          "comments": [
+            {
+              "id": 49365647,
+              "level": 2,
+              "user": "jakebol",
+              "time": 1787165439,
+              "time_ago": "2 hours ago",
+              "content": "<p>We are certainly seeing higher monetary velocity in certain sectors.  That usually follows from real economic expansion but could also be due in part to inflation.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365494,
+          "level": 1,
+          "user": "viccis",
+          "time": 1787164818,
+          "time_ago": "2 hours ago",
+          "content": "<p>Corollary to this is that whenever companies acquire smaller companies and lay off the small company&#x27;s sales teams, they deserve what they get. Looking at you, big company that turned my last one from nearly a billion valuation into a $20M fire sale in 3-4 years.",
+          "comments": []
+        },
+        {
+          "id": 49365777,
+          "level": 1,
+          "user": "shafyy",
+          "time": 1787166099,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s just the same VCs moving money from one pocket to the other.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49366311,
+      "level": 0,
+      "user": "rubiquity",
+      "time": 1787168944,
+      "time_ago": "an hour ago",
+      "content": "<p>This feels defensive and reactionary after Ramp started getting deeper into AI.",
+      "comments": [
+        {
+          "id": 49366559,
+          "level": 1,
+          "user": "geek_at",
+          "time": 1787170241,
+          "time_ago": "32 minutes ago",
+          "content": "<p>and pretty sure they&#x27;re gonna drop crypto currencies as payment on the platform too",
+          "comments": [
+            {
+              "id": 49366673,
+              "level": 2,
+              "user": "denismenace",
+              "time": 1787170824,
+              "time_ago": "22 minutes ago",
+              "content": "<p>Why? How do these relate?",
+              "comments": [
+                {
+                  "id": 49366736,
+                  "level": 3,
+                  "user": "dabbz",
+                  "time": 1787171071,
+                  "time_ago": "18 minutes ago",
+                  "content": "<p>Metronome has been experimenting with real-time payment on usage based billing for tokens. That technology leverages micro payments using crypto. It&#x27;s cool but all it&#x27;s doing is moving the accumulated balance from a provider onto your crypto wallet.",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49366655,
+              "level": 2,
+              "user": "enraged_camel",
+              "time": 1787170774,
+              "time_ago": "23 minutes ago",
+              "content": "<p>I doubt it. One of the founders was on a podcast recently and they were singing stablecoin praises.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365701,
+      "level": 0,
+      "user": "Digory",
+      "time": 1787165707,
+      "time_ago": "2 hours ago",
+      "content": "<p>On acquisition pricing:  Why smarter AI models could drive up compute prices 10x (at least temporarily).<p>This seems mind blowing, but the big boys seem to be behaving as if it&#x27;s directionally true.<p>If compute is constrained and expensive, OpenRouter is what you&#x27;ll use to get around the constraints at individual providers.<p><a href=\"https:&#x2F;&#x2F;x.com&#x2F;dwarkesh_sp&#x2F;status&#x2F;2084333160075055122?s=20\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;dwarkesh_sp&#x2F;status&#x2F;2084333160075055122?s=20</a>",
+      "comments": []
+    },
+    {
+      "id": 49366381,
+      "level": 0,
+      "user": "Exoristos",
+      "time": 1787169345,
+      "time_ago": "an hour ago",
+      "content": "<p>Routing seems to face a similar future as the ever-changing trends in controlling coding agents: you know, context engineering, loop engineering, etc. Which is that OpenAI and Anthropic quickly seem to release a better version of doing it, which third-party and personal solutions will only conflict with.",
+      "comments": []
+    },
+    {
+      "id": 49365481,
+      "level": 0,
+      "user": "marcsnid",
+      "time": 1787164761,
+      "time_ago": "2 hours ago",
+      "content": "<p>I&#x27;m not happy about this. Having used OpenRouter a lot and enjoying the experience, I need to say that corporate consolidation is never good for consumers.",
+      "comments": [
+        {
+          "id": 49365856,
+          "level": 1,
+          "user": "rnd0",
+          "time": 1787166470,
+          "time_ago": "2 hours ago",
+          "content": "<p>&gt;I need to say that corporate consolidation is never good for consumers.<p>Truer words, never spoken. I&#x27;m not sure how exactly this will screw me over -but I do know that it will.",
+          "comments": []
+        },
+        {
+          "id": 49365503,
+          "level": 1,
+          "user": "goalieca",
+          "time": 1787164842,
+          "time_ago": "2 hours ago",
+          "content": "<p>curious as a non-user, but what does openrouter have to do with stripe? Ignoring the corpo-speak about mission statement.. the missions don&#x27;t really seem aligned in reality.",
+          "comments": [
+            {
+              "id": 49366712,
+              "level": 2,
+              "user": "marcsnid",
+              "time": 1787170970,
+              "time_ago": "19 minutes ago",
+              "content": "<p>I don&#x27;t think they have much to do with stripe. I&#x27;m guessing they want to round out their business more and include payments for AI since OpenRouter is basically just an AI traffic router that takes your money and provides it to the APIs you use.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365141,
+      "level": 0,
+      "user": "6thbit",
+      "time": 1787163471,
+      "time_ago": "2 hours ago",
+      "content": "<p>This has to be all about cashflow, right?<p>Surely stripe if anyone have learned to harness the cash flowing through their system. Hell, they could be emitting bonds on expected token consumption bills!",
+      "comments": []
+    },
+    {
+      "id": 49364988,
+      "level": 0,
+      "user": "itsdesmond",
+      "time": 1787162763,
+      "time_ago": "3 hours ago",
+      "content": "<p>&gt; Today, we are excited to announce that we are joining forces with Stripe, to power the next wave of GDP growth globally.<p>This is some high level meaningless corpo speak.",
+      "comments": [
+        {
+          "id": 49365077,
+          "level": 1,
+          "user": "Lalabadie",
+          "time": 1787163255,
+          "time_ago": "2 hours ago",
+          "content": "<p>I get where it&#x27;s coming from, I like Stripe&#x27;s long-stated mission (&quot;To increase the GDP of the Internet&quot;).<p>This version is dumb&#x2F;empty, and reads like brown-nosing Stripe.",
+          "comments": [
+            {
+              "id": 49365196,
+              "level": 2,
+              "user": "jonahx",
+              "time": 1787163657,
+              "time_ago": "2 hours ago",
+              "content": "<p>&gt; I like Stripe&#x27;s long-stated mission (&quot;To increase the GDP of the Internet&quot;).<p>Also corporate speak.  Their mission is take their cut of the Internet&#x27;s GDP.  Nothing against them, they provide real value for that cut.  But that&#x27;s what the actual mission is.",
+              "comments": [
+                {
+                  "id": 49365384,
+                  "level": 3,
+                  "user": "Brendinooo",
+                  "time": 1787164344,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>It&#x27;s not mutually exclusive. I remember the Bad Old Days of trying to make the PayPal button work; if Stripe makes it easier for people to take payment online then it increases the GDP of the Internet.",
+                  "comments": []
+                },
+                {
+                  "id": 49365309,
+                  "level": 3,
+                  "user": "amcvitty",
+                  "time": 1787164075,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>That feels unfair to read it that way.  The mission as stated is that they will not only take a cut of the pie but grow the pie. If the total value they add is greater than the value they capture, everyone wins.<p>You might not believe them, but that’s what the words are supposed to mean.",
+                  "comments": [
+                    {
+                      "id": 49365533,
+                      "level": 4,
+                      "user": "jonahx",
+                      "time": 1787164971,
+                      "time_ago": "2 hours ago",
+                      "content": "<p>&gt; You might not believe them, but that’s what the words are supposed to mean.<p>It&#x27;s corporate bullshit not because I don&#x27;t believe they can grow the pie, but because that&#x27;s not <i>their</i> motivation.<p>In fact, a nice formula for coming up with your corporate mission statement would be:<p>1. Ignore your company&#x27;s ground-truth financial incentives<p>2. Find a positive 2nd order effect E (or a plausible one) that you don&#x27;t really care about, but maybe you genuinely think is nice<p>3. Claim your &quot;passion for E&quot; is what drove you to start your company, and keeps you working, because, of course, all great companies must have a &quot;deeper purpose&quot;",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 49365208,
+              "level": 2,
+              "user": "maelito",
+              "time": 1787163700,
+              "time_ago": "2 hours ago",
+              "content": "<p>Well given the commissions of Stripe&#x27;s, is mostly about its own GDP.",
+              "comments": []
+            },
+            {
+              "id": 49365146,
+              "level": 2,
+              "user": "strbean",
+              "time": 1787163496,
+              "time_ago": "2 hours ago",
+              "content": "<p>I&#x27;m curious about the GDP vs. GNP of the internet :)",
+              "comments": []
+            },
+            {
+              "id": 49365252,
+              "level": 2,
+              "user": "glohbalrob",
+              "time": 1787163885,
+              "time_ago": "2 hours ago",
+              "content": "<p>thats what billions does",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365264,
+          "level": 1,
+          "user": "rossdavidh",
+          "time": 1787163923,
+          "time_ago": "2 hours ago",
+          "content": "<p>One unexpected &quot;benefit&quot; of LLMs is that it is training us all to be even better at recognizing &quot;you don&#x27;t even know what you mean by that, do you?&quot;",
+          "comments": []
+        },
+        {
+          "id": 49365287,
+          "level": 1,
+          "user": "toomuchtodo",
+          "time": 1787164012,
+          "time_ago": "2 hours ago",
+          "content": "<p><a href=\"https:&#x2F;&#x2F;www.axios.com&#x2F;2026&#x2F;08&#x2F;19&#x2F;stripe-payments-openrouter-singularity\" rel=\"nofollow\">https:&#x2F;&#x2F;www.axios.com&#x2F;2026&#x2F;08&#x2F;19&#x2F;stripe-payments-openrouter-...</a><p><a href=\"https:&#x2F;&#x2F;stripe.com&#x2F;annual-updates&#x2F;2025\" rel=\"nofollow\">https:&#x2F;&#x2F;stripe.com&#x2F;annual-updates&#x2F;2025</a><p>&gt; Stripe last said businesses on its platform generated $1.9 trillion in payment volume in 2025, up 34% year over year.<p>More transaction volume = more enterprise value potential. More GDP, total rake goes up of said economic activity they facilitate. Middleman Moat, accumulating volume (present via Paypal, future via OpenRouter).",
+          "comments": []
+        },
+        {
+          "id": 49365018,
+          "level": 1,
+          "user": "binary132",
+          "time": 1787162943,
+          "time_ago": "3 hours ago",
+          "content": "<p>Big line go up!",
+          "comments": []
+        },
+        {
+          "id": 49365750,
+          "level": 1,
+          "user": "KennyBlanken",
+          "time": 1787165968,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s particularly stupid given that if you look at where the tokens are being spent, the top application overwhelmingly is Hermes Agent. It&#x27;s more than the next six clients combined.<p>Hermes Agent is AI slop &quot;ai assistant&quot; software that is being entirely developed by a bunch of AI agents. They are stuck in a constant whack-a-mole bug fix session because the agents keep breaking things.<p>Openrouter is being entirely propped up by garbage-tier software that is only popular because it&#x27;s being endlessly hyped by idiot youtuber AI Agent Bros who are so uncreative and incapable of critical thought, they&#x27;re using AI agents to tell them what content to make.<p>When people finally realize how bad Hermes is, OpenRouter is pretty fucked. And then when all the weebs writing furry porn get bored and move on, they&#x27;ll be fucked even more.<p>What&#x27;s really bad about this: Stripe is so tightly tied to the credit card industry that said industry&#x27;s obsession with morality policing will force Stripe to start censoring openrouter.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49365008,
+      "level": 0,
+      "user": "wxw",
+      "time": 1787162877,
+      "time_ago": "3 hours ago",
+      "content": "<p>&gt; And as we grow, we will relentlessly aim to preserve the velocity, agility, efficiency, and talent density of the 90-person startup that we are today.<p>Echoes of WhatsApp. Huge congrats to the team!",
+      "comments": [
+        {
+          "id": 49365377,
+          "level": 1,
+          "user": "yipinwong",
+          "time": 1787164316,
+          "time_ago": "2 hours ago",
+          "content": "<p>Stripe is a high-velocity environment. \nOpenRouter (OR) is a startup so might move fast, but unsure if OR can handle the velocity with corporate guardrails put in place already.<p>Any companies that are bought go through culture crashes, and I am interested in how this plays out.",
+          "comments": [
+            {
+              "id": 49366340,
+              "level": 2,
+              "user": "aleqs",
+              "time": 1787169110,
+              "time_ago": "an hour ago",
+              "content": "<p>In what way is Stripe a &#x27;high-velocity environment&#x27; ?",
+              "comments": [
+                {
+                  "id": 49366536,
+                  "level": 3,
+                  "user": "yipinwong",
+                  "time": 1787170104,
+                  "time_ago": "34 minutes ago",
+                  "content": "<p>I was saying, they grill you hard in a nicest possible way",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365261,
+          "level": 1,
+          "user": "jambalaya8",
+          "time": 1787163912,
+          "time_ago": "2 hours ago",
+          "content": "<p>man, whatsapp was sure something in early 2017 though.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49365994,
+      "level": 0,
+      "user": "rew0rk",
+      "time": 1787167176,
+      "time_ago": "an hour ago",
+      "content": "<p>I am somewhat mixed on this, I feel though having it be part of Stripe will make it easier to sell to my leadership as &quot;More Trustworthy&quot; than having it by itself",
+      "comments": []
+    },
+    {
+      "id": 49365193,
+      "level": 0,
+      "user": "dwa3592",
+      "time": 1787163649,
+      "time_ago": "2 hours ago",
+      "content": "<p>I guess this makes sense for the scenario when we will use machine intelligence as a currency, maybe 15-20 years from now? - like I can pay 15 minutes of inference for a dozen bananas? and the banana seller uses those 15 minutes to do banana shelling or removing weeds from their farms or whatever i guess when robots are doing everything. right??",
+      "comments": [
+        {
+          "id": 49365348,
+          "level": 1,
+          "user": "yipinwong",
+          "time": 1787164198,
+          "time_ago": "2 hours ago",
+          "content": "<p>This won&#x27;t work because you consider humans as a logical being (Homosapiens is a misnormer).<p>People will revolt first should one have to trade physical goods (such as food that we need for daily lives) with computing power.<p>It only takes a few people to incite.",
+          "comments": [
+            {
+              "id": 49365435,
+              "level": 2,
+              "user": "dwa3592",
+              "time": 1787164559,
+              "time_ago": "2 hours ago",
+              "content": "<p>i like what you did with misnormer. it&#x27;s like pobody&#x27;s nerfect.<p>you are right, there will be revolt definitely. i think computing power will replace a lot of things though.",
+              "comments": [
+                {
+                  "id": 49366562,
+                  "level": 3,
+                  "user": "yipinwong",
+                  "time": 1787170255,
+                  "time_ago": "31 minutes ago",
+                  "content": "<p>I agree that the computing power will replace not just softwares and also as many phycial work via robots.  \nI am not smart enough to see further what else are disposable or replaceable",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365244,
+          "level": 1,
+          "user": "jonahx",
+          "time": 1787163841,
+          "time_ago": "2 hours ago",
+          "content": "<p>I think this is exactly the bet they&#x27;re making.<p>I was totally confused by what connected the two companies until I realized &quot;tokens&quot; are basically a nascent, and rapidly growing, &quot;currency&quot;.",
+          "comments": [
+            {
+              "id": 49365285,
+              "level": 2,
+              "user": "rossdavidh",
+              "time": 1787164006,
+              "time_ago": "2 hours ago",
+              "content": "<p>Overthinking it.  &quot;You have money and need to seem AIish for the stock market, we want real money&quot;.  You notice they don&#x27;t do this deal in tokens, they do it in fiat currency.",
+              "comments": []
+            },
+            {
+              "id": 49365310,
+              "level": 2,
+              "user": "mbreese",
+              "time": 1787164081,
+              "time_ago": "2 hours ago",
+              "content": "<p>Except that tokens aren’t completely fungible yet. But, I think we’re approaching the point where it is close enough to be a “proof of work” analog.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365250,
+          "level": 1,
+          "user": "bluefirebrand",
+          "time": 1787163879,
+          "time_ago": "2 hours ago",
+          "content": "<p>I hope we aren&#x27;t on track for this future and if we are I hope a substantial number of people rebel.<p>This is among the more hellish futures I can imagine. Our worth as people reduced to how much access we have to compute. Gross.",
+          "comments": [
+            {
+              "id": 49365371,
+              "level": 2,
+              "user": "dwa3592",
+              "time": 1787164277,
+              "time_ago": "2 hours ago",
+              "content": "<p>I hope not;<p>there are a few assumptions in this future- the biggest one is - we will have to attain a baseline intelligence which is useful for everyone which is not true today. even fable fumbles hard!!<p>second is that everyone will have to own a medium to use this intelligence (aka robots). like a currency is useless if you can&#x27;t use it.<p>to me this is the least daunting scenario. all other scenarios lead to mass slavery.",
+              "comments": [
+                {
+                  "id": 49365542,
+                  "level": 3,
+                  "user": "bluefirebrand",
+                  "time": 1787164999,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>&gt; the biggest one is - we will have to attain a baseline intelligence which is useful for everyone which is not true today<p>That&#x27;s not the biggest assumption.<p>The biggest assumption I see is that the population will have the baseline understanding of how to operate in this new paradigm, which seems impossible given how useless many people still are with computers<p>Incidentally, this is also why I think Bitcoin is such a non-starter for most people",
+                  "comments": []
+                }
+              ]
+            },
+            {
+              "id": 49366156,
+              "level": 2,
+              "user": "heurist",
+              "time": 1787168053,
+              "time_ago": "an hour ago",
+              "content": "<p>It doesn&#x27;t make much sense as compute isn&#x27;t all that scarce (relative to other commodities) and will be less so in 15 years.",
+              "comments": [
+                {
+                  "id": 49366296,
+                  "level": 3,
+                  "user": "dwa3592",
+                  "time": 1787168861,
+                  "time_ago": "an hour ago",
+                  "content": "<p>Does it have to be scarce for it to become a currency? It just needs to be regulated which I think it will be.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365762,
+      "level": 0,
+      "user": "dudu24",
+      "time": 1787165993,
+      "time_ago": "2 hours ago",
+      "content": "<p>What&#x27;s with naming proprietary stuff &quot;open&quot;?",
+      "comments": [
+        {
+          "id": 49365878,
+          "level": 1,
+          "user": "teraflop",
+          "time": 1787166563,
+          "time_ago": "2 hours ago",
+          "content": "<p>Clearly these products are being named by topologists, who have no objection to things being simultaneously open and closed.",
+          "comments": [
+            {
+              "id": 49365919,
+              "level": 2,
+              "user": "_joel",
+              "time": 1787166797,
+              "time_ago": "an hour ago",
+              "content": "<p>Schrödinger&#x27;s Product",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365805,
+          "level": 1,
+          "user": "thesdev",
+          "time": 1787166202,
+          "time_ago": "2 hours ago",
+          "content": "<p>It&#x27;s following the open closed principle.",
+          "comments": [
+            {
+              "id": 49365895,
+              "level": 2,
+              "user": "Anoian",
+              "time": 1787166633,
+              "time_ago": "2 hours ago",
+              "content": "<p>Its sad that you gotta be a software engineer, to immediately get this joke, because its pretty good",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365930,
+          "level": 1,
+          "user": "impulser_",
+          "time": 1787166855,
+          "time_ago": "an hour ago",
+          "content": "<p>It could be open in the literally sense of you aren&#x27;t locked in, you have free access to any model you want.<p>Just because a name has open in it doesn&#x27;t mean it has to be open source.",
+          "comments": []
+        },
+        {
+          "id": 49366019,
+          "level": 1,
+          "user": "thih9",
+          "time": 1787167269,
+          "time_ago": "an hour ago",
+          "content": "<p>It’s an AI era buzzword.<p>It’s not a new process, e.g. when blockchain was trendy, “crypto-“ and “bit-“ were similarly popular and their meaning was secondary.",
+          "comments": []
+        },
+        {
+          "id": 49365974,
+          "level": 1,
+          "user": "subscribed",
+          "time": 1787167081,
+          "time_ago": "an hour ago",
+          "content": "<p>&quot;Open&quot; is a load bearing reference we all get :p",
+          "comments": []
+        },
+        {
+          "id": 49365770,
+          "level": 1,
+          "user": "redlewel",
+          "time": 1787166056,
+          "time_ago": "2 hours ago",
+          "content": "<p>blame openai they started it",
+          "comments": []
+        },
+        {
+          "id": 49365810,
+          "level": 1,
+          "user": "echelon",
+          "time": 1787166218,
+          "time_ago": "2 hours ago",
+          "content": "<p>Would &quot;OpenSourceRouter&quot; be a trademark violation?<p>I&#x27;ve built one in Rust and want to market it.",
+          "comments": [
+            {
+              "id": 49365898,
+              "level": 2,
+              "user": "Pet_Ant",
+              "time": 1787166649,
+              "time_ago": "2 hours ago",
+              "content": "<p>Not if you’re in a different domain, then it cannot be claimed to confuse customers.<p>So if it’s a network router or a woodworking router, then you’re good.<p>I can sells of red socks, and white socks, without getting sued by Chicago or Boston.<p>If it’s in the same space… you might want to contact a lawyer. I believe Firefox had conflicts with earlier names like Phoenix and FireBird and they weren’t even browsers.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365147,
+      "level": 0,
+      "user": "drob518",
+      "time": 1787163498,
+      "time_ago": "2 hours ago",
+      "content": "<p>Hm. This seems random. Other than the fact that they are both technology companies, is there anything else that they have in common?",
+      "comments": [
+        {
+          "id": 49365722,
+          "level": 1,
+          "user": "computomatic",
+          "time": 1787165799,
+          "time_ago": "2 hours ago",
+          "content": "<p>Stripe is positioning themselves as one of the leading adopters of AI internally. I don&#x27;t know of public stats but I estimate they&#x27;re spending on the order of $millions per week on tokens. I assume they&#x27;ve adopted Openrouter and the majority of that spend is going via Openrouter. So they understand the product value, they understand the current gaps, and there&#x27;s also a threat mitigation. They&#x27;ve likely become very dependent on Openrouter and <i>someone</i> is going to buy it - so they may as well negate the risk to that. (Threat mitigation alone is not worth $7B but it justifies a certain premium.)<p>They also have very complementary problems and skills. The long-term roadmap for routers is auto-routing; that is, turning traffic into signals into automated decisions. Stripe has a lot of overlapping talent and experience from fraud-detection and likely other products.",
+          "comments": []
+        },
+        {
+          "id": 49365512,
+          "level": 1,
+          "user": "qurren",
+          "time": 1787164905,
+          "time_ago": "2 hours ago",
+          "content": "<p>Stripe execs said &quot;we should own some AI&quot;<p>Founders found out that they could finally afford to pay their medical, tax, housing bills if they said yes",
+          "comments": []
+        },
+        {
+          "id": 49365574,
+          "level": 1,
+          "user": "OtherShrezzing",
+          "time": 1787165146,
+          "time_ago": "2 hours ago",
+          "content": "<p>One-to-many implementation. Stripe is one api to every bank. Openrouter is one api to every language model.",
+          "comments": [
+            {
+              "id": 49365731,
+              "level": 2,
+              "user": "deely3",
+              "time": 1787165903,
+              "time_ago": "2 hours ago",
+              "content": "<p>And... How do they combine? I really curious.",
+              "comments": [
+                {
+                  "id": 49366428,
+                  "level": 3,
+                  "user": "leros",
+                  "time": 1787169559,
+                  "time_ago": "43 minutes ago",
+                  "content": "<p>Their business models are actually kind of similar. Stripe is just passing money between financial institutions and taking a small cut. OpenRouter is basically the same thing. They might have shared ability on how to run an effective pass through business.",
+                  "comments": []
+                },
+                {
+                  "id": 49365901,
+                  "level": 3,
+                  "user": "porridgeraisin",
+                  "time": 1787166659,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>My read: The thesis is that token spend is going to be one of the larger input costs to a business in the future. They want token economics to happen on their platform so that the commission that comes out of all of this goes to them. It is not enough that openrouter uses stripe exclusively to interact with banks, since the transactions are expected to not just be tokens for dollars, but tokens for tokens or tokens for specific stablecoins tied to tokens. One of the value adds of stripe is their policy and monitoring layer. With tokens, the polices and monitoring will happen in token-land primarily, not in dollars-land. So if you want to continue demanding commission for those types of things, you have to be able to execute policies on tokens. Tokens can of course be variably priced - I am not claiming # tokens itself has the same value across providers.<p>The platform also has another value that is not mentioned often. People often mention the devex, which is consumer value. But one of the main things about open router is that they help model providers access a massive distribution channel with smooth demand, as with any aggregator. Similar to the value food delivery apps provide to restaurants. As such, this type of marketplace power has the potential to allow them to charge model providers commissions as well for various services in the future. You can already almost imagine an &quot;auto mode&quot; where they balance improvements to cx (say right sized models for tasks, saving u money) with &quot;ad&quot;&#x2F;preferential treatment promises tomodel providers. Basically, all the typical middleman stuff.<p>One of the other companies in this space, ramp, has also started their own router at router.com. See <a href=\"https:&#x2F;&#x2F;x.com&#x2F;tryramp&#x2F;status&#x2F;2090146780512227825\" rel=\"nofollow\">https:&#x2F;&#x2F;x.com&#x2F;tryramp&#x2F;status&#x2F;2090146780512227825</a><p>Quoting their rumored leaked investor letter dated Aug 19 26 below:<p>Zooming out, we see capital and intelligence are becoming the two digital flows undergirding every business. Up until now, every developer has needed a straightforward and reliable way to manage their revenue pipeline, and serving this need gave rise to Stripe. Going forward, however, every developer will also need a straightforward and reliable way to manage their intelligence pipeline.\nThis observation first led us to OpenRouter. OpenRouter has built the world&#x27;s largest and most trusted token routing engine, supporting all major models and providers, and beloved by its customers....We think that there are deeper reasons to pursue integration besides convenience. Our experience in working with our customers has led us to realize that intelligence is special: it\nis expensive, heterogeneous, and constantly changing. As with financial capital, businesses must reason about cost and return of every unit in a deliberate and granular way. How valuable is this task? With which models can it be best handled? Who will pay, and when, and what is the time-value of that delay?\nWe have seen the parallels between managing intelligence and managing capital directly in our own products. Radar, for example, was initially designed to prevent financial fraud, but is proving extremely effective at guarding against token fraud at many of the world&#x27;s largest A1 companies. Metronome (used by Anthropic, Nvidia, and other industry leaders) is showing that metered billing in an AI context is inseparable from token serving and consumption itself.",
+                  "comments": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365779,
+          "level": 1,
+          "user": "solidasparagus",
+          "time": 1787166103,
+          "time_ago": "2 hours ago",
+          "content": "<p>One of the main real values of OpenRouter is that it is a single payment relationship for users that enables access to many downstream vendors. I&#x27;m not super convinced it is a good purchase, but right now OpenRouter is the financial middleman for token spend. It is also the centralization point for tokens, allowing for value-add features that are industry-wide, for example budgets - and I think that structure has parallels to Stripe products like Checkout or Identity.",
+          "comments": []
+        },
+        {
+          "id": 49365183,
+          "level": 1,
+          "user": "znnajdla",
+          "time": 1787163610,
+          "time_ago": "2 hours ago",
+          "content": "<p>Both are the most popular developer api in their space.",
+          "comments": []
+        },
+        {
+          "id": 49365476,
+          "level": 1,
+          "user": "swatcoder",
+          "time": 1787164746,
+          "time_ago": "2 hours ago",
+          "content": "<p>In the event that the AI bubble doesn&#x27;t burst, Stripe needs to have a stake in whatever&#x27;s coming. They have time to explore and pursue specific strategies, but they just needed to make some big and compatible buy.<p>In this particular case, OpenRouter represents a M x N bridging and enhancement layer much like Stripe themselves, and so must address a lot of parallel technical, dealmaking, accounting, and legal challenges.<p>It may not be obvious on the surface because they seem to be working in such different domain, but they have to address a lot of the same problems in comparable ways and that makes it a pretty darn good fit.",
+          "comments": []
+        },
+        {
+          "id": 49365829,
+          "level": 1,
+          "user": "verdverm",
+          "time": 1787166308,
+          "time_ago": "2 hours ago",
+          "content": "<p>Taking a % cut on top of every operation",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49365599,
+      "level": 0,
+      "user": "TechSquidTV",
+      "time": 1787165240,
+      "time_ago": "2 hours ago",
+      "content": "<p>7 million would sound fair to me. 7 billion? Explain yourself.",
+      "comments": [
+        {
+          "id": 49366879,
+          "level": 1,
+          "user": "mfld",
+          "time": 1787171734,
+          "time_ago": "7 minutes ago",
+          "content": "<p>Remember when Google acquired YouTube for $1.6B in 2026. That amount seemed ridiculous at the time. Its now peanuts compared to YouTube&#x27;s yearly revenue.",
+          "comments": []
+        },
+        {
+          "id": 49365637,
+          "level": 1,
+          "user": "nateb2022",
+          "time": 1787165403,
+          "time_ago": "2 hours ago",
+          "content": "<p>OpenRouter already takes in around $140M in yearly revenue. How would paying 5% of yearly revenue make any sense for an acquisition??",
+          "comments": [
+            {
+              "id": 49365776,
+              "level": 2,
+              "user": "Dylan16807",
+              "time": 1787166095,
+              "time_ago": "2 hours ago",
+              "content": "<p>&gt; How would paying 5% of yearly revenue make any sense for an acquisition??<p>50x revenue is also a crazy number.  I wonder what happens more, companies selling for ≤5% revenue or companies selling for ≥50x revenue.",
+              "comments": []
+            },
+            {
+              "id": 49366409,
+              "level": 2,
+              "user": "leros",
+              "time": 1787169461,
+              "time_ago": "an hour ago",
+              "content": "<p>10% would be more typical. Perhaps the math is that OpenRouter inside Stripe makes it twice as valuable. You often see acquisitions priced on the value of the company post-acquisition.",
+              "comments": []
+            }
+          ]
+        },
+        {
+          "id": 49365644,
+          "level": 1,
+          "user": "sneilan1",
+          "time": 1787165431,
+          "time_ago": "2 hours ago",
+          "content": "<p>The 7 billion figure is not just open router&#x27;s current value. It&#x27;s also including part of it&#x27;s projected value in the future. So that 7 billion includes current value + value say 5-10 years out.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49366437,
+      "level": 0,
+      "user": "consumer451",
+      "time": 1787169598,
+      "time_ago": "42 minutes ago",
+      "content": "<p>Congratulations to the OpenRouter team!",
+      "comments": []
+    },
+    {
+      "id": 49366838,
+      "level": 0,
+      "user": "adityashankar",
+      "time": 1787171515,
+      "time_ago": "10 minutes ago",
+      "content": "<p>&gt; For years, OpenRouter has been called “Stripe for LLMs.”<p>holy crap, save some butter for the bread omg",
+      "comments": []
+    },
+    {
+      "id": 49366735,
+      "level": 0,
+      "user": "joering2",
+      "time": 1787171064,
+      "time_ago": "18 minutes ago",
+      "content": "<p>Congratulation to all who exit at $7b after 3 years, but I have only one question: what problem does this acquisition fix? Did OR lack infrastructure? experience? what was the main drive, other than money, for sale?<p>Because after PayPal, Stripe is the biggest graveyard of frozen accounts who would be otherwise perfectly fine, but some AI decided that this card from this country at this price = send the account to null.<p>So while before you had comfort of using OR, right now you will have Stripe emps and their AI overseeing your queries. And don&#x27;t get me wrong - Stripe will love you! But once someone pulls the lever - good luck getting at least explanation why they had to boot you out. I never heard of an account being reinstated. This will be like this, only your queries instead of CC charges, will be inspected.<p>I don&#x27;t see how this is beneficial to anyone, esp. OR users. RIP OpenRouter.",
+      "comments": []
+    },
+    {
+      "id": 49366400,
+      "level": 0,
+      "user": "stinger",
+      "time": 1787169412,
+      "time_ago": "an hour ago",
+      "content": "<p>Reminds me of eBay acquiring Skype",
+      "comments": []
+    },
+    {
+      "id": 49366584,
+      "level": 0,
+      "user": "Alien1Being",
+      "time": 1787170389,
+      "time_ago": "29 minutes ago",
+      "content": "<p>Kiss of death for OpenRouter.<p>In five years they will be struggling.<p>In ten they will be dead.",
+      "comments": []
+    },
+    {
+      "id": 49364978,
+      "level": 0,
+      "user": "sparkling",
+      "time": 1787162689,
+      "time_ago": "3 hours ago",
+      "content": "<p>Middleman company buying middleman company. Makes sense.",
+      "comments": []
+    },
+    {
+      "id": 49365106,
+      "level": 0,
+      "user": "yipinwong",
+      "time": 1787163348,
+      "time_ago": "2 hours ago",
+      "content": "<p>Shut up and take my money (via Stripe)!",
+      "comments": []
+    },
+    {
+      "id": 49365154,
+      "level": 0,
+      "user": "WhereIsTheTruth",
+      "time": 1787163520,
+      "time_ago": "2 hours ago",
+      "content": "<p>Fees will magically appear between agents where they don&#x27;t need to be<p>What could go wrong",
+      "comments": []
+    },
+    {
+      "id": 49365592,
+      "level": 0,
+      "user": "swiftlyTyped",
+      "time": 1787165218,
+      "time_ago": "2 hours ago",
+      "content": "<p>Amazing. Huge congrats to the Open Router team",
+      "comments": []
+    },
+    {
+      "id": 49365534,
+      "level": 0,
+      "user": "zurfer",
+      "time": 1787164977,
+      "time_ago": "2 hours ago",
+      "content": "<p>Woah now also a 75perc discount on OpenRouter for flash 3.7.\nIs it really the same product (speed? and up time)? Why would Google do that?",
+      "comments": []
+    },
+    {
+      "id": 49365263,
+      "level": 0,
+      "user": "ChrisArchitect",
+      "time": 1787163917,
+      "time_ago": "2 hours ago",
+      "content": "<p>Previously: <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49323381\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49323381</a>",
+      "comments": []
+    },
+    {
+      "id": 49365257,
+      "level": 0,
+      "user": "shmde",
+      "time": 1787163905,
+      "time_ago": "2 hours ago",
+      "content": "<p>&gt; Today, we are excited to announce that we are...<p>Why do they always start with this. Every single one of them. You dont even want to read anything after that. Its the same &quot;Blah blah nothing will change you will get the best of both worlds blah blah&quot;",
+      "comments": []
+    },
+    {
+      "id": 49365209,
+      "level": 0,
+      "user": "rvz",
+      "time": 1787163708,
+      "time_ago": "2 hours ago",
+      "content": "<p>This is before Stripe completing their acquisition of PayPal (which will happen). [0]<p>Maybe there is some plan to pump Stripe&#x27;s valuation to over $1TN before an IPO.<p>Who knows.<p>[0] <a href=\"https:&#x2F;&#x2F;www.reuters.com&#x2F;business&#x2F;finance&#x2F;stripe-advent-offer-buy-paypal-more-than-53-billion-sources-say-2026-07-15&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.reuters.com&#x2F;business&#x2F;finance&#x2F;stripe-advent-offer...</a>",
+      "comments": [
+        {
+          "id": 49365519,
+          "level": 1,
+          "user": "Taikhoom10",
+          "time": 1787164927,
+          "time_ago": "2 hours ago",
+          "content": "<p>I think the PayPal acquistion is to buy something that throws of real cash, to prevent a down round for Stripe when valuations reset.",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 49365942,
+      "level": 0,
+      "user": "jijji",
+      "time": 1787166935,
+      "time_ago": "an hour ago",
+      "content": "<p>so basically anybody who uses openrouter from now on is going to have all their data exfiltrated to stripe and then to all the banks&#x2F;insurance companies... when I read the article that&#x27;s what I think is going on and it doesn&#x27;t smell good....",
+      "comments": []
+    },
+    {
+      "id": 49366422,
+      "level": 0,
+      "user": "greatgib",
+      "time": 1787169526,
+      "time_ago": "43 minutes ago",
+      "content": "<p>As a final customer, I hate so much stripe that I&#x27;m disappointed that they will be able to impose their shitty rules and business logics to OpenRouter...",
+      "comments": []
+    },
+    {
+      "id": 49365913,
+      "level": 0,
+      "user": "caseclosed",
+      "time": 1787166730,
+      "time_ago": "2 hours ago",
+      "content": "<p>&gt; We are the best way to discover and use any AI model<p>He says it like it’s a huge accomplishment that he achieved when it’s an opinion about something trivial",
+      "comments": []
+    },
+    {
+      "id": 49365794,
+      "level": 0,
+      "user": "radicality",
+      "time": 1787166173,
+      "time_ago": "2 hours ago",
+      "content": "<p>That’s great for the team. Though as a user of openrouter, I am worried that the much larger company will soon find ways to enshittify it :S",
+      "comments": [
+        {
+          "id": 49365822,
+          "level": 1,
+          "user": "echelon",
+          "time": 1787166277,
+          "time_ago": "2 hours ago",
+          "content": "<p>Switching costs are zero and alternatives are plentiful.<p>OpenRouter is a name.",
+          "comments": [
+            {
+              "id": 49365943,
+              "level": 2,
+              "user": "Taikhoom10",
+              "time": 1787166936,
+              "time_ago": "an hour ago",
+              "content": "<p>You&#x27;re right in that OpenRouter alone does not have embedded switching costs, but bundled with Stripe&#x27;s other offerings, it creates lock-in.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49365061,
+      "level": 0,
+      "user": "vldszn",
+      "time": 1787163170,
+      "time_ago": "2 hours ago",
+      "content": "<p>Congrats!",
+      "comments": [
+        {
+          "id": 49365121,
+          "level": 1,
+          "user": "frereubu",
+          "time": 1787163406,
+          "time_ago": "2 hours ago",
+          "content": "<p>&quot;Don&#x27;t post generated text or AI-edited text. HN is for conversation between humans.&quot;<p><a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;newsguidelines.html\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;newsguidelines.html</a>",
+          "comments": [
+            {
+              "id": 49365187,
+              "level": 2,
+              "user": "vldszn",
+              "time": 1787163620,
+              "time_ago": "2 hours ago",
+              "content": "<p>sorry, I thought it might be interesting to see the backstory of the company. I also clearly marked that part of my comment is from ChatGPT.<p>I can delete my comment, though.",
+              "comments": []
+            },
+            {
+              "id": 49365388,
+              "level": 2,
+              "user": "vldszn",
+              "time": 1787164368,
+              "time_ago": "2 hours ago",
+              "content": "<p>upd: removed ai-edited text from my comment",
+              "comments": []
+            },
+            {
+              "id": 49365408,
+              "level": 2,
+              "user": "TZubiri",
+              "time": 1787164435,
+              "time_ago": "2 hours ago",
+              "content": "<p>Worth noting that quoting and citing an LLM is miles better than just pasting AI generated text and passing it as your own.<p>AND, if you are too harsh on the former, you incentivize the latter.",
+              "comments": [
+                {
+                  "id": 49366060,
+                  "level": 3,
+                  "user": "hasteg",
+                  "time": 1787167549,
+                  "time_ago": "an hour ago",
+                  "content": "<p>At this point I believe that when people do not cite using AI to generate their comment it&#x27;s from a position of malice... like you&#x27;re intentionally trying to position yourself as capable in whatever subject you&#x27;re talking on but realistically you are not given the reliance on an LLM. Not saying anything about OP but just a general observation&#x2F;opinion I&#x27;ve been building recently. Seems more common than ever to larp using AI.",
+                  "comments": [
+                    {
+                      "id": 49366709,
+                      "level": 4,
+                      "user": "TZubiri",
+                      "time": 1787170964,
+                      "time_ago": "19 minutes ago",
+                      "content": "<p>I did it once when I tried vibecoding, to a friend, nothing professional, and I watched myself stop at the explanation of how I did something. I think it comes from a place of desire, self delusion and shame (of not being able to do it alone), very similar to lying in general, people lie about what they want to be the truth.",
+                      "comments": []
+                    }
+                  ]
+                },
+                {
+                  "id": 49365723,
+                  "level": 3,
+                  "user": "orphea",
+                  "time": 1787165812,
+                  "time_ago": "2 hours ago",
+                  "content": "<p>&gt; <i>quoting and citing an LLM is miles better</i><p>Not really. If someone is interested in an LLM&#x27;s opinion, they can ask it themselves, all LLM providers are one browser tab away.",
+                  "comments": [
+                    {
+                      "id": 49366024,
+                      "level": 4,
+                      "user": "TZubiri",
+                      "time": 1787167337,
+                      "time_ago": "an hour ago",
+                      "content": "<p>I&#x27;m as antiAI as many. And this isn&#x27;t a great example, but there&#x27;s can be value added in both the context and the prompt. E.g:<p>&quot;I recall topic X being related to fact Y.<p>Chatgpt says this when asked about how Y relates to X<p>&quot;blablabla&quot;<p>&quot;",
+                      "comments": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49365166,
+          "level": 1,
+          "user": "TZubiri",
+          "time": 1787163555,
+          "time_ago": "2 hours ago",
+          "content": "<p>Is that 100M of openrouter revenue? Or money that flows through openrouter? If the latter, 100M$ annualized looks like very little.  It&#x27;s as if a bank said that it has 100M$ of annual transfers, instead of 100M in revenue from bank fees and such.<p>Hard to think of any type of company that can do the topline meme as effectively as a compute aggregator proxy. Almost like a bitcoin pool mining company counting their shared miners.<p>Really? 100M annual? That HAS to be profit, it can&#x27;t be this crazy.<p>EDIT: From their website, they say they have 200T monthly tokens, at 10 cents per M token ( optimistic average between free tokens and expensive tokens) that&#x27;s 20M$&#x2F;month, which is roughly 240M$.<p>Bonus track: here&#x27;s chatgpt completely fumbling the above very simple calculation<p><a href=\"https:&#x2F;&#x2F;chatgpt.com&#x2F;share&#x2F;6a85f831-9118-83e9-8a06-d32195c557f2\" rel=\"nofollow\">https:&#x2F;&#x2F;chatgpt.com&#x2F;share&#x2F;6a85f831-9118-83e9-8a06-d32195c557...</a><p>I don&#x27;t doubt the chinese bootleg product that openrouter is peddling is even worse than that.<p>We are in a bubble confirmed.<p>Sorry for the negativity, but this is highly bearish news.",
+          "comments": [
+            {
+              "id": 49366112,
+              "level": 2,
+              "user": "Taikhoom10",
+              "time": 1787167840,
+              "time_ago": "an hour ago",
+              "content": "<p>We are in a bubble, but you are looking at this in the wrong way. OpenRouter basically creates lock-in through Stripe&#x27;s distribution and family of products; it is much stronger within Stripe than alone. I agree valuations are absurd, but it is what it is. But if we have to go through a bubble for a16z to crash and burn, I am all for it.",
+              "comments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 49366739,
+      "level": 0,
+      "user": "tomrod",
+      "time": 1787171078,
+      "time_ago": "18 minutes ago",
+      "content": "<p>Wow, that&#x27;s a win-win! OpenRouter makes things a breeze.",
+      "comments": []
+    }
+  ],
+  "comments_count": 212
+}

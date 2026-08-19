@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../app/item-details/comment/comment.component.scss';
 import { Comment as CommentModel } from '../models/comment';
 import { content, host } from '../scope';
+import { sanitizeHtml } from '../shared/sanitize';
 
 const c = content('comment');
 
@@ -38,7 +39,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
             </div>
             <div className="comment-tree" {...c}>
                 <div hidden={collapse} {...c}>
-                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }} {...c}></p>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }} {...c}></p>
                     <ul className="subtree" {...c}>
                         {(comment.comments ?? []).map(subComment => (
                             <li key={subComment.id} {...c}>

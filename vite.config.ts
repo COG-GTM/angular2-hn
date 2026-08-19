@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import selectorParser from 'postcss-selector-parser';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 interface ScssRule {
     selectors: string[];
@@ -93,14 +94,41 @@ function scopeSelector(selector: string, attribute: string): string {
 }
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        /**
+         * Equivalent of the Angular `ServiceWorkerModule` + `ngsw-config.json`
+         * setup: the app shell (index, CSS, JS, favicon, manifest) is
+         * precached, while `/assets/**` and the icon/font formats listed there
+         * are filled in lazily and refreshed in the background.
+         */
+        VitePWA({
+            registerType: 'autoUpdate',
+            injectRegister: 'script',
+            manifest: false,
+            includeAssets: ['favicon.ico', 'manifest.json'],
+            workbox: {
+                globPatterns: ['**/*.{css,js,html}', 'favicon.ico', 'manifest.json'],
+                navigateFallback: '/index.html',
+                runtimeCaching: [
+                    {
+                        urlPattern: /\/assets\/.*$|\.(?:eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)$/,
+                        handler: 'StaleWhileRevalidate',
+                        options: {
+                            cacheName: 'assets',
+                        },
+                    },
+                ],
+            },
+        }),
+    ],
     css: {
         postcss: {
             plugins: [componentScope()],
         },
     },
     build: {
-        outDir: 'dist/react-hnpwa',
+        outDir: 'dist',
         emptyOutDir: true,
     },
 });

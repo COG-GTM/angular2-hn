@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import '../app/app.component.scss';
-import { content } from './scope';
+import { Footer } from './core/Footer';
+import { Header } from './core/Header';
+import { content, host } from './scope';
 import { SettingsProvider, useSettings } from './settings/SettingsContext';
 
 declare const ga: undefined | ((...args: unknown[]) => void);
@@ -35,6 +37,9 @@ function Shell() {
         <div className={settings.theme} {...c}>
             <div className="body-cover" {...c}></div>
             <div className="wrapper" {...c}>
+                <app-header {...c} {...host('header')}>
+                    <Header />
+                </app-header>
                 <router-outlet {...c}></router-outlet>
                 <Routes>
                     <Route path="/" element={<Navigate to="/news/1" replace />} />
@@ -44,6 +49,9 @@ function Shell() {
                     <Route path="/item/:id" element={null} />
                     <Route path="/user/:id" element={null} />
                 </Routes>
+                <app-footer {...c} {...host('footer')}>
+                    <Footer />
+                </app-footer>
             </div>
         </div>
     );

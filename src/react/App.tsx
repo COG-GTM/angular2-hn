@@ -50,7 +50,7 @@ function Shell() {
                             path={`/${feedType}/:page`}
                             element={
                                 <app-feed {...c} {...host('feed')}>
-                                    <Feed feedType={feedType} />
+                                    <Feed key={feedType} feedType={feedType} />
                                 </app-feed>
                             }
                         />

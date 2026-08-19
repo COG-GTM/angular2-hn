@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 
 import '../app/app.component.scss';
 import { Footer } from './core/Footer';
+import { Feed } from './feeds/Feed';
 import { Header } from './core/Header';
 import { content, host } from './scope';
 import { SettingsProvider, useSettings } from './settings/SettingsContext';
@@ -44,7 +45,15 @@ function Shell() {
                 <Routes>
                     <Route path="/" element={<Navigate to="/news/1" replace />} />
                     {feedTypes.map(feedType => (
-                        <Route key={feedType} path={`/${feedType}/:page`} element={null} />
+                        <Route
+                            key={feedType}
+                            path={`/${feedType}/:page`}
+                            element={
+                                <app-feed {...c} {...host('feed')}>
+                                    <Feed feedType={feedType} />
+                                </app-feed>
+                            }
+                        />
                     ))}
                     <Route path="/item/:id" element={null} />
                     <Route path="/user/:id" element={null} />

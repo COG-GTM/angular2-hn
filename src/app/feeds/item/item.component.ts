@@ -3,6 +3,7 @@ import { Story } from '../../shared/models/story';
 
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
+import { SavedPostsService } from '../../shared/services/saved-posts.service';
 
 @Component({
   selector: 'item',
@@ -13,7 +14,10 @@ export class ItemComponent implements OnInit {
   @Input() item: Story;
   settings: Settings;
 
-  constructor(private _settingsService: SettingsService) {
+  constructor(
+    private _settingsService: SettingsService,
+    private _savedPostsService: SavedPostsService
+  ) {
     this.settings = this._settingsService.settings;
   }
 
@@ -21,6 +25,14 @@ export class ItemComponent implements OnInit {
 
   get hasUrl(): boolean {
     return this.item.url.indexOf('http') === 0;
+  }
+
+  get isSaved(): boolean {
+    return this._savedPostsService.isSaved(this.item.id);
+  }
+
+  toggleSaved() {
+    this._savedPostsService.toggleSaved(this.item);
   }
 
 }

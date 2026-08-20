@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+react-app/dist
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -9,6 +10,7 @@
 
 # dependencies
 /node_modules
+react-app/node_modules
 
 # profiling files
 chrome-profiler-events.json

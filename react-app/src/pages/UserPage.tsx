@@ -5,6 +5,7 @@ import { Loader } from '../components/Loader';
 import { useAsyncData } from '../hooks/useAsyncData';
 import { fetchUser } from '../services/hackernewsApi';
 import type { User } from '../types';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import './UserPage.scss';
 
 export function UserPage() {
@@ -36,7 +37,7 @@ export function UserPage() {
                     </div>
                     {user.about && (
                         <div className="other-details">
-                            <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+                            <p dangerouslySetInnerHTML={sanitizeHtml(user.about)}></p>
                         </div>
                     )}
                 </div>

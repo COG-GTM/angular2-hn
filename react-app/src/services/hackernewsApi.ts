@@ -21,9 +21,12 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await lazyFetch<Story>(`${BASE_URL}/item/${id}`, signal);
     if (story.type === 'poll' && story.poll) {
-        const results = await Promise.all(
+        const settled = await Promise.allSettled(
             story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal))
         );
+        const results = settled
+            .filter((entry): entry is PromiseFulfilledResult<PollResult> => entry.status === 'fulfilled')
+            .map((entry) => entry.value);
         story.poll = results;
         story.poll_votes_count = results.reduce((total, result) => total + result.points, 0);
     }

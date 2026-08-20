@@ -9,6 +9,7 @@ import { useSettings } from '../hooks/useSettings';
 import { fetchItemContent } from '../services/hackernewsApi';
 import type { Story } from '../types';
 import { commentLabel } from '../utils/commentLabel';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import './ItemDetailsPage.scss';
 
 export function ItemDetailsPage() {
@@ -94,7 +95,7 @@ export function ItemDetailsPage() {
                         <div className="pollResults">
                             {item.poll?.map((pollResult, index) => (
                                 <div className="pollContent" key={index}>
-                                    <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                    <div dangerouslySetInnerHTML={sanitizeHtml(pollResult.content)}></div>
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
@@ -104,7 +105,7 @@ export function ItemDetailsPage() {
                             ))}
                         </div>
                     )}
-                    <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                    <p className="subject" dangerouslySetInnerHTML={sanitizeHtml(item.content ?? '')}></p>
                     <ul className="comment-list">
                         {item.comments?.map((comment) => (
                             <li key={comment.id}>

@@ -1,0 +1,24 @@
+<div class="main-content">
+  <p class="empty" *ngIf="items.length === 0">
+    You have no saved posts yet. Tap the ☆ next to a post to save it for later.
+  </p>
+  <ol *ngIf="items.length > 0" class="list-margin">
+    <li *ngFor="let item of items" class="post">
+      <item class="item-block" [item]="item"></item>
+      <div class="note subtext-palm">
+        <div class="note-text" *ngIf="getNote(item.id) && editingId !== item.id">{{ getNote(item.id) }}</div>
+        <div class="note-actions" *ngIf="editingId !== item.id">
+          <a (click)="startEditing(item.id)">{{ getNote(item.id) ? 'edit note' : 'add note' }}</a>
+        </div>
+        <div class="note-editor" *ngIf="editingId === item.id">
+          <textarea rows="3" [(ngModel)]="draftNote" placeholder="Write a note..."></textarea>
+          <div class="note-actions">
+            <a (click)="saveNote(item.id)">save</a>
+            <a (click)="cancelEditing()">cancel</a>
+            <a *ngIf="getNote(item.id)" (click)="deleteNote(item.id)">delete</a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>

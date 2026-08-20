@@ -1,0 +1,82 @@
+@import "../../shared/scss/media";
+@import "../../shared/scss/theme_variables";
+
+ol {
+  padding: 0 40px;
+  margin: 0;
+
+  @media #{$mobile-only} {
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0 10px;
+  }
+}
+
+.list-margin {
+  @media #{$mobile-only} {
+    margin-top: 55px;
+  }
+}
+
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 8px 0;
+  z-index: 0;
+}
+
+.post {
+  padding: 10px 0 10px 5px;
+  border-bottom: 1px solid #CECECB;
+}
+
+.item-block {
+  display: block;
+}
+
+.empty {
+  font-size: 15px;
+  padding: 0 40px 10px;
+
+  @media #{$mobile-only} {
+    padding: 60px 15px 25px 15px;
+  }
+}
+
+.note {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-top: 5px;
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 10px;
+
+    &:hover {
+      text-decoration: underline;
+    };
+  }
+
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    background: transparent;
+    color: inherit;
+    border: 1px solid #CECECB;
+  }
+}
+
+.note-text {
+  margin-bottom: 5px;
+  font-weight: normal;
+  white-space: pre-wrap;
+}

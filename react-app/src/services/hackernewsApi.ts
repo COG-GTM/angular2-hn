@@ -24,6 +24,9 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
         const settled = await Promise.allSettled(
             story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal))
         );
+        if (signal?.aborted) {
+            throw new DOMException('The operation was aborted.', 'AbortError');
+        }
         const results = settled
             .filter((entry): entry is PromiseFulfilledResult<PollResult> => entry.status === 'fulfilled')
             .map((entry) => entry.value);

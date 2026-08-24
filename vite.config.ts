@@ -43,7 +43,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        includePaths: ['src/app/shared/scss'],
+        loadPaths: ['src/app/shared/scss'],
       },
     },
   },

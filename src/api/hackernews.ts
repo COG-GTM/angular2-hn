@@ -20,7 +20,14 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
   const story = await fetchJSON<Story>(`${baseUrl}/item/${id}`, signal);
   if (story.type === 'poll' && story.poll) {
     const pollResults = await Promise.all(
-      story.poll.map((option, i) => fetchPollContent(story.id + i + 1, signal).catch(() => option))
+      story.poll.map((option, i) =>
+        fetchPollContent(story.id + i + 1, signal).catch((error: Error) => {
+          if (error.name === 'AbortError') {
+            throw error;
+          }
+          return option;
+        })
+      )
     );
     story.poll = pollResults;
     story.poll_votes_count = pollResults.reduce((total, result) => total + (result.points || 0), 0);

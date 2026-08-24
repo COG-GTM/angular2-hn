@@ -122,7 +122,7 @@ export default function ItemDetails() {
           )}
           {item.content && <p className="subject" dangerouslySetInnerHTML={{ __html: sanitize(item.content) }}></p>}
           <ul className="comment-list">
-            {item.comments.map((comment) => (
+            {(item.comments ?? []).map((comment) => (
               <li key={comment.id}>
                 <Comment comment={comment} />
               </li>

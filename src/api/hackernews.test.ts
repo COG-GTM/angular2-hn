@@ -58,6 +58,24 @@ describe('fetchItemContent', () => {
     ]);
     expect(result.poll_votes_count).toBe(10);
   });
+
+  it('still resolves the story when a poll option request fails', async () => {
+    const poll = { id: 200, type: 'poll', poll: [{ points: 1, content: 'Original A' }, {}] };
+    vi.stubGlobal(
+      'fetch',
+      mockFetchResponses({
+        'https://node-hnapi.herokuapp.com/item/200': poll,
+        'https://node-hnapi.herokuapp.com/item/202': { points: 4, content: 'Option B' },
+      })
+    );
+
+    const result: Story = await fetchItemContent(200);
+    expect(result.poll).toEqual([
+      { points: 1, content: 'Original A' },
+      { points: 4, content: 'Option B' },
+    ]);
+    expect(result.poll_votes_count).toBe(5);
+  });
 });
 
 describe('fetchUser', () => {

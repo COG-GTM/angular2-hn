@@ -1,7 +1,7 @@
 @import "media";
 @import "theme_variables";
 
-:host >>> {
+.comment-text {
   a {
     font-weight: bold;
     text-decoration: none;

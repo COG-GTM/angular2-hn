@@ -20,7 +20,11 @@ function App() {
                 <Routes>
                     <Route path="" element={<Navigate to="/news/1" replace />} />
                     {feedNames.map((feedName) => (
-                        <Route key={feedName} path={`${feedName}/:page`} element={<Feed feedType={feedName} />} />
+                        <Route
+                            key={feedName}
+                            path={`${feedName}/:page`}
+                            element={<Feed key={feedName} feedType={feedName} />}
+                        />
                     ))}
                 </Routes>
                 <Footer />

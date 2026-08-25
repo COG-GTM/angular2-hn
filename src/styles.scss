@@ -1,4 +1,13 @@
-@import "./app/shared/scss/themes";
+/*
+ * Styling strategy: global SCSS, not CSS Modules.
+ *
+ * The theme engine in scss/_themes.scss generates descendant rules from a single
+ * theme class on the app wrapper (e.g. `.night .wrapper .subtext`), so component
+ * class names have to stay stable and globally visible. Components therefore
+ * import their own plain `.scss` file for side effects and use string class
+ * names, mirroring the original Angular styles.
+ */
+@import "./scss/themes";
 
 html {
   height: 100%;
@@ -34,10 +43,10 @@ pre {
   }
 }
 
-app-root:empty + .app-loader {
+#root:empty + .app-loader {
     opacity: 1;
     z-index: 100;
 }
-app-root:empty + .app-loader .logo {
+#root:empty + .app-loader .logo {
     width: 20vh;
 }

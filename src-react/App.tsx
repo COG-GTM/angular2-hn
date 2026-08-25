@@ -4,6 +4,7 @@ import { useSettings } from './shared/settings/SettingsContext';
 import Footer from './core/footer/Footer';
 import Header from './core/header/Header';
 import Feed from './feeds/feed/Feed';
+import ItemDetails from './item-details/ItemDetails';
 import type { FeedName } from './shared/models';
 import './App.scss';
 
@@ -26,6 +27,7 @@ function App() {
                             element={<Feed key={feedName} feedType={feedName} />}
                         />
                     ))}
+                    <Route path="item/:id" element={<ItemDetails />} />
                 </Routes>
                 <Footer />
             </div>

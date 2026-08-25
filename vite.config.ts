@@ -18,7 +18,7 @@ export default defineConfig({
                 runtimeCaching: [
                     {
                         urlPattern: /\/assets\/.*/,
-                        handler: 'CacheFirst',
+                        handler: 'StaleWhileRevalidate',
                         options: {
                             cacheName: 'angular2-hn-assets',
                         },

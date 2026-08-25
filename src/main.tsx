@@ -6,6 +6,7 @@ import { App } from './App';
 import { Feed } from './components/feeds/Feed';
 import { Loader } from './components/shared/Loader';
 import { SettingsProvider } from './context/SettingsContext';
+import { registerServiceWorker } from './registerServiceWorker';
 import './styles/global.scss';
 
 const ItemDetails = lazy(() =>
@@ -14,6 +15,8 @@ const ItemDetails = lazy(() =>
 const UserProfile = lazy(() =>
     import('./components/user/UserProfile').then((module) => ({ default: module.UserProfile }))
 );
+
+registerServiceWorker();
 
 const FEED_TYPES = ['news', 'newest', 'show', 'ask', 'jobs'];
 

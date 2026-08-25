@@ -5,6 +5,7 @@ import { fetchUser } from '../shared/api/hackernewsApi';
 import ErrorMessage from '../shared/components/error-message/ErrorMessage';
 import Loader from '../shared/components/loader/Loader';
 import type { User as UserModel } from '../shared/models';
+import { sanitizeHtml } from '../shared/utils/sanitizeHtml';
 import './User.scss';
 
 function User() {
@@ -58,7 +59,7 @@ function User() {
                     </div>
                     {user.about && (
                         <div className="other-details">
-                            <p dangerouslySetInnerHTML={{ __html: user.about }} />
+                            <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} />
                         </div>
                     )}
                 </div>

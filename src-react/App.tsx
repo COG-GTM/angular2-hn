@@ -1,5 +1,21 @@
+import { useSettings } from './shared/settings/SettingsContext';
+import Footer from './core/footer/Footer';
+import Header from './core/header/Header';
+import './App.scss';
+
 function App() {
-    return <h1>Angular 2 HN — React migration in progress</h1>;
+    const { settings } = useSettings();
+
+    return (
+        <div className={settings.theme}>
+            <div className="body-cover" />
+            <div className="wrapper">
+                <Header />
+                <div />
+                <Footer />
+            </div>
+        </div>
+    );
 }
 
 export default App;

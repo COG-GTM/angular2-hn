@@ -29,7 +29,7 @@ export default defineConfig({
     ],
     publicDir: 'public',
     build: {
-        outDir: 'dist/react',
+        outDir: 'dist',
         emptyOutDir: true,
     },
     server: {

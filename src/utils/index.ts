@@ -1,0 +1,1 @@
+export { commentCount } from './comment';

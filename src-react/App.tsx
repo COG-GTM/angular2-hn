@@ -6,6 +6,7 @@ import Header from './core/header/Header';
 import Feed from './feeds/feed/Feed';
 import ItemDetails from './item-details/ItemDetails';
 import type { FeedName } from './shared/models';
+import User from './user/User';
 import './App.scss';
 
 const feedNames: FeedName[] = ['news', 'newest', 'show', 'ask', 'jobs'];
@@ -28,6 +29,7 @@ function App() {
                         />
                     ))}
                     <Route path="item/:id" element={<ItemDetails />} />
+                    <Route path="user/:id" element={<User />} />
                 </Routes>
                 <Footer />
             </div>

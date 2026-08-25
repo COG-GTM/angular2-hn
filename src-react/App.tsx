@@ -6,6 +6,7 @@ import Header from './core/header/Header';
 import Feed from './feeds/feed/Feed';
 import ItemDetails from './item-details/ItemDetails';
 import type { FeedName } from './shared/models';
+import { usePageViews } from './shared/analytics/usePageViews';
 import User from './user/User';
 import './App.scss';
 
@@ -13,6 +14,7 @@ const feedNames: FeedName[] = ['news', 'newest', 'show', 'ask', 'jobs'];
 
 function App() {
     const { settings } = useSettings();
+    usePageViews();
 
     return (
         <div className={settings.theme}>

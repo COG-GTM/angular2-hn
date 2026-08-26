@@ -48,12 +48,9 @@
     #skip a {  position:absolute;  left:-10000px;  top:auto;  width:1px;  height:1px;  overflow:hidden;  }
     #skip a:focus {  position:static;  width:auto;  height:auto;  }
   </style>
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
 </head>
 <body>
   <div id="skip"><a href="#content">skip to navigation</a></div>
-  <app-root></app-root>
   <div id="root"></div>
 
   <div class="app-loader" id="content">
@@ -75,5 +72,6 @@
     ga('create', 'UA-66348622-3', 'auto');
 
   </script>
+  <script type="module" src="/main.tsx"></script>
 </body>
 </html>

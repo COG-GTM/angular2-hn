@@ -1,4 +1,4 @@
-import { FeedType } from '../models/feed-type.type';
+import { FeedName } from '../models/feed-name.type';
 import { PollResult } from '../models/poll-result';
 import { Story } from '../models/story';
 import { User } from '../models/user';
@@ -15,8 +15,8 @@ async function getJson<T>(path: string): Promise<T> {
     return response.json() as Promise<T>;
 }
 
-export function fetchFeed(feedType: FeedType, page: number): Promise<Story[]> {
-    return getJson<Story[]>(`/${feedType}?page=${page}`);
+export function fetchFeed(feedName: FeedName, page: number): Promise<Story[]> {
+    return getJson<Story[]>(`/${feedName}?page=${page}`);
 }
 
 export async function fetchItemContent(id: number): Promise<Story> {

@@ -1,13 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { FeedName } from './models/feed-name.type';
 import App from './App';
 import Feed from './components/Feed';
+import Loader from './components/Loader';
 
 const ItemDetails = lazy(() => import('./components/ItemDetails'));
 const User = lazy(() => import('./components/User'));
 
-const lazyFallback = <div>Loading...</div>;
+const lazyFallback = <Loader />;
 
 export default function AppRoutes() {
     return (

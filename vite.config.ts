@@ -1,26 +1,22 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig, type Plugin } from 'vite';
-
-const reactEntry: Plugin = {
-    name: 'react-entry',
-    transformIndexHtml: {
-        order: 'pre',
-        handler() {
-            return [
-                {
-                    tag: 'script',
-                    attrs: {
-                        type: 'module',
-                        src: '/main.tsx',
-                    },
-                    injectTo: 'body',
-                },
-            ];
-        },
-    },
-};
+import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     root: 'src',
-    plugins: [react(), reactEntry],
+    plugins: [
+        react(),
+        VitePWA({
+            registerType: 'autoUpdate',
+            manifest: false,
+            workbox: {
+                globPatterns: ['**/*.{html,js,css,eot,svg,cur,jpg,png,webp,gif,otf,ttf,woff,woff2,ani}'],
+                navigateFallback: '/index.html',
+            },
+        }),
+    ],
+    build: {
+        outDir: '../dist',
+        emptyOutDir: true,
+    },
 });

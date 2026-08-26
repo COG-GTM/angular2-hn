@@ -3,17 +3,20 @@ import { defineConfig, type Plugin } from 'vite';
 
 const reactEntry: Plugin = {
     name: 'react-entry',
-    transformIndexHtml() {
-        return [
-            {
-                tag: 'script',
-                attrs: {
-                    type: 'module',
-                    src: '/main.tsx',
+    transformIndexHtml: {
+        order: 'pre',
+        handler() {
+            return [
+                {
+                    tag: 'script',
+                    attrs: {
+                        type: 'module',
+                        src: '/main.tsx',
+                    },
+                    injectTo: 'body',
                 },
-                injectTo: 'body',
-            },
-        ];
+            ];
+        },
     },
 };
 

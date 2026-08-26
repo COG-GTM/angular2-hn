@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from './react/App';
 import { SettingsProvider } from './react/context/SettingsContext';
+import AppRoutes from './react/routes';
 import './react/styles.scss';
 
 const rootElement = document.getElementById('root');
@@ -13,7 +13,7 @@ if (!rootElement) {
 createRoot(rootElement).render(
     <BrowserRouter>
         <SettingsProvider>
-            <App />
+            <AppRoutes />
         </SettingsProvider>
     </BrowserRouter>
 );

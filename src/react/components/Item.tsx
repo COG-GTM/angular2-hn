@@ -12,6 +12,10 @@ function internalLinkClassName({ isActive }: { isActive: boolean }): string {
     return isActive ? 'active' : '';
 }
 
+function titleLinkClassName({ isActive }: { isActive: boolean }): string {
+    return isActive ? 'title active' : 'title';
+}
+
 export default function Item({ item }: ItemProps) {
     const { settings } = useSettings();
     const hasUrl = item.url?.indexOf('http') === 0;
@@ -35,7 +39,7 @@ export default function Item({ item }: ItemProps) {
             ) : (
                 <p>
                     <NavLink
-                        className={internalLinkClassName}
+                        className={titleLinkClassName}
                         style={titleStyle}
                         to={`/item/${item.id}`}
                     >

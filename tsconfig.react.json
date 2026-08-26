@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "es2018",
+        "lib": ["ES2018", "DOM", "DOM.Iterable"],
+        "allowJs": false,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "react-router-dom": ["src/react/router-dom.d.ts"]
+        },
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react",
+        "types": ["react", "react-dom"]
+    },
+    "include": ["src/main.tsx", "src/react/**/*.tsx"],
+    "exclude": ["node_modules"]
+}

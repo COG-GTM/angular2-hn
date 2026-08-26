@@ -17,10 +17,7 @@ export default function User() {
 
         setErrorMessage('');
         if (!id) {
-            setErrorMessage('Could not load user .');
-            return () => {
-                ignore = true;
-            };
+            return;
         }
 
         fetchUser(id)

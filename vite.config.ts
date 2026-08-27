@@ -9,7 +9,6 @@ export default defineConfig({
             registerType: 'autoUpdate',
             injectRegister: null,
             manifest: false,
-            includeAssets: ['favicon.ico', 'manifest.json', 'assets/**/*'],
             workbox: {
                 inlineWorkboxRuntime: true,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,xml,json}'],

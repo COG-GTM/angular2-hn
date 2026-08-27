@@ -11,6 +11,7 @@ export default defineConfig({
             manifest: false,
             includeAssets: ['favicon.ico', 'manifest.json', 'assets/**/*'],
             workbox: {
+                inlineWorkboxRuntime: true,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,xml,json}'],
                 navigateFallback: '/index.html',
                 runtimeCaching: [

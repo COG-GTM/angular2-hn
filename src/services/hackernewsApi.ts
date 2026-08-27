@@ -7,7 +7,14 @@ async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
     if (!response.ok) {
         throw new Error(`Request to ${path} failed with status ${response.status}`);
     }
-    return (await response.json()) as T;
+
+    const payload = (await response.json()) as T & { error?: string | boolean };
+    // The API answers unknown ids with 200 and an { error } body.
+    if (payload && typeof payload === 'object' && !Array.isArray(payload) && payload.error) {
+        throw new Error(typeof payload.error === 'string' ? payload.error : `Request to ${path} failed`);
+    }
+
+    return payload;
 }
 
 export function fetchFeed(feedType: string, page: number, signal?: AbortSignal): Promise<Story[]> {
@@ -21,11 +28,15 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await get<Story>(`/item/${id}`, signal);
     if (story.type === 'poll' && story.poll) {
-        const results = await Promise.all(
+        const settled = await Promise.allSettled(
             story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal))
         );
-        story.poll = results;
-        story.poll_votes_count = results.reduce((total, result) => total + result.points, 0);
+        // A failing option must not take down the whole item page.
+        story.poll = story.poll.map((option, index) => {
+            const result = settled[index];
+            return result.status === 'fulfilled' ? result.value : option;
+        });
+        story.poll_votes_count = story.poll.reduce((total, option) => total + (option.points || 0), 0);
     }
     return story;
 }

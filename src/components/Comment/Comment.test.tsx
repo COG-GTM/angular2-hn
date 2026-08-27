@@ -52,6 +52,23 @@ describe('Comment', () => {
         expect(screen.getByText('Parent comment')).toBeVisible();
     });
 
+    it('strips unsafe markup from comment content', () => {
+        const { container } = render(
+            <MemoryRouter>
+                <Comment
+                    comment={{
+                        ...comment,
+                        comments: [],
+                        content: '<p>Safe <a href="https://example.com">link</a></p><script>alert(1)</script>',
+                    }}
+                />
+            </MemoryRouter>
+        );
+
+        expect(container.querySelector('script')).toBeNull();
+        expect(screen.getByRole('link', { name: 'link' })).toHaveAttribute('href', 'https://example.com');
+    });
+
     it('renders a placeholder for deleted comments', () => {
         render(
             <MemoryRouter>

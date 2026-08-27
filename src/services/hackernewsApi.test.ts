@@ -47,6 +47,40 @@ describe('hackernewsApi', () => {
         expect(item.poll_votes_count).toBe(10);
     });
 
+    it('keeps the item when a poll option request fails', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async (input: RequestInfo | URL) => {
+                const url = String(input);
+                if (url.endsWith('/item/100')) {
+                    return {
+                        ok: true,
+                        status: 200,
+                        json: async () => ({ id: 100, type: 'poll', poll: [{ points: 0, content: 'a' }, {}] }),
+                    };
+                }
+                if (url.endsWith('/item/101')) {
+                    return { ok: false, status: 500, json: async () => ({}) };
+                }
+                return { ok: true, status: 200, json: async () => ({ points: 7, content: 'option' }) };
+            })
+        );
+
+        const item = await fetchItemContent(100);
+
+        expect(item.poll).toEqual([
+            { points: 0, content: 'a' },
+            { points: 7, content: 'option' },
+        ]);
+        expect(item.poll_votes_count).toBe(7);
+    });
+
+    it('throws when the API answers 200 with an error body', async () => {
+        mockFetch(() => ({ error: 'Item 999 not found' }));
+
+        await expect(fetchItemContent(999)).rejects.toThrow('Item 999 not found');
+    });
+
     it('throws when the response is not ok', async () => {
         vi.stubGlobal(
             'fetch',

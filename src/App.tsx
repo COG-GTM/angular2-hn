@@ -28,6 +28,7 @@ export default function App() {
                     ))}
                     <Route path="/item/:id" element={<ItemDetails />} />
                     <Route path="/user/:id" element={<User />} />
+                    <Route path="*" element={<Navigate to="/news/1" replace />} />
                 </Routes>
                 <Footer />
             </div>

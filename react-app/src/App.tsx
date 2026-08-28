@@ -4,7 +4,7 @@ function App() {
             <div className="body-cover">
                 <div className="wrapper">
                     <header id="header">
-                        <img className="logo" src="assets/images/logo.svg" alt="Hacker News logo" width="32" />
+                        <img className="logo" src="/assets/images/logo.svg" alt="Hacker News logo" width="32" />
                         <h1>Hacker News</h1>
                     </header>
                     <main id="content">

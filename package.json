@@ -43,5 +43,8 @@
     "tabWidth": 4,
     "singleQuote": true,
     "printWidth": 120
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

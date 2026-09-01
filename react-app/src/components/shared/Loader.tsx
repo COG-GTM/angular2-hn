@@ -1,7 +1,8 @@
-// PLACEHOLDER (Phase 1 scaffold) - replaced by the Phase 2D port.
+import styles from './Loader.module.scss';
+
 export default function Loader() {
     return (
-        <div className="loading-section">
+        <div className={styles.loadingSection}>
             <div className="loader">Loading...</div>
         </div>
     );

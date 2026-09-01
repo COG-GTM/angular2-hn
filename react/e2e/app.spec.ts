@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-test('renders the React placeholder', async ({ page }) => {
+test('redirects to the news feed', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Angular 2 HN — React')).toBeVisible();
+    await expect(page).toHaveURL(/\/news\/1$/);
+    await expect(page.getByText('news feed page 1')).toBeVisible();
 });

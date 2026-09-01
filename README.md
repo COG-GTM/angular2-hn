@@ -79,6 +79,13 @@ Note: This project has been ejected (with AOT + production settings) in order to
  - `npm install`
  - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
 
+## React migration
+
+The `react-app/` directory holds the in-progress React + TypeScript (Vite) port.
+Run it with `cd react-app && npm install && npm run dev`, or build it with `npm run build`.
+The `react-app/` toolchain requires Node `^20.19.0 || >=22.12.0`.
+Feature components are being migrated incrementally while the Angular app remains fully functional.
+
 Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
  - `npm build`
  - `npm run precache` to generate the service worker file

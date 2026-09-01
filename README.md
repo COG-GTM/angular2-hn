@@ -82,6 +82,7 @@ Note: This project has been ejected (with AOT + production settings) in order to
 ## React migration
 
 The `react-app/` directory holds the in-progress React + TypeScript (Vite) port.
+The `react-app/` toolchain requires Node 20.19+.
 Run it with `cd react-app && npm install && npm run dev`, or build it with `npm run build`.
 Feature components are being migrated incrementally while the Angular app remains fully functional.
 

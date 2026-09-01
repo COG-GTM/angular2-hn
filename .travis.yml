@@ -1,19 +1,20 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "20"
 
 branches:
   only:
     - master
 
-before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
+install:
+  - npm --prefix react-app ci
 
 script:
-  - npm run build
+  - npm --prefix react-app run build
+  - npm --prefix react-app test
 
 after_success:
+  - npm install -g firebase-tools
   - firebase use default
   - firebase deploy --token $FIREBASE_TOKEN
 

@@ -28,6 +28,13 @@ function renderComment(comment: CommentModel) {
 }
 
 describe('Comment', () => {
+    it('strips scripts from comment html', () => {
+        renderComment(makeComment({ content: '<p>safe<script>window.pwned = true;</script></p>' }));
+
+        expect(screen.getByText('safe')).toBeInTheDocument();
+        expect(document.querySelector('script')).toBeNull();
+    });
+
     it('renders nested comments recursively', () => {
         renderComment(
             makeComment({

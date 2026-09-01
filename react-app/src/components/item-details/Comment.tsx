@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import type { Comment as CommentModel } from '../../models/comment';
+import { sanitizeHtml } from '../../utils/html';
 
 import styles from './Comment.module.scss';
 
@@ -33,9 +34,9 @@ export default function Comment({ comment }: CommentProps) {
             </div>
             <div className={styles.commentTree}>
                 <div hidden={collapse}>
-                    <p className={styles.commentText} dangerouslySetInnerHTML={{ __html: comment.content }} />
+                    <p className={styles.commentText} dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }} />
                     <ul className={styles.subtree}>
-                        {comment.comments.map((subComment) => (
+                        {(comment.comments ?? []).map((subComment) => (
                             <li key={subComment.id}>
                                 <Comment comment={subComment} />
                             </li>

@@ -47,6 +47,14 @@ describe('Feed', () => {
         window.scrollTo = vi.fn();
     });
 
+    it('falls back to page 1 for a malformed page param', () => {
+        useFeed.mockReturnValue({ data: [makeStory(1)], isPending: false, isError: false, error: null });
+
+        renderFeed('-3.5');
+
+        expect(useFeed).toHaveBeenCalledWith('news', 1);
+    });
+
     it('renders the loader while the feed is pending', () => {
         useFeed.mockReturnValue({ data: undefined, isPending: true, isError: false, error: null });
 

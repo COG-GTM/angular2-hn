@@ -64,6 +64,42 @@ describe('SettingsContext', () => {
         expect(result.current.settings.theme).toBe('night');
     });
 
+    it('ignores unsupported values left in localStorage', () => {
+        localStorage.setItem('theme', 'javascript:alert(1)');
+        localStorage.setItem('openLinkInNewTab', '{oops');
+        localStorage.setItem('titleFontSize', '16px; background: url(x)');
+        localStorage.setItem('listSpacing', '-99');
+
+        const { result } = renderHook(() => useSettings(), { wrapper });
+
+        expect(result.current.settings).toMatchObject({
+            theme: 'default',
+            openLinkInNewTab: false,
+            titleFontSize: '16',
+            listSpacing: '0',
+        });
+    });
+
+    it('keeps an explicitly chosen theme when the system scheme changes', () => {
+        const listeners: ((event: { matches: boolean }) => void)[] = [];
+        vi.stubGlobal(
+            'matchMedia',
+            vi.fn(() => ({
+                matches: false,
+                media: '(prefers-color-scheme: dark)',
+                addEventListener: (_: string, listener: (event: { matches: boolean }) => void) =>
+                    listeners.push(listener),
+                removeEventListener: vi.fn(),
+            }))
+        );
+
+        const { result } = renderHook(() => useSettings(), { wrapper });
+        act(() => result.current.setTheme('amoledblack'));
+        act(() => listeners.forEach((listener) => listener({ matches: true })));
+
+        expect(result.current.settings.theme).toBe('amoledblack');
+    });
+
     it('persists every toggle', () => {
         const { result } = renderHook(() => useSettings(), { wrapper });
 

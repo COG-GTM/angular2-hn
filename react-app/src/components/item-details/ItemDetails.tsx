@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 import { useItem } from '../../hooks/useHackerNews';
 import { commentLabel } from '../../utils/comment';
+import { sanitizeHtml } from '../../utils/html';
 import { hasExternalUrl } from '../../utils/url';
 import Comment from './Comment';
 import ErrorMessage from '../shared/ErrorMessage';
@@ -15,11 +16,21 @@ export default function ItemDetails() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { settings } = useSettings();
-    const { data: item, isPending, isError } = useItem(Number(id));
+    const itemId = Number(id);
+    const validId = Number.isInteger(itemId) && itemId > 0;
+    const { data: item, isPending, isError } = useItem(itemId);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    if (!validId) {
+        return (
+            <div className={styles.mainContent}>
+                <ErrorMessage message="Could not load item comments." />
+            </div>
+        );
+    }
 
     if (isPending) {
         return (
@@ -101,21 +112,21 @@ export default function ItemDetails() {
                     <div className={styles.pollResults}>
                         {item.poll?.map((pollResult, index) => (
                             <div key={index} className="pollContent">
-                                <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                                 <div className="subtext">{pollResult.points} points</div>
                                 <div
                                     className="pollBar"
                                     style={{
-                                        width: `${(pollResult.points / (item.poll_votes_count ?? 0)) * 100}%`,
+                                        width: `${(pollResult.points / (item.poll_votes_count || 1)) * 100}%`,
                                     }}
                                 />
                             </div>
                         ))}
                     </div>
                 )}
-                <p className={styles.subject} dangerouslySetInnerHTML={{ __html: item.content ?? '' }} />
+                <p className={styles.subject} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
                 <ul className={styles.commentList}>
-                    {item.comments.map((comment) => (
+                    {(item.comments ?? []).map((comment) => (
                         <li key={comment.id}>
                             <Comment comment={comment} />
                         </li>

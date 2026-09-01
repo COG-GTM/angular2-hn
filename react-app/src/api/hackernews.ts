@@ -10,7 +10,12 @@ async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
     if (!response.ok) {
         throw new Error(`Request to ${url} failed with status ${response.status}`);
     }
-    return (await response.json()) as T;
+    const payload = (await response.json()) as T & { error?: unknown };
+    // The API answers unknown ids with 200 and an { error } body.
+    if (payload && typeof payload === 'object' && payload.error) {
+        throw new Error(`Request to ${url} failed: ${String(payload.error)}`);
+    }
+    return payload;
 }
 
 export function fetchFeed(feedType: FeedType | string, page: number, signal?: AbortSignal): Promise<Story[]> {

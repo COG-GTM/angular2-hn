@@ -52,6 +52,8 @@
 }
 
 .headerText {
+  // The header text block is decorative and sits above page content; only its links take clicks.
+  pointer-events: none;
   position: absolute;
   width: inherit;
   height: 20px;
@@ -78,24 +80,28 @@
 .headerNav {
   display: inline-block;
   margin-left: 20px;
+  pointer-events: auto;
 
   @media #{$mobile-only} {
     margin-left: 60px;
   }
 
   a {
-    color: hsla(0, 0%, 100%, .9);
     text-decoration: none;
     margin: 0 5px;
     letter-spacing: 1.8px;
+  }
+}
 
-    &:hover {
+// Scoped through the #header id so the nav keeps its own colours against the theme's `.nav a` rule.
+:global(#header) .headerNav {
+  a {
+    color: hsla(0, 0%, 100%, .9);
+
+    &:hover,
+    &:global(.active) {
       color: #fff;
     }
-  }
-
-  :global(.active) {
-    color: #fff;
   }
 }
 

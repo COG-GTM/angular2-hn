@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useUser } from '../../hooks/useHackerNews';
+import { sanitizeHtml } from '../../utils/html';
 import ErrorMessage from '../shared/ErrorMessage';
 import Loader from '../shared/Loader';
 import styles from './UserProfile.module.scss';
@@ -33,7 +34,7 @@ export default function UserProfile() {
             </div>
             {user.about && (
                 <div className={styles.otherDetails}>
-                    <p dangerouslySetInnerHTML={{ __html: user.about }} />
+                    <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} />
                 </div>
             )}
         </div>

@@ -34,14 +34,25 @@ function writeStored(key: string, value: string): void {
     }
 }
 
+const THEMES: readonly Theme[] = ['default', 'night', 'amoledblack'];
+
+function storedTheme(): Theme | null {
+    const theme = readStored(STORAGE_KEYS.theme);
+    return THEMES.includes(theme as Theme) ? (theme as Theme) : null;
+}
+
+function storedNumber(key: string, fallback: string): string {
+    const value = readStored(key);
+    return value !== null && /^\d{1,3}$/.test(value) ? value : fallback;
+}
+
 function initialSettings(): Settings {
-    const openLinkInNewTab = readStored(STORAGE_KEYS.openLinkInNewTab);
     return {
         showSettings: false,
-        openLinkInNewTab: openLinkInNewTab ? (JSON.parse(openLinkInNewTab) as boolean) : false,
-        theme: (readStored(STORAGE_KEYS.theme) as Theme | null) ?? 'default',
-        titleFontSize: readStored(STORAGE_KEYS.titleFontSize) ?? '16',
-        listSpacing: readStored(STORAGE_KEYS.listSpacing) ?? '0',
+        openLinkInNewTab: readStored(STORAGE_KEYS.openLinkInNewTab) === 'true',
+        theme: storedTheme() ?? 'default',
+        titleFontSize: storedNumber(STORAGE_KEYS.titleFontSize, '16'),
+        listSpacing: storedNumber(STORAGE_KEYS.listSpacing, '0'),
     };
 }
 
@@ -62,12 +73,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         }
         const media = window.matchMedia('(prefers-color-scheme: dark)');
         const onChange = (event: MediaQueryListEvent | MediaQueryList) => {
+            if (storedTheme()) {
+                return;
+            }
             setSettings((current) => ({ ...current, theme: event.matches ? 'night' : 'default' }));
         };
 
-        if (!readStored(STORAGE_KEYS.theme)) {
-            onChange(media);
-        }
+        onChange(media);
 
         media.addEventListener('change', onChange);
         return () => media.removeEventListener('change', onChange);

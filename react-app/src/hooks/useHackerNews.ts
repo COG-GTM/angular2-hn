@@ -16,7 +16,7 @@ export function useItem(id: number): UseQueryResult<Story, Error> {
     return useQuery({
         queryKey: ['item', id],
         queryFn: ({ signal }) => fetchItemContent(id, signal),
-        enabled: Number.isFinite(id),
+        enabled: Number.isInteger(id) && id > 0,
     });
 }
 

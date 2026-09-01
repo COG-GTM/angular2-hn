@@ -14,7 +14,8 @@ export interface FeedProps {
 
 export default function Feed({ feedType }: FeedProps) {
     const { page } = useParams<{ page?: string }>();
-    const pageNum = Number(page) || 1;
+    const parsedPage = Number(page);
+    const pageNum = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
     const listStart = (pageNum - 1) * 30 + 1;
 
     const { data: items, isPending, isError } = useFeed(feedType, pageNum);

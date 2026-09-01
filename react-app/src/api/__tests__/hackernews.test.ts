@@ -62,6 +62,12 @@ describe('hackernews api', () => {
         expect(story.poll_votes_count).toBeUndefined();
     });
 
+    it('throws when the API answers 200 with an error payload', async () => {
+        mockFetch(() => ({ error: 'Not found.' }));
+
+        await expect(fetchItemContent(999999999999)).rejects.toThrow(/Not found/);
+    });
+
     it('throws on a failed response', async () => {
         vi.stubGlobal(
             'fetch',

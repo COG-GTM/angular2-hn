@@ -1,11 +1,8 @@
-import { lazy, Suspense, type ComponentType, type ReactNode } from 'react';
+import { Suspense, type ComponentType, type ReactNode } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { DEFAULT_ROUTE, FEED_ROUTES } from './feed-routes';
-import { FeedPlaceholder, type FeedPageProps } from './placeholders';
-
-const ItemPage = lazy(() => import('./placeholders').then((m) => ({ default: m.ItemPlaceholder })));
-const UserPage = lazy(() => import('./placeholders').then((m) => ({ default: m.UserPlaceholder })));
+import { FeedPlaceholder, ItemPlaceholder, UserPlaceholder, type FeedPageProps } from './placeholders';
 
 export interface AppRoutesProps {
     feedPage?: ComponentType<FeedPageProps>;
@@ -16,8 +13,8 @@ export interface AppRoutesProps {
 
 export function AppRoutes({
     feedPage: FeedPage = FeedPlaceholder,
-    itemPage: Item = ItemPage,
-    userPage: User = UserPage,
+    itemPage: Item = ItemPlaceholder,
+    userPage: User = UserPlaceholder,
     fallback = null,
 }: AppRoutesProps) {
     return (

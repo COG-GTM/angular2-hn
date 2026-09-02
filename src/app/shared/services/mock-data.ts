@@ -214,7 +214,7 @@ const newsStories: Story[] = [
     makeStory(
         30000007,
         'Ask HN: What is your favorite tiny automation?',
-        0,
+        87,
         'pg',
         '14 hours ago',
         'story',
@@ -227,7 +227,7 @@ const newsStories: Story[] = [
     makeStory(
         30000100,
         'Poll: How do you validate a new product idea?',
-        0,
+        142,
         'pg',
         '16 hours ago',
         'poll',

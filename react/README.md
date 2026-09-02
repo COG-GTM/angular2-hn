@@ -1,6 +1,6 @@
 # React HN PWA
 
-React port of the Angular Hacker News PWA living in the parent directory. Both apps coexist until parity is verified.
+React port of the original Angular Hacker News PWA. This directory is the whole application; the root `package.json` delegates its scripts here.
 
 ## Scripts
 
@@ -17,6 +17,15 @@ React port of the Angular Hacker News PWA living in the parent directory. Both a
 
 ## Layout
 
-- `src/styles/` – global SCSS and theme engine ported from `../src/styles.scss` and `../src/app/shared/scss/`
-- `public/assets/` – icons and images copied from `../src/assets/`
-- `e2e/` – Playwright specs (replaces `../e2e/` Protractor)
+- `src/models/` – `Story`, `Comment`, `User`, `PollResult`, `Settings`, `FeedType`
+- `src/api/` – Hacker News API client (`node-hnapi.herokuapp.com`, poll aggregation)
+- `src/settings/` – settings store (React Context + `useSettings`, localStorage, `prefers-color-scheme`)
+- `src/routes/` – route table (`/` -> `/news/1`, feeds, lazy `item/:id` and `user/:id`)
+- `src/core/` – `AppLayout` (theme wrapper + GA pageviews), `Header`, `Footer`, `Settings`
+- `src/feed/` – `Feed` + `StoryItem`
+- `src/item-details/` – `ItemDetails` + recursive `Comment`
+- `src/user/` – `UserProfile`
+- `src/shared/components/` – `Loader`, `ErrorMessage`
+- `src/styles/` – global SCSS and the three-theme engine (`default`, `night`, `amoledblack`)
+- `public/assets/` – icons and images
+- `e2e/` – Playwright specs (API mocked via `page.route`)

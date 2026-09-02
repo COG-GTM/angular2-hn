@@ -1,22 +1,20 @@
-import { AppRoutes } from './routes';
-import { SettingsProvider, useSettings } from './settings';
+import { lazy } from 'react';
 
-function ThemedShell() {
-    const { settings } = useSettings();
-    return (
-        <div className={settings.theme}>
-            <div className="body-cover"></div>
-            <div className="wrapper">
-                <AppRoutes />
-            </div>
-        </div>
-    );
-}
+import { AppLayout } from './core';
+import { Feed } from './feed';
+import { AppRoutes } from './routes';
+import { SettingsProvider } from './settings';
+import { Loader } from './shared/components';
+
+const ItemDetails = lazy(() => import('./item-details').then((m) => ({ default: m.ItemDetails })));
+const UserProfile = lazy(() => import('./user').then((m) => ({ default: m.UserProfile })));
 
 export default function App() {
     return (
         <SettingsProvider>
-            <ThemedShell />
+            <AppLayout>
+                <AppRoutes feedPage={Feed} itemPage={ItemDetails} userPage={UserProfile} fallback={<Loader />} />
+            </AppLayout>
         </SettingsProvider>
     );
 }

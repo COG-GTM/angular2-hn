@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React (migrated from Angular)
 </p>
 
 <p align="center">
@@ -73,16 +73,26 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The application lives in the [`react/`](react/) directory (Vite + React 19 + TypeScript). The root `package.json` only
+delegates to it, so every command below can be run from either the repo root or `react/`.
 
  - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm install` (installs `react/` dependencies)
+ - `npm start` to run the Vite dev server on `http://localhost:5173`
+ - `npm run build` to create a production build in `react/dist/` (includes the Workbox service worker + web app manifest)
+ - `npm run preview` to serve the production build locally (service worker is only registered in production builds)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+### Testing
+
+ - `npm run lint` — ESLint + Prettier check
+ - `npm run typecheck` — `tsc -b`
+ - `npm test` — Vitest unit/component tests (React Testing Library)
+ - `npm run test:coverage` — same, with V8 coverage report
+ - `npm run e2e` — Playwright end-to-end tests against a production build (run `npx playwright install chromium` once)
+
+### Deploy
+
+`firebase deploy` publishes `react/dist/` using `firebase.json`; the Travis config builds and deploys on pushes to `master`.
 
 ## Contributors
 

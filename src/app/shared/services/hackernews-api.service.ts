@@ -1,66 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import fetch from 'unfetch';
-import {map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Story } from '../models/story';
 import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
+import { MOCK_FEEDS, MOCK_ITEMS, MOCK_POLL_OPTIONS, MOCK_USERS } from './mock-data';
 
-// wrap fetch in observable so we can keep it chill
 @Injectable()
 export class HackerNewsAPIService {
-  baseUrl: string;
-
-  constructor() {
-    this.baseUrl = 'https://node-hnapi.herokuapp.com';
-  }
-
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
-    return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
+    return of(page === 1 ? (MOCK_FEEDS[feedType] || []) : []);
   }
 
   fetchItemContent(id: number): Observable<Story> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
-      if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
-        story.poll_votes_count = 0;
+    const item = MOCK_ITEMS[id];
+    if (!item) {
+      return throwError(new Error('Item not found'));
+    }
+
+    const story = JSON.parse(JSON.stringify(item)) as Story;
+    return of(story).pipe(map((itemStory: Story) => {
+      if (itemStory.type === 'poll') {
+        const numberOfPollOptions = itemStory.poll.length;
+        itemStory.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
-          this.fetchPollContent(story.id + i).subscribe(pollResults => {
-            story.poll[i - 1] = pollResults;
-            story.poll_votes_count += pollResults.points;
+          this.fetchPollContent(itemStory.id + i).subscribe(pollResults => {
+            itemStory.poll[i - 1] = pollResults;
+            itemStory.poll_votes_count += pollResults.points;
           });
         }
       }
-      return story;
+      return itemStory;
     }));
   }
 
   fetchPollContent(id: number): Observable<PollResult> {
-    return lazyFetch(`${this.baseUrl}/item/${id}`);
+    const pollOption = MOCK_POLL_OPTIONS[id];
+    return pollOption ? of(pollOption) : throwError(new Error('Poll option not found'));
   }
 
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return of(MOCK_USERS[id] || {
+      id,
+      crated_time: 0,
+      created: 'a while ago',
+      karma: 1,
+      avg: 0,
+      about: ''
+    });
   }
 }
-
-function lazyFetch<T>(url, options?) {
-  return new Observable<T>(fetchObserver => {
-    let cancelToken = false;
-    fetch(url, options)
-      .then(res => {
-        if (!cancelToken) {
-          return res.json()
-            .then(data => {
-              fetchObserver.next(data);
-              fetchObserver.complete();
-            });
-        }
-      }).catch(err => fetchObserver.error(err));
-    return () => {
-      cancelToken = true;
-    };
-  });
-}
-

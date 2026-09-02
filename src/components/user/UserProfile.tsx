@@ -5,6 +5,7 @@ import { fetchUser } from '../../api/hackernews';
 import { User } from '../../models';
 import { ErrorMessage } from '../shared/ErrorMessage';
 import { Loader } from '../shared/Loader';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './UserProfile.scss';
 
 export function UserProfile() {
@@ -55,7 +56,7 @@ export function UserProfile() {
             </div>
             {user.about && (
                 <div className="other-details">
-                    <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+                    <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
                 </div>
             )}
         </div>

@@ -60,6 +60,27 @@ describe('fetchItemContent', () => {
         ]);
         expect(story.poll_votes_count).toBe(7);
     });
+
+    it('keeps the story when a poll option request fails', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async (input: RequestInfo | URL) => {
+                const url = String(input);
+                if (url === `${BASE_URL}/item/200`) {
+                    return { ok: true, status: 200, json: async () => ({ id: 200, type: 'poll', poll: [{}, {}] }) };
+                }
+                if (url === `${BASE_URL}/item/201`) {
+                    return { ok: true, status: 200, json: async () => ({ points: 5, content: 'first' }) };
+                }
+                return { ok: false, status: 500, json: async () => ({}) };
+            })
+        );
+
+        const story = await fetchItemContent(200);
+
+        expect(story.poll).toEqual([{ points: 5, content: 'first' }, {}]);
+        expect(story.poll_votes_count).toBe(5);
+    });
 });
 
 describe('fetchPollContent and fetchUser', () => {

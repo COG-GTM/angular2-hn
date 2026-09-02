@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Comment as CommentModel } from '../../models';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './Comment.scss';
 
 export function Comment({ comment }: { comment: CommentModel }) {
@@ -9,7 +10,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
 
     if (comment.deleted) {
         return (
-            <div>
+            <div className="comment">
                 <div className="deleted-meta">
                     <span className="collapse">[deleted]</span> | Comment Deleted
                 </div>
@@ -18,7 +19,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
     }
 
     return (
-        <div>
+        <div className="comment">
             <div className={collapse ? 'meta meta-collapse' : 'meta'}>
                 <span className="collapse" onClick={() => setCollapse(!collapse)}>
                     [{collapse ? '+' : '-'}]
@@ -28,7 +29,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
             </div>
             <div className="comment-tree">
                 <div hidden={collapse}>
-                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
                     <ul className="subtree">
                         {comment.comments.map((subComment) => (
                             <li key={subComment.id}>

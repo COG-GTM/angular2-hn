@@ -8,6 +8,7 @@ import { formatCommentCount } from '../../utils/formatCommentCount';
 import { ErrorMessage } from '../shared/ErrorMessage';
 import { Loader } from '../shared/Loader';
 import { Comment } from './Comment';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './ItemDetails.scss';
 
 export function ItemDetails() {
@@ -38,7 +39,7 @@ export function ItemDetails() {
 
     if (!item) {
         return (
-            <div className="main-content">
+            <div className="item-details-page main-content">
                 {!errorMessage && <Loader />}
                 {errorMessage !== '' && <ErrorMessage message={errorMessage} />}
             </div>
@@ -70,7 +71,7 @@ export function ItemDetails() {
     );
 
     return (
-        <div className="main-content">
+        <div className="item-details-page main-content">
             <div className="item">
                 <div className="mobile item-header">
                     <p className="title-block">
@@ -104,7 +105,7 @@ export function ItemDetails() {
                     <div className="pollResults">
                         {item.poll.map((pollResult, index) => (
                             <div key={index} className="pollContent">
-                                <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content ?? '') }}></div>
                                 <div className="subtext">{pollResult.points} points</div>
                                 <div
                                     className="pollBar"
@@ -114,7 +115,7 @@ export function ItemDetails() {
                         ))}
                     </div>
                 )}
-                <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }}></p>
                 <ul className="comment-list">
                     {item.comments.map((comment) => (
                         <li key={comment.id}>

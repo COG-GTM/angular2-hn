@@ -11,7 +11,7 @@ export function Item({ item }: { item: Story }) {
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
 
     return (
-        <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+        <div className="item-row" style={{ marginBottom: `${settings.listSpacing}px` }}>
             {hasUrl ? (
                 <p>
                     <a

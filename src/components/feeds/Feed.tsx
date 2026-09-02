@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { fetchFeed } from '../../api/hackernews';
 import { Story } from '../../models';
@@ -10,11 +10,17 @@ import './Feed.scss';
 
 export function Feed({ feedType }: { feedType: string }) {
     const { page } = useParams();
-    const pageNum = page ? +page : 1;
+    const parsedPage = page ? Number(page) : 1;
+    const isValidPage = Number.isInteger(parsedPage) && parsedPage > 0;
+    const pageNum = isValidPage ? parsedPage : 1;
     const [items, setItems] = useState<Story[] | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        if (!isValidPage) {
+            return;
+        }
+
         const controller = new AbortController();
 
         setItems(null);
@@ -33,12 +39,16 @@ export function Feed({ feedType }: { feedType: string }) {
             });
 
         return () => controller.abort();
-    }, [feedType, pageNum]);
+    }, [feedType, pageNum, isValidPage]);
 
     const listStart = (pageNum - 1) * 30 + 1;
 
+    if (!isValidPage) {
+        return <Navigate to={`/${feedType}/1`} replace />;
+    }
+
     return (
-        <div className="main-content">
+        <div className="feed main-content">
             {!items && !errorMessage && <Loader />}
             {!items && errorMessage !== '' && <ErrorMessage message={errorMessage} />}
 

@@ -22,11 +22,18 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
     const story = await getJson<Story>(`${BASE_URL}/item/${id}`, signal);
 
     if (story.type === 'poll') {
-        const pollOptions = await Promise.all(
+        const results = await Promise.allSettled(
             story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal))
         );
-        story.poll = pollOptions;
-        story.poll_votes_count = pollOptions.reduce((total, option) => total + option.points, 0);
+
+        story.poll = story.poll.map((option, index) => {
+            const result = results[index];
+            return result.status === 'fulfilled' ? result.value : option;
+        });
+        story.poll_votes_count = results.reduce(
+            (total, result) => (result.status === 'fulfilled' ? total + result.value.points : total),
+            0
+        );
     }
 
     return story;

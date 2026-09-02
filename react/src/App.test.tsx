@@ -78,7 +78,7 @@ describe('App', () => {
 
         renderApp(['/item/1']);
 
-        expect(await screen.findByText('Mocked item title')).toBeInTheDocument();
+        expect(await screen.findAllByText('Mocked item title')).not.toHaveLength(0);
     });
 
     it('renders the lazily loaded user profile page', async () => {

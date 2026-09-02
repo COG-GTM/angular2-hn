@@ -1,11 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useParams } from 'react-router-dom';
 
 import { AppRoutes } from './routes';
 import { FeedRoute, FEED_ROUTES } from '../shared/models';
 
 function Feed({ feedType }: { feedType: FeedRoute }) {
-    return <div>{feedType} feed page 2</div>;
+    const { page } = useParams();
+
+    return (
+        <div>
+            {feedType} feed page {page ?? 1}
+        </div>
+    );
 }
 
 function ItemDetails() {

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React
 </p>
 
 <p align="center">
@@ -55,14 +55,27 @@ With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN i
 
 ## Themes
 
-Built in theme engine!
+Built-in theme engine!
 
 Current themes:
+
 * Default
 * Night
 * Black (AMOLED)
 
 More to come!
+
+## Stack
+
+The app is built with:
+
+* [Vite](https://vitejs.dev/)
+* [React 18](https://react.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [React Router v6](https://reactrouter.com/)
+* [Vitest](https://vitest.dev/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+* [Playwright](https://playwright.dev/)
+* [vite-plugin-pwa](https://vite-pwa-org.netlify.app/)
 
 ## Areas of improvement
 
@@ -71,18 +84,59 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Development
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The React application lives in `react/`. From a fresh clone:
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+```sh
+cd react
+npm ci
+```
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Run the development server:
+
+```sh
+npm run dev
+```
+
+Run the production build:
+
+```sh
+npm run build
+```
+
+Run unit tests and coverage:
+
+```sh
+npm test
+npm run test:coverage
+```
+
+Run end-to-end tests:
+
+```sh
+npm run e2e
+```
+
+Run linting and formatting:
+
+```sh
+npm run lint
+npm run format
+```
+
+## Firebase deployment
+
+Build the app and deploy it with the Firebase CLI:
+
+```sh
+cd react
+npm run build
+cd ..
+firebase deploy
+```
+
+Firebase Hosting serves the generated `react/dist` directory.
 
 ## Contributors
 

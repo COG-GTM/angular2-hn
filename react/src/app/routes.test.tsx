@@ -1,14 +1,31 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useParams } from 'react-router-dom';
 
 import { AppRoutes } from './routes';
-import { FeedPlaceholder, ItemDetailsPlaceholder, UserPlaceholder } from './placeholders';
 import { FeedRoute, FEED_ROUTES } from '../shared/models';
+
+function Feed({ feedType }: { feedType: FeedRoute }) {
+    const { page } = useParams();
+
+    return (
+        <div>
+            {feedType} feed page {page ?? 1}
+        </div>
+    );
+}
+
+function ItemDetails() {
+    return <div>item 123</div>;
+}
+
+function User() {
+    return <div>user pg</div>;
+}
 
 function renderRoutes(path: string) {
     return render(
         <MemoryRouter initialEntries={[path]}>
-            <AppRoutes Feed={FeedPlaceholder} ItemDetails={ItemDetailsPlaceholder} User={UserPlaceholder} />
+            <AppRoutes Feed={Feed} ItemDetails={ItemDetails} User={User} />
         </MemoryRouter>
     );
 }

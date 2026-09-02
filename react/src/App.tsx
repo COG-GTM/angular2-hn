@@ -1,10 +1,22 @@
-export default function App() {
+import { AppRoutes } from './routes';
+import { SettingsProvider, useSettings } from './settings';
+
+function ThemedShell() {
+    const { settings } = useSettings();
     return (
-        <div className="default">
+        <div className={settings.theme}>
             <div className="body-cover"></div>
             <div className="wrapper">
-                <h1>Angular 2 HN</h1>
+                <AppRoutes />
             </div>
         </div>
+    );
+}
+
+export default function App() {
+    return (
+        <SettingsProvider>
+            <ThemedShell />
+        </SettingsProvider>
     );
 }

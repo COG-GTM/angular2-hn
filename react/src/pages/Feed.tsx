@@ -13,7 +13,8 @@ interface FeedProps {
 
 export function Feed({ feedType }: FeedProps) {
   const { page: pageParam } = useParams()
-  const page = /^[1-9]\d*$/.test(pageParam ?? '') ? Number(pageParam) : null
+  const parsed = /^[1-9]\d*$/.test(pageParam ?? '') ? Number(pageParam) : NaN
+  const page = Number.isSafeInteger(parsed) ? parsed : null
   const routeKey = `${feedType}/${page}`
   const [state, setState] = useState<{
     key: string

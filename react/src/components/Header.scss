@@ -42,6 +42,19 @@
     }
   }
 
+  .header-text {
+    position: absolute;
+    width: inherit;
+    height: 20px;
+    left: 10px;
+    top: 27px;
+    z-index: -1;
+
+    @media #{$mobile-only} {
+      top: 22px;
+    }
+  }
+
   .left {
     position: absolute;
     left: 60px;

@@ -1,18 +1,5 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Layout } from './components/Layout'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      {
-        path: '*',
-        element: <div>Hello World</div>,
-      },
-    ],
-  },
-])
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
 
 function App() {
   return <RouterProvider router={router} />

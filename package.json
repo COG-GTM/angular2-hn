@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "npm --prefix react run dev",
+    "build:react": "npm --prefix react run build",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

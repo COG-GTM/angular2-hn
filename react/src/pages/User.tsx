@@ -4,28 +4,41 @@ import { fetchUser } from '../api/hackernews'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { Loader } from '../components/Loader'
 import type { User as UserModel } from '../models/user'
+import { sanitizeHtml } from '../utils/sanitize'
 
 export default function User() {
   const { id = '' } = useParams()
   const navigate = useNavigate()
-  const [user, setUser] = useState<UserModel>()
-  const [error, setError] = useState('')
+  const routeKey = id
+  const [state, setState] = useState<{
+    key: string
+    user?: UserModel
+    error?: string
+  }>({ key: '' })
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     let cancelled = false
-    setUser(undefined)
-    setError('')
+    setState({ key: routeKey })
     fetchUser(id)
       .then((nextUser) => {
-        if (!cancelled) setUser(nextUser)
+        if (!nextUser || nextUser.id !== id) {
+          throw new Error('Invalid user response')
+        }
+        if (!cancelled) setState({ key: routeKey, user: nextUser })
       })
       .catch(() => {
-        if (!cancelled) setError(`Could not load user ${id}.`)
+        if (!cancelled) {
+          setState({ key: routeKey, error: `Could not load user ${id}.` })
+        }
       })
     return () => {
       cancelled = true
     }
-  }, [id])
+  }, [id, routeKey])
+
+  const current = state.key === routeKey ? state : { key: routeKey }
+  const { user, error } = current
 
   return (
     <>
@@ -46,7 +59,7 @@ export default function User() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }} />
+              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} />
             </div>
           )}
         </div>

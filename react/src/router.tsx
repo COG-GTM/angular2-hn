@@ -5,11 +5,20 @@ import { Loader } from './components/Loader'
 import { Feed } from './pages/Feed'
 
 const ItemDetails = lazy(() => import('./pages/ItemDetails'))
+const User = lazy(() => import('./pages/User'))
 
 function LazyItemDetails() {
   return (
     <Suspense fallback={<Loader />}>
       <ItemDetails />
+    </Suspense>
+  )
+}
+
+function LazyUser() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <User />
     </Suspense>
   )
 }
@@ -46,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: 'item/:id',
         element: <LazyItemDetails />,
+      },
+      {
+        path: 'user/:id',
+        element: <LazyUser />,
       },
       {
         path: '*',

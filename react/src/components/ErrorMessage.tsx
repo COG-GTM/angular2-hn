@@ -1,3 +1,5 @@
+import './ErrorMessage.scss'
+
 interface ErrorMessageProps {
   message: string
 }

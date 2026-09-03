@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Comment as CommentModel } from '../models/comment'
 import { sanitizeHtml } from '../utils/sanitize'
+import './Comment.scss'
 
 interface CommentProps {
   comment: CommentModel

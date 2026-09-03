@@ -1,5 +1,6 @@
 import { useSettings } from '../context/SettingsContext'
 import type { Theme } from '../models/settings'
+import './Settings.scss'
 
 const themes: Array<[Theme, string]> = [
   ['default', 'Default'],

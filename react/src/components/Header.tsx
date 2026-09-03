@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useSettings } from '../context/SettingsContext'
 import { Settings } from './Settings'
+import './Header.scss'
 
 const navigation = [
   ['new', '/newest/1'],

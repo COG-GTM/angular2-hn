@@ -5,6 +5,7 @@ import { ErrorMessage } from '../components/ErrorMessage'
 import { Loader } from '../components/Loader'
 import type { User as UserModel } from '../models/user'
 import { sanitizeHtml } from '../utils/sanitize'
+import './User.scss'
 
 export default function User() {
   const { id = '' } = useParams()

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSettings } from '../context/SettingsContext'
 import type { Story } from '../models/story'
 import { formatCommentCount } from '../utils/format-comments'
+import './Item.scss'
 
 interface ItemProps {
   item: Story

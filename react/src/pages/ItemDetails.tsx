@@ -8,6 +8,7 @@ import { useSettings } from '../context/SettingsContext'
 import type { Story } from '../models/story'
 import { formatCommentCount } from '../utils/format-comments'
 import { sanitizeHtml } from '../utils/sanitize'
+import './ItemDetails.scss'
 
 function StoryTitle({ item }: { item: Story }) {
   const { settings } = useSettings()

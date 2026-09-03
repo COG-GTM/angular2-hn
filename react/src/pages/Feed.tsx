@@ -6,6 +6,7 @@ import { Item } from '../components/Item'
 import { Loader } from '../components/Loader'
 import type { FeedType } from '../models/feed-type'
 import type { Story } from '../models/story'
+import './Feed.scss'
 
 interface FeedProps {
   feedType: FeedType

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { fetchFeed } from '../api/hackernews'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { Item } from '../components/Item'
@@ -13,31 +13,48 @@ interface FeedProps {
 
 export function Feed({ feedType }: FeedProps) {
   const { page: pageParam } = useParams()
-  const page = Number(pageParam) || 1
-  const [items, setItems] = useState<Story[] | undefined>()
-  const [error, setError] = useState('')
+  const page = /^[1-9]\d*$/.test(pageParam ?? '') ? Number(pageParam) : null
+  const routeKey = `${feedType}/${page}`
+  const [state, setState] = useState<{
+    key: string
+    items?: Story[]
+    error?: string
+  }>({ key: '' })
 
   useEffect(() => {
+    if (page === null) {
+      return
+    }
+
     let cancelled = false
-    setItems(undefined)
-    setError('')
+    setState({ key: routeKey })
     fetchFeed(feedType, page)
       .then((nextItems) => {
         if (!cancelled) {
-          setItems(nextItems)
+          setState({ key: routeKey, items: nextItems })
           window.scrollTo(0, 0)
         }
       })
       .catch(() => {
         if (!cancelled) {
-          setError(`Could not load ${feedType} stories.`)
+          setState({
+            key: routeKey,
+            error: `Could not load ${feedType} stories.`,
+          })
         }
       })
 
     return () => {
       cancelled = true
     }
-  }, [feedType, page])
+  }, [feedType, page, routeKey])
+
+  if (page === null) {
+    return <Navigate to={`/${feedType}/1`} replace />
+  }
+
+  const current = state.key === routeKey ? state : { key: routeKey }
+  const { items, error } = current
 
   const listStart = (page - 1) * 30 + 1
 

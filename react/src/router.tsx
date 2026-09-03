@@ -31,6 +31,10 @@ export const router = createBrowserRouter([
         path: 'jobs/:page',
         element: <Feed feedType="jobs" />,
       },
+      {
+        path: '*',
+        element: <Navigate to="/news/1" replace />,
+      },
     ],
   },
 ])

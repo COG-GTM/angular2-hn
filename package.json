@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "install:react": "npm --prefix react ci",
     "dev": "npm --prefix react run dev",
     "build:react": "npm --prefix react run build",
     "build": "ng build",

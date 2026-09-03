@@ -84,6 +84,10 @@ Note: Any Service Worker changes will not be reflected when you run the applicat
  - `npm run precache` to generate the service worker file
  - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
 
+## React app (in progress)
+
+The React migration is developed in the `react/` directory. Run `npm run install:react` to install its dependencies, `npm run dev` to start the Vite development server, or `npm run build:react` to create a production build.
+
 ## Contributors
 
 A million thanks to some awesome people :)

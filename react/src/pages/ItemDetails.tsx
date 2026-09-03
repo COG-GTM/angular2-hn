@@ -7,6 +7,7 @@ import { Loader } from '../components/Loader'
 import { useSettings } from '../context/SettingsContext'
 import type { Story } from '../models/story'
 import { formatCommentCount } from '../utils/format-comments'
+import { sanitizeHtml } from '../utils/sanitize'
 
 function StoryTitle({ item }: { item: Story }) {
   const { settings } = useSettings()
@@ -32,25 +33,36 @@ function StoryTitle({ item }: { item: Story }) {
 export default function ItemDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [item, setItem] = useState<Story>()
-  const [error, setError] = useState('')
+  const routeKey = id ?? ''
+  const [state, setState] = useState<{
+    key: string
+    item?: Story
+    error?: string
+  }>({ key: '' })
 
   useEffect(() => {
     let cancelled = false
-    setItem(undefined)
-    setError('')
+    setState({ key: routeKey })
     window.scrollTo(0, 0)
     fetchItemContent(Number(id))
       .then((nextItem) => {
-        if (!cancelled) setItem(nextItem)
+        if (!nextItem || nextItem.id !== Number(id)) {
+          throw new Error('Invalid item response')
+        }
+        if (!cancelled) setState({ key: routeKey, item: nextItem })
       })
       .catch(() => {
-        if (!cancelled) setError('Could not load item comments.')
+        if (!cancelled) {
+          setState({ key: routeKey, error: 'Could not load item comments.' })
+        }
       })
     return () => {
       cancelled = true
     }
-  }, [id])
+  }, [id, routeKey])
+
+  const current = state.key === routeKey ? state : { key: routeKey }
+  const { item, error } = current
 
   return (
     <div className="main-content">
@@ -95,7 +107,9 @@ export default function ItemDetails() {
               {item.poll.map((pollResult, index) => (
                 <div className="pollContent" key={index}>
                   <div
-                    dangerouslySetInnerHTML={{ __html: pollResult.content }}
+                    dangerouslySetInnerHTML={{
+                      __html: sanitizeHtml(pollResult.content),
+                    }}
                   />
                   <div className="subtext">{pollResult.points} points</div>
                   <div
@@ -112,7 +126,7 @@ export default function ItemDetails() {
           )}
           <p
             className="subject"
-            dangerouslySetInnerHTML={{ __html: item.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}
           />
           <ul className="comment-list">
             {item.comments?.map((comment) => (

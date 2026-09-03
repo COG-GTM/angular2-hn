@@ -86,7 +86,7 @@ Note: Any Service Worker changes will not be reflected when you run the applicat
 
 ## React app (in progress)
 
-Requires Node 20+. The React migration is developed in the `react/` directory. Run `npm run install:react` to install its dependencies, `npm run dev` to start the Vite development server, or `npm run build:react` to create a production build.
+Requires Node 20.19+. The React migration is developed in the `react/` directory. Run `npm run install:react` to install its dependencies, `npm run dev` to start the Vite development server, or `npm run build:react` to create a production build.
 
 ## Contributors
 

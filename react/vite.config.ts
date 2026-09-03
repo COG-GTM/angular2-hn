@@ -24,6 +24,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,xml,webmanifest}'],
+        globIgnores: ['assets/icons/android-chrome-*.png', 'manifest.webmanifest'],
         navigateFallback: '/index.html',
       },
     }),

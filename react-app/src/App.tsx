@@ -7,6 +7,7 @@ import { Header } from './components/core/Header';
 import { Feed } from './components/feeds/Feed';
 import { Loader } from './components/shared/Loader';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
+import { usePageTracking } from './hooks/usePageTracking';
 
 const ItemDetails = lazy(() => import('./components/item-details/ItemDetails'));
 const UserProfile = lazy(() => import('./components/user/UserProfile'));
@@ -15,6 +16,7 @@ const FEED_TYPES = ['news', 'newest', 'show', 'ask', 'jobs'];
 
 function AppShell() {
     const { settings } = useSettings();
+    usePageTracking();
 
     return (
         <div className={settings.theme}>

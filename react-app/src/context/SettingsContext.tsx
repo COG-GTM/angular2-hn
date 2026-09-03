@@ -18,7 +18,7 @@ function readInitialSettings(): Settings {
     const openLinkInNewTab = localStorage.getItem('openLinkInNewTab');
     return {
         showSettings: false,
-        openLinkInNewTab: openLinkInNewTab ? (JSON.parse(openLinkInNewTab) as boolean) : false,
+        openLinkInNewTab: openLinkInNewTab === 'true',
         theme: localStorage.getItem('theme') ?? 'default',
         titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
         listSpacing: localStorage.getItem('listSpacing') ?? '0',

@@ -7,7 +7,11 @@ async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
     if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
     }
-    return (await response.json()) as T;
+    const payload: unknown = await response.json();
+    if (payload && typeof payload === 'object' && 'error' in payload) {
+        throw new Error(String((payload as { error: unknown }).error));
+    }
+    return payload as T;
 }
 
 export function fetchFeed(feedType: string, page: number, signal?: AbortSignal): Promise<Story[]> {

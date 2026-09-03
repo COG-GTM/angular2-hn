@@ -1,6 +1,18 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { Loader } from './components/Loader'
 import { Feed } from './pages/Feed'
+
+const ItemDetails = lazy(() => import('./pages/ItemDetails'))
+
+function LazyItemDetails() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <ItemDetails />
+    </Suspense>
+  )
+}
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: 'jobs/:page',
         element: <Feed feedType="jobs" />,
+      },
+      {
+        path: 'item/:id',
+        element: <LazyItemDetails />,
       },
       {
         path: '*',

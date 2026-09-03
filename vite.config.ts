@@ -8,8 +8,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Angular 2 HN',
-        short_name: 'Angular 2 HN',
+        name: 'React HN',
+        short_name: 'React HN',
         icons: [
           { src: 'assets/icons/android-chrome-144x144.png', sizes: '144x144', type: 'image/png' },
           { src: 'assets/icons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },

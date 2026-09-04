@@ -5,6 +5,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
 import { User as UserModel } from '../../models/User';
 import { fetchUser } from '../../services/hackerNewsApi';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 
 import styles from './User.module.scss';
 
@@ -51,7 +52,7 @@ const User: React.FC = () => {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }} />
+              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} />
             </div>
           )}
         </div>

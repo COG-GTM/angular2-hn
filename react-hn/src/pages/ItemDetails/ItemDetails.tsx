@@ -8,6 +8,7 @@ import { useSettings } from '../../contexts/SettingsContext';
 import { Story } from '../../models/Story';
 import { fetchItemContent } from '../../services/hackerNewsApi';
 import { formatComment } from '../../utils/commentFormat';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 
 import styles from './ItemDetails.module.scss';
 
@@ -97,7 +98,7 @@ const ItemDetails: React.FC = () => {
             <div className="pollResults">
               {(item.poll || []).map((pollResult, index) => (
                 <div key={index} className="pollContent">
-                  <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                   <div className="subtext">{pollResult.points} points</div>
                   <div
                     className="pollBar"
@@ -107,7 +108,7 @@ const ItemDetails: React.FC = () => {
               ))}
             </div>
           )}
-          <p className="subject" dangerouslySetInnerHTML={{ __html: item.content || '' }} />
+          <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content || '') }} />
           <ul className="comment-list">
             {(item.comments || []).map(comment => (
               <li key={comment.id}>

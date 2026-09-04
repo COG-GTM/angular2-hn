@@ -1,3 +1,5 @@
+import Footer from './components/core/Footer';
+import Header from './components/core/Header';
 import { useSettings } from './context/SettingsContext';
 import './App.scss';
 
@@ -7,7 +9,10 @@ export default function App() {
     return (
         <div className={`c-app ${settings.theme}`}>
             <div className="body-cover"></div>
-            <div className="wrapper"></div>
+            <div className="wrapper">
+                <Header />
+                <Footer />
+            </div>
         </div>
     );
 }

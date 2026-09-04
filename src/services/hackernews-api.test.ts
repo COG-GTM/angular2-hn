@@ -8,7 +8,11 @@ afterEach(() => {
 
 function mockFetch(responses: Record<string, unknown>) {
     return vi.spyOn(globalThis, 'fetch').mockImplementation((input: RequestInfo | URL) =>
-        Promise.resolve({ json: () => Promise.resolve(responses[String(input)]) } as Response)
+        Promise.resolve({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve(responses[String(input)]),
+        } as Response)
     );
 }
 
@@ -43,5 +47,15 @@ describe('hackernews api', () => {
         mockFetch({ [`${BASE_URL}/item/1`]: { id: 1, type: 'story' } });
         const story = await fetchItemContent(1);
         expect(story.poll_votes_count).toBeUndefined();
+    });
+
+    it('rejects on an error response instead of parsing the body', async () => {
+        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+            ok: false,
+            status: 404,
+            json: () => Promise.reject(new Error('should not be called')),
+        } as unknown as Response);
+
+        await expect(fetchUser('pg')).rejects.toThrow('404');
     });
 });

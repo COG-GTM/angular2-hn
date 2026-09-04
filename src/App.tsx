@@ -9,6 +9,7 @@ import { useSettings } from './context/SettingsContext';
 import './App.scss';
 
 const ItemDetails = lazy(() => import('./components/item-details/ItemDetails'));
+const UserProfile = lazy(() => import('./components/user/UserProfile'));
 
 const feedTypes = ['news', 'newest', 'show', 'ask', 'jobs'];
 
@@ -31,6 +32,7 @@ export default function App() {
                             />
                         ))}
                         <Route path="/item/:id" element={<ItemDetails />} />
+                        <Route path="/user/:id" element={<UserProfile />} />
                     </Routes>
                 </Suspense>
                 <Footer />

@@ -26,6 +26,10 @@ function makeComment(
     };
 }
 
+function countComments(comments: Comment[]): number {
+    return comments.reduce((count, comment) => count + 1 + countComments(comment.comments), 0);
+}
+
 function makeStory(
     id: number,
     title: string,
@@ -36,7 +40,6 @@ function makeStory(
     url: string,
     domain: string,
     comments: Comment[],
-    commentsCount: number,
     content?: string,
     poll: PollResult[] = []
 ): Story {
@@ -52,7 +55,7 @@ function makeStory(
         domain,
         content,
         comments,
-        comments_count: commentsCount,
+        comments_count: countComments(comments),
         poll,
         poll_votes_count: 0,
         deleted: false,
@@ -148,8 +151,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/calm-launches',
         'example.com',
-        launchComments,
-        12
+        launchComments
     ),
     makeStory(
         30000002,
@@ -160,8 +162,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/local-first-database',
         'example.com',
-        databaseComments,
-        9
+        databaseComments
     ),
     makeStory(
         30000003,
@@ -172,8 +173,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/browser-operating-system',
         'example.com',
-        browserComments,
-        7
+        browserComments
     ),
     makeStory(
         30000004,
@@ -184,8 +184,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/capability-security',
         'example.com',
-        languageComments,
-        6
+        languageComments
     ),
     makeStory(
         30000005,
@@ -196,8 +195,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/deployment-pipeline',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000006,
@@ -208,8 +206,7 @@ const newsStories: Story[] = [
         'story',
         'https://example.com/resilient-cli',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000007,
@@ -221,7 +218,6 @@ const newsStories: Story[] = [
         'item?id=30000007',
         '',
         [],
-        3,
         'I am collecting small automations that save a few minutes every day. What is one you use constantly?'
     ),
     makeStory(
@@ -234,7 +230,6 @@ const newsStories: Story[] = [
         'item?id=30000100',
         '',
         [],
-        0,
         undefined,
         pollOptions
     )
@@ -250,8 +245,7 @@ const newestStories: Story[] = [
         'story',
         'https://example.com/reading-code',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000012,
@@ -263,7 +257,6 @@ const newestStories: Story[] = [
         'item?id=30000012',
         '',
         [],
-        2,
         'I built a lightweight notebook that keeps references close to the notes they support.'
     ),
     makeStory(
@@ -275,8 +268,7 @@ const newestStories: Story[] = [
         'story',
         'https://example.com/queueing-theory',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000014,
@@ -287,8 +279,7 @@ const newestStories: Story[] = [
         'story',
         'https://example.com/terminal-colors',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000015,
@@ -299,8 +290,7 @@ const newestStories: Story[] = [
         'story',
         'https://example.com/tiny-http-server',
         'example.com',
-        [],
-        0
+        []
     )
 ];
 
@@ -324,7 +314,6 @@ const askStories: Story[] = [
                 1200
             )
         ],
-        18,
         'What small habit has made the biggest difference in your day-to-day engineering work?'
     ),
     makeStory(
@@ -337,7 +326,6 @@ const askStories: Story[] = [
         'item?id=30000022',
         '',
         [],
-        11,
         'Which technical book do you still recommend after rereading it years later?'
     ),
     makeStory(
@@ -350,7 +338,6 @@ const askStories: Story[] = [
         'item?id=30000023',
         '',
         [],
-        8,
         'I would love to hear how people make consistent progress on projects outside work.'
     ),
     makeStory(
@@ -363,7 +350,6 @@ const askStories: Story[] = [
         'item?id=30000024',
         '',
         [],
-        6,
         'What debugging technique do you reach for when the obvious approaches fail?'
     )
 ];
@@ -379,7 +365,6 @@ const showStories: Story[] = [
         'item?id=30000031',
         '',
         [],
-        4,
         'A small reading list app that works without an account or an internet connection.'
     ),
     makeStory(
@@ -392,7 +377,6 @@ const showStories: Story[] = [
         'item?id=30000032',
         '',
         [],
-        3,
         'I made a terminal dashboard for the metrics I check most often.'
     ),
     makeStory(
@@ -405,7 +389,6 @@ const showStories: Story[] = [
         'item?id=30000033',
         '',
         [],
-        5,
         'This is a simple archive for preserving recipes and the stories behind them.'
     ),
     makeStory(
@@ -418,7 +401,6 @@ const showStories: Story[] = [
         'item?id=30000034',
         '',
         [],
-        2,
         'A deliberately small compiler project for experimenting with parsing and code generation.'
     )
 ];
@@ -433,8 +415,7 @@ const jobStories: Story[] = [
         'job',
         'https://example.com/jobs/frontend-engineer',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000042,
@@ -445,8 +426,7 @@ const jobStories: Story[] = [
         'job',
         'https://example.com/jobs/founding-engineer',
         'example.com',
-        [],
-        0
+        []
     ),
     makeStory(
         30000043,
@@ -457,8 +437,7 @@ const jobStories: Story[] = [
         'job',
         'https://example.com/jobs/product-designer',
         'example.com',
-        [],
-        0
+        []
     )
 ];
 

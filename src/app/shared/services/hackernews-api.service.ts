@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
 
@@ -20,10 +21,20 @@ export class HackerNewsAPIService {
     return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
   }
 
+  fetchWeeklyTop(): Observable<Story[]> {
+    const pages = [1, 2, 3, 4, 5].map(page => lazyFetch<Story[]>(`${this.baseUrl}/news?page=${page}`));
+    const weekAgo = Date.now() / 1000 - 7 * 24 * 3600;
+    return forkJoin(pages).pipe(
+      map(results => ([] as Story[]).concat(...results)
+        .filter(story => story.time >= weekAgo)
+        .sort((a, b) => b.points - a.points))
+    );
+  }
+
   fetchItemContent(id: number): Observable<Story> {
     return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
       if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
           this.fetchPollContent(story.id + i).subscribe(pollResults => {
@@ -63,4 +74,3 @@ function lazyFetch<T>(url, options?) {
     };
   });
 }
-

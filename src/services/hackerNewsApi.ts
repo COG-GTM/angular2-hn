@@ -28,9 +28,10 @@ export function fetchUser(id: string): Promise<User> {
 export async function fetchItemContent(id: number): Promise<Story> {
   const story = await getJson<Story>(`${baseUrl}/item/${id}`);
   if (story.type === 'poll') {
-    const pollResults = await Promise.all(
+    const settled = await Promise.allSettled(
       story.poll.map((_, index) => fetchPollContent(story.id + index + 1)),
     );
+    const pollResults = settled.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []));
     story.poll = pollResults;
     story.poll_votes_count = pollResults.reduce((total, result) => total + result.points, 0);
   }

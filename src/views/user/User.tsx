@@ -4,6 +4,7 @@ import { User as UserModel } from '../../models/user';
 import { fetchUser } from '../../services/hackerNewsApi';
 import ErrorMessage from '../../components/shared/ErrorMessage';
 import Loader from '../../components/shared/Loader';
+import { sanitizeHtml } from '../../utils/sanitize';
 import './User.scss';
 
 export default function User() {
@@ -49,7 +50,7 @@ export default function User() {
             <span className="right">{user.karma} ★</span>
             <p className="age">Created {user.created}</p>
           </div>
-          {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: user.about }} /></div>}
+          {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} /></div>}
         </div>
       )}
     </div>

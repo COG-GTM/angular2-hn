@@ -3,7 +3,7 @@
 // Lists every package.json manifest entry whose installed metadata declares a
 // dependency / peerDependency / optionalDependency on any target package, with
 // the declared range and whether the currently installed target satisfies it.
-// --check: exit 1 if any range is unsatisfied (use after the upgrade).
+// --check: exit 1 if any range is unsatisfied or cannot be verified (use after the upgrade).
 import { readFileSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
@@ -22,6 +22,7 @@ const manifestDeps = {
     ...manifest.dependencies,
     ...manifest.devDependencies,
     ...manifest.optionalDependencies,
+    ...manifest.peerDependencies,
 };
 
 const require = createRequire(resolve(root, 'package.json'));
@@ -47,7 +48,7 @@ const rows = [];
 for (const name of Object.keys(manifestDeps).sort()) {
     const meta = installedPkg(name);
     if (!meta) {
-        rows.push({ dependent: name, kind: 'NOT INSTALLED', target: '-', range: '-', status: 'unknown' });
+        rows.push({ dependent: name, kind: 'NOT INSTALLED', target: '-', range: '-', status: 'unknown (not installed)' });
         continue;
     }
     for (const [kind, obj] of [
@@ -63,10 +64,10 @@ for (const name of Object.keys(manifestDeps).sort()) {
             const nested = kind === 'peerDependencies' ? null : installedPkg(`${name}/node_modules/${t}`);
             const have = nested?.version ?? installedTargets[t];
             const optionalPeer = meta.peerDependenciesMeta?.[t]?.optional === true;
-            let status = 'unknown';
-            if (have && semver) {
-                status = semver.satisfies(have, range, { includePrerelease: true }) ? 'ok' : 'UNSATISFIED';
-            }
+            let status;
+            if (!have) status = 'unknown (target missing)';
+            else if (!semver) status = 'unknown (semver unavailable)';
+            else status = semver.satisfies(have, range, { includePrerelease: true }) ? 'ok' : 'UNSATISFIED';
             if (optionalPeer && status === 'UNSATISFIED') status = 'UNSATISFIED (optional peer)';
             rows.push({ dependent: name, kind, target: t, range, installed: have ?? 'missing', status });
         }
@@ -93,8 +94,10 @@ if (rows.length === 0) {
     console.log(`\nCohort (must be reviewed/bumped together with the target): ${cohort.join(', ')}`);
 }
 
-const bad = rows.filter((r) => r.status.startsWith('UNSATISFIED') && !r.status.includes('optional'));
-if (check && bad.length) {
-    console.error(`\n${bad.length} unsatisfied range(s) — upgrade incomplete.`);
-    process.exit(1);
+if (check) {
+    const bad = rows.filter((r) => r.status.startsWith('UNSATISFIED'));
+    const unverified = rows.filter((r) => r.status.startsWith('unknown'));
+    if (bad.length) console.error(`\n${bad.length} unsatisfied range(s) — upgrade incomplete.`);
+    if (unverified.length) console.error(`\n${unverified.length} range(s) could not be verified — install deps / semver and re-run.`);
+    if (bad.length || unverified.length) process.exit(1);
 }

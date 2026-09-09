@@ -25,10 +25,21 @@ dependent analysis so every affected manifest entry moves in ONE change.
    peer-depends on, plus siblings released in lockstep (see Cohorts).
 3. Use the framework's own migration tool when one exists (`ng update`,
    `npx @next/codemod`, etc.) — it computes the cohort for you.
-4. Regenerate the lockfile with the repo's package manager (this repo tracks
-   `package-lock.json` → `npm`; do NOT introduce or update `yarn.lock` unless
-   the repo already commits it). One lockfile, one package manager.
-5. Finish with install-from-lockfile (`npm ci`), lint, build, test. Do not open
+4. Use the package manager that owns the *tracked* lockfile
+   (`git ls-files | grep -iE 'lock'`): `yarn.lock` → yarn, `package-lock.json`
+   → npm, `pnpm-lock.yaml` → pnpm. Never add a second lockfile. On `master` of
+   this repo only `yarn.lock` is tracked (a local `package-lock.json` is
+   untracked noise — do not commit it); React-migration branches track
+   `package-lock.json`. Commands below use `<pm>`; substitute:
+
+   | step | npm | yarn (v1) | pnpm |
+   |---|---|---|---|
+   | add/bump | `npm install a@x b@y` | `yarn add a@x b@y` (`-D` for devDeps) | `pnpm add a@x b@y` |
+   | explain | `npm explain <p>` | `yarn why <p>` | `pnpm why <p>` |
+   | validate tree | `npm ls --all` | `yarn check --integrity` | `pnpm ls --depth Infinity` |
+   | clean install from lockfile | `npm ci` | `yarn install --frozen-lockfile` | `pnpm install --frozen-lockfile` |
+   | transitive pin | `overrides` | `resolutions` | `pnpm.overrides` |
+5. Finish with a frozen-lockfile clean install, lint, build, test. Do not open
    a PR until all four pass.
 
 ## Procedure
@@ -49,7 +60,7 @@ node .agents/skills/dependency-upgrade/scripts/find-dependents.mjs <pkg> [<pkg2>
 ```
 Cross-check with the lockfile view (who *actually* pulls it in):
 ```bash
-npm ls <pkg> --all 2>/dev/null | head -50     # or: npm explain <pkg>
+<pm> why <pkg>            # yarn why / pnpm why; npm: npm explain <pkg>
 ```
 Also list what the target itself peer-requires at the *new* version:
 ```bash
@@ -82,21 +93,22 @@ Well-known lockstep cohorts (bump all together, same major):
 
 ### 3. Apply the cohort in one install
 ```bash
-npm install <pkg>@<new> <member1>@<v1> <member2>@<v2> ... --save-exact=false
+<pm> add <pkg>@<new> <member1>@<v1> <member2>@<v2> ...   # npm: npm install ...
 ```
+(`npm view` works for registry metadata regardless of which manager owns the lockfile.)
 Do NOT use `--legacy-peer-deps` or `--force` to make it "work" — those hide the
 exact problem this skill exists to prevent. An ERESOLVE at this step means the
 cohort is incomplete: read the error (it names the dependent), add it, repeat.
 
 If a transitive (non-manifest) package is the blocker and has no compatible
-release, add a targeted `overrides` (npm) / `resolutions` (yarn) entry and
+release, add a targeted `overrides` (npm) / `resolutions` (yarn) / `pnpm.overrides` entry and
 leave a one-line PR note explaining why.
 
 ### 4. Verify — nothing missed
 ```bash
 node .agents/skills/dependency-upgrade/scripts/find-dependents.mjs <pkg> --check   # exits 1 on unsatisfied ranges
-npm ls --all >/dev/null                                                              # non-zero = invalid/missing/peer problems
-rm -rf node_modules && npm ci                                                         # proves the lockfile is self-consistent
+<pm validate tree>          # npm ls --all / yarn check --integrity; non-zero = invalid/missing/peer problems
+rm -rf node_modules && <pm clean install>   # npm ci / yarn install --frozen-lockfile; proves the lockfile is self-consistent
 npm run lint && npm run build && CHROME_BIN=$(find /opt/.devin/chrome -name chrome -type f | head -1) npm test -- --watch=false
 ```
 Also grep the source for API changes called out in the target's changelog
@@ -111,8 +123,9 @@ see nothing was skipped.
 ## Quick checklist
 - [ ] `find-dependents` run for every target; cohort written down before editing
 - [ ] `npm view <pkg>@<new> peerDependencies` reviewed
-- [ ] All cohort members bumped in ONE `npm install`, no `--force`/`--legacy-peer-deps`
-- [ ] `find-dependents --check` and `npm ls --all` clean
-- [ ] `npm ci` from scratch + lint + build + test green
+- [ ] Package manager chosen from the tracked lockfile; no second lockfile created
+- [ ] All cohort members bumped in ONE add/install, no `--force`/`--legacy-peer-deps`
+- [ ] `find-dependents --check` and tree validation clean
+- [ ] Frozen-lockfile clean install + lint + build + test green
 - [ ] Only the repo's tracked lockfile changed
 - [ ] PR lists cohort table + rationale

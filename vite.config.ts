@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifestFilename: 'manifest.webmanifest',
-      includeAssets: ['favicon.ico', 'assets/**/*'],
+      includeManifestIcons: false,
       manifest: {
         name: 'Angular 2 HN',
         short_name: 'Angular 2 HN',

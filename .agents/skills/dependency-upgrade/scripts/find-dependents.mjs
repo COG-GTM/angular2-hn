@@ -28,7 +28,7 @@ const manifestDeps = {
 const mayBeAbsent = new Set([
     ...Object.keys(manifest.optionalDependencies ?? {}),
     ...Object.keys(manifest.peerDependencies ?? {}),
-]);
+].filter((name) => !(name in (manifest.dependencies ?? {})) && !(name in (manifest.devDependencies ?? {}))));
 
 const require = createRequire(resolve(root, 'package.json'));
 let semver = null;

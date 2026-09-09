@@ -24,6 +24,11 @@ const manifestDeps = {
     ...manifest.optionalDependencies,
     ...manifest.peerDependencies,
 };
+// sections whose entries may legitimately be absent from node_modules
+const mayBeAbsent = new Set([
+    ...Object.keys(manifest.optionalDependencies ?? {}),
+    ...Object.keys(manifest.peerDependencies ?? {}),
+]);
 
 const require = createRequire(resolve(root, 'package.json'));
 let semver = null;
@@ -48,7 +53,8 @@ const rows = [];
 for (const name of Object.keys(manifestDeps).sort()) {
     const meta = installedPkg(name);
     if (!meta) {
-        rows.push({ dependent: name, kind: 'NOT INSTALLED', target: '-', range: '-', status: 'unknown (not installed)' });
+        const status = mayBeAbsent.has(name) ? 'skipped (optional/peer not installed)' : 'unknown (not installed)';
+        rows.push({ dependent: name, kind: 'NOT INSTALLED', target: '-', range: '-', status });
         continue;
     }
     for (const [kind, obj] of [

@@ -109,7 +109,7 @@ leave a one-line PR note explaining why.
 node .agents/skills/dependency-upgrade/scripts/find-dependents.mjs <pkg> --check   # exits 1 on unsatisfied ranges
 <pm validate tree>          # npm ls --all / yarn check --integrity; non-zero = invalid/missing/peer problems
 rm -rf node_modules && <pm clean install>   # npm ci / yarn install --frozen-lockfile; proves the lockfile is self-consistent
-npm run lint && npm run build && CHROME_BIN=$(find /opt/.devin/chrome -name chrome -type f | head -1) npm test -- --watch=false
+<pm> run lint && <pm> run build && CHROME_BIN=$(find /opt/.devin/chrome -name chrome -type f | head -1) <pm> test -- --watch=false   # yarn: drop the extra `--`
 ```
 Also grep the source for API changes called out in the target's changelog
 (`npm view <pkg>@<new> homepage`, then CHANGELOG / migration guide).

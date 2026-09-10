@@ -209,7 +209,7 @@ Data models live in `src/app/shared/models/`: `Story` (id, title, url, points, u
 - `openLinkInNewTab` - whether story links open in a new tab
 - `showSettings` - visibility of the settings panel
 
-All preferences are persisted to `localStorage`. If no theme has been saved, the service listens to the `prefers-color-scheme` media query and automatically picks `night` or `default` to follow the operating system, and switches when the system preference changes.
+All preferences are persisted to `localStorage`. On startup, a saved theme is restored if one exists; otherwise the current `prefers-color-scheme` value picks `night` or `default`. The service always listens for changes to that media query, so a later change in the operating system's colour scheme switches the theme (and overwrites the saved one) even if a theme was selected manually.
 
 Themes are implemented in SCSS. `_themes.scss` defines a `theme()` mixin that takes a theme name and a set of colour variables and emits a `.<name>` class; `default`, `night` and `amoledblack` are generated from it, and `AppComponent` applies the active class to the page. Adding a theme is a matter of adding another `@include theme(...)` with new variables.
 
@@ -279,12 +279,12 @@ npm run lint
 
 ## Testing
 
-- **Unit tests** (Karma + Jasmine): `npm test` runs `ng test`. Spec files live next to their sources as `*.spec.ts`; the entry point is `src/test.ts` and the runner is configured in `karma.conf.js`. Use `npm test -- --watch=false` for a single headless run.
+- **Unit tests** (Karma + Jasmine): `npm test` runs `ng test`. Spec files live next to their sources as `*.spec.ts`; the entry point is `src/test.ts` and the runner is configured in `karma.conf.js`. `karma.conf.js` launches regular Chrome; use `npm test -- --watch=false --browsers=ChromeHeadless` for a single headless run.
 - **End-to-end tests** (Protractor): `npm run e2e` runs `ng e2e` using `e2e/protractor.conf.js` and the specs in `e2e/src/`.
 
 ## Deployment and CI/CD
 
-- **Firebase Hosting**: `firebase.json` serves the built app with a catch-all rewrite to `/index.html` so Angular's client-side router handles deep links, and points at `database.rules.json` for Realtime Database rules. `.firebaserc` defines two project aliases: `default` (`angular2-hn`) and `experiment` (`angular2-hn-experiment`) for sandbox deployments.
+- **Firebase Hosting**: `firebase.json` sets the hosting `public` directory to `dist` with a catch-all rewrite to `/index.html` so Angular's client-side router handles deep links, and points at `database.rules.json` for Realtime Database rules. Note that Angular CLI writes the build to `dist/angular-hnpwa`, so the `public` directory and `outputPath` must be aligned (or the build copied to `dist/`) for a deploy to serve the app. `.firebaserc` defines two project aliases: `default` (`angular2-hn`) and `experiment` (`angular2-hn-experiment`) for sandbox deployments.
 - **Travis CI**: `.travis.yml` builds only the `master` branch. It installs `firebase-tools` and `@angular/cli`, runs `npm run build`, and on success runs `firebase use default` followed by `firebase deploy --token $FIREBASE_TOKEN`. `FIREBASE_TOKEN` is provided as an encrypted Travis environment variable.
 
 ## Glossary

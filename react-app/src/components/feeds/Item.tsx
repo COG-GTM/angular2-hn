@@ -44,7 +44,7 @@ export default function Item({ item }: ItemProps) {
             <div className="subtext-palm">
                 {item.type !== 'job' && (
                     <div className="details">
-                        <span className="name">
+                        <span>
                             <NavLink to={`/user/${item.user}`} className={activeClass}>
                                 {item.user}
                             </NavLink>

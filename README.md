@@ -1,88 +1,65 @@
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
+# Angular 2 HN
 
-<p align="center">
-  A progressive Hacker News client built with Angular
-</p>
+A progressive Hacker News client built with React, TypeScript, and Vite.
 
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
+The app provides Hacker News feeds, item details, comments, user pages, configurable themes, and an installable PWA experience.
 
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
-</p>
+## Features
 
----
+- Responsive layouts for mobile and laptop screens.
+- News, newest, show, ask, and jobs feeds.
+- Item comments and user profile views.
+- Default, night, and AMOLED black themes.
+- Workbox-powered service worker and web app manifest generated during the Vite build.
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+## Prerequisites
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+- Node.js 20 or newer
+- npm
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+## Development
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+From the repository root:
 
-## Mobile Preview
+```sh
+cd react-app
+npm install
+npm run dev
+```
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+The development server runs at [http://localhost:5173](http://localhost:5173).
 
-## Laptop Preview
+## Build and verification
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+Run these commands from `react-app/`:
 
-## Offline Support
+```sh
+npm run build
+npm run preview
+npm run lint
+npm test
+npm run format
+npm run format:check
+```
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+`npm run build` creates the production bundle in `react-app/dist`. `npm run preview` serves that bundle locally.
 
-## Manifest
+## Progressive Web App
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+The production build uses `vite-plugin-pwa` and Workbox to generate the service worker and web app manifest. The generated app can be installed from browsers that support Progressive Web Apps.
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+## Firebase deployment
 
-## Themes
+Firebase Hosting serves `react-app/dist` and rewrites application routes to the React entry point. To deploy manually after building:
 
-Built in theme engine!
+```sh
+cd react-app
+npm run build
+cd ..
+firebase deploy --token "$FIREBASE_TOKEN"
+```
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
-
-More to come!
-
-## Areas of improvement
-
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
-
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
-
-## Build process
-
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Continuous integration runs the React lint, test, and build commands before deploying successful builds from the configured branch.
 
 ## Contributors
 

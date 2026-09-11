@@ -11,7 +11,14 @@ function Probe() {
 describe('Settings', () => {
     it('persists selected theme', () => {
         localStorage.clear();
-        render(<MemoryRouter><SettingsProvider><Settings /><Probe /></SettingsProvider></MemoryRouter>);
+        render(
+            <MemoryRouter>
+                <SettingsProvider>
+                    <Settings />
+                    <Probe />
+                </SettingsProvider>
+            </MemoryRouter>
+        );
         fireEvent.click(screen.getByLabelText('Night'));
         expect(localStorage.getItem('theme')).toBe('night');
         expect(screen.getByTestId('theme')).toHaveTextContent('night');

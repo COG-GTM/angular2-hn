@@ -19,7 +19,7 @@ function initialSettings(): Settings {
     return {
         showSettings: false,
         openLinkInNewTab: localStorage.getItem('openLinkInNewTab')
-            ? JSON.parse(localStorage.getItem('openLinkInNewTab') as string) as boolean
+            ? (JSON.parse(localStorage.getItem('openLinkInNewTab') as string) as boolean)
             : false,
         theme,
         titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
@@ -40,24 +40,28 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         media.addEventListener?.('change', handler);
         return () => media.removeEventListener?.('change', handler);
     }, []);
-    const value = useMemo<SettingsContextValue>(() => ({
-        settings,
-        toggleSettings: () => setSettings((current) => ({ ...current, showSettings: !current.showSettings })),
-        toggleOpenLinksInNewTab: () => setSettings((current) => {
-            const openLinkInNewTab = !current.openLinkInNewTab;
-            localStorage.setItem('openLinkInNewTab', JSON.stringify(openLinkInNewTab));
-            return { ...current, openLinkInNewTab };
+    const value = useMemo<SettingsContextValue>(
+        () => ({
+            settings,
+            toggleSettings: () => setSettings((current) => ({ ...current, showSettings: !current.showSettings })),
+            toggleOpenLinksInNewTab: () =>
+                setSettings((current) => {
+                    const openLinkInNewTab = !current.openLinkInNewTab;
+                    localStorage.setItem('openLinkInNewTab', JSON.stringify(openLinkInNewTab));
+                    return { ...current, openLinkInNewTab };
+                }),
+            setTheme,
+            setFont: (titleFontSize: string) => {
+                localStorage.setItem('titleFontSize', titleFontSize);
+                setSettings((current) => ({ ...current, titleFontSize }));
+            },
+            setSpacing: (listSpacing: string) => {
+                localStorage.setItem('listSpacing', listSpacing);
+                setSettings((current) => ({ ...current, listSpacing }));
+            },
         }),
-        setTheme,
-        setFont: (titleFontSize: string) => {
-            localStorage.setItem('titleFontSize', titleFontSize);
-            setSettings((current) => ({ ...current, titleFontSize }));
-        },
-        setSpacing: (listSpacing: string) => {
-            localStorage.setItem('listSpacing', listSpacing);
-            setSettings((current) => ({ ...current, listSpacing }));
-        },
-    }), [settings]);
+        [settings]
+    );
     return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;
 }
 

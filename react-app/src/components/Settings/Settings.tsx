@@ -3,27 +3,93 @@ import './Settings.scss';
 
 export function Settings() {
     const { settings, toggleSettings, toggleOpenLinksInNewTab, setTheme, setFont, setSpacing } = useSettings();
+    const handleCloseKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleSettings();
+        }
+    };
     return (
         <div id="popup1" className="overlay">
             <div className="popup">
-                <h1>Settings</h1><hr />
-                <button className="close" onClick={toggleSettings} aria-label="Close settings">&times;</button>
+                <h1>Settings</h1>
+                <hr />
+                <span
+                    className="close"
+                    role="button"
+                    tabIndex={0}
+                    onClick={toggleSettings}
+                    onKeyDown={handleCloseKeyDown}
+                    aria-label="Close settings"
+                >
+                    &times;
+                </span>
                 <div className="content">
                     <div className="control-section">
                         <h2>Links</h2>
-                        <label><input type="checkbox" checked={settings.openLinkInNewTab} onChange={toggleOpenLinksInNewTab} /> Open links in a new tab</label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={settings.openLinkInNewTab}
+                                onChange={toggleOpenLinksInNewTab}
+                            />{' '}
+                            Open links in a new tab
+                        </label>
                     </div>
                     <div className="theme-controls">
                         <div className="control-section">
                             <h2>Select a theme</h2>
-                            <label><input name="theme" type="radio" value="default" checked={settings.theme === 'default'} onChange={() => setTheme('default')} /> Default</label>
-                            <label><input name="theme" type="radio" value="night" checked={settings.theme === 'night'} onChange={() => setTheme('night')} /> Night</label>
-                            <label><input name="theme" type="radio" value="amoledblack" checked={settings.theme === 'amoledblack'} onChange={() => setTheme('amoledblack')} /> Black (AMOLED)</label>
+                            <label>
+                                <input
+                                    name="theme"
+                                    type="radio"
+                                    value="default"
+                                    checked={settings.theme === 'default'}
+                                    onChange={() => setTheme('default')}
+                                />{' '}
+                                Default
+                            </label>
+                            <label>
+                                <input
+                                    name="theme"
+                                    type="radio"
+                                    value="night"
+                                    checked={settings.theme === 'night'}
+                                    onChange={() => setTheme('night')}
+                                />{' '}
+                                Night
+                            </label>
+                            <label>
+                                <input
+                                    name="theme"
+                                    type="radio"
+                                    value="amoledblack"
+                                    checked={settings.theme === 'amoledblack'}
+                                    onChange={() => setTheme('amoledblack')}
+                                />{' '}
+                                Black (AMOLED)
+                            </label>
                         </div>
                         <div className="control-section">
                             <h2>Change Font</h2>
-                            <label>Font size: <input min="1" value={settings.titleFontSize} type="number" onChange={(event) => setFont(event.target.value)} /></label>
-                            <label>List spacing: <input min="0" value={settings.listSpacing} type="number" onChange={(event) => setSpacing(event.target.value)} /></label>
+                            <label>
+                                Font size:{' '}
+                                <input
+                                    min="1"
+                                    value={settings.titleFontSize}
+                                    type="number"
+                                    onChange={(event) => setFont(event.target.value)}
+                                />
+                            </label>
+                            <label>
+                                List spacing:{' '}
+                                <input
+                                    min="0"
+                                    value={settings.listSpacing}
+                                    type="number"
+                                    onChange={(event) => setSpacing(event.target.value)}
+                                />
+                            </label>
                         </div>
                     </div>
                 </div>

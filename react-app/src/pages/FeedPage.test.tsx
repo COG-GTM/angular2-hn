@@ -7,8 +7,30 @@ import type { Story } from '../types';
 import { FeedPage } from './FeedPage';
 
 vi.mock('../services/hackerNewsApi');
-const makeStory = (id: number): Story => ({ id, title: `Title ${id}`, points: 1, user: 'u', time: 0, time_ago: 'now', type: 'story', url: '', comments: [], comments_count: 0, poll: [], poll_votes_count: 0, deleted: false, dead: false });
-const renderPage = () => render(<MemoryRouter initialEntries={['/news/1']}><SettingsProvider><FeedPage feedType="news" /></SettingsProvider></MemoryRouter>);
+const makeStory = (id: number): Story => ({
+    id,
+    title: `Title ${id}`,
+    points: 1,
+    user: 'u',
+    time: 0,
+    time_ago: 'now',
+    type: 'story',
+    url: '',
+    comments: [],
+    comments_count: 0,
+    poll: [],
+    poll_votes_count: 0,
+    deleted: false,
+    dead: false,
+});
+const renderPage = () =>
+    render(
+        <MemoryRouter initialEntries={['/news/1']}>
+            <SettingsProvider>
+                <FeedPage feedType="news" />
+            </SettingsProvider>
+        </MemoryRouter>
+    );
 
 describe('FeedPage', () => {
     beforeEach(() => vi.resetAllMocks());

@@ -15,9 +15,7 @@ export function fetchFeed(feedType: string, page: number, signal?: AbortSignal):
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await getJson<Story>(`${BASE_URL}/item/${id}`, signal);
     if (story.type === 'poll' && story.poll?.length) {
-        const results = await Promise.all(
-            story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal)),
-        );
+        const results = await Promise.all(story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal)));
         story.poll = results;
         story.poll_votes_count = results.reduce((sum, result) => sum + result.points, 0);
     }

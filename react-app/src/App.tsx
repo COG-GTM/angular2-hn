@@ -8,7 +8,9 @@ import { FeedPage } from './pages/FeedPage';
 import type { FeedName } from './types';
 import './styles/global.scss';
 
-const LazyItemDetailsPage = lazy(() => import('./pages/ItemDetailsPage').then((module) => ({ default: module.ItemDetailsPage })));
+const LazyItemDetailsPage = lazy(() =>
+    import('./pages/ItemDetailsPage').then((module) => ({ default: module.ItemDetailsPage }))
+);
 const LazyUserPage = lazy(() => import('./pages/UserPage').then((module) => ({ default: module.UserPage })));
 const feedNames: FeedName[] = ['news', 'newest', 'show', 'ask', 'jobs'];
 
@@ -22,19 +24,56 @@ function Analytics() {
 }
 
 export function AppRoutes() {
-    return <Routes>
-        <Route path="/" element={<Navigate to="/news/1" replace />} />
-        {feedNames.map((feed) => <Route key={feed} path={`/${feed}`}><Route index element={<Navigate to={`/${feed}/1`} replace />} /><Route path=":page" element={<FeedPage feedType={feed} />} /></Route>)}
-        <Route path="/item/:id" element={<Suspense fallback={<Loader />}><LazyItemDetailsPage /></Suspense>} />
-        <Route path="/user/:id" element={<Suspense fallback={<Loader />}><LazyUserPage /></Suspense>} />
-    </Routes>;
+    return (
+        <Routes>
+            <Route path="/" element={<Navigate to="/news/1" replace />} />
+            {feedNames.map((feed) => (
+                <Route key={feed} path={`/${feed}`}>
+                    <Route index element={<Navigate to={`/${feed}/1`} replace />} />
+                    <Route path=":page" element={<FeedPage feedType={feed} />} />
+                </Route>
+            ))}
+            <Route
+                path="/item/:id"
+                element={
+                    <Suspense fallback={<Loader />}>
+                        <LazyItemDetailsPage />
+                    </Suspense>
+                }
+            />
+            <Route
+                path="/user/:id"
+                element={
+                    <Suspense fallback={<Loader />}>
+                        <LazyUserPage />
+                    </Suspense>
+                }
+            />
+        </Routes>
+    );
 }
 
 export function AppShell() {
     const { settings } = useSettings();
-    return <div className={settings.theme}><div className="body-cover" /><div className="wrapper"><Header /><AppRoutes /><Footer /></div><Analytics /></div>;
+    return (
+        <div className={settings.theme}>
+            <div className="body-cover" />
+            <div className="wrapper">
+                <Header />
+                <AppRoutes />
+                <Footer />
+            </div>
+            <Analytics />
+        </div>
+    );
 }
 
 export default function App() {
-    return <SettingsProvider><BrowserRouter><AppShell /></BrowserRouter></SettingsProvider>;
+    return (
+        <SettingsProvider>
+            <BrowserRouter>
+                <AppShell />
+            </BrowserRouter>
+        </SettingsProvider>
+    );
 }

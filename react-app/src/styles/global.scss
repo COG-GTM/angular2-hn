@@ -1,14 +1,14 @@
-@import "./_themes";
+@import './_themes';
 
 html {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 body {
-  margin: 0;
-  height: 100%;
-  width: 100%;
+    margin: 0;
+    height: 100%;
+    width: 100%;
 }
 
 pre {
@@ -29,9 +29,9 @@ pre {
 }
 
 @media screen and (max-width: 768px) {
-  .app-loader {
-    background-color: #fff;
-  }
+    .app-loader {
+        background-color: #fff;
+    }
 }
 
 #root:empty + .app-loader {

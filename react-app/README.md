@@ -6,6 +6,8 @@ Angular code is modified by this app.
 
 ## Run
 
+Requires Node 20.19+ or 22.12+ (Vite 8 / oxlint).
+
 ```bash
 cd react-app
 npm install

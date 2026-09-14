@@ -1,4 +1,4 @@
-import type { PollResult, Story, User } from '../models'
+import type { FeedItem, PollResult, Story, User } from '../models'
 
 export type FeedName = 'news' | 'newest' | 'show' | 'ask' | 'jobs'
 
@@ -12,8 +12,8 @@ async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T
 }
 
-export function fetchFeed(feedType: FeedName, page: number, init?: RequestInit): Promise<Story[]> {
-  return fetchJson<Story[]>(`${BASE_URL}/${feedType}?page=${page}`, init)
+export function fetchFeed(feedType: FeedName, page: number, init?: RequestInit): Promise<FeedItem[]> {
+  return fetchJson<FeedItem[]>(`${BASE_URL}/${feedType}?page=${page}`, init)
 }
 
 export function fetchPollContent(id: number, init?: RequestInit): Promise<PollResult> {

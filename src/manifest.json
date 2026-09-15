@@ -22,7 +22,7 @@
             "type": "image\/png"
         }
     ],
-    "theme_color": "#b92b27",
+    "theme_color": "#1565c0",
     "background_color": "#ffffff",
     "display": "standalone",
     "orientation": "portrait",

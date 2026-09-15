@@ -5,6 +5,7 @@ import { PollResult } from './poll-result';
 export interface Story {
     id: number;
     title: string;
+    content?: string;
     points: number;
     user: string;
     time: number;

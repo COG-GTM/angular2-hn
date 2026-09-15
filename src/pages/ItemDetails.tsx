@@ -7,13 +7,11 @@ import type { Story } from '../models';
 import { formatComments } from '../utils/formatComments';
 import './ItemDetails.scss';
 
-type ItemContent = Story & { content?: string };
-
 export function ItemDetails() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { settings } = useSettings();
-    const [item, setItem] = useState<ItemContent | null>(null);
+    const [item, setItem] = useState<Story | null>(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {

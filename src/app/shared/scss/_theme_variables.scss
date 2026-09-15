@@ -12,7 +12,7 @@ $theme-day-text-color: #0d2b4e;
 $theme-day-subtext-color: #5a6b80;
 $theme-day-secondary-color: #1565c0;
 $theme-day-header-background-color: $theme-day-secondary-color;
-$theme-day-logo-inner: #fff;
+$theme-day-logo-inner: $theme-day-secondary-color;
 
 // Day theme extras
 $theme-day-border: 2px solid #1565c0;

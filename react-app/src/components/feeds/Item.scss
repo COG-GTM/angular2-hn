@@ -1,7 +1,8 @@
 @import "../../styles/media";
 @import "../../styles/theme_variables";
 
-p {
+.item-content {
+  p {
     margin: 2px 0;
 
     @media #{$mobile-only} {

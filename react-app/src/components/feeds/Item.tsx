@@ -26,7 +26,7 @@ export default function Item({ item }: ItemProps) {
         : {};
 
     return (
-        <div style={{ marginBottom: `${settings.listSpacing}px` }}>
+        <div className="item-content" style={{ marginBottom: `${settings.listSpacing}px` }}>
             {hasUrl(item) ? (
                 <p>
                     <a className="title" style={titleStyle} href={item.url} {...newTabProps}>

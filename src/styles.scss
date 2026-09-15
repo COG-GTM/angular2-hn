@@ -26,12 +26,7 @@ pre {
     top: 0;
     left: 0;
     z-index: -1;
-}
-
-@media screen and (max-width: 768px) {
-  .app-loader {
-    background-color: #fff;
-  }
+    background-color: $theme-day-header-background-color;
 }
 
 app-root:empty + .app-loader {

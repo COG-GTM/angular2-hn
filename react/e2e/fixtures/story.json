@@ -1,0 +1,46 @@
+{
+  "id": 1001,
+  "title": "Show HN: A fast Hacker News PWA",
+  "points": 128,
+  "user": "alice",
+  "time": 1600000000,
+  "time_ago": "2 hours ago",
+  "type": "story",
+  "url": "https://example.com/pwa",
+  "domain": "example.com",
+  "content": "<p>A tiny Hacker News client.</p>",
+  "comments_count": 3,
+  "comments": [
+    {
+      "id": 2001,
+      "level": 0,
+      "user": "dave",
+      "time": 1600000300,
+      "time_ago": "1 hour ago",
+      "content": "<p>Great work!</p>",
+      "deleted": false,
+      "comments": [
+        {
+          "id": 2002,
+          "level": 1,
+          "user": "erin",
+          "time": 1600000400,
+          "time_ago": "30 minutes ago",
+          "content": "<p>Agreed, very fast.</p>",
+          "deleted": false,
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 2003,
+      "level": 0,
+      "user": "frank",
+      "time": 1600000500,
+      "time_ago": "10 minutes ago",
+      "content": "<p>How is offline handled?</p>",
+      "deleted": false,
+      "comments": []
+    }
+  ]
+}

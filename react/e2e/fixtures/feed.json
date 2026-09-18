@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1001,
+    "title": "Show HN: A fast Hacker News PWA",
+    "points": 128,
+    "user": "alice",
+    "time": 1600000000,
+    "time_ago": "2 hours ago",
+    "type": "story",
+    "url": "https://example.com/pwa",
+    "domain": "example.com",
+    "comments_count": 42
+  },
+  {
+    "id": 1002,
+    "title": "Ask HN: How do you test React apps?",
+    "points": 64,
+    "user": "bob",
+    "time": 1600000100,
+    "time_ago": "3 hours ago",
+    "type": "story",
+    "url": "item/1002",
+    "domain": "",
+    "comments_count": 1
+  },
+  {
+    "id": 1003,
+    "title": "Senior Engineer at Example Corp",
+    "points": 0,
+    "user": "carol",
+    "time": 1600000200,
+    "time_ago": "4 hours ago",
+    "type": "job",
+    "url": "https://example.com/jobs",
+    "domain": "example.com",
+    "comments_count": 0
+  }
+]

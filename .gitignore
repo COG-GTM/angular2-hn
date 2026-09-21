@@ -48,3 +48,8 @@ Thumbs.db
 # vite
 /dist
 /coverage
+
+# Playwright
+/test-results
+/playwright-report
+/blob-report

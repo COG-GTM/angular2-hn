@@ -20,6 +20,7 @@ beforeEach(() => {
     localStorage.clear();
     vi.stubGlobal('scrollTo', vi.fn());
     vi.spyOn(api, 'fetchFeed').mockResolvedValue([]);
+    vi.spyOn(api, 'fetchItemContent').mockReturnValue(new Promise(() => {}));
 });
 
 afterEach(() => {
@@ -38,7 +39,8 @@ describe('AppRoutes', () => {
     it('renders item details', () => {
         const { container } = renderAt('/item/123');
 
-        expect(container.querySelector('.item-details')).toBeInTheDocument();
+        expect(container.querySelector('.main-content')).toBeInTheDocument();
+        expect(api.fetchItemContent).toHaveBeenCalledWith(123, expect.any(AbortSignal));
     });
 
     it('renders a user profile', () => {

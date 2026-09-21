@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React, TypeScript and Vite
 </p>
 
 <p align="center">
@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
 </p>
 
 ---
@@ -43,7 +42,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [Workbox](https://workboxjs.org/) (through [`vite-plugin-pwa`](https://vite-pwa-org.netlify.app/)) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
@@ -73,16 +72,17 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the Vite dev server on `localhost:4200`, or `npm run build` to produce a production build in `dist/`
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: the service worker is only generated for production builds, so service worker changes are not reflected by the dev server. To test them, run `npm run build` followed by `npm run preview`.
+
+## Tests
+
+ - `npm test` runs the unit tests (Vitest + React Testing Library)
+ - `npm run test:coverage` runs them with a coverage report (80% threshold)
+ - `npm run lint` and `npm run typecheck` for ESLint and TypeScript
 
 ## Contributors
 

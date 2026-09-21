@@ -25,9 +25,6 @@ export default defineConfig({
             exclude: [
                 'src/app/**',
                 'src/environments/**',
-                'src/main.ts',
-                'src/polyfills.ts',
-                'src/test.ts',
                 'src/main.tsx',
                 'src/test/**',
                 'src/**/*.d.ts',

@@ -1,11 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import * as api from './api/hackernews';
 import App from './App';
 
 beforeEach(() => {
     localStorage.clear();
     window.history.pushState({}, '', '/');
+    vi.stubGlobal('scrollTo', vi.fn());
+    vi.spyOn(api, 'fetchFeed').mockResolvedValue([]);
+});
+
+afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
 });
 
 describe('App', () => {

@@ -1,22 +1,38 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import * as api from './api/hackernews';
 import { AppRoutes } from './AppRoutes';
+import { SettingsProvider } from './context';
 
 function renderAt(path: string) {
     return render(
         <MemoryRouter initialEntries={[path]}>
-            <AppRoutes />
+            <SettingsProvider>
+                <AppRoutes />
+            </SettingsProvider>
         </MemoryRouter>
     );
 }
+
+beforeEach(() => {
+    localStorage.clear();
+    vi.stubGlobal('scrollTo', vi.fn());
+    vi.spyOn(api, 'fetchFeed').mockResolvedValue([]);
+});
+
+afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+});
 
 describe('AppRoutes', () => {
     it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed with its feed type', (feedType) => {
         const { container } = renderAt(`/${feedType}/2`);
 
-        expect(container.querySelector('.news-list')).toHaveAttribute('data-feed-type', feedType);
+        expect(container.querySelector('.main-content')).toBeInTheDocument();
+        expect(api.fetchFeed).toHaveBeenCalledWith(feedType, 2, expect.any(AbortSignal));
     });
 
     it('renders item details', () => {
@@ -32,8 +48,8 @@ describe('AppRoutes', () => {
     });
 
     it('redirects the root path to the first news page', () => {
-        const { container } = renderAt('/');
+        renderAt('/');
 
-        expect(container.querySelector('.news-list')).toHaveAttribute('data-feed-type', 'news');
+        expect(api.fetchFeed).toHaveBeenCalledWith('news', 1, expect.any(AbortSignal));
     });
 });

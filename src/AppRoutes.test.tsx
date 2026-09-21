@@ -21,6 +21,7 @@ beforeEach(() => {
     vi.stubGlobal('scrollTo', vi.fn());
     vi.spyOn(api, 'fetchFeed').mockResolvedValue([]);
     vi.spyOn(api, 'fetchItemContent').mockReturnValue(new Promise(() => {}));
+    vi.spyOn(api, 'fetchUser').mockReturnValue(new Promise(() => {}));
 });
 
 afterEach(() => {
@@ -46,7 +47,8 @@ describe('AppRoutes', () => {
     it('renders a user profile', () => {
         const { container } = renderAt('/user/pg');
 
-        expect(container.querySelector('.user-profile')).toBeInTheDocument();
+        expect(container.querySelector('.loading-section')).toBeInTheDocument();
+        expect(api.fetchUser).toHaveBeenCalledWith('pg', expect.any(AbortSignal));
     });
 
     it('redirects the root path to the first news page', () => {

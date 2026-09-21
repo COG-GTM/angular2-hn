@@ -48,3 +48,11 @@ Thumbs.db
 # vite
 /dist
 /coverage
+
+# Playwright
+/test-results
+/playwright-report
+/blob-report
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo

@@ -53,3 +53,6 @@ Thumbs.db
 /test-results
 /playwright-report
 /blob-report
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo

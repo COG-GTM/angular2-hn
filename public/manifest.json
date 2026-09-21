@@ -1,7 +1,8 @@
 {
     "name": "Angular 2 HN",
     "short_name": "Angular 2 HN",
-    "icons": [{
+    "icons": [
+        {
             "src": "assets/icons/android-chrome-144x144.png",
             "sizes": "144x144",
             "type": "image\/png"

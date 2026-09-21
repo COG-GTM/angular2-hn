@@ -58,16 +58,17 @@ With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN i
 Built in theme engine!
 
 Current themes:
-* Default
-* Night
-* Black (AMOLED)
+
+- Default
+- Night
+- Black (AMOLED)
 
 More to come!
 
 ## Areas of improvement
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+- Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
+- Server side rendering
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
@@ -75,28 +76,29 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+- Clone or download the repo
+- `npm install`
+- `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
 
 Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+
+- `npm build`
+- `npm run precache` to generate the service worker file
+- `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
 
 ## Contributors
 
 A million thanks to some awesome people :)
 
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+- [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
+- [Mateusz](https://github.com/mateuszwitkowski)
+- [Jordi Collell](https://github.com/jordic)
+- [Ben Brooks](https://github.com/bbrks)
+- [Zach Berger](https://github.com/zachberger)
+- [blAck PR](https://github.com/blackpr)
+- [Bram Borggreve](https://github.com/beeman)
+- [Antonio Indrianjafy](https://github.com/Antogin)
+- [Addy Osmani](https://github.com/addyosmani)
+- [Majid Hajian](https://github.com/mhadaily)
+- [Jeff Cross](https://github.com/jeffbcross)
+- [Minko Gechev](https://github.com/mgechev)

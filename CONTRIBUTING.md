@@ -20,14 +20,14 @@ Even if you have little to no experience with React, I'll be more than happy to 
 
 ## Commands
 
-| Command                 | Description                                              |
-| ----------------------- | -------------------------------------------------------- |
-| `npm run dev`           | Start the Vite dev server on `localhost:4200`             |
-| `npm run build`         | Type check and build the production bundle                |
-| `npm test`              | Run the Vitest unit tests once                            |
-| `npm run test:coverage` | Run unit tests with coverage (80% thresholds enforced)    |
-| `npm run e2e`           | Run the Playwright end-to-end tests                       |
-| `npm run lint`          | Lint with ESLint                                          |
-| `npm run format`        | Format with Prettier                                      |
+| Command                 | Description                                            |
+| ----------------------- | ------------------------------------------------------ |
+| `npm run dev`           | Start the Vite dev server on `localhost:4200`          |
+| `npm run build`         | Type check and build the production bundle             |
+| `npm test`              | Run the Vitest unit tests once                         |
+| `npm run test:coverage` | Run unit tests with coverage (80% thresholds enforced) |
+| `npm run e2e`           | Run the Playwright end-to-end tests                    |
+| `npm run lint`          | Lint with ESLint                                       |
+| `npm run format`        | Format with Prettier                                   |
 
 If you experience a problem at any point, please don't hesitate to file an issue or send me a message!

@@ -1,8 +1,14 @@
+import { BrowserRouter } from 'react-router-dom';
+
+import { AppShell } from './AppShell';
+import { SettingsProvider } from './context';
+
 export default function App() {
     return (
-        <div className="default">
-            <div className="body-cover"></div>
-            <div className="wrapper"></div>
-        </div>
+        <BrowserRouter>
+            <SettingsProvider>
+                <AppShell />
+            </SettingsProvider>
+        </BrowserRouter>
     );
 }

@@ -89,7 +89,9 @@ Note: the service worker is only generated for production builds. To test servic
 
 - `npm test` runs the Vitest + React Testing Library unit tests
 - `npm run test:coverage` runs them with coverage (80% thresholds enforced, also in CI)
-- `npm run e2e` runs the Playwright end-to-end tests
+- `npm run e2e` runs the Playwright end-to-end tests against a production preview build (run `npx playwright install chromium` once first). The suite stubs the Hacker News API so runs are deterministic.
+
+Unit tests, coverage and the e2e suite all run in CI.
 
 ## Contributors
 

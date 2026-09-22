@@ -27,6 +27,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,xml}'],
+        globIgnores: ['ngsw-worker.js'],
         navigateFallback: 'index.html',
         runtimeCaching: [
           {

@@ -1,0 +1,76 @@
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
+import { fetchFeed } from '../../api/hackernews';
+import { useFetch } from '../../api/useFetch';
+import { ErrorMessage } from '../shared/ErrorMessage';
+import { Loader } from '../shared/Loader';
+import Item from './Item';
+
+import './Feed.scss';
+
+export interface FeedProps {
+    feedType: string;
+}
+
+export function Feed({ feedType }: FeedProps) {
+    const { page } = useParams();
+    const pageNum = page ? +page : 1;
+
+    const {
+        data: items,
+        loading,
+        error,
+    } = useFetch((signal) => fetchFeed(feedType, pageNum, signal), [feedType, pageNum]);
+
+    const listStart = (pageNum - 1) * 30 + 1;
+
+    useEffect(() => {
+        if (items) {
+            window.scrollTo(0, 0);
+        }
+    }, [items]);
+
+    return (
+        <div className="main-content">
+            {loading && <Loader />}
+            {!items && !loading && error && <ErrorMessage message={`Could not load ${feedType} stories.`} />}
+
+            {items && (
+                <div>
+                    {feedType === 'jobs' && (
+                        <p className="job-header">
+                            These are jobs at startups that were funded by Y Combinator. You can also get a job at a YC
+                            startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
+                        </p>
+                    )}
+                    {feedType !== 'new' && (
+                        <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
+                            {items.map((item) => (
+                                <li key={item.id} className="post">
+                                    <div className="item-block">
+                                        <Item item={item} />
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                    <div className="nav">
+                        {listStart !== 1 && (
+                            <Link to={`/${feedType}/${pageNum - 1}`} className="prev">
+                                ‹ Prev
+                            </Link>
+                        )}
+                        {items.length === 30 && (
+                            <Link to={`/${feedType}/${pageNum + 1}`} className="more">
+                                More ›
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default Feed;

@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'assets/**/*'],
+      includeManifestIcons: false,
       manifest: {
         name: 'React HN',
         short_name: 'React HN',

@@ -8,7 +8,6 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      includeAssets: ['favicon.ico', 'assets/icons/**/*', 'assets/images/**/*'],
       manifest: {
         name: 'Angular 2 HN',
         short_name: 'Angular 2 HN',
@@ -33,6 +32,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,svg,png,webp,gif,woff,woff2,xml}'],
+        dontCacheBustURLsMatching: /assets\/[^/]+-[\w-]{8,}\.(?:js|css)$/,
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
         clientsClaim: true,

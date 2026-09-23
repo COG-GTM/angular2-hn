@@ -42,7 +42,7 @@ Status values: `pending` / `in progress` / `ported`.
 | --- | --- | --- | --- | --- | --- | --- |
 | 0 | API data layer | `src/app/shared/services/hackernews-api.service.ts`, `src/app/shared/models/*` | `react/src/api/*` | — | ported | this PR |
 | 1 | shared/loader | `src/app/shared/components/loader/*` | `react/src/components/Loader` | 0 | pending | |
-| 2 | shared/error-message | `src/app/shared/components/error-message/*` | `react/src/components/ErrorMessage` | 0 | pending | |
+| 2 | shared/error-message | `src/app/shared/components/error-message/*` | `react/src/components/ErrorMessage` | 0 | ported | [PR](https://github.com/COG-GTM/angular2-hn/pull/PRNUM) |
 | 3 | core/footer | `src/app/core/footer/*` | `react/src/components/Footer` | 0 | pending | |
 | 4 | core/settings | `src/app/core/settings/*`, `src/app/shared/services/settings.service.ts` | `react/src/settings/*` | 0 | pending | |
 | 5 | core/header | `src/app/core/header/*` | `react/src/components/Header` | 4 | pending | |
@@ -91,3 +91,4 @@ consecutive item ids following the poll id and total their points, matching
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
 | Wave 0 — scaffold + data layer | 22 | ~430 | API host/endpoint parity, poll option fan-out, route table shape, test harness config |
+| Wave 1 — shared/error-message | 6 | ~140 | SCSS reuse of the Angular `shared/scss` partials via relative `@import`, optional `message` prop parity, `vite`/`vitest` dependency dedupe needed to unbreak `npm run build` |

@@ -1,9 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { App } from './App';
 import { SettingsProvider } from './settings/SettingsContext';
+
+const { fetchFeed } = vi.hoisted(() => ({ fetchFeed: vi.fn(() => new Promise(() => {})) }));
+
+vi.mock('./api/hackerNewsApi', () => ({
+    fetchFeed,
+    fetchItemContent: vi.fn(),
+    fetchUser: vi.fn(),
+    fetchPollContent: vi.fn(),
+}));
 
 function renderAt(path: string) {
     return render(
@@ -16,12 +25,11 @@ function renderAt(path: string) {
 }
 
 describe('App routing', () => {
+    beforeEach(() => {
+        fetchFeed.mockClear();
+    });
+
     it.each([
-        ['/news/1', 'not-ported-feed:news'],
-        ['/newest/1', 'not-ported-feed:newest'],
-        ['/show/1', 'not-ported-feed:show'],
-        ['/ask/1', 'not-ported-feed:ask'],
-        ['/jobs/1', 'not-ported-feed:jobs'],
         ['/item/123', 'not-ported-item-details'],
         ['/user/pg', 'not-ported-user'],
     ])('routes %s to its component slot', (path, testId) => {
@@ -29,9 +37,17 @@ describe('App routing', () => {
         expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
+    it.each([['/news/1', 'news'], ['/newest/1', 'newest'], ['/show/1', 'show'], ['/ask/1', 'ask'], ['/jobs/1', 'jobs']])(
+        'routes %s to the feed component',
+        (path, feedType) => {
+            renderAt(path);
+            expect(fetchFeed).toHaveBeenCalledWith(feedType, 1, expect.anything());
+        }
+    );
+
     it('redirects the root path to the news feed, as the Angular router did', () => {
         renderAt('/');
-        expect(screen.getByTestId('not-ported-feed:news')).toBeInTheDocument();
+        expect(fetchFeed).toHaveBeenCalledWith('news', 1, expect.anything());
     });
 
     it('applies the active theme class to the app wrapper', () => {

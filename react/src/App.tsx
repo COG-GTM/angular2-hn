@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { Feed } from './components/feeds/Feed';
 import { NotPorted } from './components/NotPorted';
 import { useSettings } from './settings/SettingsContext';
 
@@ -18,7 +19,7 @@ export function App() {
                     {FEEDS.map((feed) => (
                         <Route key={feed} path={`/${feed}`}>
                             <Route index element={<Navigate to={`/${feed}/1`} replace />} />
-                            <Route path=":page" element={<NotPorted name={`feed:${feed}`} />} />
+                            <Route path=":page" element={<Feed />} />
                         </Route>
                     ))}
                     <Route path="/item/:id" element={<NotPorted name="item-details" />} />

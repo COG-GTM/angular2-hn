@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
 
+import { Footer } from './components/Footer';
+
 /**
- * Placeholder shell: header, footer and settings are ported in their own PRs
+ * Placeholder shell: header and settings are ported in their own PRs
  * (see docs/MIGRATION.md).
  */
 export function AppShell() {
@@ -10,6 +12,7 @@ export function AppShell() {
             <main>
                 <Outlet />
             </main>
+            <Footer />
         </div>
     );
 }

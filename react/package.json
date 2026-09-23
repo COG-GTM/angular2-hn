@@ -10,6 +10,9 @@
     "test": "vitest run",
     "preview": "vite preview"
   },
+  "overrides": {
+    "vite": "$vite"
+  },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -34,6 +34,10 @@ export interface Story {
     poll_votes_count: number;
     deleted: boolean;
     dead: boolean;
+    /** Story body HTML, present for `ask`/text posts. */
+    content?: string;
+    /** Never returned by the API; the Angular item-details template gated `.head-margin` on it. */
+    text?: string;
 }
 
 export interface User {

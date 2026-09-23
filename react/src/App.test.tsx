@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { App } from './App';
 import { SettingsProvider } from './settings/SettingsContext';
@@ -16,17 +16,29 @@ function renderAt(path: string) {
 }
 
 describe('App routing', () => {
+    beforeEach(() => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(() => new Promise(() => {}))
+        );
+    });
+
     it.each([
         ['/news/1', 'not-ported-feed:news'],
         ['/newest/1', 'not-ported-feed:newest'],
         ['/show/1', 'not-ported-feed:show'],
         ['/ask/1', 'not-ported-feed:ask'],
         ['/jobs/1', 'not-ported-feed:jobs'],
-        ['/item/123', 'not-ported-item-details'],
         ['/user/pg', 'not-ported-user'],
     ])('routes %s to its component slot', (path, testId) => {
         renderAt(path);
         expect(screen.getByTestId(testId)).toBeInTheDocument();
+    });
+
+    it('routes /item/:id to the ported item details component', () => {
+        const { container } = renderAt('/item/123');
+        expect(container.querySelector('.main-content')).toBeInTheDocument();
+        expect(screen.queryByTestId('not-ported-item-details')).not.toBeInTheDocument();
     });
 
     it('redirects the root path to the news feed, as the Angular router did', () => {

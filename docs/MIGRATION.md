@@ -46,7 +46,7 @@ Status: `pending` / `in progress` / `ported`.
 | 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | pending | |
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |
 | 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | ported | [#806](https://github.com/COG-GTM/angular2-hn/pull/806) |
-| 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | pending | |
+| 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | ported | |
 | 10 | `user` | `react/src/components/user/User.tsx` | 0 | pending | |
 | 11 | app shell cut-over (drop `NotPorted` slots, wire real components, PWA/service worker) | `react/src/App.tsx`, `react/src/main.tsx` | 3–10 | pending | |
 
@@ -78,3 +78,4 @@ name. Each component PR replaces exactly one placeholder usage and flips one man
 | --- | --- | --- | --- |
 | foundation | 24 | ~600 | Poll fetching now resolves options in parallel and no longer mutates a shared story mid-stream; `Story.time_ago` retyped `number` → `string` to match the API; `User.crated_time` typo fixed to `created_time`; theme is read from `localStorage` on first render instead of a synthetic `MediaQueryListEvent`. |
 | item-details/comment | 4 | ~130 | Angular's `:host >>>` anchor styling has no React equivalent, so it is scoped to `.meta`, `.deleted-meta` and `.comment-text` instead; comment HTML is injected with `dangerouslySetInnerHTML` exactly as the Angular template used `[innerHTML]`, so the API's HTML stays trusted, as it was in Angular. |
+| item-details | 6 | ~180 | `Location.back()` → `useNavigate()(-1)`; the single Angular error string `Could not load item comments.` is kept for any fetch failure, so the hook's error text is not surfaced; `Story` gained optional `content` (the story body HTML the template rendered) and `text` (never returned by the API — the Angular template gated `.head-margin` on it); poll bar widths still divide by `poll_votes_count`. |

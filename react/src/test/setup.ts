@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom/vitest';
 
+// jsdom has no layout, so scrollTo is unimplemented and logs on every call.
+window.scrollTo = () => {};
+
 if (!window.matchMedia) {
     window.matchMedia = ((query: string) => ({
         matches: false,

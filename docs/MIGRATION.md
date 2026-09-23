@@ -41,7 +41,7 @@ Status values: `pending` / `in progress` / `ported`.
 | # | Component | Angular source | React target | Depends on | Status | PR |
 | --- | --- | --- | --- | --- | --- | --- |
 | 0 | API data layer | `src/app/shared/services/hackernews-api.service.ts`, `src/app/shared/models/*` | `react/src/api/*` | — | ported | this PR |
-| 1 | shared/loader | `src/app/shared/components/loader/*` | `react/src/components/Loader` | 0 | ported | [#PRNUM](https://github.com/COG-GTM/angular2-hn/pull/PRNUM) |
+| 1 | shared/loader | `src/app/shared/components/loader/*` | `react/src/components/Loader` | 0 | ported | [#817](https://github.com/COG-GTM/angular2-hn/pull/817) |
 | 2 | shared/error-message | `src/app/shared/components/error-message/*` | `react/src/components/ErrorMessage` | 0 | pending | |
 | 3 | core/footer | `src/app/core/footer/*` | `react/src/components/Footer` | 0 | pending | |
 | 4 | core/settings | `src/app/core/settings/*`, `src/app/shared/services/settings.service.ts` | `react/src/settings/*` | 0 | pending | |

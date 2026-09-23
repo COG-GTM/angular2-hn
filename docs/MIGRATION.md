@@ -43,7 +43,7 @@ Status: `pending` / `in progress` / `ported`.
 | 3 | `core/header` | `react/src/components/core/Header.tsx` | 0, 4 | pending | |
 | 4 | `core/settings` | `react/src/components/core/Settings.tsx` | 0 | pending | |
 | 5 | `core/footer` | `react/src/components/core/Footer.tsx` | 0 | pending | |
-| 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | pending | |
+| 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | ported | [#808](https://github.com/COG-GTM/angular2-hn/pull/808) |
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |
 | 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | pending | |
 | 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | pending | |
@@ -76,4 +76,5 @@ name. Each component PR replaces exactly one placeholder usage and flips one man
 
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
+| [#808](https://github.com/COG-GTM/angular2-hn/pull/808) (`feeds/item`) | 3 | ~145 | `hasUrl` now guards against a missing `url` instead of throwing (`item.url.indexOf` in Angular), falling back to the internal `/item/:id` link. |
 | foundation | 24 | ~600 | Poll fetching now resolves options in parallel and no longer mutates a shared story mid-stream; `Story.time_ago` retyped `number` → `string` to match the API; `User.crated_time` typo fixed to `created_time`; theme is read from `localStorage` on first render instead of a synthetic `MediaQueryListEvent`. |

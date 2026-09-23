@@ -47,7 +47,7 @@ Status: `pending` / `in progress` / `ported`.
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |
 | 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | pending | |
 | 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | pending | |
-| 10 | `user` | `react/src/components/user/User.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/PRNUM |
+| 10 | `user` | `react/src/components/user/User.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/807 |
 | 11 | app shell cut-over (drop `NotPorted` slots, wire real components, PWA/service worker) | `react/src/App.tsx`, `react/src/main.tsx` | 3–10 | pending | |
 
 Unported components are rendered by `react/src/components/NotPorted.tsx`, a placeholder keyed by component

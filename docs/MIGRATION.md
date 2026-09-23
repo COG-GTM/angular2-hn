@@ -44,7 +44,7 @@ Status values: `pending` / `in progress` / `ported`.
 | 1 | shared/loader | `src/app/shared/components/loader/*` | `react/src/components/Loader` | 0 | pending | |
 | 2 | shared/error-message | `src/app/shared/components/error-message/*` | `react/src/components/ErrorMessage` | 0 | pending | |
 | 3 | core/footer | `src/app/core/footer/*` | `react/src/components/Footer` | 0 | pending | |
-| 4 | core/settings | `src/app/core/settings/*`, `src/app/shared/services/settings.service.ts` | `react/src/settings/*` | 0 | ported | [#815](https://github.com/COG-GTM/angular2-hn/pull/815) |
+| 4 | core/settings | `src/app/core/settings/*`, `src/app/shared/services/settings.service.ts` | `react/src/settings/*` | 0 | ported | [#818](https://github.com/COG-GTM/angular2-hn/pull/818) |
 | 5 | core/header | `src/app/core/header/*` | `react/src/components/Header` | 4 | pending | |
 | 6 | feeds/item | `src/app/feeds/item/*`, `src/app/shared/pipes/comment.pipe.ts` | `react/src/components/Item` | 4 | pending | |
 | 7 | item-details/comment | `src/app/item-details/comment/*` | `react/src/components/Comment` | 4 | pending | |

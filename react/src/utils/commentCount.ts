@@ -1,0 +1,7 @@
+/** Port of the Angular `comment` pipe: pluralises a comment count, "discuss" when empty. */
+export function commentCount(count: number): string {
+    if (count > 0) {
+        return `${count} ${count === 1 ? 'comment' : 'comments'}`;
+    }
+    return 'discuss';
+}

@@ -45,7 +45,7 @@ Status: `pending` / `in progress` / `ported`.
 | 5 | `core/footer` | `react/src/components/core/Footer.tsx` | 0 | pending | |
 | 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | pending | |
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |
-| 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | pending | |
+| 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | ported | |
 | 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | pending | |
 | 10 | `user` | `react/src/components/user/User.tsx` | 0 | pending | |
 | 11 | app shell cut-over (drop `NotPorted` slots, wire real components, PWA/service worker) | `react/src/App.tsx`, `react/src/main.tsx` | 3–10 | pending | |
@@ -77,3 +77,4 @@ name. Each component PR replaces exactly one placeholder usage and flips one man
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
 | foundation | 24 | ~600 | Poll fetching now resolves options in parallel and no longer mutates a shared story mid-stream; `Story.time_ago` retyped `number` → `string` to match the API; `User.crated_time` typo fixed to `created_time`; theme is read from `localStorage` on first render instead of a synthetic `MediaQueryListEvent`. |
+| item-details/comment | 4 | ~130 | Angular's `:host >>>` anchor styling has no React equivalent, so it is scoped to `.meta`, `.deleted-meta` and `.comment-text` instead; comment HTML is injected with `dangerouslySetInnerHTML` exactly as the Angular template used `[innerHTML]`, so the API's HTML stays trusted, as it was in Angular. |

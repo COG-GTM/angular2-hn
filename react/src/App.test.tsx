@@ -34,6 +34,12 @@ describe('App routing', () => {
         expect(screen.getByTestId('not-ported-feed:news')).toBeInTheDocument();
     });
 
+    it('renders the ported footer instead of a placeholder', () => {
+        const { container } = renderAt('/news/1');
+        expect(container.querySelector('#footer')).toBeInTheDocument();
+        expect(screen.queryByTestId('not-ported-footer')).not.toBeInTheDocument();
+    });
+
     it('applies the active theme class to the app wrapper', () => {
         const { container } = renderAt('/news/1');
         expect(container.querySelector('.default')).toBeInTheDocument();

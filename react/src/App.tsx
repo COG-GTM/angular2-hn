@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { Footer } from './components/core/Footer';
 import { NotPorted } from './components/NotPorted';
 import { useSettings } from './settings/SettingsContext';
 
@@ -24,7 +25,7 @@ export function App() {
                     <Route path="/item/:id" element={<NotPorted name="item-details" />} />
                     <Route path="/user/:id" element={<NotPorted name="user" />} />
                 </Routes>
-                <NotPorted name="footer" />
+                <Footer />
             </div>
         </div>
     );

@@ -41,7 +41,7 @@ Status: `pending` / `in progress` / `ported`.
 | 1 | `shared/components/loader` | `react/src/components/shared/Loader.tsx` | 0 | ported | foundation |
 | 2 | `shared/components/error-message` | `react/src/components/shared/ErrorMessage.tsx` | 0 | ported | foundation |
 | 3 | `core/header` | `react/src/components/core/Header.tsx` | 0, 4 | pending | |
-| 4 | `core/settings` | `react/src/components/core/Settings.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/PENDING |
+| 4 | `core/settings` | `react/src/components/core/Settings.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/805 |
 | 5 | `core/footer` | `react/src/components/core/Footer.tsx` | 0 | pending | |
 | 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | pending | |
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |

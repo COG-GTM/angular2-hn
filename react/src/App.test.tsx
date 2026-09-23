@@ -34,6 +34,11 @@ describe('App routing', () => {
         expect(screen.getByTestId('not-ported-feed:news')).toBeInTheDocument();
     });
 
+    it('renders the ported header above the routed content', () => {
+        const { container } = renderAt('/news/1');
+        expect(container.querySelector('#header a.home-link')).toHaveAttribute('href', '/news/1');
+    });
+
     it('applies the active theme class to the app wrapper', () => {
         const { container } = renderAt('/news/1');
         expect(container.querySelector('.default')).toBeInTheDocument();

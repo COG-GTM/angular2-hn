@@ -40,7 +40,7 @@ Status: `pending` / `in progress` / `ported`.
 | 0 | `shared/models/*`, `shared/services/hackernews-api.service.ts`, `shared/services/settings.service.ts`, `shared/pipes/comment.pipe.ts`, `app.routes.ts` | `react/src/models`, `react/src/api`, `react/src/settings`, `react/src/utils`, `react/src/App.tsx` | — | ported | foundation |
 | 1 | `shared/components/loader` | `react/src/components/shared/Loader.tsx` | 0 | ported | foundation |
 | 2 | `shared/components/error-message` | `react/src/components/shared/ErrorMessage.tsx` | 0 | ported | foundation |
-| 3 | `core/header` | `react/src/components/core/Header.tsx` | 0, 4 | pending | |
+| 3 | `core/header` | `react/src/components/core/Header.tsx` | 0, 4 | ported | https://github.com/COG-GTM/angular2-hn/pull/PENDING |
 | 4 | `core/settings` | `react/src/components/core/Settings.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/805 |
 | 5 | `core/footer` | `react/src/components/core/Footer.tsx` | 0 | pending | |
 | 6 | `feeds/item` | `react/src/components/feeds/Item.tsx` | 0 | pending | |
@@ -76,5 +76,6 @@ name. Each component PR replaces exactly one placeholder usage and flips one man
 
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
+| core/header | 5 | ~170 | `routerLinkActive` becomes React Router `NavLink` (which supplies the `active` class itself); the `\|` separators are rendered between `<Fragment>`-wrapped links so `.header-nav`'s DOM is unchanged; asset paths are now root-relative (`/assets/images/...`). |
 | core/settings | 4 | ~150 | Theme radios are controlled `onChange` inputs instead of Angular template refs plus `(click)`; the font-size and list-spacing inputs stay uncontrolled (`defaultValue` + `onKeyUp`) to keep the Angular `(keyup)` behaviour. |
 | foundation | 24 | ~600 | Poll fetching now resolves options in parallel and no longer mutates a shared story mid-stream; `Story.time_ago` retyped `number` → `string` to match the API; `User.crated_time` typo fixed to `created_time`; theme is read from `localStorage` on first render instead of a synthetic `MediaQueryListEvent`. |

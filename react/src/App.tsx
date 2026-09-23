@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { Header } from './components/core/Header';
 import { NotPorted } from './components/NotPorted';
 import { useSettings } from './settings/SettingsContext';
 
@@ -12,7 +13,7 @@ export function App() {
         <div className={settings.theme}>
             <div className="body-cover"></div>
             <div className="wrapper">
-                <NotPorted name="header" />
+                <Header />
                 <Routes>
                     <Route path="/" element={<Navigate to="/news/1" replace />} />
                     {FEEDS.map((feed) => (

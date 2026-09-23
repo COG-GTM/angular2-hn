@@ -47,7 +47,7 @@ Status: `pending` / `in progress` / `ported`.
 | 7 | `feeds/feed` | `react/src/components/feeds/Feed.tsx` | 0, 6 | pending | |
 | 8 | `item-details/comment` | `react/src/components/item-details/Comment.tsx` | 0 | pending | |
 | 9 | `item-details` | `react/src/components/item-details/ItemDetails.tsx` | 0, 8 | pending | |
-| 10 | `user` | `react/src/components/user/User.tsx` | 0 | pending | |
+| 10 | `user` | `react/src/components/user/User.tsx` | 0 | ported | https://github.com/COG-GTM/angular2-hn/pull/PRNUM |
 | 11 | app shell cut-over (drop `NotPorted` slots, wire real components, PWA/service worker) | `react/src/App.tsx`, `react/src/main.tsx` | 3–10 | pending | |
 
 Unported components are rendered by `react/src/components/NotPorted.tsx`, a placeholder keyed by component
@@ -76,4 +76,5 @@ name. Each component PR replaces exactly one placeholder usage and flips one man
 
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
+| user | 6 | ~130 | Angular's `:host >>> pre` scoped selector became `.profile pre` (React has no view encapsulation); `about` is still injected as raw HTML (`dangerouslySetInnerHTML`), same trust assumption as the Angular `[innerHTML]` binding; the Angular template has no submissions/comments links, so none were added. |
 | foundation | 24 | ~600 | Poll fetching now resolves options in parallel and no longer mutates a shared story mid-stream; `Story.time_ago` retyped `number` → `string` to match the API; `User.crated_time` typo fixed to `created_time`; theme is read from `localStorage` on first render instead of a synthetic `MediaQueryListEvent`. |

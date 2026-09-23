@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { NotPorted } from './components/NotPorted';
+import { User } from './components/user/User';
 import { useSettings } from './settings/SettingsContext';
 
 const FEEDS = ['news', 'newest', 'show', 'ask', 'jobs'] as const;
@@ -22,7 +23,7 @@ export function App() {
                         </Route>
                     ))}
                     <Route path="/item/:id" element={<NotPorted name="item-details" />} />
-                    <Route path="/user/:id" element={<NotPorted name="user" />} />
+                    <Route path="/user/:id" element={<User />} />
                 </Routes>
                 <NotPorted name="footer" />
             </div>

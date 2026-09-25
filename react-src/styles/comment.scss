@@ -1,0 +1,12 @@
+.c-comment {
+    @import "../../src/app/item-details/comment/comment.component.scss";
+
+    a {
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

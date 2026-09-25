@@ -1,0 +1,12 @@
+/* Global styles shared by the whole app: theme engine, app shell and root layout. */
+@import "../../src/styles.scss";
+@import "../../src/app/app.component.scss";
+
+#root:empty + .app-loader {
+    opacity: 1;
+    z-index: 100;
+}
+
+#root:empty + .app-loader .logo {
+    width: 20vh;
+}

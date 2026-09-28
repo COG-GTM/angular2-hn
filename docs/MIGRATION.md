@@ -175,7 +175,7 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - React target: `react/src/item-details/ItemDetails/` — `ItemDetails()`, reads `:id`
 - Depends on: item-details/comment, shared/loader, shared/error-message
 - Status: ported
-- PR: PR_URL
+- PR: https://github.com/COG-GTM/angular2-hn/pull/838
 - ROI: files touched: `react/src/item-details/ItemDetails/{ItemDetails.tsx,ItemDetails.scss,ItemDetails.test.tsx}`.
   LOC ported: Angular 282 → React 260 (105 tsx + 155 scss; plus 227 LOC of parity tests). Review points: element
   selectors (`p`, `a`, `ul`, `li`, `.pollContent *`) are narrowed to this template's elements so they do not leak

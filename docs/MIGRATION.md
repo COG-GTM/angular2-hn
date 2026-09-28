@@ -164,9 +164,14 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/feeds/feed/` (181 LOC)
 - React target: `react/src/feeds/Feed/` — `Feed({ feedType })`, reads `:page`
 - Depends on: feeds/item, shared/loader, shared/error-message
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: PR_URL
+- ROI: files touched `react/src/feeds/Feed/{Feed.tsx,Feed.scss,Feed.test.tsx}`; LOC ported Angular 181 → React 170
+  (+177 LOC parity test, 16 tests). Review points: root `<div class="app-feed">` replaces the Angular host; the bare
+  `a` rule is scoped to `.job-header a, .nav a` (Angular encapsulation kept it off the nested items); on page/feed
+  change the loader replaces the previous list while fetching (Angular kept the stale list); the always-true
+  `feedType !== 'new'` guard on the `<ol>` and `routerLinkActive` on Prev/More (never active on the current page)
+  are dropped.
 
 ### item-details (wave 2)
 

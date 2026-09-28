@@ -1,11 +1,31 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder, ExpectedConditions } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+  navigateTo(path = '/') {
+    return browser.get(path) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+  getCurrentUrl() {
+    return browser.getCurrentUrl() as Promise<string>;
+  }
+
+  getFeedPosts(): ElementArrayFinder {
+    return element.all(by.css('app-feed li.post'));
+  }
+
+  getFirstPostTitle(): ElementFinder {
+    return this.getFeedPosts().first().element(by.css('a.title'));
+  }
+
+  getHeaderNavLinks(): ElementArrayFinder {
+    return element.all(by.css('app-header .header-nav a'));
+  }
+
+  getHeaderNavLink(text: string): ElementFinder {
+    return element(by.cssContainingText('app-header .header-nav a', text));
+  }
+
+  waitForFeed() {
+    return browser.wait(ExpectedConditions.presenceOf(this.getFeedPosts().first()), 15000, 'Feed did not load');
   }
 }

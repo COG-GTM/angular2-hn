@@ -174,9 +174,16 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/item-details/` (282 LOC incl. module)
 - React target: `react/src/item-details/ItemDetails/` — `ItemDetails()`, reads `:id`
 - Depends on: item-details/comment, shared/loader, shared/error-message
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: PR_URL
+- ROI: files touched: `react/src/item-details/ItemDetails/{ItemDetails.tsx,ItemDetails.scss,ItemDetails.test.tsx}`.
+  LOC ported: Angular 282 → React 260 (105 tsx + 155 scss; plus 227 LOC of parity tests). Review points: element
+  selectors (`p`, `a`, `ul`, `li`, `.pollContent *`) are narrowed to this template's elements so they do not leak
+  into nested `.app-comment` trees or `[innerHTML]` content (Angular's emulated encapsulation); `head-margin` is
+  dropped because it bound to `item.text`, which the model/API never provide; the loader shows again when `:id`
+  changes (Angular kept the previous item until the new one arrived); back button uses `navigate(-1)`; title,
+  user and comment-count links are `NavLink`s to keep `routerLinkActive="active"`; `item.content` and poll
+  option content are injected unsanitised via `dangerouslySetInnerHTML`.
 
 ### user (wave 2)
 

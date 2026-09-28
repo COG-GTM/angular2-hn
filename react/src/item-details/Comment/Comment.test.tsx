@@ -62,6 +62,18 @@ describe('Comment', () => {
     }
   })
 
+  it('renders the meta row as "[-] user time_ago"', async () => {
+    const user = userEvent.setup()
+    renderWithProviders(<Comment comment={thread} />)
+    const rootMeta = screen.getByRole('link', { name: 'root' }).closest('.meta') as HTMLElement
+
+    expect(rootMeta.textContent).toBe('[-] root3 hours ago')
+
+    await user.click(toggleFor('root'))
+
+    expect(rootMeta.textContent).toBe('[+] root3 hours ago')
+  })
+
   it('links the user to /user/:user', () => {
     renderWithProviders(<Comment comment={thread} />)
 

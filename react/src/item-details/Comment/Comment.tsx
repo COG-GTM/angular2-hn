@@ -13,7 +13,7 @@ export function Comment({ comment }: { comment: HNComment }) {
           <div className={collapse ? 'meta meta-collapse' : 'meta'}>
             <span className="collapse" onClick={() => setCollapse(!collapse)}>
               [{collapse ? '+' : '-'}]
-            </span>
+            </span>{' '}
             <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
             <span className="time">{comment.time_ago}</span>
           </div>

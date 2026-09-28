@@ -149,9 +149,12 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/core/header/` (202 LOC)
 - React target: `react/src/core/Header/` — `Header()`
 - Depends on: core/settings
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/837
+- ROI: files touched: `react/src/core/Header/{Header.tsx,Header.scss,Header.test.tsx}`. LOC ported: Angular
+  202 → React 202 (+111 test, 16 parity tests). Human review points: `routerLinkActive` → `NavLink` without `end`
+  (active on `/x/1` and descendants, not `/x/2`); image paths use `import.meta.env.BASE_URL` instead of relying on
+  Angular's `<base href="/">`; separators rendered via `Fragment` so the DOM matches the template (no wrappers).
 
 ### feeds/feed (wave 2)
 

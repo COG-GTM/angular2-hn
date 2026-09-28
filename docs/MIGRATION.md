@@ -119,9 +119,12 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/core/settings/` (197 LOC)
 - React target: `react/src/core/Settings/` — `Settings()`
 - Depends on: foundation (`useSettings`)
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/833
+- ROI: files touched: `react/src/core/Settings/{Settings.tsx,Settings.scss,Settings.test.tsx}`. LOC ported: Angular
+  197 → React 156 (+151 test, 9 parity tests). Human review points: number inputs apply only on keyup, like Angular
+  (spinner/wheel changes don't persist) and are uncontrolled (`defaultValue`); radios use `onChange` instead of
+  `(click)`; Angular quirks kept (number inputs share `name="theme"`, checkbox text isn't wrapped in a label).
 
 ### feeds/item (wave 1)
 

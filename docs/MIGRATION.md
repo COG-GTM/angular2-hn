@@ -92,18 +92,23 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/shared/components/loader/` (129 LOC)
 - React target: `react/src/shared/components/Loader/` — `Loader()`
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/834
+- ROI: 3 files touched (`Loader.tsx`, `Loader.scss`, `Loader.test.tsx`); Angular 129 → React 122 LOC (+22 LOC parity
+  test). Review points: SCSS copied verbatim under `.app-loader` (global `load1` keyframes, mobile override quirk kept);
+  `.app-loader` also names the Angular pre-bootstrap splash, which `global.scss` drops, so rename one if the shell ports it.
 
 ### shared/error-message (wave 1)
 
 - Angular source: `src/app/shared/components/error-message/` (143 LOC)
 - React target: `react/src/shared/components/ErrorMessage/` — `ErrorMessage({ message })`
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/830
+- ROI: 3 files touched (`ErrorMessage.tsx`, `ErrorMessage.scss`, `ErrorMessage.test.tsx`); Angular 143 → React 144
+  (+56 LOC parity test). Review points: root `<div class="app-error-message">` replaces the inline
+  `<app-error-message>` host (only child is the block `.error-section`, so the layout is the same); `message`
+  is rendered as text like Angular's `{{ }}` interpolation; skull colours still come from `styles/_themes.scss`.
 
 ### core/footer (wave 1)
 
@@ -131,9 +136,13 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/feeds/item/` (134 LOC)
 - React target: `react/src/feeds/Item/` — `Item({ item })`
 - Depends on: foundation (`useSettings`, `formatCommentCount`, `hasUrl`)
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/832
+- ROI: files touched `react/src/feeds/Item/{Item.tsx,Item.scss,Item.test.tsx}`; LOC ported Angular 134 → React 155
+  (+131 LOC parity test, 13 tests). Review points: root `<div class="item item-block">` replaces the Angular host
+  element plus the template's outer div (Feed renders `<Item>` directly in each `<li>`); `routerLinkActive` →
+  `NavLink` `active` class; job items render only `time_ago` in both subtexts; `target`/`rel` omitted (not empty)
+  when `openLinkInNewTab` is off.
 
 ### item-details/comment (wave 1)
 
@@ -161,9 +170,14 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/feeds/feed/` (181 LOC)
 - React target: `react/src/feeds/Feed/` — `Feed({ feedType })`, reads `:page`
 - Depends on: feeds/item, shared/loader, shared/error-message
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/839
+- ROI: files touched `react/src/feeds/Feed/{Feed.tsx,Feed.scss,Feed.test.tsx}`; LOC ported Angular 181 → React 170
+  (+177 LOC parity test, 16 tests). Review points: root `<div class="app-feed">` replaces the Angular host; the bare
+  `a` rule is scoped to `.job-header a, .nav a` (Angular encapsulation kept it off the nested items); on page/feed
+  change the loader replaces the previous list while fetching (Angular kept the stale list); the always-true
+  `feedType !== 'new'` guard on the `<ol>` and `routerLinkActive` on Prev/More (never active on the current page)
+  are dropped.
 
 ### item-details (wave 2)
 

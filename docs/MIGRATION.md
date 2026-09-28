@@ -165,7 +165,7 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - React target: `react/src/feeds/Feed/` — `Feed({ feedType })`, reads `:page`
 - Depends on: feeds/item, shared/loader, shared/error-message
 - Status: ported
-- PR: PR_URL
+- PR: https://github.com/COG-GTM/angular2-hn/pull/839
 - ROI: files touched `react/src/feeds/Feed/{Feed.tsx,Feed.scss,Feed.test.tsx}`; LOC ported Angular 181 → React 170
   (+177 LOC parity test, 16 tests). Review points: root `<div class="app-feed">` replaces the Angular host; the bare
   `a` rule is scoped to `.job-header a, .nav a` (Angular encapsulation kept it off the nested items); on page/feed

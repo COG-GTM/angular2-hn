@@ -115,9 +115,11 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/core/footer/` (41 LOC)
 - React target: `react/src/core/Footer/` — `Footer()`
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/831
+- ROI: files touched: `react/src/core/Footer/{Footer.tsx,Footer.scss,Footer.test.tsx}`; LOC ported: Angular 41 →
+  React 41 (+25 test). Review points: `div.app-footer` wrapper stands in for the `<app-footer>` host element;
+  `#footer` id kept for the theme rules; not mounted until the wave 3 app shell.
 
 ### core/settings (wave 1)
 

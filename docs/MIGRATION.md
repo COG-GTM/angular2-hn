@@ -220,8 +220,27 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/app.component.*`, `app.routes.ts`, `app.module.ts` (138 LOC)
 - React target: `react/src/App.tsx`, `react/src/routes.tsx`
 - Routes: `/` → `/news/1`; `/news|newest|show|ask|jobs/:page`; `/item/:id`; `/user/:id`. Bare `/news` etc.
-  render page 1 (Angular matched no route there, although `FeedComponent` already defaults `page` to 1).
+  redirect to `/<feed>/1` (intentional difference: Angular matched no route there and rendered an empty outlet).
+  Unknown paths keep the shell with an empty outlet, as in Angular.
 - Depends on: core/header, core/footer, feeds/feed, item-details, user
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: PR_URL_PLACEHOLDER
+- ROI: files touched: `react/src/{App.tsx,App.scss,App.test.tsx,routes.tsx,main.tsx}`, `react/index.html`, icons in
+  `react/public/` (`favicon.ico`, apple-touch/mstile/safari-pinned-tab). LOC ported: Angular 138 → React 90
+  (App 24 + routes 24 + App.scss 26 + main 16; +201 LOC parity test, 18 tests). Human review points: `div.app-root`
+  wraps the theme div (stands in for the `<app-root>` host, keeps the template's `class="{{ settings.theme }}"`
+  div unchanged); `Feed` is keyed by `feedType` so switching feeds remounts it; `SettingsProvider` + `BrowserRouter`
+  live in `main.tsx` so `App` renders inside any router; `index.html` copies the Angular title/meta verbatim minus
+  the PWA manifest, `browserconfig.xml` (its tile path was broken in Angular too), `og:image`/`twitter:image`
+  (asset never existed), the GA snippet, and the pre-bootstrap splash + skip link (the skip link targeted the
+  splash); the `<noscript>` message is kept. Deployment of `react/` (Firebase rewrites) is out of scope.
+
+## Route parity
+
+| Angular route | React route | Status |
+| --- | --- | --- |
+| `''` → `news/1` | `/` → `/news/1` | ported |
+| `news\|newest\|show\|ask\|jobs/:page` (`FeedComponent`, `data.feedType`) | same, `<Feed feedType key={feedType}>` | ported |
+| `news\|newest\|show\|ask\|jobs` (no match, empty outlet) | redirect to `/<feed>/1` | intentional difference |
+| `item/:id` (lazy `ItemDetailsModule`) | `/item/:id` → `<ItemDetails>` | ported |
+| `user/:id` (lazy `UserModule`) | `/user/:id` → `<User>` | ported |

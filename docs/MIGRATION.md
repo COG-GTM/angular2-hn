@@ -137,9 +137,14 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/item-details/comment/` (125 LOC)
 - React target: `react/src/item-details/Comment/` — `Comment({ comment })`, recursive
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: PR_URL
+- ROI: files touched: `react/src/item-details/Comment/{Comment.tsx,Comment.scss,Comment.test.tsx}`. LOC ported:
+  Angular 125 → React 128 (43 tsx + 85 scss; plus 149 LOC of parity tests). Review points: collapse uses the
+  `hidden` attribute like Angular's `[hidden]` (content and replies stay mounted, so nested collapse state
+  survives a parent toggle); user link is a `NavLink` to keep `routerLinkActive="active"`; `comment.content` is
+  injected unsanitised via `dangerouslySetInnerHTML` (Angular sanitised `[innerHTML]`); deleted comments render
+  no replies, as in the Angular template.
 
 ### core/header (wave 2)
 

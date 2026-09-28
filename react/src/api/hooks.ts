@@ -9,21 +9,28 @@ export interface AsyncResource<T> {
     loading: boolean;
 }
 
+interface KeyedState<T> extends AsyncResource<T> {
+    key: string;
+}
+
+const PENDING = { data: undefined, error: '', loading: true };
+
 function useAsyncResource<T>(load: (signal: AbortSignal) => Promise<T>, errorMessage: string, deps: unknown[]) {
-    const [state, setState] = useState<AsyncResource<T>>({ data: undefined, error: '', loading: true });
+    const key = JSON.stringify(deps);
+    const [state, setState] = useState<KeyedState<T>>({ ...PENDING, key });
 
     useEffect(() => {
         const controller = new AbortController();
-        setState({ data: undefined, error: '', loading: true });
+        setState({ ...PENDING, key });
         load(controller.signal).then(
             (data) => {
                 if (!controller.signal.aborted) {
-                    setState({ data, error: '', loading: false });
+                    setState({ data, error: '', loading: false, key });
                 }
             },
             () => {
                 if (!controller.signal.aborted) {
-                    setState({ data: undefined, error: errorMessage, loading: false });
+                    setState({ data: undefined, error: errorMessage, loading: false, key });
                 }
             }
         );
@@ -31,7 +38,9 @@ function useAsyncResource<T>(load: (signal: AbortSignal) => Promise<T>, errorMes
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, deps);
 
-    return state;
+    // The effect that resets state runs after the render that changed the deps,
+    // so a resource from the previous key must not be reported as this one's.
+    return state.key === key ? state : PENDING;
 }
 
 export interface FeedResource extends AsyncResource<Story[]> {

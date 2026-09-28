@@ -14,8 +14,8 @@ function stubFetch(result: unknown, ok = true) {
     );
 }
 
-function FeedProbe() {
-    const { data, error, loading, listStart } = useFeed('news', 2);
+function FeedProbe({ page = 2 }: { page?: number }) {
+    const { data, error, loading, listStart } = useFeed('news', page);
     return (
         <div>
             <span data-testid="state">{loading ? 'loading' : error || `${data?.length} stories`}</span>
@@ -39,6 +39,18 @@ describe('data hooks', () => {
         stubFetch([{ id: 1 }, { id: 2 }]);
         render(<FeedProbe />);
         expect(screen.getByTestId('list-start')).toHaveTextContent('31');
+        await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('2 stories'));
+    });
+
+    it('does not show the previous page while the next one loads', async () => {
+        stubFetch([{ id: 1 }, { id: 2 }]);
+        const { rerender } = render(<FeedProbe page={1} />);
+        await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('2 stories'));
+
+        rerender(<FeedProbe page={2} />);
+        expect(screen.getByTestId('state')).toHaveTextContent('loading');
+        expect(screen.getByTestId('list-start')).toHaveTextContent('31');
+
         await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('2 stories'));
     });
 

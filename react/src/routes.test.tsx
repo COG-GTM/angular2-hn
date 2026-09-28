@@ -26,7 +26,7 @@ describe('routing', () => {
         unmount();
     });
 
-    it('redirects the root and bare feed paths to page 1, like the Angular routes', async () => {
+    it('redirects the root to /news/1 like the Angular routes', async () => {
         vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, status: 200, json: async () => [] })));
         const router = createMemoryRouter(routes, { initialEntries: ['/'] });
         render(<RouterProvider router={router} />);

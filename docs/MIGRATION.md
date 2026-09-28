@@ -71,6 +71,7 @@ Status values: `pending` / `in progress` / `ported`.
 | --- | --- | --- |
 | `/` | redirect to `/news/1` | redirect to `/news/1` |
 | `/news/:page`, `/newest/:page`, `/show/:page`, `/ask/:page`, `/jobs/:page` | `FeedComponent` with `feedType` route data | `FeedPage` with a `feedType` prop |
+| `/news`, `/newest`, `/show`, `/ask`, `/jobs` (no page) | unmatched — Angular has no default child route | redirect to page 1 (deliberate improvement, not parity) |
 | `/item/:id` | lazy `ItemDetailsModule` | `ItemDetailsPage` |
 | `/user/:id` | lazy `UserModule` | `UserPage` |
 
@@ -90,4 +91,4 @@ consecutive item ids following the poll id and total their points, matching
 
 | PR | Files touched | LOC ported | Human review points |
 | --- | --- | --- | --- |
-| Wave 0 — scaffold + data layer | 22 | ~430 | API host/endpoint parity, poll option fan-out, route table shape, test harness config |
+| Wave 0 — scaffold + data layer | 23 | ~450 | API host/endpoint parity, poll option fan-out, route table shape, test harness config, React CI workflow |

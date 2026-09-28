@@ -101,9 +101,12 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/shared/components/error-message/` (143 LOC)
 - React target: `react/src/shared/components/ErrorMessage/` — `ErrorMessage({ message })`
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/830
+- ROI: 3 files touched (`ErrorMessage.tsx`, `ErrorMessage.scss`, `ErrorMessage.test.tsx`); Angular 143 → React 144
+  (+56 LOC parity test). Review points: root `<div class="app-error-message">` replaces the inline
+  `<app-error-message>` host (only child is the block `.error-section`, so the layout is the same); `message`
+  is rendered as text like Angular's `{{ }}` interpolation; skull colours still come from `styles/_themes.scss`.
 
 ### core/footer (wave 1)
 

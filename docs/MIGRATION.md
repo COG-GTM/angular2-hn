@@ -178,9 +178,13 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/user/` (145 LOC incl. module)
 - React target: `react/src/user/User/` — `User()`, reads `:id`
 - Depends on: shared/loader, shared/error-message
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: PR_URL
+- ROI: 3 files touched (`User.tsx`, `User.scss`, `User.test.tsx`); Angular 145 → React 129 LOC (+132 LOC parity
+  test). Review points: `:host >>> pre` became `.app-user pre` (the root div replaces the `<app-user>` host);
+  `goBack()`/`Location.back()` is `navigate(-1)`; the Angular component has no scroll-to-top, so none is added;
+  switching `:id` now resets to the Loader (Angular kept the previous user until the new one arrived); `about` is
+  rendered with `dangerouslySetInnerHTML`, same trust model as `[innerHTML]` minus Angular's sanitizer.
 
 ### app shell + routing (wave 3)
 

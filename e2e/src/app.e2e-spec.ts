@@ -28,8 +28,11 @@ describe('Angular HN PWA', () => {
 
   it('should navigate to the newest feed from the header', async () => {
     await page.navigateTo('/news/1');
-    await page.getHeaderNavLink('new').click();
     await page.waitForFeed();
+    const topStoryTitle = await page.getFirstPostTitle().getText();
+
+    await page.getHeaderNavLink('new').click();
+    await page.waitForFeedToReplace(topStoryTitle);
 
     expect(await page.getCurrentUrl()).toMatch(/\/newest\/1$/);
     expect(await page.getFeedPosts().count()).toBeGreaterThan(0);

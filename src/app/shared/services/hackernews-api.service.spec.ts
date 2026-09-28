@@ -169,7 +169,7 @@ describe('HackerNewsAPIService', () => {
             expect(FakeXMLHttpRequest.requests.length).toBe(1);
         }));
 
-        it('should fetch every poll option and aggregate the vote count for polls', fakeAsync(() => {
+        it('should emit polls immediately, then fill in each option and the vote total as they load', fakeAsync(() => {
             const poll = { id: 100, type: 'poll', poll: [{}, {}] } as Story;
             let result: Story;
 
@@ -181,9 +181,15 @@ describe('HackerNewsAPIService', () => {
             expect(FakeXMLHttpRequest.requests.length).toBe(3);
             expect(optionOne.url).toBe(`${baseUrl}/item/101`);
             expect(optionTwo.url).toBe(`${baseUrl}/item/102`);
+            expect(result.poll).toEqual([{}, {}] as PollResult[]);
             expect(result.poll_votes_count).toBe(0);
 
             optionOne.respond({ points: 5, content: 'Option A' });
+            flushMicrotasks();
+
+            expect(result.poll).toEqual([{ points: 5, content: 'Option A' }, {}] as PollResult[]);
+            expect(result.poll_votes_count).toBe(5);
+
             optionTwo.respond({ points: 15, content: 'Option B' });
             flushMicrotasks();
 

@@ -28,4 +28,13 @@ export class AppPage {
   waitForFeed() {
     return browser.wait(ExpectedConditions.presenceOf(this.getFeedPosts().first()), 15000, 'Feed did not load');
   }
+
+  waitForFeedToReplace(previousFirstTitle: string) {
+    const firstTitle = this.getFirstPostTitle();
+    return browser.wait(
+      async () => (await firstTitle.isPresent()) && (await firstTitle.getText()) !== previousFirstTitle,
+      15000,
+      'Feed was not replaced'
+    );
+  }
 }

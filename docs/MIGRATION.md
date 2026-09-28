@@ -128,9 +128,13 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/feeds/item/` (134 LOC)
 - React target: `react/src/feeds/Item/` — `Item({ item })`
 - Depends on: foundation (`useSettings`, `formatCommentCount`, `hasUrl`)
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/832
+- ROI: files touched `react/src/feeds/Item/{Item.tsx,Item.scss,Item.test.tsx}`; LOC ported Angular 134 → React 155
+  (+131 LOC parity test, 13 tests). Review points: root `<div class="item item-block">` replaces the Angular host
+  element plus the template's outer div (Feed renders `<Item>` directly in each `<li>`); `routerLinkActive` →
+  `NavLink` `active` class; job items render only `time_ago` in both subtexts; `target`/`rel` omitted (not empty)
+  when `openLinkInNewTab` is off.
 
 ### item-details/comment (wave 1)
 

@@ -5,6 +5,7 @@ import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']

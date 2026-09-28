@@ -1,0 +1,40 @@
+name: Migration CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  angular:
+    name: Angular (lint, test, build)
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx --yes yarn@1.22.22 install --frozen-lockfile --ignore-engines --network-timeout 600000
+      - run: npm run lint
+      - run: npm test -- --watch=false --browsers=ChromeHeadlessCI
+      - run: npm run build
+
+  react:
+    name: React (lint, test, build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

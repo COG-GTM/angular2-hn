@@ -26,6 +26,14 @@
       "rxjs/Rx"
     ],
     "interface-name": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore",
+      "allow-snake-case"
+    ],
     "max-classes-per-file": false,
     "max-line-length": [
       true,

@@ -92,9 +92,11 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - Angular source: `src/app/shared/components/loader/` (129 LOC)
 - React target: `react/src/shared/components/Loader/` — `Loader()`
 - Depends on: foundation
-- Status: pending
-- PR: —
-- ROI: —
+- Status: ported
+- PR: https://github.com/COG-GTM/angular2-hn/pull/834
+- ROI: 3 files touched (`Loader.tsx`, `Loader.scss`, `Loader.test.tsx`); Angular 129 → React 122 LOC (+22 LOC parity
+  test). Review points: SCSS copied verbatim under `.app-loader` (global `load1` keyframes, mobile override quirk kept);
+  `.app-loader` also names the Angular pre-bootstrap splash, which `global.scss` drops, so rename one if the shell ports it.
 
 ### shared/error-message (wave 1)
 

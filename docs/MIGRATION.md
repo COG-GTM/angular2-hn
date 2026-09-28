@@ -224,7 +224,7 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
   Unknown paths keep the shell with an empty outlet, as in Angular.
 - Depends on: core/header, core/footer, feeds/feed, item-details, user
 - Status: ported
-- PR: PR_URL_PLACEHOLDER
+- PR: https://github.com/COG-GTM/angular2-hn/pull/840
 - ROI: files touched: `react/src/{App.tsx,App.scss,App.test.tsx,routes.tsx,main.tsx}`, `react/index.html`, icons in
   `react/public/` (`favicon.ico`, apple-touch/mstile/safari-pinned-tab). LOC ported: Angular 138 → React 90
   (App 24 + routes 24 + App.scss 26 + main 16; +201 LOC parity test, 18 tests). Human review points: `div.app-root`

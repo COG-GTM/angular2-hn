@@ -179,7 +179,7 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - React target: `react/src/user/User/` — `User()`, reads `:id`
 - Depends on: shared/loader, shared/error-message
 - Status: ported
-- PR: PR_URL
+- PR: https://github.com/COG-GTM/angular2-hn/pull/836
 - ROI: 3 files touched (`User.tsx`, `User.scss`, `User.test.tsx`); Angular 145 → React 129 LOC (+132 LOC parity
   test). Review points: `:host >>> pre` became `.app-user pre` (the root div replaces the `<app-user>` host);
   `goBack()`/`Location.back()` is `navigate(-1)`; the Angular component has no scroll-to-top, so none is added;

@@ -138,7 +138,7 @@ Statuses: `pending` → `in progress` → `ported` (PR open with parity tests; l
 - React target: `react/src/item-details/Comment/` — `Comment({ comment })`, recursive
 - Depends on: foundation
 - Status: ported
-- PR: PR_URL
+- PR: https://github.com/COG-GTM/angular2-hn/pull/835
 - ROI: files touched: `react/src/item-details/Comment/{Comment.tsx,Comment.scss,Comment.test.tsx}`. LOC ported:
   Angular 125 → React 128 (43 tsx + 85 scss; plus 149 LOC of parity tests). Review points: collapse uses the
   `hidden` attribute like Angular's `[hidden]` (content and replies stay mounted, so nested collapse state

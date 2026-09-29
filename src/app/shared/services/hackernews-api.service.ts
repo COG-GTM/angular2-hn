@@ -8,6 +8,24 @@ import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
 
 // wrap fetch in observable so we can keep it chill
+const lazyFetch = <T>(url, options?) =>
+  new Observable<T>(fetchObserver => {
+    let cancelToken = false;
+    fetch(url, options)
+      .then(res => {
+        if (!cancelToken) {
+          return res.json()
+            .then(data => {
+              fetchObserver.next(data);
+              fetchObserver.complete();
+            });
+        }
+      }).catch(err => fetchObserver.error(err));
+    return () => {
+      cancelToken = true;
+    };
+  });
+
 @Injectable()
 export class HackerNewsAPIService {
   baseUrl: string;
@@ -23,7 +41,7 @@ export class HackerNewsAPIService {
   fetchItemContent(id: number): Observable<Story> {
     return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
       if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
           this.fetchPollContent(story.id + i).subscribe(pollResults => {
@@ -44,23 +62,3 @@ export class HackerNewsAPIService {
     return lazyFetch(`${this.baseUrl}/user/${id}`);
   }
 }
-
-function lazyFetch<T>(url, options?) {
-  return new Observable<T>(fetchObserver => {
-    let cancelToken = false;
-    fetch(url, options)
-      .then(res => {
-        if (!cancelToken) {
-          return res.json()
-            .then(data => {
-              fetchObserver.next(data);
-              fetchObserver.complete();
-            });
-        }
-      }).catch(err => fetchObserver.error(err));
-    return () => {
-      cancelToken = true;
-    };
-  });
-}
-

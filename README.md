@@ -73,16 +73,15 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The project uses the Angular CLI with the esbuild-based application builder (`@angular/build:application`). Requires Node.js 20.19+/22.12+/24+. See [BUILD_MIGRATION.md](BUILD_MIGRATION.md) for details of the migration from the legacy CLI setup.
 
  - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `yarn install` (or `npm install`)
+ - `yarn start` to run the dev server at http://localhost:4200
+ - `yarn build:prod` (`ng build --configuration production`) to produce a production build in `dist/angular-hnpwa/`
+ - `yarn test` to run unit tests with Karma
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: The service worker (`@angular/service-worker`) is only generated in production builds. To test it, serve `dist/angular-hnpwa/` with any static server that falls back to `index.html` for unknown routes.
 
 ## Contributors
 

@@ -1,23 +1,29 @@
+import { ConsoleMessage, expect, test } from '@playwright/test';
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
+test.describe('workspace-project App', () => {
   let page: AppPage;
+  let browserErrors: string[];
 
-  beforeEach(() => {
-    page = new AppPage();
+  test.beforeEach(async ({ page: browserPage }) => {
+    browserErrors = [];
+    browserPage.on('console', (msg: ConsoleMessage) => {
+      if (msg.type() === 'error') {
+        browserErrors.push(msg.text());
+      }
+    });
+    browserPage.on('pageerror', (error: Error) => browserErrors.push(error.message));
+    page = new AppPage(browserPage);
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to angular-hnpwa!');
+  test('should display the app shell', async ({ page: browserPage }) => {
+    await page.navigateTo();
+    await expect(browserPage).toHaveTitle('Angular 2 HN');
+    await expect(page.getHeaderNav()).toHaveText(/new\s*\|\s*show\s*\|\s*ask\s*\|\s*jobs/);
   });
 
-  afterEach(async () => {
+  test.afterEach(() => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
-      level: logging.Level.SEVERE,
-    } as logging.Entry));
+    expect(browserErrors).toEqual([]);
   });
 });

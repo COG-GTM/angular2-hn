@@ -1,11 +1,13 @@
-import { browser, by, element } from 'protractor';
+import { Locator, Page } from '@playwright/test';
 
 export class AppPage {
+  constructor(private readonly page: Page) {}
+
   navigateTo() {
-    return browser.get(browser.baseUrl) as Promise<any>;
+    return this.page.goto('/');
   }
 
-  getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+  getHeaderNav(): Locator {
+    return this.page.locator('app-root app-header .header-nav');
   }
 }

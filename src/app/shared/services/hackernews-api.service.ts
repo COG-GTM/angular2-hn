@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
 
@@ -8,7 +8,9 @@ import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
 
 // wrap fetch in observable so we can keep it chill
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HackerNewsAPIService {
   baseUrl: string;
 

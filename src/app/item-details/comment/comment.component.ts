@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Comment } from '../../shared/models/comment';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-comment',
+  imports: [NgFor, NgIf, RouterLink, RouterLinkActive],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })

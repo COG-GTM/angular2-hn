@@ -3,9 +3,13 @@ import { Story } from '../../shared/models/story';
 
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
+import { NgIf, NgStyle } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommentPipe } from '../../shared/pipes/comment.pipe';
 
 @Component({
   selector: 'item',
+  imports: [NgIf, NgStyle, RouterLink, RouterLinkActive, CommentPipe],
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })

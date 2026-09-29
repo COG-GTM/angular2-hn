@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
 import { Story } from '../../shared/models/story';
 
+import { NgFor, NgIf } from '@angular/common';
+import { ItemComponent } from '../item/item.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component';
+
 @Component({
   selector: 'app-feed',
+  imports: [NgIf, NgFor, RouterLink, RouterLinkActive, ItemComponent, LoaderComponent, ErrorMessageComponent],
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']
 })

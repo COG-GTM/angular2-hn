@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { Location, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
@@ -9,8 +9,14 @@ import { SettingsService } from '../shared/services/settings.service';
 import { Story } from '../shared/models/story';
 import { Settings } from '../shared/models/settings';
 
+import { CommentComponent } from './comment/comment.component';
+import { CommentPipe } from '../shared/pipes/comment.pipe';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+
 @Component({
   selector: 'app-item-details',
+  imports: [NgIf, NgFor, NgStyle, RouterLink, RouterLinkActive, CommentComponent, CommentPipe, LoaderComponent, ErrorMessageComponent],
   templateUrl: './item-details.component.html',
   styleUrls: ['./item-details.component.scss']
 })

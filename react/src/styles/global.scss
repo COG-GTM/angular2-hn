@@ -1,4 +1,4 @@
-// OWNER: Session 4 (global styles). Port of src/styles.scss.
+// Port of src/styles.scss.
 @use './themes';
 
 html {
@@ -14,4 +14,33 @@ body {
 
 pre {
   white-space: pre-wrap;
+}
+
+// Splash loader from index.html. Scoped to the sibling of #root so it never matches
+// the <Loader/> component's `.app-loader` host wrapper.
+#root + .app-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@media screen and (max-width: 768px) {
+  #root + .app-loader {
+    background-color: #fff;
+  }
+}
+
+#root:empty + .app-loader {
+  opacity: 1;
+  z-index: 100;
+}
+#root:empty + .app-loader .logo {
+  width: 20vh;
 }

@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# visual e2e outputs
+/react-screenshots
+/screenshot-diffs

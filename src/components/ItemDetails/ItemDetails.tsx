@@ -23,12 +23,15 @@ export default function ItemDetails() {
 
     useEffect(() => {
         let cancelled = false;
+        setErrorMessage('');
         fetchItemContent(itemId).then(
             (story) => {
                 if (!cancelled) setItem(story);
             },
             () => {
-                if (!cancelled) setErrorMessage('Could not load item comments.');
+                if (cancelled) return;
+                setItem(undefined);
+                setErrorMessage('Could not load item comments.');
             }
         );
         window.scrollTo(0, 0);
@@ -107,7 +110,7 @@ export default function ItemDetails() {
                                         <div className="subtext">{`${pollResult.points} points`}</div>
                                         <div
                                             className="pollBar"
-                                            style={{ width: (pollResult.points / item.poll_votes_count) * 100 + '%' }}
+                                            style={{ width: (item.poll_votes_count ? (pollResult.points / item.poll_votes_count) * 100 : 0) + '%' }}
                                         ></div>
                                     </div>
                                 ))}

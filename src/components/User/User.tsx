@@ -15,12 +15,15 @@ export default function User() {
 
     useEffect(() => {
         let cancelled = false;
+        setErrorMessage('');
         fetchUser(id).then(
             (data) => {
                 if (!cancelled) setUser(data);
             },
             () => {
-                if (!cancelled) setErrorMessage('Could not load user ' + id + '.');
+                if (cancelled) return;
+                setUser(undefined);
+                setErrorMessage('Could not load user ' + id + '.');
             }
         );
         return () => {

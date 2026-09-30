@@ -20,6 +20,7 @@ export function Feed({ feedType }: { feedType: FeedName }) {
 
     useEffect(() => {
         let cancelled = false;
+        setErrorMessage('');
         fetchFeed(feedType, pageNum).then(
             (stories) => {
                 if (cancelled) return;
@@ -28,7 +29,9 @@ export function Feed({ feedType }: { feedType: FeedName }) {
                 window.scrollTo(0, 0);
             },
             () => {
-                if (!cancelled) setErrorMessage('Could not load ' + feedType + ' stories.');
+                if (cancelled) return;
+                setItems(undefined);
+                setErrorMessage('Could not load ' + feedType + ' stories.');
             }
         );
         return () => {

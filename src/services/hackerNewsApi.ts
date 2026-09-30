@@ -14,9 +14,12 @@ export function fetchFeed(feedType: string, page: number): Promise<Story[]> {
 export async function fetchItemContent(id: number): Promise<Story> {
     const story = await getJson<Story>(`${baseUrl}/item/${id}`);
     if (story.type === 'poll') {
-        const options = await Promise.all(story.poll.map((_, i) => fetchPollContent(story.id + i + 1)));
-        story.poll = options;
-        story.poll_votes_count = options.reduce((sum, option) => sum + option.points, 0);
+        // Poll options are separate items; a failed option must not hide the poll itself.
+        const results = await Promise.allSettled(story.poll.map((_, i) => fetchPollContent(story.id + i + 1)));
+        story.poll = results.map((result, i) =>
+            result.status === 'fulfilled' ? result.value : { ...story.poll[i], points: story.poll[i].points ?? 0 }
+        );
+        story.poll_votes_count = story.poll.reduce((sum, option) => sum + option.points, 0);
     }
     return story;
 }

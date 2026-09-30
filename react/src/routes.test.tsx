@@ -1,6 +1,6 @@
-import { render, waitFor } from '@testing-library/react';
+import { cleanup, render, waitFor } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { routerFuture, routes } from './routes';
 import { SettingsProvider } from './settings/SettingsProvider';
 
@@ -15,6 +15,8 @@ function renderAt(path: string) {
 }
 
 describe('routes', () => {
+  afterEach(cleanup);
+
   it('redirects / to /news/1', () => {
     const router = renderAt('/');
     expect(router.state.location.pathname).toBe('/news/1');

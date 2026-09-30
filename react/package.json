@@ -1,0 +1,40 @@
+{
+  "name": "react-hn",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "e2e:record-fixtures": "node --experimental-strip-types e2e/record-fixtures.ts",
+    "e2e:capture:angular": "APP=angular BASE_URL=${ANGULAR_URL:-http://localhost:4200} playwright test visual-capture",
+    "e2e:capture:react": "APP=react playwright test visual-capture",
+    "e2e:compare": "playwright test visual-compare",
+    "e2e:interactions": "playwright test interactions",
+    "e2e": "npm run e2e:capture:react && npm run e2e:compare && npm run e2e:interactions"
+  },
+  "dependencies": {
+    "dompurify": "3.4.15",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router": "^7.18.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55",
+    "@types/node": "^24.13.3",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "pixelmatch": "^7.2.0",
+    "playwright": "1.55",
+    "pngjs": "^7.0.0",
+    "sass": "1.93",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}

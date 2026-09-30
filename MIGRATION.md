@@ -34,7 +34,7 @@ and from the React production build:
 - × viewports desktop 1280×800 and mobile 390×844 (full-page screenshots)
 
 Result: **48/48 within the 1% threshold**. Every screenshot has identical dimensions to its reference and the
-largest difference is 0.007% of pixels (sub-pixel text anti-aliasing on the item page); 18 shots are pixel-identical.
+largest difference is 0.007% of pixels (sub-pixel text anti-aliasing on the item page); 22 shots are pixel-identical.
 
 **Interactions (`e2e-visual/interactions.mjs`), 10/10 passing on both apps:**
 root redirect → `/news/1`; More → `/news/2` (list starts at 31) and Prev back; header nav to new/show/ask/jobs

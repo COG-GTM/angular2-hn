@@ -103,7 +103,7 @@ A million thanks to some awesome people :)
 
 ## React + TypeScript port
 
-A React 18 + TypeScript + Vite port lives in [`react/`](react/) (conventions and ownership map in
+A React 18 + TypeScript + Vite port lives in [`react/`](react/) (see [`MIGRATION.md`](MIGRATION.md) for the summary, verification results and intentional differences) (conventions and ownership map in
 [`react/CONVENTIONS.md`](react/CONVENTIONS.md)). Visual parity with this Angular app is verified with
 Playwright screenshot diffs in [`e2e-visual/`](e2e-visual/) against [`reference-screenshots/`](reference-screenshots/).
 

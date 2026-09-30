@@ -50,31 +50,36 @@ await check('root redirects to /news/1', async () => {
 await check('pagination: More -> /news/2 (list starts at 31), Prev -> /news/1', async () => {
   await page.click('a.more');
   await page.waitForURL(/\/news\/2$/);
+  await page.waitForSelector('ol[start="31"] li.post', { timeout: 10000 });
   await loaded(page);
-  expect((await page.locator('ol').getAttribute('start')) === '31', 'ol start should be 31');
   await shot(page, '01-news-page-2');
   await page.click('a.prev');
   await page.waitForURL(/\/news\/1$/);
+  await page.waitForSelector('ol[start="1"] li.post', { timeout: 10000 });
   await loaded(page);
-  expect((await page.locator('ol').getAttribute('start')) === '1', 'ol start should be 1');
+  expect((await page.locator('a.prev').count()) === 0, 'Prev should be hidden on page 1');
 });
 
 await check('header nav reaches every feed', async () => {
   for (const [label, feed] of [['new', 'newest'], ['show', 'show'], ['ask', 'ask'], ['jobs', 'jobs']]) {
     await page.click(`#header .header-nav a:text-is("${label}")`);
     await page.waitForURL(new RegExp(`/${feed}/1$`));
+    await page.waitForFunction(
+      (f) => document.querySelector('li.post') && (f === 'jobs') === !!document.querySelector('p.job-header'),
+      feed,
+      { timeout: 10000 },
+    );
     await loaded(page);
-    expect((await page.locator('li.post').count()) > 0, `${feed} has no posts`);
   }
-  expect((await page.locator('p.job-header').count()) === 1, 'jobs header missing');
   await page.click('#header a.home-link');
   await page.waitForURL(/\/news\/1$/);
   await loaded(page);
 });
 
 await check('opening comments from the feed shows the nested comment tree', async () => {
-  await page.click(`li.post a[href$="/item/${ITEM_ID}"] >> nth=-1`);
+  await page.click(`li.post a[href$="/item/${ITEM_ID}"]:visible >> nth=-1`);
   await page.waitForURL(new RegExp(`/item/${ITEM_ID}$`));
+  await page.waitForSelector('.comment-list .meta', { timeout: 10000 });
   await loaded(page);
   expect((await page.locator('.comment-list .meta').count()) > 5, 'expected comments');
   expect((await page.locator('ul.subtree ul.subtree .meta').count()) > 0, 'expected nested replies');
@@ -96,8 +101,9 @@ await check('collapsing a comment hides its subtree and toggles [-]/[+]', async 
 });
 
 await check('opening a user profile from the item page', async () => {
-  await page.click(`a[href$="/user/${USER_ID}"] >> nth=0`);
+  await page.click(`a[href$="/user/${USER_ID}"]:visible >> nth=0`);
   await page.waitForURL(new RegExp(`/user/${USER_ID}$`));
+  await page.waitForSelector('.main-details .name', { timeout: 10000 });
   await loaded(page);
   expect((await page.locator('.main-details .name').textContent()).trim() === USER_ID, 'profile name');
   expect((await page.locator('.main-details .right').textContent()).includes('★'), 'karma');

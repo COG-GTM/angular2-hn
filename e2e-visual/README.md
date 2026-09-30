@@ -36,4 +36,4 @@ node-hnapi's `/user/:id` endpoint currently returns 404 live, so the user fixtur
 root redirect, More/Prev pagination (`ol[start]` 31 ↔ 1), header nav to every feed, feed → comments
 (nested tree), comment collapse `[-]`/`[+]`, item → user profile, settings theme switch to
 Night/Black/Default with `localStorage.theme` persisted across reload, and open-links-in-new-tab.
-Passes 10/10 against the Angular app.
+Passes 10/10 against both the Angular app and the React port.

@@ -19,6 +19,8 @@
 
 ---
 
+> A React + TypeScript port of this app lives in [`react/`](react/README.md).
+
 :zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.

@@ -4,7 +4,15 @@ const baseUrl = 'https://node-hnapi.herokuapp.com';
 
 async function getJson<T>(url: string): Promise<T> {
     const res = await fetch(url);
-    return (await res.json()) as T;
+    if (!res.ok) {
+        throw new Error(`Request failed with status ${res.status}`);
+    }
+    const data: unknown = await res.json();
+    // node-hnapi answers unknown ids with 200 + {"error": "..."} rather than a 404.
+    if (data && typeof data === 'object' && 'error' in data) {
+        throw new Error(String((data as { error: unknown }).error));
+    }
+    return data as T;
 }
 
 export function fetchFeed(feedType: string, page: number): Promise<Story[]> {

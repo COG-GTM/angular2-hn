@@ -29,3 +29,11 @@ node diff.mjs --ref ../reference-screenshots --actual ../react-screenshots --out
 `node record-fixtures.mjs` re-records fixtures from the live API (then recapture the references).
 node-hnapi's `/user/:id` endpoint currently returns 404 live, so the user fixture is recorded from
 `api.hnpwa.com` (same JSON schema) — see `FIXTURE_SOURCE_OVERRIDES`.
+
+## Interaction checks
+
+`node interactions.mjs --base-url <app>` drives the golden paths on fixtured data and exits non-zero on failure:
+root redirect, More/Prev pagination (`ol[start]` 31 ↔ 1), header nav to every feed, feed → comments
+(nested tree), comment collapse `[-]`/`[+]`, item → user profile, settings theme switch to
+Night/Black/Default with `localStorage.theme` persisted across reload, and open-links-in-new-tab.
+Passes 10/10 against the Angular app.

@@ -1,14 +1,49 @@
-// OWNER: Session 4 (app shell). Stub — port src/app/core/header (markup, SCSS, settings toggle).
-import { Link } from 'react-router-dom';
+// Port of src/app/core/header.
+import { NavLink } from 'react-router-dom';
+import { useSettings } from '../../settings/SettingsContext';
+import { SettingsPanel } from './SettingsPanel';
+import './Header.scss';
+
+function scrollTop() {
+  window.scrollTo(0, 0);
+}
 
 export function Header() {
+  const { settings, toggleSettings } = useSettings();
   return (
     <div className="app-header">
       <header>
         <div id="header">
-          <Link to="/news/1">HN</Link> | <Link to="/newest/1">new</Link> | <Link to="/show/1">show</Link> |{' '}
-          <Link to="/ask/1">ask</Link> | <Link to="/jobs/1">jobs</Link>
+          <NavLink className="home-link" to="/news/1" onClick={scrollTop}>
+            <div className="logo-inner"></div>
+            <img className="logo" src="assets/images/logo.svg" alt="Logo" />
+          </NavLink>
+          <div className="header-text">
+            <div className="left">
+              <span className="header-nav">
+                <NavLink to="/newest/1" onClick={scrollTop}>
+                  new
+                </NavLink>
+                {' | '}
+                <NavLink to="/show/1" onClick={scrollTop}>
+                  show
+                </NavLink>
+                {' | '}
+                <NavLink to="/ask/1" onClick={scrollTop}>
+                  ask
+                </NavLink>
+                {' | '}
+                <NavLink to="/jobs/1" onClick={scrollTop}>
+                  jobs
+                </NavLink>
+              </span>
+            </div>
+          </div>
+          <div className="info">
+            <img className="settings" src="assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
+          </div>
         </div>
+        {settings.showSettings && <SettingsPanel />}
       </header>
     </div>
   );

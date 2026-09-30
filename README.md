@@ -100,3 +100,12 @@ A million thanks to some awesome people :)
 * [Majid Hajian](https://github.com/mhadaily)
 * [Jeff Cross](https://github.com/jeffbcross)
 * [Minko Gechev](https://github.com/mgechev)
+
+## React + TypeScript port
+
+A React 18 + TypeScript + Vite port lives in [`react/`](react/) (conventions and ownership map in
+[`react/CONVENTIONS.md`](react/CONVENTIONS.md)). Visual parity with this Angular app is verified with
+Playwright screenshot diffs in [`e2e-visual/`](e2e-visual/) against [`reference-screenshots/`](reference-screenshots/).
+
+ - Angular (reference): Node 14 (`nvm use 14`), `npm install`, `npx ng serve` → http://localhost:4200
+ - React: Node 20, `cd react && npm install && npm run dev` → http://localhost:5173

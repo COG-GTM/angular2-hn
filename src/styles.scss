@@ -1,4 +1,4 @@
-@import "./app/shared/scss/themes";
+@use "./shared/scss/themes";
 
 html {
   height: 100%;
@@ -40,4 +40,9 @@ app-root:empty + .app-loader {
 }
 app-root:empty + .app-loader .logo {
     width: 20vh;
+}
+
+// The Angular user component declared `:host >>> pre`, which the view-encapsulation shim emitted as a global rule.
+pre {
+  white-space: pre-wrap;
 }

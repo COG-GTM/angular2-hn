@@ -1,0 +1,72 @@
+.story-item p {
+  margin: 2px 0;
+}
+
+.story-item a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.story-item .title {
+  font-size: 16px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.story-item .subtext-laptop,
+.story-item .subtext-palm {
+  color: var(--hn-subtext);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.wrapper .story-item .subtext-laptop a,
+.wrapper .story-item .subtext-palm a {
+  color: var(--hn-secondary);
+}
+
+.story-item .subtext-laptop {
+  font-size: 12px;
+}
+
+.story-item .subtext-palm {
+  font-size: 13px;
+}
+
+.story-item .subtext-laptop a:hover,
+.story-item .subtext-palm a:hover {
+  text-decoration: underline;
+}
+
+.story-item .subtext-palm .details {
+  margin-top: 5px;
+}
+
+.story-item .subtext-palm .details .right {
+  float: right;
+}
+
+.story-item .domain {
+  color: var(--hn-subtext);
+  letter-spacing: 0.5px;
+}
+
+.story-item .item-details {
+  padding: 10px;
+}
+
+@media only screen and (min-width: 769px) {
+  .story-item .subtext-palm {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .story-item p {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+
+  .story-item .subtext-laptop {
+    display: none;
+  }
+}

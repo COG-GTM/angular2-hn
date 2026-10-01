@@ -1,0 +1,87 @@
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 8px 0;
+  z-index: 0;
+}
+
+.main-content a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-content a:hover {
+  text-decoration: underline;
+}
+
+.feed-list {
+  padding: 0 40px;
+  margin: 0;
+}
+
+.feed-list li {
+  position: relative;
+}
+
+.post {
+  padding: 10px 0 10px 5px;
+  border-bottom: 1px solid #cececb;
+}
+
+.feed-nav {
+  padding: 10px 40px;
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.wrapper .feed-nav a {
+  color: var(--hn-secondary);
+}
+
+.feed-nav .prev {
+  padding-right: 20px;
+}
+
+.job-header {
+  font-size: 15px;
+  padding: 0 40px 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .feed-list {
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0 10px;
+  }
+
+  .list-margin {
+    margin-top: 55px;
+  }
+
+  .feed-nav {
+    margin: 20px 0;
+    text-align: center;
+    padding: 10px 80px;
+    height: 20px;
+  }
+
+  .feed-nav a {
+    text-decoration: none;
+  }
+
+  .feed-nav .prev {
+    float: left;
+    padding-right: 0;
+  }
+
+  .feed-nav .more {
+    float: right;
+  }
+
+  .job-header {
+    padding: 60px 15px 25px;
+    border-bottom: var(--hn-border);
+  }
+}

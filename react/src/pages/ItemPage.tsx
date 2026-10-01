@@ -66,7 +66,8 @@ function ItemDetails({ item }: { item: Item }) {
         <div className="subtext">
           {!isJob && (
             <span>
-              {item.points} points by {item.user && <Link to={`/user/${item.user}`}>{item.user}</Link>}{' '}
+              {item.points !== null && `${item.points} points `}by{' '}
+              {item.user && <Link to={`/user/${item.user}`}>{item.user}</Link>}{' '}
             </span>
           )}
           <span className={isJob ? undefined : 'item-details'}>

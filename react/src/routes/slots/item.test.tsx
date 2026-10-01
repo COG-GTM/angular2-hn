@@ -88,6 +88,16 @@ describe('ItemSlot (lazy /item/:id)', () => {
     expect(screen.queryByRole('link', { name: /discuss|comment/ })).not.toBeInTheDocument();
   });
 
+  it('omits the score for comment items, which have no points', async () => {
+    const comment: Item = { ...link, id: 39667625, type: 'comment', points: null, title: '', content: '<p>A reply</p>', comments: [] };
+    mockFetch({ [`${HN_API_BASE_URL}/item/${comment.id}`]: comment });
+    renderItem(`/item/${comment.id}`);
+
+    expect(await screen.findByText('A reply')).toBeInTheDocument();
+    expect(screen.queryByText(/points/)).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: link.user ?? '' })).toHaveAttribute('href', `/user/${link.user}`);
+  });
+
   it('renders poll options with vote-proportional bars', async () => {
     mockFetch({
       [`${HN_API_BASE_URL}/item/100`]: {

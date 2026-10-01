@@ -1,13 +1,25 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryRouter } from 'react-router';
-import { describe, expect, it } from 'vitest';
+import { createMemoryRouter, useParams } from 'react-router';
+import { describe, expect, it, vi } from 'vitest';
 import { HN_API_BASE_URL } from '../api/hn';
 import { FEED_NAMES } from '../api/types';
 import { App } from '../App';
 import { mockFetch } from '../test/fetchMock';
 import { newsPage1 } from '../test/fixtures/stories';
 import { routes } from './routes';
+
+// Item/user slot contents belong to T4/T5; stand-ins keep these tests about route resolution only.
+vi.mock('./slots/item', () => ({
+  ItemSlot: function ItemSlot() {
+    return <p>item slot {useParams().id}</p>;
+  },
+}));
+vi.mock('./slots/user', () => ({
+  UserSlot: function UserSlot() {
+    return <p>user slot {useParams().id}</p>;
+  },
+}));
 
 function renderAt(path: string) {
   const router = createMemoryRouter(routes, { initialEntries: [path] });
@@ -30,8 +42,8 @@ describe('route table', () => {
     ['/show', 'feed'],
     ['/ask', 'feed'],
     ['/jobs?page=2', 'feed'],
-    ['/item/123', 'Item details coming soon.'],
-    ['/user/pg', 'User profile coming soon.'],
+    ['/item/123', 'item slot 123'],
+    ['/user/pg', 'user slot pg'],
     ['/does/not/exist', 'Page not found.'],
   ])('renders the shell and page content for %s', async (path, expected) => {
     mockAllFeeds();

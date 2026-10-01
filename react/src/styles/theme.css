@@ -1,0 +1,59 @@
+/*
+ * Theme tokens, ported 1:1 from src/app/shared/scss/_theme_variables.scss and
+ * the `@include theme(...)` calls in _themes.scss.
+ *
+ * Convention: the root layout applies the current theme name (`default`,
+ * `night`, `amoledblack`) as a class on its outermost element. Components
+ * must read colours only through these custom properties — never hard-code
+ * theme colours.
+ */
+
+:root,
+.default {
+  --hn-body-bg: #fff;
+  --hn-wrapper-bg: #f5f5f5;
+  --hn-wrapper-mobile-bg: #fff;
+  --hn-text: #000;
+  --hn-link: #000;
+  --hn-link-visited: #696969;
+  --hn-header-bg: #b92b27;
+  --hn-subtext: #696969;
+  --hn-secondary: #b92b27;
+  --hn-logo-inner: #fff;
+  --hn-border: 2px solid #b92b27;
+}
+
+.night {
+  --hn-body-bg: #37474f;
+  --hn-wrapper-bg: #263238;
+  --hn-wrapper-mobile-bg: #263238;
+  --hn-text: rgba(255, 255, 255, 0.7);
+  --hn-link: rgba(255, 255, 255, 0.7);
+  --hn-link-visited: #999;
+  --hn-header-bg: #263238;
+  --hn-subtext: #999;
+  --hn-secondary: #00c0ff;
+  --hn-logo-inner: #263238;
+  --hn-border: 2px solid #00c0ff;
+}
+
+.amoledblack {
+  --hn-body-bg: #000;
+  --hn-wrapper-bg: #000;
+  --hn-wrapper-mobile-bg: #000;
+  --hn-text: rgba(255, 255, 255, 0.75);
+  --hn-link: rgba(255, 255, 255, 0.75);
+  /* Sass: darken(rgba(255, 255, 255, 0.75), 33%) */
+  --hn-link-visited: rgba(171, 171, 171, 0.75);
+  --hn-header-bg: #000;
+  --hn-subtext: rgba(255, 255, 255, 0.5);
+  --hn-secondary: rgba(255, 255, 255, 0.6);
+  --hn-logo-inner: #000;
+  --hn-border: rgba(255, 255, 255, 0.6);
+}
+
+/* Breakpoints (from _media.scss), for reference in component CSS:
+ *   mobile-only: (max-width: 768px)
+ *   laptop-only: (min-width: 769px)
+ *   tablet-only: (max-width: 1024px)
+ */

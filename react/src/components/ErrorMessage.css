@@ -1,0 +1,144 @@
+.error-section {
+  --skull-size: 200px;
+  height: 300px;
+  margin: 200px;
+}
+
+.error-section p {
+  text-align: center;
+  padding: 0 25px;
+}
+
+.error-section p.strong {
+  margin-top: 25px;
+  font-weight: bold;
+}
+
+.skull {
+  width: var(--skull-size);
+  height: var(--skull-size);
+  position: relative;
+  margin: auto;
+}
+
+.skull .head {
+  width: 100%;
+  height: 75%;
+  border-radius: 15% / 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--hn-secondary);
+}
+
+.skull .head::before,
+.skull .head::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  width: 20%;
+  height: 30%;
+  bottom: 10%;
+  background-color: var(--hn-wrapper-bg);
+}
+
+.skull .head::before {
+  left: 10%;
+}
+
+.skull .head::after {
+  right: 10%;
+}
+
+.skull .crack {
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  top: 0;
+  right: 25%;
+  transform: skew(-15deg);
+  background-color: var(--hn-wrapper-bg);
+}
+
+.skull .crack::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: calc(var(--skull-size) / 15);
+  border-right: calc(var(--skull-size) / 20) solid transparent;
+  border-left: calc(var(--skull-size) / 40) solid transparent;
+  border-top: calc(var(--skull-size) / 8) solid var(--hn-wrapper-bg);
+}
+
+.skull .mouth {
+  width: 40%;
+  height: 25%;
+  position: absolute;
+  top: 75%;
+  left: 30%;
+  border-radius: 0 0 calc(var(--skull-size) / 10) calc(var(--skull-size) / 10);
+  background-color: var(--hn-secondary);
+}
+
+.skull .mouth::before {
+  content: '';
+  position: absolute;
+  width: 15%;
+  height: 50%;
+  border-radius: 50% / 30%;
+  left: 42.5%;
+  top: -25%;
+  background-color: var(--hn-wrapper-bg);
+}
+
+.skull .teeth {
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  height: 50%;
+  margin-bottom: -5%;
+  border-radius: 50% / 20%;
+  background-color: var(--hn-wrapper-bg);
+}
+
+.skull .teeth::before,
+.skull .teeth::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50% / 20%;
+  background-color: var(--hn-wrapper-bg);
+}
+
+.skull .teeth::before {
+  left: -250%;
+}
+
+.skull .teeth::after {
+  right: -250%;
+}
+
+@media only screen and (max-width: 768px) {
+  .error-section {
+    height: 0;
+    display: block;
+    position: relative;
+    margin: 30vh 0;
+  }
+
+  .skull .head::before,
+  .skull .head::after,
+  .skull .crack,
+  .skull .mouth::before,
+  .skull .teeth,
+  .skull .teeth::before,
+  .skull .teeth::after {
+    background-color: var(--hn-wrapper-mobile-bg);
+  }
+
+  .skull .crack::before {
+    border-top-color: var(--hn-wrapper-mobile-bg);
+  }
+}

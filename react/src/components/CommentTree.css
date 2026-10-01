@@ -1,0 +1,87 @@
+.comment a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.comment a:hover {
+  text-decoration: underline;
+}
+
+.comment .meta {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.comment .meta,
+.comment .deleted-meta {
+  color: var(--hn-subtext);
+}
+
+.wrapper .comment .meta a,
+.wrapper .comment .deleted-meta a {
+  color: var(--hn-secondary);
+}
+
+.comment .meta .time {
+  padding-left: 5px;
+}
+
+.comment .meta-collapse {
+  margin-bottom: 20px;
+}
+
+.comment .deleted-meta {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 30px 0;
+}
+
+.comment .collapse {
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+
+.comment .comment-tree {
+  margin-left: 24px;
+}
+
+.comment .comment-text {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  line-height: 1.5em;
+}
+
+.comment .subtree {
+  margin-left: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 1024px) {
+  .comment .comment-tree {
+    margin-left: 8px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .comment .meta {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .comment .meta .time {
+    padding: 0;
+    float: right;
+  }
+}

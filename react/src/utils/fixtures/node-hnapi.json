@@ -1,0 +1,391 @@
+{
+  "source": "https://node-hnapi.herokuapp.com",
+  "captured_at": 1790871380,
+  "note": "Raw node-hnapi responses captured 2026-10-01; node-hnapi caches responses, so time_ago was computed at an unknown instant shortly before captured_at.",
+  "news": [
+    {
+      "time": 1790852397,
+      "time_ago": "5 hours ago",
+      "url": "https://github.com/streetcomplete/StreetComplete/issues/5421",
+      "domain": "github.com"
+    },
+    {
+      "time": 1790858678,
+      "time_ago": "3 hours ago",
+      "url": "https://nnethercote.github.io/2026/09/30/how-to-speed-up-the-rust-compiler-in-september-2026.html",
+      "domain": "nnethercote.github.io"
+    },
+    {
+      "time": 1790867470,
+      "time_ago": "an hour ago",
+      "url": "https://openid.net/wp-content/uploads/2025/10/Identity-Management-for-Agentic-AI.pdf",
+      "domain": "openid.net"
+    },
+    {
+      "time": 1790866971,
+      "time_ago": "an hour ago",
+      "url": "https://www.polyedergarten.de/e_index.htm",
+      "domain": "polyedergarten.de"
+    },
+    {
+      "time": 1790866693,
+      "time_ago": "an hour ago",
+      "url": "https://con.racket-lang.org/",
+      "domain": "con.racket-lang.org"
+    },
+    {
+      "time": 1790863750,
+      "time_ago": "2 hours ago",
+      "url": "https://blog.cloudflare.com/cloudflare-k2-streams/",
+      "domain": "blog.cloudflare.com"
+    },
+    {
+      "time": 1790859327,
+      "time_ago": "3 hours ago",
+      "url": "https://www.osnews.com/story/146052/google-breaks-promise-to-provide-10-years-of-updates-to-chromebooks/",
+      "domain": "osnews.com"
+    },
+    {
+      "time": 1790850096,
+      "time_ago": "6 hours ago",
+      "url": "https://news.synopsys.com/2026-09-30-OpenAI-and-Synopsys-Announce-GPT-Synopsys-Frontier-Intelligence-to-Revolutionize-Chip-Design",
+      "domain": "news.synopsys.com"
+    },
+    {
+      "time": 1790859951,
+      "time_ago": "3 hours ago",
+      "url": "https://www.nytimes.com/2026/09/30/technology/meta-ai-data-centers-taxes.html",
+      "domain": "nytimes.com"
+    },
+    {
+      "time": 1790757801,
+      "time_ago": "a day ago",
+      "url": "https://github.com/maanHimself/OpenDLSS-NR",
+      "domain": "github.com"
+    },
+    {
+      "time": 1790798677,
+      "time_ago": "20 hours ago",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+      "domain": "blog.google"
+    },
+    {
+      "time": 1790867446,
+      "time_ago": "an hour ago",
+      "url": "https://twitter.com/GayaniFigma/status/2105295629941350454",
+      "domain": "twitter.com"
+    },
+    {
+      "time": 1790859655,
+      "time_ago": "3 hours ago",
+      "url": "https://www.cnbc.com/2026/09/30/ftc-ai-probe-openai-anthropic.html",
+      "domain": "cnbc.com"
+    },
+    {
+      "time": 1790868806,
+      "time_ago": "35 minutes ago",
+      "url": "https://techrights.org/n/2026/10/01/Red_Hat_Being_Phased_Out_of_Existence_Like_Many_Other_Companies.shtml",
+      "domain": "techrights.org"
+    },
+    {
+      "time": 1790693782,
+      "time_ago": "2 days ago",
+      "url": "https://bookofshapes.com/",
+      "domain": "bookofshapes.com"
+    },
+    {
+      "time": 1790865515,
+      "time_ago": "2 hours ago",
+      "url": "https://www.404media.co/cops-can-bypass-iphone-automatic-inactivity-reboot-graykey/",
+      "domain": "404media.co"
+    },
+    {
+      "time": 1790805784,
+      "time_ago": "18 hours ago",
+      "url": "https://www.thespacereview.com/article/4951/1",
+      "domain": "thespacereview.com"
+    },
+    {
+      "time": 1790848098,
+      "time_ago": "6 hours ago",
+      "url": "https://www.ycombinator.com/companies/truemetrics/jobs/THLEzXI-gtm-founder-s-associate",
+      "domain": "ycombinator.com"
+    },
+    {
+      "time": 1790690713,
+      "time_ago": "2 days ago",
+      "url": "https://blog.vero.site/post/float",
+      "domain": "blog.vero.site"
+    },
+    {
+      "time": 1790794146,
+      "time_ago": "21 hours ago",
+      "url": "https://unsung.aresluna.org/before-pixels-modular-industrial-dashboards/",
+      "domain": "unsung.aresluna.org"
+    },
+    {
+      "time": 1790858939,
+      "time_ago": "3 hours ago",
+      "url": "https://www.techpowerup.com/353296/micron-ceo-says-memory-supply-will-be-much-tighter-in-2027-and-2028-than-in-2026",
+      "domain": "techpowerup.com"
+    },
+    {
+      "time": 1790676618,
+      "time_ago": "2 days ago",
+      "url": "https://www.worksinprogress.news/p/why-really-caused-the-bronze-age",
+      "domain": "worksinprogress.news"
+    },
+    {
+      "time": 1790776426,
+      "time_ago": "a day ago",
+      "url": "https://www.tomandmaria.com/Tom/Writing/LosAlamosBetsOnENIAC.pdf",
+      "domain": "tomandmaria.com"
+    },
+    {
+      "time": 1790778847,
+      "time_ago": "a day ago",
+      "url": "https://spectrum.ieee.org/bloomberg-terminal",
+      "domain": "spectrum.ieee.org"
+    },
+    {
+      "time": 1790859662,
+      "time_ago": "3 hours ago",
+      "url": "https://www.ft.com/content/bc178357-793b-45d8-ae3b-d5929159c243",
+      "domain": "ft.com"
+    },
+    {
+      "time": 1790795090,
+      "time_ago": "21 hours ago",
+      "url": "https://www.quantamagazine.org/surprisingly-complex-waves-reveal-the-brains-inner-workings-20260930/",
+      "domain": "quantamagazine.org"
+    },
+    {
+      "time": 1790789860,
+      "time_ago": "a day ago",
+      "url": "https://github.com/magnitudedev/magnitude",
+      "domain": "github.com"
+    },
+    {
+      "time": 1790797477,
+      "time_ago": "20 hours ago",
+      "url": "https://www.mattkeeter.com/projects/halfspace/",
+      "domain": "mattkeeter.com"
+    },
+    {
+      "time": 1790870617,
+      "time_ago": "5 minutes ago",
+      "url": "https://www.dropsitenews.com/p/minab-school-massacre-iran-war-children-families",
+      "domain": "dropsitenews.com"
+    },
+    {
+      "time": 1790853239,
+      "time_ago": "5 hours ago",
+      "url": "https://arstechnica.com/tech-policy/2026/09/immigration-advocate-sues-border-agents-for-demanding-his-cell-phone/",
+      "domain": "arstechnica.com"
+    }
+  ],
+  "newest": [
+    {
+      "time": 1790871195,
+      "time_ago": "a few seconds ago",
+      "url": "https://www.bbc.com/news/articles/c6y8z8xeg8j1o",
+      "domain": "bbc.com"
+    },
+    {
+      "time": 1790871091,
+      "time_ago": "2 minutes ago",
+      "url": "https://www.red5.net/blog/mpeg-2-transport-streams-and-moq-yes-mpeg-ts-is-still-relevant-today/",
+      "domain": "red5.net"
+    },
+    {
+      "time": 1790871089,
+      "time_ago": "2 minutes ago",
+      "url": "https://shun126.github.io/Mana/playground/",
+      "domain": "shun126.github.io"
+    },
+    {
+      "time": 1790871024,
+      "time_ago": "3 minutes ago",
+      "url": "https://stackoverflow.blog/2026/09/30/getting-ready-for-2026-results-a-look-back-on-developer-survey-findings/",
+      "domain": "stackoverflow.blog"
+    },
+    {
+      "time": 1790871000,
+      "time_ago": "4 minutes ago",
+      "url": "https://apnews.com/article/alberta-canada-carney-pipeline-68539133d6e0245fad3622263afd4aeb",
+      "domain": "apnews.com"
+    },
+    {
+      "time": 1790870992,
+      "time_ago": "4 minutes ago",
+      "url": "https://www.satisfice.com/blog/archives/488216",
+      "domain": "satisfice.com"
+    },
+    {
+      "time": 1790870958,
+      "time_ago": "5 minutes ago",
+      "url": "item?id=49923556",
+      "domain": null
+    },
+    {
+      "time": 1790870856,
+      "time_ago": "6 minutes ago",
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/firm-rents-four-nvidia-h200s-to-test-80x-cheaper-deepseek-claim-usd13-200-monthly-gpu-rental-doubles-claude-bill-while-security-flaws-keep-code-offline",
+      "domain": "tomshardware.com"
+    },
+    {
+      "time": 1790870851,
+      "time_ago": "6 minutes ago",
+      "url": "https://github.com/maschwenk/tsrs",
+      "domain": "github.com"
+    },
+    {
+      "time": 1790870838,
+      "time_ago": "7 minutes ago",
+      "url": "https://medium.com/@flaviopilotodasilva/how-to-build-an-unbreakable-habit-of-showing-up-f1ef39ede3b7",
+      "domain": "medium.com"
+    },
+    {
+      "time": 1790870805,
+      "time_ago": "7 minutes ago",
+      "url": "https://cellaflow.com",
+      "domain": "cellaflow.com"
+    },
+    {
+      "time": 1790870778,
+      "time_ago": "8 minutes ago",
+      "url": "https://www.snowflake.com/en/blog/engineering/pg-lake-postgres-lakehouse-integration/",
+      "domain": "snowflake.com"
+    },
+    {
+      "time": 1790870752,
+      "time_ago": "8 minutes ago",
+      "url": "https://techcrunch.com/2026/09/30/factory-ceo-just-accused-his-vc-board-advisor-of-spying-for-cognition/",
+      "domain": "techcrunch.com"
+    },
+    {
+      "time": 1790870683,
+      "time_ago": "9 minutes ago",
+      "url": "https://pridesai.substack.com/p/my-ai-agent-is-making-me-lamer",
+      "domain": "pridesai.substack.com"
+    },
+    {
+      "time": 1790870627,
+      "time_ago": "10 minutes ago",
+      "url": "https://www.linkup.so/blog/sovereign-ai-is-a-control-problem",
+      "domain": "linkup.so"
+    },
+    {
+      "time": 1790870617,
+      "time_ago": "10 minutes ago",
+      "url": "https://www.dropsitenews.com/p/minab-school-massacre-iran-war-children-families",
+      "domain": "dropsitenews.com"
+    },
+    {
+      "time": 1790870516,
+      "time_ago": "12 minutes ago",
+      "url": "https://turbopuffer.com/blog/rip-vector-database",
+      "domain": "turbopuffer.com"
+    },
+    {
+      "time": 1790870448,
+      "time_ago": "13 minutes ago",
+      "url": "https://screenshare.cam",
+      "domain": "screenshare.cam"
+    },
+    {
+      "time": 1790870408,
+      "time_ago": "14 minutes ago",
+      "url": "https://call4.me/",
+      "domain": "call4.me"
+    },
+    {
+      "time": 1790870402,
+      "time_ago": "14 minutes ago",
+      "url": "https://spectrum.ieee.org/electricity-theft",
+      "domain": "spectrum.ieee.org"
+    },
+    {
+      "time": 1790870337,
+      "time_ago": "15 minutes ago",
+      "url": "https://www.ft.com/content/1d4e233c-5204-40da-9685-0b7c1b450edc",
+      "domain": "ft.com"
+    },
+    {
+      "time": 1790870313,
+      "time_ago": "15 minutes ago",
+      "url": "https://www.youtube.com/watch?v=7eGS54ScY0g",
+      "domain": "youtube.com"
+    },
+    {
+      "time": 1790870294,
+      "time_ago": "16 minutes ago",
+      "url": "https://www.niemanlab.org/2026/09/federal-appeals-court-upholds-thomson-reuters-landmark-ai-copyright-win/",
+      "domain": "niemanlab.org"
+    },
+    {
+      "time": 1790870256,
+      "time_ago": "16 minutes ago",
+      "url": "https://techrights.org/n/2026/09/30/Slop_Posting_is_a_New_Form_of_S_posting.shtml",
+      "domain": "techrights.org"
+    },
+    {
+      "time": 1790870254,
+      "time_ago": "16 minutes ago",
+      "url": "https://finance.yahoo.com/technology/article/broadcom-to-lend-anthropic-up-to-42-billion-to-lease-chips-in-latest-circular-investing-deal-121617505.html",
+      "domain": "finance.yahoo.com"
+    },
+    {
+      "time": 1790870226,
+      "time_ago": "17 minutes ago",
+      "url": "https://huggingface.co/blog/dacorvo/150k-tokens-deep-why-context-recall-beats-compacti",
+      "domain": "huggingface.co"
+    },
+    {
+      "time": 1790870204,
+      "time_ago": "17 minutes ago",
+      "url": "https://axanar.com/watch",
+      "domain": "axanar.com"
+    },
+    {
+      "time": 1790870194,
+      "time_ago": "17 minutes ago",
+      "url": "https://latentstate.net/inside-a-clickfix-attack/",
+      "domain": "latentstate.net"
+    },
+    {
+      "time": 1790870188,
+      "time_ago": "17 minutes ago",
+      "url": "https://techcommunity.microsoft.com/blog/exchange/exchange-online-ews-your-time-is-almost-up/4492361",
+      "domain": "techcommunity.microsoft.com"
+    },
+    {
+      "time": 1790870174,
+      "time_ago": "18 minutes ago",
+      "url": "https://www.engadget.com/2272106/openai-adds-dollar500-pro-subscription-nerfs-its-existing-dollar200-tier/",
+      "domain": "engadget.com"
+    }
+  ],
+  "commentHtml": [
+    "<p>From the README:<p>StreetComplete is an easy to use editor of OpenStreetMap data available for Android. It can be used without any OpenStreetMap-specific knowledge. It asks simple questions, with answers directly used to edit and improve OpenStreetMap data. The app is aimed at users who do not know anything about OSM tagging schemes but still want to contribute to OpenStreetMap.<p>StreetComplete automatically looks for nearby places where a survey is needed and shows them as quest markers on its map. Each of these quests can then be solved on site by answering a simple question. For example, tapping on a marker may show the question &quot;What is the name of this road?&quot;, with a text field to answer it. More examples are shown in the screenshots below.<p>The user&#x27;s answer is automatically processed and uploaded directly into the OSM database. Edits are done in meaningful changesets using the user&#x27;s OSM account. Since the app is meant to be used on a survey, it can be used offline and is economic with data usage.",
+    "<p>This is great! I wish more knowledge bases realized their barrier to entry. Eg even Wikipedia can be scary to edit the first time, if you want to present things like citations the right way.",
+    "<p>Wikipedia is fine. Just make sure the content itself is good and appropriate for Wikipedia (such as no original research) and formatting citations is really least of your worries. When you do it wrong, some other editor will come and fix it.",
+    "<p>What is, and isn&#x27;t, original research is quite often subjective.",
+    "<p>The stupidest Wikipedia argument I ever had, was having to cite the fact that bread is sold sliced.",
+    "<p>You accidentally found a <i>good</i> example reason for the rule to exist. It&#x27;s only relatively recently (2019-2021-ish) that Germany had more pre-slided bread move than unsliced loaves.<p>Therefore scoping the claim being made with citations actually does improve the wiki&#x27;s accuracy.<p>You <i>can</i> say bread is sold pre-sliced <i>accurately</i> in a colloquial sense, but actually making a claim - as an encyclopedia inherently does - should carry information on how general a claim it actually is.",
+    "<p>Thank you, German government:<p>&gt; Within the frame of Prototype Fund round 15 (March 2024 to August 2024), the German Federal Ministry of Education and Research sponsored Tobias Zwick to work on StreetComplete for iOS (see progress report)<p>And NLnet.",
+    "<p>I was curious what they&#x27;re currently sponsoring; here&#x27;s another neat OSM project: <a href=\"https:&#x2F;&#x2F;osm2world.org&#x2F;demo&#x2F;?lat=52.5239396&amp;lon=13.4104859&amp;radius=1828.67&amp;alpha=0.953&amp;beta=0.755\" rel=\"nofollow\">https:&#x2F;&#x2F;osm2world.org&#x2F;demo&#x2F;?lat=52.5239396&amp;lon=13.4104859&amp;ra...</a><p>The current demo doesn&#x27;t seem to cover many places worldwide, but what is there is really neat! To me this already looks better than modern city sim games, because they never seem to get the scale right, among other things.<p>Not sure what&#x27;s stopping them from covering more places, since the idea presumably is to generate these tiles from existing OSM data. And in fact one of the easiest things to do with StreetComplete is add the height and type of a building.",
+    "<p>Link to the actual TestFlight beta invite, since it wasn’t easily found on the linked page:<p><a href=\"https:&#x2F;&#x2F;testflight.apple.com&#x2F;join&#x2F;K1u3eUU5\" rel=\"nofollow\">https:&#x2F;&#x2F;testflight.apple.com&#x2F;join&#x2F;K1u3eUU5</a>",
+    "<p>Thanks. If anyone from StreetComplete is watching - please put the TestFlight link prominently on your page!",
+    "<p>I wonder if it&#x27;s by design. TestFlight apps have a hard user install limit, I remember waiting around for someone to leave previous betas to try them out.",
+    "<p>10,000.<p>I suspect one day at the top of HN&#x27;s front page, will exhaust that.<p>That&#x27;s a big reason I never mention my apps, here.",
+    "<p>StreetComplete is regularly cited whenever OpenStreetMap is mentioned on HN, and with excellent reason (this is a really good introduction to mapping with OSM). Congratulations to the team for the beta!",
+    "<p>Indeed, I&#x27;ve been following the issue since it was mentioned here last time and was positively surprised about how quickly they progressed and got the first version shipped.",
+    "<p>I tried both StreetComplete and EveryDoor on my Android for a while.<p>I prefer EveryDoor. It&#x27;s oriented more towards stores and things I&#x27;m interested in on the map.<p>EveryDoor exist on the Apple store too.",
+    "<p>Every Door has a very confusing UI (lots of unlabeled buttons with unclear icons), unfortunately. I would love to use it, but even the web-based iD editor is so much easier to figure out!",
+    "<p>You can choose the type of questions you want to get asked about in StreetComplete. If you want to only enter store names and timings, then go into Settings and pick those.",
+    "<p>Have you tried out the Things or Places overlay? Second button from the right at the top, looks like a cake.",
+    "<p>StreetComplete, as indicated by it&#x27;s name, is about street data. Both are for contributing to OSM, but they are for different parts of OSM",
+    "<p>StreetComplete asks about things other than street data as well. For example, I get queries about operating hours of businesses."
+  ]
+}

@@ -1,0 +1,123 @@
+.profile {
+  padding: 30px;
+}
+
+.profile pre {
+  white-space: pre-wrap;
+}
+
+.profile .main-details .name,
+.profile .main-details .right {
+  font-weight: bold;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.profile .main-details .right {
+  float: right;
+}
+
+.profile .main-details .age {
+  font-weight: bold;
+  color: var(--hn-subtext);
+  padding-bottom: 0;
+}
+
+.profile .other-details {
+  word-wrap: break-word;
+}
+
+.wrapper .profile .other-details a,
+.wrapper .profile .submissions a {
+  color: var(--hn-secondary);
+}
+
+.profile .submissions h2 {
+  font-size: 16px;
+  color: var(--hn-subtext);
+}
+
+.profile .submissions ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.profile .submissions a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.profile .submissions button {
+  font: inherit;
+  font-weight: bold;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--hn-secondary);
+}
+
+.profile .back-button {
+  display: none;
+}
+
+@media only screen and (min-width: 769px) {
+  .profile .mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .profile {
+    padding: 110px 15px 0;
+  }
+
+  .profile .title-block {
+    font-size: 15px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 75px;
+  }
+
+  .profile .item-header {
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 62px;
+    height: 20px;
+    background-color: var(--hn-wrapper-mobile-bg);
+    border-bottom: var(--hn-border);
+  }
+
+  .profile .back-button {
+    display: block;
+    position: absolute;
+    top: 52%;
+    left: 4%;
+    width: 0.6rem;
+    height: 0.6rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-top: 0.3rem solid var(--hn-secondary);
+    border-right: 0.3rem solid var(--hn-secondary);
+    cursor: pointer;
+    transform: translate3d(0, -50%, 0) rotate(-135deg);
+  }
+
+  .profile .main-details {
+    margin-top: 20px;
+  }
+
+  .profile .main-details .name,
+  .profile .main-details .right {
+    font-size: 18px;
+  }
+}

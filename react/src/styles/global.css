@@ -1,0 +1,36 @@
+@import './theme.css';
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.wrapper {
+  background: var(--hn-wrapper-bg);
+  color: var(--hn-text);
+}
+
+.wrapper a {
+  color: var(--hn-link);
+}
+
+.wrapper a:visited {
+  color: var(--hn-link-visited);
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    background: var(--hn-wrapper-mobile-bg);
+  }
+}

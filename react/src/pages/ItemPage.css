@@ -1,0 +1,151 @@
+.item-main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 8px 0;
+  z-index: 0;
+}
+
+.item-page {
+  box-sizing: border-box;
+  padding: 10px 40px 0;
+  z-index: 0;
+}
+
+.item-page p {
+  margin: 2px 0;
+}
+
+.item-page a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.item-page .title {
+  font-size: 16px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.item-page .title-block {
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 75px;
+}
+
+.item-page .subtext {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.item-page .subtext,
+.item-page .domain {
+  color: var(--hn-subtext);
+}
+
+.wrapper .item-page .subtext a {
+  color: var(--hn-secondary);
+}
+
+.item-page .subtext a:hover {
+  text-decoration: underline;
+}
+
+.item-page .domain {
+  letter-spacing: 0.5px;
+}
+
+.item-page .item-details {
+  padding: 10px;
+}
+
+.item-page .item-header {
+  padding-bottom: 10px;
+  border-bottom: var(--hn-border);
+}
+
+.item-page .head-margin {
+  margin-bottom: 15px;
+}
+
+.item-page .subject {
+  word-wrap: break-word;
+  margin-top: 20px;
+}
+
+.item-page .poll-results {
+  margin-bottom: 1em;
+}
+
+.item-page .poll-option {
+  margin-top: 1em;
+}
+
+.item-page .poll-bar {
+  height: 10px;
+  margin: 0.25em 0 1em;
+  background: var(--hn-secondary);
+}
+
+.item-page .comment-list {
+  list-style-type: none;
+  padding: 10px 0;
+}
+
+.item-page .back-button {
+  display: none;
+}
+
+@media only screen and (min-width: 769px) {
+  .item-page .mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .item-page {
+    padding: 10px 20px 0 40px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .item-page {
+    padding: 110px 15px 0;
+  }
+
+  .item-page .laptop {
+    display: none;
+  }
+
+  .item-page .title {
+    font-size: 15px;
+  }
+
+  .item-page .item-header {
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 62px;
+    background: var(--hn-wrapper-mobile-bg);
+  }
+
+  .item-page .back-button {
+    display: block;
+    position: absolute;
+    top: 52%;
+    left: 4%;
+    width: 0.6rem;
+    height: 0.6rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-top: 0.3rem solid var(--hn-secondary);
+    border-right: 0.3rem solid var(--hn-secondary);
+    cursor: pointer;
+    transform: translate3d(0, -50%, 0) rotate(-135deg);
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "commentPipe": [
+    {
+      "input": 0,
+      "output": "discuss"
+    },
+    {
+      "input": 1,
+      "output": "1 comment"
+    },
+    {
+      "input": 2,
+      "output": "2 comments"
+    },
+    {
+      "input": 3,
+      "output": "3 comments"
+    },
+    {
+      "input": 10,
+      "output": "10 comments"
+    },
+    {
+      "input": 87,
+      "output": "87 comments"
+    },
+    {
+      "input": 100,
+      "output": "100 comments"
+    },
+    {
+      "input": 1234,
+      "output": "1234 comments"
+    },
+    {
+      "input": -1,
+      "output": "discuss"
+    }
+  ],
+  "hasUrl": [
+    {
+      "url": "https://example.com/a",
+      "feedItem": true,
+      "itemDetails": true
+    },
+    {
+      "url": "http://example.com",
+      "feedItem": true,
+      "itemDetails": true
+    },
+    {
+      "url": "item?id=41000002",
+      "feedItem": false,
+      "itemDetails": false
+    },
+    {
+      "url": "/item/1",
+      "feedItem": false,
+      "itemDetails": false
+    },
+    {
+      "url": "ftp://x.y",
+      "feedItem": false,
+      "itemDetails": false
+    },
+    {
+      "url": "httpfoo",
+      "feedItem": true,
+      "itemDetails": true
+    },
+    {
+      "url": "mailto:a@b.c",
+      "feedItem": false,
+      "itemDetails": false
+    },
+    {
+      "url": "",
+      "feedItem": false,
+      "itemDetails": false
+    }
+  ]
+}

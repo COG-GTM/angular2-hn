@@ -18,8 +18,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  get isDarkMode(): boolean {
+    return this._settingsService.isDarkMode;
+  }
+
   toggleSettings() {
     this._settingsService.toggleSettings();
+  }
+
+  toggleDarkMode() {
+    this._settingsService.toggleDarkMode();
   }
 
   scrollTop() {

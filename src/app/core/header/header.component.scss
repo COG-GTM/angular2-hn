@@ -126,24 +126,41 @@ h1 {
   top: 0;
   right: 20px;
   height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 
   @media #{$mobile-only} {
     right: 10px;
   }
 
+  .theme-toggle {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    opacity: 0.8;
+    cursor: pointer;
+    display: flex;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+  }
+
   img {
     opacity: 0.8;
     width: 25px;
-    margin-top: 21.5px;
     display: block;
 
     &:hover {
       opacity: 1;
       cursor: pointer;
-    }
-
-    @media #{$mobile-only} {
-      margin-top: 15px;
     }
   }
 }

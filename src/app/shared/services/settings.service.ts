@@ -14,6 +14,10 @@ export class SettingsService {
     listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
   };
 
+  get isDarkMode(): boolean {
+    return this.settings.theme !== 'default';
+  }
+
   darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
   
   constructor() {
@@ -65,6 +69,10 @@ export class SettingsService {
 
   toggleSettings() {
     this.settings.showSettings = !this.settings.showSettings;
+  }
+
+  toggleDarkMode() {
+    this.setTheme(this.isDarkMode ? 'default' : 'night');
   }
 
   toggleOpenLinksInNewTab() {

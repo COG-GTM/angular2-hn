@@ -1,4 +1,4 @@
-import { test as base, type Page } from '@playwright/test';
+import { test as base, type BrowserContext } from '@playwright/test';
 
 /** Deterministic HN API data so e2e runs don't depend on the live (and frequently changing) API. */
 export function story(id: number, overrides: Record<string, unknown> = {}) {
@@ -57,8 +57,12 @@ export const user = (id: string) => ({
   about: '<p>Bug fixer.</p>',
 });
 
-export async function mockHnApi(page: Page) {
-  await page.route(/https:\/\/node-hnapi\.herokuapp\.com\/.*/, async (route) => {
+/**
+ * Routes are registered on the context (not the page) so requests made by the PWA service worker
+ * are mocked too; `page.route` misses them once the worker controls the page.
+ */
+export async function mockHnApi(context: BrowserContext) {
+  await context.route(/https:\/\/node-hnapi\.herokuapp\.com\/.*/, async (route) => {
     const url = new URL(route.request().url());
     const [, first, second] = url.pathname.split('/');
     if (first === 'item') {
@@ -67,17 +71,17 @@ export async function mockHnApi(page: Page) {
     const pageNum = Number(url.searchParams.get('page') ?? '1');
     return route.fulfill({ json: feedPage(pageNum) });
   });
-  await page.route(/https:\/\/api\.hnpwa\.com\/v0\/user\/.*/, async (route) => {
+  await context.route(/https:\/\/api\.hnpwa\.com\/v0\/user\/.*/, async (route) => {
     const id = decodeURIComponent(new URL(route.request().url()).pathname.split('/').pop()!.replace('.json', ''));
     return route.fulfill({ json: user(id) });
   });
 }
 
-/** `test` with the HN API mocked for every page. */
+/** `test` with the HN API mocked for every page and the service worker. */
 export const test = base.extend<{ mockApi: void }>({
   mockApi: [
-    async ({ page }, use) => {
-      await mockHnApi(page);
+    async ({ context }, use) => {
+      await mockHnApi(context);
       await use();
     },
     { auto: true },

@@ -55,4 +55,17 @@ test.describe('PWA', () => {
     await expect(page.getByTestId('theme-root')).toBeVisible();
     await context.setOffline(false);
   });
+
+  test('keeps the HN API mocked once the service worker controls the page', async ({ page }) => {
+    await page.goto('/news/1');
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    await page.reload();
+    await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
+
+    const titles = await page.evaluate(async () => {
+      const res = await fetch('https://node-hnapi.herokuapp.com/news?page=2');
+      return ((await res.json()) as { title: string }[]).map((s) => s.title);
+    });
+    expect(titles[0]).toBe('Story 31');
+  });
 });

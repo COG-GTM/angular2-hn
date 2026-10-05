@@ -19,7 +19,12 @@ async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   if (!res.ok) {
     throw new HttpError(res.status, url);
   }
-  return (await res.json()) as T;
+  const body = (await res.json()) as T | null;
+  // HNPWA answers 200 + `null` for unknown ids; treat that as not found.
+  if (body === null) {
+    throw new HttpError(404, url);
+  }
+  return body;
 }
 
 export function fetchFeed(feedType: FeedName, page: number, signal?: AbortSignal): Promise<Story[]> {

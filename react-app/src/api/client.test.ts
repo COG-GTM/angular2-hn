@@ -64,6 +64,11 @@ describe('HN API client', () => {
     await expect(fetchItemContent(10, controller.signal)).rejects.toThrow();
   });
 
+  it('rejects with a 404 HttpError when the API answers null (unknown id)', async () => {
+    mockFetch(() => null);
+    await expect(fetchUser('nobody')).rejects.toMatchObject({ status: 404 });
+  });
+
   it('fetches a user from the HNPWA user endpoint', async () => {
     const fetchMock = mockFetch(() => makeUser({ id: 'pg' }));
     expect((await fetchUser('pg')).id).toBe('pg');

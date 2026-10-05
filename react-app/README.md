@@ -1,7 +1,7 @@
 # react-app — React port of Angular 2 HN
 
 Vite + React 19 + TypeScript + React Router 7 + TanStack Query, with `vite-plugin-pwa` (Workbox) for offline support.
-The original Angular app in `../src/app` stays in place as the reference until the migration is complete.
+This replaced the original Angular 9 app (removed after parity was confirmed; see git history for `src/app/`). The "Ported from" column below refers to those Angular paths.
 
 ## Commands
 

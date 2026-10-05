@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import type { FeedName } from '../models';
 import { fetchFeed, fetchItemContent, fetchUser } from './client';
@@ -8,6 +8,8 @@ export function useFeed(feedType: FeedName, page: number) {
   return useQuery({
     queryKey: queryKeys.feed(feedType, page),
     queryFn: ({ signal }) => fetchFeed(feedType, page, signal),
+    // Angular kept the current page's stories on screen until the next page arrived.
+    placeholderData: keepPreviousData,
   });
 }
 

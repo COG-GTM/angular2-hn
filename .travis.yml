@@ -1,23 +1,34 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "20"
 
 branches:
   only:
     - master
 
+cache:
+  directories:
+    - $HOME/.npm
+    - $HOME/.cache/ms-playwright
+
+before_install:
+  - cd react-app
+
+install:
+  - npm ci
+
 before_script:
   - npm install -g firebase-tools
-  - npm install -g @angular/cli
+  - npx playwright install --with-deps chromium
 
 script:
+  - npm run lint
+  - npm run typecheck
+  - npm test
   - npm run build
+  - npm run e2e
 
 after_success:
+  - cd "$TRAVIS_BUILD_DIR"
   - firebase use default
   - firebase deploy --token $FIREBASE_TOKEN
-
-notifications:
-  email:
-    on_failure: change
-    on_success: change

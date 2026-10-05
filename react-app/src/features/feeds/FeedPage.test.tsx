@@ -98,4 +98,28 @@ describe('FeedPage', () => {
     expect(document.querySelector('ol')).toHaveAttribute('start', '31');
     expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
   });
+
+  it('keeps the current stories on screen (no loader) until the next page arrives', async () => {
+    let releasePage2: () => void = () => {};
+    const page2 = new Promise<void>((resolve) => (releasePage2 = resolve));
+    const fetchMock = mockFetch(() => makeFeedPage(1));
+    fetchMock.mockImplementation(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.endsWith('page=2')) await page2;
+      const body = url.endsWith('page=2') ? makeFeedPage(31) : makeFeedPage(1);
+      return new Response(JSON.stringify(body), { status: 200 });
+    });
+    renderApp({ route: '/news/1' });
+    await screen.findByText('Story 1');
+
+    await userEvent.click(screen.getByRole('link', { name: 'More ›' }));
+    expect(screen.getByTestId('location')).toHaveTextContent('/news/2');
+    expect(screen.getByText('Story 1')).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(document.querySelector('ol')).toHaveAttribute('start', '1');
+
+    releasePage2();
+    expect(await screen.findByText('Story 31')).toBeInTheDocument();
+    expect(document.querySelector('ol')).toHaveAttribute('start', '31');
+  });
 });

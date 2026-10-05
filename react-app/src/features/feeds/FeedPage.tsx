@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { useFeed } from '../../api/hooks';
@@ -11,14 +11,18 @@ import './Feed.scss';
 export default function FeedPage({ feedType }: { feedType: FeedName }) {
   const { page } = useParams();
   const pageNum = page ? Number(page) : 1;
-  const { data: items, isError, isSuccess } = useFeed(feedType, pageNum);
-  const listStart = (pageNum - 1) * STORIES_PER_PAGE + 1;
+  const { data: items, isError, isSuccess, isPlaceholderData } = useFeed(feedType, pageNum);
+  const loadedPage = isSuccess && !isPlaceholderData;
+  // Like Angular, `listStart` only advances once the new page has loaded.
+  const [shownPage, setShownPage] = useState(pageNum);
+  const listStart = (shownPage - 1) * STORIES_PER_PAGE + 1;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (loadedPage) {
+      setShownPage(pageNum);
       window.scrollTo(0, 0);
     }
-  }, [feedType, pageNum, isSuccess]);
+  }, [feedType, pageNum, loadedPage]);
 
   return (
     <div className="main-content feed">

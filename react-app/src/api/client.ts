@@ -39,12 +39,10 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
   if (story.type === 'poll' && story.poll) {
     const options = story.poll;
     const results = await Promise.allSettled(options.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
+    signal?.throwIfAborted();
     const poll = results.map((result, i) => (result.status === 'fulfilled' ? result.value : options[i]));
     story.poll = poll;
-    story.poll_votes_count = results.reduce(
-      (total, result) => (result.status === 'fulfilled' ? total + result.value.points : total),
-      0
-    );
+    story.poll_votes_count = poll.reduce((total, option) => total + (option.points ?? 0), 0);
   }
   return story;
 }

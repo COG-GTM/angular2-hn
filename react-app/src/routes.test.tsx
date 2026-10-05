@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import { FEED_NAMES } from './models';
-import { makeFeedPage } from './test/fixtures';
+import { makeFeedPage, makeUser } from './test/fixtures';
 import { mockFetch, renderApp } from './test/render';
 
 describe('routes', () => {
@@ -26,8 +26,9 @@ describe('routes', () => {
   });
 
   it('renders the user page for /user/:id', async () => {
+    mockFetch(() => makeUser({ id: 'pg' }));
     renderApp({ route: '/user/pg' });
-    expect(await screen.findByTestId('user-page')).toHaveAttribute('data-user-id', 'pg');
+    expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
   });
 
   it('applies the theme class from settings to the app root', async () => {

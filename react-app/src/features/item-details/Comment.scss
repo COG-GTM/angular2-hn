@@ -1,15 +1,10 @@
 @use '../../styles/media' as *;
 
 // Port of comment.component.scss; `.app-comment` stands in for the Angular `:host` element.
+// The Angular `:host >>> a { font-weight: bold; text-decoration: none; }` rule is not ported: Angular 9
+// compiled it to an invalid selector (`[_nghost] > > > a`), so it never applied and links in comment HTML
+// keep the browser's default weight and underline.
 .app-comment {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
   .meta {
     font-size: 13px;
     color: #696969;

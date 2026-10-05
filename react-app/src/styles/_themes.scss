@@ -1,0 +1,230 @@
+@use 'sass:math';
+@use './media' as *;
+@use './theme_variables' as *;
+
+// -------------------------------------------------------------------------------------------
+// Each theme is a class on the app root (`.default`, `.night`, `.amoledblack`) that defines
+// CSS custom properties. Component styles read these via `var(--hn-...)`. The rules below
+// reproduce the global themed selectors from the Angular `theme()` mixin.
+//
+// Want a new theme? Add an `@include theme-vars(...)` block and an entry in models/settings.ts.
+// -------------------------------------------------------------------------------------------
+
+@mixin theme-vars(
+  $name,
+  $body-background-color,
+  $wrapper-background-color,
+  $wrapper-mobile-background-color,
+  $wrapper-color,
+  $item-a-color,
+  $item-a-visited-color,
+  $header-background-color,
+  $subtext-color,
+  $secondary-link-color,
+  $logo-inner-color,
+  $border
+) {
+  .#{$name} {
+    --hn-body-background-color: #{$body-background-color};
+    --hn-wrapper-background-color: #{$wrapper-background-color};
+    --hn-wrapper-mobile-background-color: #{$wrapper-mobile-background-color};
+    --hn-text-color: #{$wrapper-color};
+    --hn-link-color: #{$item-a-color};
+    --hn-link-visited-color: #{$item-a-visited-color};
+    --hn-header-background-color: #{$header-background-color};
+    --hn-subtext-color: #{$subtext-color};
+    --hn-secondary-color: #{$secondary-link-color};
+    --hn-logo-inner-color: #{$logo-inner-color};
+    --hn-border: #{$border};
+    // Background of the content area: wrapper colour on laptop, mobile colour on small screens.
+    --hn-surface-color: #{$wrapper-background-color};
+
+    @media #{$mobile-only} {
+      --hn-surface-color: #{$wrapper-mobile-background-color};
+    }
+  }
+}
+
+@include theme-vars(
+  default,
+  $theme-day-body-background-color,
+  $theme-day-wrapper-background-color,
+  $theme-day-wrapper-mobile-background-color,
+  $theme-day-text-color,
+  $theme-day-text-color,
+  $theme-day-subtext-color,
+  $theme-day-header-background-color,
+  $theme-day-subtext-color,
+  $theme-day-secondary-color,
+  $theme-day-logo-inner,
+  $theme-day-border
+);
+
+@include theme-vars(
+  night,
+  $theme-night-body-background-color,
+  $theme-night-wrapper-background-color,
+  $theme-night-wrapper-mobile-background-color,
+  $theme-night-text-color,
+  $theme-night-text-color,
+  $theme-night-subtext-color,
+  $theme-night-header-background-color,
+  $theme-night-subtext-color,
+  $theme-night-secondary-color,
+  $theme-night-logo-inner,
+  $theme-night-border
+);
+
+@include theme-vars(
+  amoledblack,
+  $theme-amoledblack-body-background-color,
+  $theme-amoledblack-body-background-color,
+  $theme-amoledblack-body-background-color,
+  $theme-amoledblack-text-color,
+  $theme-amoledblack-text-color,
+  $theme-amoledblack-visited-color,
+  $theme-amoledblack-body-background-color,
+  $theme-amoledblack-subtext-color,
+  $theme-amoledblack-secondary-color,
+  $theme-amoledblack-body-background-color,
+  $theme-amoledblack-secondary-color
+);
+
+.theme-root {
+  .body-cover {
+    background: var(--hn-body-background-color);
+
+    @media #{$mobile-only} {
+      background: var(--hn-wrapper-mobile-background-color);
+    }
+  }
+
+  .wrapper {
+    background: var(--hn-surface-color);
+    color: var(--hn-text-color);
+
+    a {
+      color: var(--hn-link-color);
+
+      &:visited {
+        color: var(--hn-link-visited-color);
+      }
+    }
+
+    #header {
+      background: var(--hn-header-background-color);
+      border-bottom: var(--hn-border);
+    }
+
+    .logo-inner {
+      background: var(--hn-logo-inner-color);
+    }
+
+    .nav a {
+      color: var(--hn-secondary-color);
+    }
+
+    #footer {
+      border-top: var(--hn-border);
+
+      a {
+        color: var(--hn-secondary-color);
+      }
+    }
+
+    .subtext,
+    .subtext-palm,
+    .subtext-laptop,
+    .domain,
+    .meta,
+    .deleted-meta {
+      color: var(--hn-subtext-color);
+
+      a {
+        color: var(--hn-secondary-color);
+      }
+    }
+
+    .popup {
+      background: var(--hn-header-background-color);
+    }
+
+    .item-header {
+      border-bottom: var(--hn-border);
+
+      @media #{$mobile-only} {
+        background: var(--hn-wrapper-mobile-background-color);
+      }
+    }
+
+    .pollContent .pollBar {
+      background: var(--hn-secondary-color);
+    }
+
+    .loader {
+      color: var(--hn-secondary-color);
+      background: var(--hn-secondary-color);
+
+      &:before,
+      &:after {
+        background: var(--hn-secondary-color);
+      }
+    }
+
+    .job-header {
+      @media #{$mobile-only} {
+        border-bottom: var(--hn-border);
+      }
+    }
+
+    .back-button {
+      @media #{$mobile-only} {
+        border-top: 0.3rem solid var(--hn-secondary-color);
+        border-right: 0.3rem solid var(--hn-secondary-color);
+      }
+    }
+
+    .error-section .skull {
+      .head {
+        background-color: var(--hn-secondary-color);
+
+        &:before,
+        &:after {
+          background-color: var(--hn-surface-color);
+        }
+
+        .crack {
+          background-color: var(--hn-surface-color);
+
+          &:before {
+            border-top: math.div($skull-size, 8) solid var(--hn-surface-color);
+          }
+        }
+      }
+
+      .mouth {
+        background-color: var(--hn-secondary-color);
+
+        &:before {
+          background-color: var(--hn-surface-color);
+        }
+      }
+
+      .teeth {
+        background-color: var(--hn-surface-color);
+
+        &:before,
+        &:after {
+          background-color: var(--hn-surface-color);
+        }
+      }
+    }
+
+    .main-details {
+      .name,
+      .right {
+        color: var(--hn-secondary-color);
+      }
+    }
+  }
+}

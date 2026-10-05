@@ -1,5 +1,6 @@
 import type { Theme } from '../../models';
 import { useSettings } from '../../context/settings';
+import { onActivationKey } from './onActivationKey';
 import './Settings.scss';
 
 const THEME_OPTIONS: { value: Theme; label: string }[] = [
@@ -16,14 +17,23 @@ export function Settings() {
       <div className="popup" role="dialog" aria-label="Settings">
         <h1>Settings</h1>
         <hr />
-        <span className="close" onClick={toggleSettings} aria-label="Close settings">
+        <span
+          className="close"
+          role="button"
+          tabIndex={0}
+          aria-label="Close settings"
+          onClick={toggleSettings}
+          onKeyDown={onActivationKey(toggleSettings)}
+        >
           &times;
         </span>
         <div className="content">
           <div className="control-section">
             <h2>Links</h2>
-            <input type="checkbox" checked={settings.openLinkInNewTab} onChange={toggleOpenLinksInNewTab} /> Open links
-            in a new tab
+            <label>
+              <input type="checkbox" checked={settings.openLinkInNewTab} onChange={toggleOpenLinksInNewTab} /> Open
+              links in a new tab
+            </label>
           </div>
           <div className="theme-controls">
             <div className="control-section">

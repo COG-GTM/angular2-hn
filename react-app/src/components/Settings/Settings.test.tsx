@@ -31,7 +31,7 @@ describe('Settings', () => {
       'Select a theme',
       'Change Font',
     ]);
-    expect(screen.getByText(/Open links in a new tab/)).toBeInTheDocument();
+    expect(screen.getByLabelText('Open links in a new tab')).toHaveAttribute('type', 'checkbox');
     expect(screen.getByLabelText('Default')).toHaveAttribute('value', 'default');
     expect(screen.getByLabelText('Night')).toHaveAttribute('value', 'night');
     expect(screen.getByLabelText('Black (AMOLED)')).toHaveAttribute('value', 'amoledblack');

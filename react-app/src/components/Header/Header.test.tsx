@@ -81,6 +81,19 @@ describe('Header', () => {
     expect(screen.queryByRole('dialog', { name: 'Settings' })).not.toBeInTheDocument();
   });
 
+  it('opens and closes the settings panel from the keyboard', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<Header />, { route: '/news/1' });
+    const cog = screen.getByRole('button', { name: 'Settings' });
+    cog.focus();
+    await user.keyboard('{Enter}');
+    expect(screen.getByRole('dialog', { name: 'Settings' })).toBeInTheDocument();
+
+    screen.getByRole('button', { name: 'Close settings' }).focus();
+    await user.keyboard(' ');
+    expect(screen.queryByRole('dialog', { name: 'Settings' })).not.toBeInTheDocument();
+  });
+
   it('renders the settings panel when settings.showSettings is true', () => {
     renderWithProviders(<Header />, { settings: { showSettings: true } });
     expect(screen.getByRole('dialog', { name: 'Settings' })).toBeInTheDocument();

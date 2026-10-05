@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { useSettings } from '../../context/settings';
+import { onActivationKey } from '../Settings/onActivationKey';
 import { Settings } from '../Settings/Settings';
 import './Header.scss';
 
@@ -41,7 +42,15 @@ export function Header() {
           </div>
         </div>
         <div className="info">
-          <img className="settings" src="assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
+          <img
+            className="settings"
+            src="assets/images/cog.svg"
+            alt="Settings"
+            role="button"
+            tabIndex={0}
+            onClick={toggleSettings}
+            onKeyDown={onActivationKey(toggleSettings)}
+          />
         </div>
       </div>
       {settings.showSettings && <Settings />}

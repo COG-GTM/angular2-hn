@@ -36,6 +36,34 @@ describe('HN API client', () => {
     expect(story.poll_votes_count).toBe(10);
   });
 
+  it('keeps the original option when an option request fails and counts it in the total', async () => {
+    const poll = makeStory({ id: 10, type: 'poll', poll: [makePollResult({ points: 2, content: 'A' }), makePollResult()] });
+    mockFetch((url) => {
+      if (url.endsWith('/item/10')) return poll;
+      if (url.endsWith('/item/12')) return { points: 7, content: 'No' };
+      return undefined;
+    });
+    const story = await fetchItemContent(10);
+    expect(story.poll).toEqual([
+      { points: 2, content: 'A' },
+      { points: 7, content: 'No' },
+    ]);
+    expect(story.poll_votes_count).toBe(9);
+  });
+
+  it('rejects instead of returning a partial poll when aborted', async () => {
+    const controller = new AbortController();
+    const poll = makeStory({ id: 10, type: 'poll', poll: [makePollResult()] });
+    mockFetch((url) => {
+      if (url.endsWith('/item/10')) {
+        controller.abort();
+        return poll;
+      }
+      return { points: 1, content: 'Yes' };
+    });
+    await expect(fetchItemContent(10, controller.signal)).rejects.toThrow();
+  });
+
   it('fetches a user from the HNPWA user endpoint', async () => {
     const fetchMock = mockFetch(() => makeUser({ id: 'pg' }));
     expect((await fetchUser('pg')).id).toBe('pg');

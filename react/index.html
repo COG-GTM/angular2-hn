@@ -10,9 +10,33 @@
         <link rel="icon" type="image/png" href="/assets/icons/favicon-32x32.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16" />
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+        <style>
+            #skip a {
+                position: absolute;
+                left: -10000px;
+                top: auto;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+            }
+            #skip a:focus {
+                position: static;
+                width: auto;
+                height: auto;
+            }
+        </style>
     </head>
     <body>
+        <div id="skip"><a href="#content">skip to navigation</a></div>
         <div id="root"></div>
+        <div class="app-loader" id="content">
+            <img class="logo" src="/assets/images/logo.svg" alt="Logo" />
+            <noscript>
+                <h4 style="font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica">
+                    Sorry, JavaScript needs to be enabled in order to run this application.
+                </h4>
+            </noscript>
+        </div>
         <script type="module" src="/src/main.tsx"></script>
     </body>
 </html>

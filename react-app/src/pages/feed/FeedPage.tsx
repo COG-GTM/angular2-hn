@@ -21,11 +21,16 @@ export function FeedPage({ feedType }: { feedType: FeedType }) {
   const page = parsePage(pageParam);
   const key = `${feedType}/${page}`;
   const [state, setState] = useState<FeedState>({ key, items: null, error: '' });
+  // Reset during render on every feed/page change so a previous visit's result is never shown for a new request.
+  if (state.key !== key) {
+    setState({ key, items: null, error: '' });
+  }
 
   useEffect(() => {
     const controller = new AbortController();
     fetchFeed(feedType, page, controller.signal)
       .then((items) => {
+        if (controller.signal.aborted) return;
         setState({ key, items, error: '' });
         window.scrollTo(0, 0);
       })
@@ -36,9 +41,7 @@ export function FeedPage({ feedType }: { feedType: FeedType }) {
     return () => controller.abort();
   }, [feedType, page, key]);
 
-  // Ignore results that belong to a previous feed/page so stale items never flash.
-  const current = state.key === key ? state : { key, items: null, error: '' };
-  const { items, error } = current;
+  const { items, error } = state.key === key ? state : { items: null, error: '' };
   const start = listStart(page);
   const isJobs = feedType === 'jobs';
 

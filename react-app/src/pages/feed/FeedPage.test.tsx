@@ -1,5 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { useNavigate } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { jobStory, makeFeed } from '../../test/fixtures';
 import { mockFetch, renderWithProviders } from '../../test/render';
@@ -119,6 +120,37 @@ describe('FeedPage', () => {
     open();
     expect(await screen.findByText('Story 31')).toBeInTheDocument();
     expect(document.querySelector('ol')).toHaveAttribute('start', '31');
+  });
+
+  it("shows the loader, not the previous visit's stories, when navigating back before the next page loads", async () => {
+    let page1Calls = 0;
+    const page1 = mockFetch({ '/news?page=1': makeFeed(30, 1) });
+    const fetchMock = vi.fn((input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes('/news?page=1') && ++page1Calls === 1) return page1(input);
+      return new Promise<Response>(() => {});
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    function Back() {
+      const navigate = useNavigate();
+      return <button onClick={() => navigate(-1)}>back</button>;
+    }
+    renderWithProviders(
+      <>
+        <FeedPage feedType="news" />
+        <Back />
+      </>,
+      { route: '/news/1', path: '/news/:page' }
+    );
+    await screen.findByText('Story 1');
+
+    await userEvent.click(screen.getByRole('link', { name: 'More ›' }));
+    expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: 'back' }));
+    expect(fetchMock).toHaveBeenLastCalledWith(expect.stringContaining('/news?page=1'), expect.anything());
+    expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument();
+    expect(screen.queryByText('Story 1')).not.toBeInTheDocument();
   });
 
   it('aborts the in-flight request on unmount', async () => {

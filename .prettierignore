@@ -1,0 +1,11 @@
+dist
+dev-dist
+coverage
+node_modules
+package-lock.json
+src/app
+src/environments
+src/main.ts
+src/polyfills.ts
+src/test.ts
+e2e/src

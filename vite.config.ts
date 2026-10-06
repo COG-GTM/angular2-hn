@@ -3,6 +3,11 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     plugins: [react()],
+    css: {
+        preprocessorOptions: {
+            scss: { api: 'modern' },
+        },
+    },
     build: {
         outDir: 'dist',
         emptyOutDir: true,

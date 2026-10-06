@@ -44,5 +44,9 @@ export default tseslint.config(
             'react/no-danger': 'off',
             'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
         },
+    },
+    {
+        files: ['src/test/**', '**/*.test.{ts,tsx}'],
+        rules: { 'react-refresh/only-export-components': 'off' },
     }
 );

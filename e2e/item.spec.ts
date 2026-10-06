@@ -13,7 +13,7 @@ test('opens item details with nested comments from the feed', async ({ page }) =
         .first()
         .click();
     await expect(page).toHaveURL(new RegExp(`/item/${ITEM.id}$`));
-    await expect(page.getByText('Item with nested comments').first()).toBeVisible();
+    await expect(page.getByText('Item with nested comments').locator('visible=true').first()).toBeVisible();
     await expect(page.getByText('Top level comment')).toBeVisible();
     await expect(page.getByText('Nested reply')).toBeVisible();
     await expect(page.getByText('Deep reply')).toBeVisible();

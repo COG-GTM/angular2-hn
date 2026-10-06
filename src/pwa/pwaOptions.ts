@@ -5,6 +5,7 @@ type RuntimeCaching = NonNullable<NonNullable<VitePWAOptions['workbox']>['runtim
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+export const HN_FIREBASE_API_BASE_URL = 'https://hacker-news.firebaseio.com/v0';
 export const HN_API_CACHE_NAME = 'hn-api';
 export const ASSETS_CACHE_NAME = 'assets';
 
@@ -29,7 +30,7 @@ export const pwaManifest: Partial<ManifestOptions> = {
 };
 
 export const hnApiRuntimeCaching: RuntimeCaching = {
-    urlPattern: new RegExp(`^${escapeRegExp(HN_API_BASE_URL)}/`),
+    urlPattern: new RegExp(`^(?:${[HN_API_BASE_URL, HN_FIREBASE_API_BASE_URL].map(escapeRegExp).join('|')})/`),
     handler: 'NetworkFirst',
     options: {
         cacheName: HN_API_CACHE_NAME,

@@ -15,6 +15,14 @@ export const USERS = {
         karma: 30000,
         avg: null,
     },
+    dhouston: {
+        id: 'dhouston',
+        created_time: 1175714200,
+        created: '19 years ago',
+        karma: 8642,
+        avg: null,
+        about: 'Founder of Dropbox.',
+    },
 } as const;
 
 export const NEWS_FEED = [

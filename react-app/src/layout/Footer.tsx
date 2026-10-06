@@ -1,4 +1,15 @@
-// Placeholder: ported in Phase 3 from src/app/core/footer.
+// Ported from src/app/core/footer
+import './Footer.scss';
+
 export function Footer() {
-  return null;
+  return (
+    <div id="footer">
+      <p>
+        Show this project some ❤ on{' '}
+        <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </p>
+    </div>
+  );
 }

@@ -3,6 +3,11 @@ import App, { AppRoutes } from './App';
 import { FEED_NAMES } from './shared/models/feed-type';
 import { renderWithProviders, stubMatchMedia } from './test/renderWithProviders';
 
+// Route targets fetch from the HN API (phases 3-5); keep them in their loading state here.
+beforeEach(() => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(() => new Promise<Response>(() => {}));
+});
+
 describe('App routing', () => {
     it('redirects / to /news/1', async () => {
         renderWithProviders(<AppRoutes />, { route: '/' });

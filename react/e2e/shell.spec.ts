@@ -2,6 +2,11 @@ import { expect, test } from '@playwright/test';
 
 const FEEDS = ['news', 'newest', 'show', 'ask', 'jobs'] as const;
 
+// These tests only cover the shell; route targets render their error state without the HN API.
+test.beforeEach(async ({ page }) => {
+    await page.route('https://node-hnapi.herokuapp.com/**', (route) => route.abort());
+});
+
 test.describe('app shell routing', () => {
     test('redirects / to /news/1', async ({ page }) => {
         await page.goto('/');

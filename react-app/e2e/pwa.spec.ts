@@ -25,7 +25,7 @@ test('works offline after the first visit (precached shell + cached API)', async
   await expect(page.getByRole('link', { name: FEED_TITLES.news(1), exact: true })).toBeVisible();
 
   await context.setOffline(true);
-  await page.reload();
+  await page.goto('/news/1');
   await expect(page.getByRole('button', { name: 'Settings' })).toBeVisible();
   await expect(page.getByRole('link', { name: FEED_TITLES.news(1), exact: true })).toBeVisible();
 });

@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Route service-worker fetches through context.route() so API mocks still apply once the SW controls the page.
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1';
+
 const PORT = 4173;
 
 export default defineConfig({

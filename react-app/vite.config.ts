@@ -11,7 +11,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      includeAssets: ['favicon.ico', 'assets/**/*'],
+      // public/ is already covered by globPatterns; listing it again (or the manifest icons) creates
+      // duplicate precache entries and the service worker install fails.
+      includeManifestIcons: false,
       manifest: {
         name: 'React HN',
         short_name: 'React HN',

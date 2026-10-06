@@ -13,9 +13,11 @@ export function Layout() {
       <div className="body-cover"></div>
       <div className="wrapper">
         <Header />
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
+        <main id="content" tabIndex={-1}>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </main>
         <Footer />
       </div>
     </div>

@@ -127,4 +127,33 @@ describe('UserPage', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Back' }));
     expect(await screen.findByTestId('previous-page')).toBeInTheDocument();
   });
+
+  it('back button works from the keyboard', async () => {
+    mockFetch({ '/user/pg.json': user });
+    render(
+      <SettingsProvider>
+        <MemoryRouter initialEntries={['/news/1', '/user/pg']} initialIndex={1} future={ROUTER_FUTURE}>
+          <Routes>
+            <Route path="/user/:id" element={<UserPage />} />
+            <Route path="/news/1" element={<div data-testid="previous-page" />} />
+          </Routes>
+        </MemoryRouter>
+      </SettingsProvider>
+    );
+    await screen.findByText('Profile: pg');
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Back' })).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    expect(await screen.findByTestId('previous-page')).toBeInTheDocument();
+  });
+
+  it('sanitizes the about HTML', async () => {
+    mockFetch({
+      '/user/pg.json': { ...user, about: '<img src=x onerror="alert(1)">hi <a href="javascript:alert(1)">x</a>' },
+    });
+    const { container } = renderUser();
+    await screen.findByText('Profile: pg');
+    const about = container.querySelector('.other-details p')!;
+    expect(about.innerHTML).toBe('hi <a>x</a>');
+  });
 });

@@ -5,6 +5,7 @@ import { fetchUser } from '../../api/hn';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Loader } from '../../components/Loader';
 import type { User } from '../../types';
+import { sanitizeHtml } from './sanitizeHtml';
 import './UserPage.scss';
 
 type State = { status: 'loading' } | { status: 'error' } | { status: 'success'; user: User };
@@ -34,7 +35,19 @@ export default function UserPage() {
     <div className="profile">
       <div className="mobile item-header">
         <p className="title-block">
-          <span className="back-button" role="button" aria-label="Back" onClick={() => navigate(-1)}></span>
+          <span
+            className="back-button"
+            role="button"
+            tabIndex={0}
+            aria-label="Back"
+            onClick={() => navigate(-1)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                navigate(-1);
+              }
+            }}
+          ></span>
           Profile: {user.id}
         </p>
       </div>
@@ -45,7 +58,7 @@ export default function UserPage() {
       </div>
       {user.about && (
         <div className="other-details">
-          <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+          <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
         </div>
       )}
     </div>

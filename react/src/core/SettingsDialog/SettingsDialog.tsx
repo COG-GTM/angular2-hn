@@ -1,14 +1,55 @@
+import { useEffect, useRef } from 'react';
+import type { KeyboardEvent } from 'react';
 import { useSettings } from '../../shared/services/useSettings';
 import { THEMES } from '../../shared/services/settings';
 import { onActivateKey } from '../../shared/utils/a11y';
 import './SettingsDialog.scss';
 
+const FOCUSABLE = 'input, [tabindex="0"]';
+
 export function SettingsDialog() {
     const { settings, toggleSettings, toggleOpenLinksInNewTab, setTheme, setFont, setSpacing } = useSettings();
+    const popupRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const opener = document.activeElement as HTMLElement | null;
+        popupRef.current?.focus();
+        return () => opener?.focus();
+    }, []);
+
+    const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            toggleSettings();
+            return;
+        }
+        if (event.key !== 'Tab' || !popupRef.current) {
+            return;
+        }
+        const focusable = Array.from(popupRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement;
+        if (event.shiftKey && (active === first || active === popupRef.current)) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && active === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    };
 
     return (
         <div id="popup1" className="overlay">
-            <div className="popup" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+            <div
+                ref={popupRef}
+                className="popup"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="settings-title"
+                tabIndex={-1}
+                onKeyDown={onKeyDown}
+            >
                 <h1 id="settings-title">Settings</h1>
                 <hr />
                 <span

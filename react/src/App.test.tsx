@@ -34,7 +34,8 @@ describe('App routing', () => {
 
     it.each(['/news', '/item', '/user', '/unknown/1'])('renders only the shell for unmatched %s', (route) => {
         renderWithProviders(<AppRoutes />, { route });
-        expect(screen.queryByTestId('theme-root')).not.toBeInTheDocument();
+        expect(screen.getByTestId('theme-root')).toBeInTheDocument();
+        expect(screen.getByRole('banner')).toBeInTheDocument();
         expect(screen.queryByTestId('feed')).not.toBeInTheDocument();
     });
 

@@ -75,4 +75,31 @@ describe('SettingsDialog', () => {
         await userEvent.keyboard('{Enter}');
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
+    it('moves focus into the dialog and restores it to the cog on Escape', async () => {
+        renderWithProviders(<Header />);
+        const cog = screen.getByRole('button', { name: 'Settings' });
+        cog.focus();
+        await userEvent.keyboard('{Enter}');
+        const dialog = screen.getByRole('dialog', { name: 'Settings' });
+        expect(dialog).toHaveFocus();
+
+        await userEvent.keyboard('{Escape}');
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+        expect(cog).toHaveFocus();
+    });
+
+    it('keeps Tab focus inside the dialog', async () => {
+        await openSettings();
+        const close = screen.getByRole('button', { name: 'Close settings' });
+        const spacing = screen.getByRole('spinbutton', { name: 'List spacing:' });
+
+        await userEvent.tab({ shift: true });
+        expect(spacing).toHaveFocus();
+        await userEvent.tab();
+        expect(close).toHaveFocus();
+        await userEvent.tab({ shift: true });
+        expect(spacing).toHaveFocus();
+        await userEvent.tab({ shift: true });
+        expect(screen.getByRole('spinbutton', { name: 'Font size:' })).toHaveFocus();
+    });
 });

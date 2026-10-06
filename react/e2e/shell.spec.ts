@@ -2,12 +2,25 @@ import { expect, test } from '@playwright/test';
 
 const FEEDS = ['news', 'newest', 'show', 'ask', 'jobs'] as const;
 
-// These tests only cover the shell; route targets render their error state without the HN API.
+// These tests only cover the shell, so the live HN API is blocked to keep them independent of it.
 test.beforeEach(async ({ page }) => {
     await page.route('https://node-hnapi.herokuapp.com/**', (route) => route.abort());
 });
 
 test.describe('app shell routing', () => {
+    test('unknown URLs keep the shell instead of the boot loader', async ({ page }) => {
+        await page.goto('/news');
+        await expect(page.getByRole('banner')).toBeVisible();
+        await expect(page.locator('.app-loader')).toHaveCSS('opacity', '0');
+    });
+
+    test('skip link moves focus to the header navigation', async ({ page }) => {
+        await page.goto('/news/1');
+        await page.keyboard.press('Tab');
+        await page.keyboard.press('Enter');
+        await expect(page.locator('#navigation')).toBeFocused();
+    });
+
     test('redirects / to /news/1', async ({ page }) => {
         await page.goto('/');
         await expect(page).toHaveURL(/\/news\/1$/);

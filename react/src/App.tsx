@@ -46,6 +46,8 @@ export function AppRoutes() {
                 ))}
                 <Route path="item/:id" element={<ItemDetails />} />
                 <Route path="user/:id" element={<UserProfile />} />
+                {/* Angular has no wildcard route: unknown URLs keep the shell with an empty outlet. */}
+                <Route path="*" element={null} />
             </Route>
         </Routes>
     );

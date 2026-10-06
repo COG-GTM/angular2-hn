@@ -29,7 +29,7 @@ export function Header() {
                 </NavLink>
                 <div className="header-text">
                     <div className="left">
-                        <nav className="header-nav">
+                        <nav id="navigation" className="header-nav" tabIndex={-1}>
                             {NAV_LINKS.map((link, i) => (
                                 <span key={link.to}>
                                     {i > 0 && ' | '}

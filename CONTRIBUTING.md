@@ -1,17 +1,17 @@
 # Contributing
 
 Thank you for your interest in contributing! Please feel free to put up a PR for any issue or feature request.
-Even if you have little to no experience with Angular, I'll be more than happy to help. :)
+Even if you have little to no experience with React, I'll be more than happy to help. :)
 
 ## Setup
 
 1. Fork the repo
 2. Clone your fork
 3. Make a branch for your feature or bug fix
-4. If you don't have Angular CLI installed: `npm install -g angular-cli@latest`
-5. `ng init`
-6. Type `n` for each file to not overwrite any file changes
-7. Run `npm start` and open `localhost:4200` in a browser
+4. `cd react && npm install`
+5. `npx playwright install chromium` (for e2e tests)
+6. Run `npm run dev` and open `localhost:5173` in a browser
+7. Before opening a PR: `npm run format:check && npm run lint && npm run typecheck && npm test && npm run e2e`
 8. Work your magic
 9. Run `npm run build` or `npm run static-serve` to kick off a production build and make sure nothing is broken
 10. To test service worker changes:

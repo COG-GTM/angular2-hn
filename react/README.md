@@ -1,6 +1,6 @@
-# React HN (migration in progress)
+# React HN
 
-React 18 + TypeScript + Vite port of the Angular HN PWA in the repo root. The Angular app stays intact until the final migration phase.
+React 18 + TypeScript + Vite port of the original Angular HN PWA. Routes, settings (localStorage keys and theme values) and the offline app-shell caching are kept compatible with the Angular app.
 
 ## Scripts (run from `react/`)
 
@@ -18,4 +18,5 @@ React 18 + TypeScript + Vite port of the Angular HN PWA in the repo root. The An
 
 - Unit tests live next to source as `*.test.ts(x)`; jsdom environment, globals enabled, `localStorage` cleared after each test.
 - E2E specs live in `e2e/`. Use `mockHnApi` from `e2e/support/mock-api.ts` to stub `https://node-hnapi.herokuapp.com` so runs are deterministic.
-- Static assets (icons, logo, cog) are in `public/assets/`, copied from `src/assets/`.
+- Static assets (icons, logo, cog) are in `public/assets/`.
+- PWA: `vite-plugin-pwa` (see `vite.config.ts`) generates `sw.js` and `manifest.webmanifest` at build time. The app shell is precached; `/assets/**` is cached at runtime (stale-while-revalidate). HN API responses are not cached, same as the Angular `ngsw-config.json`.

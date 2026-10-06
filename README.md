@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React and TypeScript (originally Angular)
 </p>
 
 <p align="center">
@@ -43,11 +43,11 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) ([Workbox](https://developer.chrome.com/docs/workbox)) to generate a service worker as part of the build step: the app shell is precached and static assets are cached on first use, so the app loads quickly and works offline.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), the app includes a Web App Manifest that allows you to install to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -73,16 +73,15 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app lives in [`react/`](react/) (React 18, TypeScript, Vite, React Router). From `react/`:
 
- - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to start the dev server on `localhost:5173`
+ - `npm run build` to type-check and build to `react/dist/` (service worker included); `npm run preview` serves the build, which is how to test service worker changes locally
+ - `npm test` runs Vitest + React Testing Library unit tests with an 80% coverage gate
+ - `npm run e2e` runs the Playwright end-to-end suite (run `npx playwright install chromium` once first)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+See [`react/README.md`](react/README.md) for details.
 
 ## Contributors
 

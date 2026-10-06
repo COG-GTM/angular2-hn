@@ -1,6 +1,5 @@
-# CI for the React migration under react/. Mirrors .travis.yml (install -> build on master),
-# adding lint, unit tests with coverage gates and Playwright e2e. Firebase deploy stays on Travis
-# until the final migration phase switches hosting to the React build.
+# CI for the React app under react/: format, lint, unit tests with coverage gates, build and Playwright e2e.
+# Firebase deploy of react/dist stays on Travis (.travis.yml).
 name: React CI
 
 on:

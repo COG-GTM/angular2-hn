@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Lets context.route() intercept requests made by the service worker (used by the offline spec).
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1';
+
 const PORT = 4173;
 
 export default defineConfig({

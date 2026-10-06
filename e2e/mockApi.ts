@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { BrowserContext, Page } from '@playwright/test';
 import type { Comment, FeedName, Story, User } from '../src/models';
 
 export const PAGE_SIZE = 30;
@@ -58,8 +58,8 @@ export const USER: User = {
     about: '<p>Bug fixer.</p>',
 };
 
-export async function mockApi(page: Page): Promise<void> {
-    await page.route('https://api.hnpwa.com/v0/**', async (route) => {
+export async function mockApi(target: Page | BrowserContext): Promise<void> {
+    await target.route('https://api.hnpwa.com/v0/**', async (route) => {
         const { pathname } = new URL(route.request().url());
         const feedMatch = pathname.match(/^\/v0\/(news|newest|show|ask|jobs)\/(\d+)\.json$/);
         if (feedMatch) {

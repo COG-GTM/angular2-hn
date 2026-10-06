@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchFeed, fetchItemContent, fetchUser, HN_API_BASE_URL, HnApiError } from './hnApi';
+import { fetchFeed, fetchItemContent, fetchUser, HN_API_BASE_URL, HN_FIREBASE_API_BASE_URL, HnApiError } from './hnApi';
 
 function mockFetch(responses: Record<string, unknown>, status = 200) {
     const fn = vi.fn(async (url: string) => {
@@ -47,6 +47,22 @@ describe('hnApi', () => {
             { points: 7, content: 'no' },
         ]);
         expect(story.poll_votes_count).toBe(10);
+    });
+
+    it('fetchItemContent reads poll option ids from the HN API when the poll list is missing', async () => {
+        const fetchSpy = mockFetch({
+            '/item/20.json': { id: 20, type: 'poll', comments: [] },
+            [`${HN_FIREBASE_API_BASE_URL}/item/20.json`]: { id: 20, parts: [31, 32] },
+            '/item/31.json': { points: 1, content: 'a' },
+            '/item/32.json': { points: 4, content: 'b' },
+        });
+        const story = await fetchItemContent(20);
+        expect(fetchSpy).toHaveBeenCalledWith(`${HN_FIREBASE_API_BASE_URL}/item/20.json`, { signal: undefined });
+        expect(story.poll).toEqual([
+            { points: 1, content: 'a' },
+            { points: 4, content: 'b' },
+        ]);
+        expect(story.poll_votes_count).toBe(5);
     });
 
     it('throws HnApiError on non-OK responses', async () => {

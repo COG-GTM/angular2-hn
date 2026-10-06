@@ -1,19 +1,31 @@
 import { screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { fetchFeed, fetchItemContent, fetchUser } from './api/hnApi';
 import { AppRoutes } from './AppRoutes';
+import { makeStory, makeUser } from './test/fixtures';
 import { renderWithProviders } from './test/render';
+
+vi.mock('./api/hnApi');
 
 beforeEach(() => {
     localStorage.clear();
+    vi.mocked(fetchFeed).mockReset();
+    vi.mocked(fetchFeed).mockImplementation(async (feedType, page) => [
+        makeStory({ title: `${feedType} story on page ${page}` }),
+    ]);
+    vi.mocked(fetchItemContent).mockReset();
+    vi.mocked(fetchItemContent).mockImplementation(async (id) => makeStory({ id, title: `Item ${id}` }));
+    vi.mocked(fetchUser).mockReset();
+    vi.mocked(fetchUser).mockImplementation(async (id) => makeUser({ id }));
 });
 
 const location = () => screen.getByTestId('location').textContent;
 
 describe('AppRoutes', () => {
-    it('redirects / to /news/1', () => {
-        const { container } = renderWithProviders(<AppRoutes />, { route: '/' });
+    it('redirects / to /news/1', async () => {
+        renderWithProviders(<AppRoutes />, { route: '/' });
         expect(location()).toBe('/news/1');
-        expect(container.querySelector('[data-feed-type="news"][data-page="1"]')).toBeInTheDocument();
+        expect(await screen.findByText('news story on page 1')).toBeInTheDocument();
     });
 
     it('redirects / to the saved default feed', () => {
@@ -22,9 +34,10 @@ describe('AppRoutes', () => {
         expect(location()).toBe('/ask/1');
     });
 
-    it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed with the page param', (feed) => {
-        const { container } = renderWithProviders(<AppRoutes />, { route: `/${feed}/3` });
-        expect(container.querySelector(`[data-feed-type="${feed}"][data-page="3"]`)).toBeInTheDocument();
+    it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed with the page param', async (feed) => {
+        renderWithProviders(<AppRoutes />, { route: `/${feed}/3` });
+        expect(await screen.findByText(`${feed} story on page 3`)).toBeInTheDocument();
+        expect(fetchFeed).toHaveBeenCalledWith(feed, 3, expect.any(AbortSignal));
     });
 
     it('redirects a feed without a page to page 1', () => {
@@ -38,22 +51,23 @@ describe('AppRoutes', () => {
     });
 
     it('lazy loads item details from /item/:id', async () => {
-        const { container } = renderWithProviders(<AppRoutes />, { route: '/item/123' });
-        await screen.findByTestId('location');
-        await expect.poll(() => container.querySelector('[data-item-id="123"]')).toBeInTheDocument();
+        renderWithProviders(<AppRoutes />, { route: '/item/123' });
+        expect((await screen.findAllByRole('link', { name: 'Item 123' })).length).toBeGreaterThan(0);
+        expect(fetchItemContent).toHaveBeenCalledWith(123, expect.any(AbortSignal));
     });
 
     it('lazy loads item details from /item?id=', async () => {
-        const { container } = renderWithProviders(<AppRoutes />, { route: '/item?id=456' });
-        await expect.poll(() => container.querySelector('[data-item-id="456"]')).toBeInTheDocument();
+        renderWithProviders(<AppRoutes />, { route: '/item?id=456' });
+        expect((await screen.findAllByRole('link', { name: 'Item 456' })).length).toBeGreaterThan(0);
+        expect(fetchItemContent).toHaveBeenCalledWith(456, expect.any(AbortSignal));
     });
 
     it('lazy loads the user profile from /user?id= and /user/:id', async () => {
         const first = renderWithProviders(<AppRoutes />, { route: '/user?id=pg' });
-        await expect.poll(() => first.container.querySelector('[data-user-id="pg"]')).toBeInTheDocument();
+        expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
         first.unmount();
-        const second = renderWithProviders(<AppRoutes />, { route: '/user/dang' });
-        await expect.poll(() => second.container.querySelector('[data-user-id="dang"]')).toBeInTheDocument();
+        renderWithProviders(<AppRoutes />, { route: '/user/dang' });
+        expect(await screen.findByText('Profile: dang')).toBeInTheDocument();
     });
 
     it('redirects unknown routes to the default feed', () => {

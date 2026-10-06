@@ -1,0 +1,72 @@
+// Ported from src/app/item-details/comment/comment.component.scss (view-encapsulated, so scoped to .comment-node)
+@use '../../styles/media' as *;
+
+.comment-node {
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .meta {
+    font-size: 13px;
+    color: #696969;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+
+    .time {
+      padding-left: 5px;
+    }
+
+    @media #{$mobile-only} {
+      font-size: 14px;
+      margin-bottom: 10px;
+      .time {
+        padding: 0;
+        float: right;
+      }
+    }
+  }
+
+  .meta-collapse {
+    margin-bottom: 20px;
+  }
+
+  .deleted-meta {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 30px 0;
+  }
+
+  .collapse {
+    font-size: 13px;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  .comment-tree {
+    margin-left: 24px;
+
+    @media #{$tablet-only} {
+      margin-left: 8px;
+    }
+  }
+
+  .comment-text {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    line-height: 1.5em;
+  }
+
+  .subtree {
+    margin-left: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}

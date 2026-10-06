@@ -22,7 +22,7 @@ export function CommentTree({ comment }: { comment: Comment }) {
       <div className={collapse ? 'meta meta-collapse' : 'meta'}>
         <span className="collapse" onClick={() => setCollapse((c) => !c)}>
           [{collapse ? '+' : '-'}]
-        </span>{' '}
+        </span>
         <Link to={`/user/${comment.user}`}>{comment.user}</Link>
         <span className="time">{comment.time_ago}</span>
       </div>

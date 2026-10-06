@@ -1,11 +1,14 @@
 // Ported from src/app/item-details/comment/comment.component.{ts,html}
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Comment } from '../../types';
+import { buttonProps } from './a11y';
+import { sanitizeHtml } from './sanitizeHtml';
 import './CommentTree.scss';
 
 export function CommentTree({ comment }: { comment: Comment }) {
   const [collapse, setCollapse] = useState(false);
+  const content = useMemo(() => sanitizeHtml(comment.content), [comment.content]);
 
   if (comment.deleted) {
     return (
@@ -20,7 +23,7 @@ export function CommentTree({ comment }: { comment: Comment }) {
   return (
     <div className="comment-node">
       <div className={collapse ? 'meta meta-collapse' : 'meta'}>
-        <span className="collapse" onClick={() => setCollapse((c) => !c)}>
+        <span className="collapse" aria-expanded={!collapse} {...buttonProps(() => setCollapse((c) => !c))}>
           [{collapse ? '+' : '-'}]
         </span>
         <Link to={`/user/${comment.user}`}>{comment.user}</Link>
@@ -28,7 +31,7 @@ export function CommentTree({ comment }: { comment: Comment }) {
       </div>
       <div className="comment-tree">
         <div hidden={collapse}>
-          <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }} />
+          <p className="comment-text" dangerouslySetInnerHTML={{ __html: content }} />
           <ul className="subtree">
             {comment.comments?.map((sub) => (
               <li key={sub.id}>

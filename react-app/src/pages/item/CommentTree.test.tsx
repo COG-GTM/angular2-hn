@@ -70,6 +70,30 @@ describe('CommentTree', () => {
     expect(screen.getByText('Sibling reply')).toBeVisible();
   });
 
+  it('toggles collapse from the keyboard', async () => {
+    renderWithProviders(<CommentTree comment={carol} />);
+    const toggle = toggleFor('carol');
+    expect(toggle).toHaveAttribute('role', 'button');
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    toggle.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(toggleFor('carol')).toHaveTextContent('[+]');
+    expect(toggleFor('carol')).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.keyboard(' ');
+    expect(toggleFor('carol')).toHaveTextContent('[-]');
+  });
+
+  it('sanitizes comment HTML', () => {
+    const evil: Comment = {
+      ...carol,
+      comments: [],
+      content: '<p>ok<img src=x onerror="alert(1)"></p><a href="javascript:alert(1)">x</a>',
+    };
+    const { container } = renderWithProviders(<CommentTree comment={evil} />);
+    const text = container.querySelector('.comment-text')!;
+    expect(text.innerHTML).toBe('<p>ok</p><a>x</a>');
+  });
+
   it('renders deleted comments without meta or replies', () => {
     const { container } = renderWithProviders(<CommentTree comment={deleted} />);
     const meta = container.querySelector('.deleted-meta');

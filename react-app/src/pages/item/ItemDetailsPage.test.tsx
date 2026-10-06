@@ -1,7 +1,7 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { Link, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { describe, expect, it, vi } from 'vitest';
 import { ROUTER_FUTURE } from '../../AppRoutes';
 import { SettingsProvider } from '../../settings/SettingsContext';
 import { askStory, itemWithComments, jobStory, linkStory, pollItem } from '../../test/fixtures';
@@ -146,6 +146,55 @@ describe('ItemDetailsPage', () => {
     const signal = (fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].signal!;
     unmount();
     expect(signal.aborted).toBe(true);
+  });
+
+  it('sanitizes item and poll HTML', async () => {
+    mockFetch({
+      '/item/3001': { points: 1, content: '<p onclick="x()">Tabs</p><script>alert(1)</script>' },
+      '/item/3002': { points: 1, content: 'Spaces' },
+      '/item/3000': { ...pollItem, content: '<p>Vote!</p><iframe src="https://evil.example"></iframe>' },
+    });
+    const { container } = renderItem(3000);
+    await screen.findByTestId('laptop-header');
+    expect(container.querySelector('script, iframe, [onclick]')).toBeNull();
+    expect(container.querySelector('.subject')!.innerHTML).toBe('<p>Vote!</p>');
+  });
+
+  it('scrolls to top and refetches when the item id changes', async () => {
+    mockFetch({ '/item/1001': linkStory, '/item/1002': { ...askStory, comments: [] } });
+    render(
+      <SettingsProvider>
+        <MemoryRouter initialEntries={['/item/1001']} future={ROUTER_FUTURE}>
+          <Link to="/item/1002">next item</Link>
+          <Routes>
+            <Route path="/item/:id" element={<ItemDetailsPage />} />
+          </Routes>
+        </MemoryRouter>
+      </SettingsProvider>
+    );
+    await screen.findAllByText('A link story');
+    const callsBefore = vi.mocked(window.scrollTo).mock.calls.length;
+    await userEvent.click(screen.getByRole('link', { name: 'next item' }));
+    expect((await screen.findAllByText('Ask HN: Something?')).length).toBeGreaterThan(0);
+    expect(vi.mocked(window.scrollTo).mock.calls.length).toBe(callsBefore + 1);
+  });
+
+  it('back button works from the keyboard', async () => {
+    mockFetch({ '/item/1001': linkStory });
+    render(
+      <SettingsProvider>
+        <MemoryRouter initialEntries={['/news/1', '/item/1001']} initialIndex={1} future={ROUTER_FUTURE}>
+          <Routes>
+            <Route path="/item/:id" element={<ItemDetailsPage />} />
+            <Route path="/news/:page" element={<div data-testid="previous-page" />} />
+          </Routes>
+        </MemoryRouter>
+      </SettingsProvider>
+    );
+    await screen.findByTestId('laptop-header');
+    screen.getByRole('button', { name: 'Back' }).focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(screen.getByTestId('previous-page')).toBeInTheDocument());
   });
 
   it('back button navigates to the previous history entry', async () => {

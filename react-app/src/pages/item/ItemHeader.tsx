@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSettings } from '../../settings/SettingsContext';
 import type { Story } from '../../types';
 import { commentLabel, externalLinkProps, hasExternalUrl } from '../../utils/format';
+import { buttonProps } from './a11y';
 
 function TitleLink({ item }: { item: Story }) {
   const { settings } = useSettings();
@@ -31,7 +32,7 @@ export function ItemHeader({ item }: { item: Story }) {
     <>
       <div className="mobile item-header">
         <p className="title-block">
-          <span className="back-button" role="button" aria-label="Back" onClick={() => navigate(-1)}></span>
+          <span className="back-button" aria-label="Back" {...buttonProps(() => navigate(-1))}></span>
           <TitleLink item={item} />
         </p>
       </div>

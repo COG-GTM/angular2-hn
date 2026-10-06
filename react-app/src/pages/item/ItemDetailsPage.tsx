@@ -7,6 +7,7 @@ import { Loader } from '../../components/Loader';
 import type { Story } from '../../types';
 import { CommentTree } from './CommentTree';
 import { ItemHeader } from './ItemHeader';
+import { sanitizeHtml } from './sanitizeHtml';
 import './ItemDetailsPage.scss';
 
 const ERROR_MESSAGE = 'Could not load item comments.';
@@ -22,9 +23,6 @@ export default function ItemDetailsPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     const controller = new AbortController();
     setItem(null);
     setErrorMessage('');
@@ -49,7 +47,7 @@ export default function ItemDetailsPage() {
             <div className="pollResults">
               {item.poll?.map((pollResult, i) => (
                 <div key={i} className="pollContent">
-                  <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                   <div className="subtext">{pollResult.points} points</div>
                   <div
                     className="pollBar"
@@ -60,7 +58,7 @@ export default function ItemDetailsPage() {
               ))}
             </div>
           )}
-          <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }} />
+          <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
           <ul className="comment-list">
             {item.comments?.map((comment) => (
               <li key={comment.id}>

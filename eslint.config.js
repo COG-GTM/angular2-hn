@@ -14,14 +14,6 @@ export default tseslint.config(
             'node_modules',
             'playwright-report',
             'test-results',
-            'src/app',
-            'src/environments',
-            'src/main.ts',
-            'src/polyfills.ts',
-            'src/test.ts',
-            'e2e/protractor.conf.js',
-            'e2e/src',
-            'karma.conf.js',
         ],
     },
     {
@@ -46,7 +38,7 @@ export default tseslint.config(
         },
     },
     {
-        files: ['src/test/**', '**/*.test.{ts,tsx}'],
+        files: ['src/test/**', '**/*.test.{ts,tsx}', 'e2e/**'],
         rules: { 'react-refresh/only-export-components': 'off' },
     }
 );

@@ -51,3 +51,6 @@ Thumbs.db
 /test-results
 /blob-report
 /playwright/.cache
+
+# TypeScript
+*.tsbuildinfo

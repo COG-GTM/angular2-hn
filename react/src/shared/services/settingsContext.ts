@@ -1,0 +1,15 @@
+import { createContext } from 'react';
+
+import type { Settings } from '../models';
+import type { Theme } from './settings';
+
+export interface SettingsContextValue {
+    settings: Settings;
+    toggleSettings(): void;
+    toggleOpenLinksInNewTab(): void;
+    setTheme(theme: Theme): void;
+    setFont(fontSize: string): void;
+    setSpacing(listSpace: string): void;
+}
+
+export const SettingsContext = createContext<SettingsContextValue | null>(null);

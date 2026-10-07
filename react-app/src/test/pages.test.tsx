@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { Link, MemoryRouter, Route, Routes } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { SettingsProvider } from '../context/SettingsContext'
 import { fetchFeed, fetchItemContent, fetchUser } from '../services/hackernewsApi'
@@ -27,6 +27,14 @@ function withSettings(children: ReactNode) {
 
 function makeStories(count: number): Story[] {
   return Array.from({ length: count }, (_, index) => makeStory({ id: index + 1, title: `Story ${index + 1}` }))
+}
+
+function deferred<T>() {
+  let reject!: (reason?: unknown) => void
+  const promise = new Promise<T>((_, rejectPromise) => {
+    reject = rejectPromise
+  })
+  return { promise, reject }
 }
 
 describe('Feed page', () => {
@@ -64,6 +72,32 @@ describe('Feed page', () => {
       </MemoryRouter>,
     ))
     expect(await screen.findByText('Could not load show stories.')).toBeInTheDocument()
+  })
+
+  it('keeps current stories while loading and clears them after the next page fails', async () => {
+    const nextPage = deferred<Story[]>()
+    feedRequest
+      .mockResolvedValueOnce([makeStory({ id: 101, title: 'First page story' })])
+      .mockReturnValueOnce(nextPage.promise)
+    const user = userEvent.setup()
+    render(withSettings(
+      <MemoryRouter initialEntries={['/news/1']}>
+        <Link to="/news/2">Next page</Link>
+        <Routes>
+          <Route path="/news/:page" element={<Feed feedType="news" />} />
+        </Routes>
+      </MemoryRouter>,
+    ))
+
+    expect(await screen.findByText('First page story')).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Next page' }))
+    expect(screen.getByText('First page story')).toBeInTheDocument()
+
+    await act(async () => {
+      nextPage.reject(new Error('offline'))
+    })
+    expect(await screen.findByText('Could not load news stories.')).toBeInTheDocument()
+    expect(screen.queryByText('First page story')).not.toBeInTheDocument()
   })
 })
 
@@ -107,6 +141,32 @@ describe('ItemDetails page', () => {
     ))
     expect(await screen.findByText('Could not load item comments.')).toBeInTheDocument()
   })
+
+  it('keeps the current item while loading and clears it after navigation fails', async () => {
+    const nextItem = deferred<Story>()
+    itemRequest
+      .mockResolvedValueOnce(makeStory({ id: 5, title: 'First item', content: '<strong>First item body</strong>' }))
+      .mockReturnValueOnce(nextItem.promise)
+    const user = userEvent.setup()
+    render(withSettings(
+      <MemoryRouter initialEntries={['/item/5']}>
+        <Link to="/item/6">Next item</Link>
+        <Routes>
+          <Route path="/item/:id" element={<ItemDetails />} />
+        </Routes>
+      </MemoryRouter>,
+    ))
+
+    expect(await screen.findByText('First item body')).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Next item' }))
+    expect(screen.getByText('First item body')).toBeInTheDocument()
+
+    await act(async () => {
+      nextItem.reject(new Error('offline'))
+    })
+    expect(await screen.findByText('Could not load item comments.')).toBeInTheDocument()
+    expect(screen.queryByText('First item body')).not.toBeInTheDocument()
+  })
 })
 
 describe('User page', () => {
@@ -137,6 +197,32 @@ describe('User page', () => {
       </MemoryRouter>,
     ))
     expect(await screen.findByText('Could not load user missing.')).toBeInTheDocument()
+  })
+
+  it('keeps the current profile while loading and clears it after navigation fails', async () => {
+    const nextUser = deferred<ReturnType<typeof makeUser>>()
+    userRequest
+      .mockResolvedValueOnce(makeUser({ id: 'alice', about: '<p>About Alice</p>' }))
+      .mockReturnValueOnce(nextUser.promise)
+    const user = userEvent.setup()
+    render(withSettings(
+      <MemoryRouter initialEntries={['/user/alice']}>
+        <Link to="/user/bob">Next profile</Link>
+        <Routes>
+          <Route path="/user/:id" element={<User />} />
+        </Routes>
+      </MemoryRouter>,
+    ))
+
+    expect(await screen.findByText('About Alice')).toBeInTheDocument()
+    await user.click(screen.getByRole('link', { name: 'Next profile' }))
+    expect(screen.getByText('About Alice')).toBeInTheDocument()
+
+    await act(async () => {
+      nextUser.reject(new Error('offline'))
+    })
+    expect(await screen.findByText('Could not load user bob.')).toBeInTheDocument()
+    expect(screen.queryByText('About Alice')).not.toBeInTheDocument()
   })
 })
 

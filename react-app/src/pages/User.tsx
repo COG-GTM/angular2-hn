@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { fetchUser } from '../services/hackernewsApi'
 import type { User as UserData } from '../types/User'
+import { sanitizeHtml } from '../utils/sanitizeHtml'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import './User.scss'
@@ -19,7 +20,8 @@ export default function User() {
     fetchUser(id, controller.signal)
       .then(setUser)
       .catch((error: unknown) => {
-        if (!(error instanceof Error && error.name === 'AbortError')) {
+        if (!controller.signal.aborted && !(error instanceof Error && error.name === 'AbortError')) {
+          setUser(undefined)
           setErrorMessage(`Could not load user ${id}.`)
         }
       })
@@ -44,7 +46,7 @@ export default function User() {
             <span className="right">{user.karma} ★</span>
             <p className="age">Created {user.created}</p>
           </div>
-          {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: user.about }} /></div>}
+          {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }} /></div>}
         </div>
       )}
     </div>

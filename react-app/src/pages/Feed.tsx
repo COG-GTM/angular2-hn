@@ -26,7 +26,8 @@ export default function Feed({ feedType }: { feedType: FeedName }) {
         window.scrollTo(0, 0)
       })
       .catch((error: unknown) => {
-        if (!(error instanceof Error && error.name === 'AbortError')) {
+        if (!controller.signal.aborted && !(error instanceof Error && error.name === 'AbortError')) {
+          setItems(undefined)
           setErrorMessage(`Could not load ${feedType} stories.`)
         }
       })

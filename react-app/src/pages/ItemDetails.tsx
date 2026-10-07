@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchItemContent } from '../services/hackernewsApi'
 import type { Story } from '../types/Story'
 import { formatCommentCount } from '../utils/comment'
+import { sanitizeHtml } from '../utils/sanitizeHtml'
 import Comment from '../components/Comment'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
@@ -25,7 +26,8 @@ export default function ItemDetails() {
     fetchItemContent(id, controller.signal)
       .then(setItem)
       .catch((error: unknown) => {
-        if (!(error instanceof Error && error.name === 'AbortError')) {
+        if (!controller.signal.aborted && !(error instanceof Error && error.name === 'AbortError')) {
+          setItem(undefined)
           setErrorMessage('Could not load item comments.')
         }
       })
@@ -93,14 +95,14 @@ export default function ItemDetails() {
             <div className="pollResults">
               {item.poll.map((pollResult, index) => (
                 <div key={index} className="pollContent">
-                  <div dangerouslySetInnerHTML={{ __html: pollResult.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }} />
                   <div className="subtext">{pollResult.points} points</div>
                   <div className="pollBar" style={{ width: `${pollResult.points / item.poll_votes_count * 100}%` }} />
                 </div>
               ))}
             </div>
           )}
-          <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }} />
+          <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }} />
           <ul className="comment-list">
             {item.comments.map((comment) => (
               <li key={comment.id}><Comment comment={comment} /></li>

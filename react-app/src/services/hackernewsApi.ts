@@ -22,11 +22,24 @@ export function fetchFeed(feedType: FeedName, page: number, signal?: AbortSignal
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
   const story = await fetchJson<Story>(`${BASE_URL}/item/${id}`, signal)
   if (story.type === 'poll') {
-    const poll = await Promise.all(
+    const pollResults = await Promise.allSettled(
       story.poll.map((_, index) => fetchPollContent(story.id + index + 1, signal)),
     )
-    story.poll = poll
-    story.poll_votes_count = poll.reduce((total, result) => total + result.points, 0)
+    if (signal?.aborted) {
+      const abortResult = pollResults.find(
+        (result): result is PromiseRejectedResult =>
+          result.status === 'rejected' && result.reason instanceof Error && result.reason.name === 'AbortError',
+      )
+      throw abortResult?.reason ?? signal.reason ?? new DOMException('Aborted', 'AbortError')
+    }
+    story.poll = pollResults.map((result, index) => {
+      if (result.status === 'fulfilled') {
+        return result.value
+      }
+      const original = story.poll[index]
+      return { ...original, content: original.content ?? original.item ?? '' }
+    })
+    story.poll_votes_count = story.poll.reduce((total, result) => total + result.points, 0)
   }
   return story
 }

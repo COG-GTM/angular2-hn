@@ -25,4 +25,13 @@ describe('Comment', () => {
     expect(screen.getByText('[deleted]').parentElement).toHaveTextContent('Comment Deleted')
     expect(screen.queryByText('A comment')).not.toBeInTheDocument()
   })
+
+  it('sanitizes comment HTML before rendering it', () => {
+    const { container } = renderWithAppProviders(
+      <Comment comment={makeComment({ content: '<strong>Safe content</strong><script>alert(1)</script>' })} />,
+    )
+
+    expect(container.querySelector('script')).not.toBeInTheDocument()
+    expect(screen.getByText('Safe content').tagName).toBe('STRONG')
+  })
 })

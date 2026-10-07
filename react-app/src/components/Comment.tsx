@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Comment as CommentData } from '../types/Comment'
+import { sanitizeHtml } from '../utils/sanitizeHtml'
 import './Comment.scss'
 
 export default function Comment({ comment }: { comment: CommentData }) {
@@ -19,7 +20,7 @@ export default function Comment({ comment }: { comment: CommentData }) {
           </div>
           <div className="comment-tree">
             <div hidden={collapse}>
-              <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }} />
+              <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }} />
               <ul className="subtree">
                 {comment.comments.map((subComment) => (
                   <li key={subComment.id}><Comment comment={subComment} /></li>

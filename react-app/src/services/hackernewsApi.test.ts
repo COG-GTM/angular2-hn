@@ -51,6 +51,56 @@ describe('hackernewsApi', () => {
     expect(fetch).toHaveBeenCalledWith(`${BASE_URL}/item/102`, { signal: undefined })
   })
 
+  it('keeps the original option when one poll request fails', async () => {
+    const story = {
+      type: 'poll',
+      id: 200,
+      poll: [
+        { item: 'Original first option', points: 2 },
+        { item: 'Original second option', points: 5 },
+        { item: 'Original third option', points: 7 },
+      ],
+      poll_votes_count: 0,
+    } as unknown as Story
+    vi.mocked(fetch).mockImplementation(async (input) => {
+      const url = String(input)
+      if (url.endsWith('/200')) return response(story)
+      if (url.endsWith('/201')) return response({ points: 3, content: 'Fetched first option' })
+      if (url.endsWith('/202')) throw new Error('Option unavailable')
+      return response({ points: 11, content: 'Fetched third option' })
+    })
+
+    const result = await fetchItemContent(200)
+
+    expect(result.poll).toEqual([
+      { points: 3, content: 'Fetched first option' },
+      { item: 'Original second option', points: 5, content: 'Original second option' },
+      { points: 11, content: 'Fetched third option' },
+    ])
+    expect(result.poll_votes_count).toBe(19)
+  })
+
+  it('rethrows an abort during poll option requests', async () => {
+    const story = {
+      type: 'poll',
+      id: 300,
+      poll: [{ item: 'Original option', points: 2 }],
+      poll_votes_count: 0,
+    } as unknown as Story
+    const controller = new AbortController()
+    const abortError = new Error('Aborted')
+    abortError.name = 'AbortError'
+    vi.mocked(fetch).mockImplementation(async (input) => {
+      if (String(input).endsWith('/300')) return response(story)
+      throw abortError
+    })
+
+    const request = fetchItemContent(300, controller.signal)
+    controller.abort(abortError)
+
+    await expect(request).rejects.toBe(abortError)
+  })
+
   it('falls back to hnpwa when the node-hnapi user endpoint returns 404', async () => {
     const user = { id: 'alice' }
     vi.mocked(fetch)

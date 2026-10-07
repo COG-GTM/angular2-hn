@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client migrated from Angular 9 to React 19 + TypeScript, built with Vite
 </p>
 
 <p align="center">
@@ -18,6 +18,8 @@
 </p>
 
 ---
+
+The app uses React Router, Sass theme styles, `vite-plugin-pwa` with Workbox, and Vitest with React Testing Library.
 
 :zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
 
@@ -43,11 +45,11 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+`vite-plugin-pwa` uses [Workbox](https://workboxjs.org/) to generate a service worker during the production build, enabling fast loads and offline support.
 
 ## Manifest
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+With Chromium based browsers for Android (Chrome, Opera, etc...), the app includes a Web App Manifest that allows you to install it to your homescreen.
 
 <p align="center">
   <img src = "http://i.imgur.com/1RaaNkr.png">
@@ -71,18 +73,21 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
-## Build process
+## Data sources
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+Feeds, items, and polls use `node-hnapi`. User profiles fall back to `https://api.hnpwa.com` because `node-hnapi /user/:id` currently returns 404.
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+## Build and run
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Requires Node.js >= 20.19.
+
+- `npm run setup` (or `cd react-app && npm ci`) to install dependencies
+- `npm run dev` to start the app at http://localhost:5173
+- `npm run build` to build into `react-app/dist` and generate the service worker
+- `npm run preview` to preview the production build
+- `npm test` to run the Vitest + React Testing Library suite
+- `npm run lint` to lint the React app
+- `firebase deploy` to deploy the site from `react-app/dist`
 
 ## Contributors
 

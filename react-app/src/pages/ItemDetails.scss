@@ -88,7 +88,7 @@
     }
   }
 
-  :where(.laptop) > .subtext {
+  :where(.laptop, .pollContent) > .subtext {
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.5px;

@@ -1,10 +1,5 @@
 # Hacker News React App
 
-This directory contains the React, TypeScript, and Vite port of the Angular Hacker News client.
+See the [root README](../README.md) for project setup, architecture, and deployment.
 
-```sh
-npm install
-npm run dev
-```
-
-Run `npm test`, `npm run lint`, and `npm run build` to verify the app.
+Run from the repository root: `npm run setup`, `npm run dev`, `npm run build`, `npm run preview`, `npm test`, or `npm run lint`.

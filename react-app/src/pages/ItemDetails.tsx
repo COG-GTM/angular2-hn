@@ -65,7 +65,12 @@ export default function ItemDetails() {
               ) : (
                 <Link className="title" to={`/item/${item.id}`}>{item.title}</Link>
               )}
-              {hasUrl && item.domain && <span className="domain">({item.domain})</span>}
+              {hasUrl && item.domain && (
+                <>
+                  {' '}
+                  <span className="domain">({item.domain})</span>
+                </>
+              )}
             </p>
             <div className="subtext">
               {item.type !== 'job' && (

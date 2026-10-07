@@ -1,7 +1,7 @@
 @use '../styles/media' as *;
 
 .app-item-details {
-  .main-content {
+  > .main-content {
     position: relative;
     width: 100%;
     min-height: 100vh;
@@ -12,7 +12,7 @@
     z-index: 0;
   }
 
-  .item {
+  :where(.main-content) > .item {
     box-sizing: border-box;
     padding: 10px 40px 0;
     z-index: 0;
@@ -31,35 +31,33 @@
     }
   }
 
-  .item > .laptop > p,
-  .item > .mobile.item-header > .title-block {
+  :where(.laptop, .item-header, .item) > p {
     margin: 2px 0;
   }
 
-  .subject {
+  :where(.item) > .subject {
     word-wrap: break-word;
     margin-top: 20px;
   }
 
-  .laptop a,
-  .mobile.item-header a {
+  :where(.laptop, .item-header) a {
     cursor: pointer;
     text-decoration: none;
   }
 
   @media #{$mobile-only} {
-    .laptop {
+    :where(.item) > .laptop {
       display: none;
     }
   }
 
   @media #{$laptop-only} {
-    .mobile {
+    :where(.item) > .mobile {
       display: none;
     }
   }
 
-  .title {
+  :where(.laptop, .item-header) .title {
     font-size: 16px;
     font-family: Verdana, Geneva, sans-serif;
   }
@@ -73,11 +71,11 @@
   }
 
   @media #{$mobile-only} {
-    .title {
+    :where(.item-header) .title {
       font-size: 15px;
     }
 
-    .back-button {
+    :where(.item-header > .title-block) > .back-button {
       position: absolute;
       top: 52%;
       width: 0.6rem;
@@ -90,7 +88,7 @@
     }
   }
 
-  .subtext {
+  :where(.laptop) > .subtext {
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.5px;
@@ -100,20 +98,20 @@
     }
   }
 
-  .domain {
+  :where(.laptop) > p > .domain {
     letter-spacing: 0.5px;
   }
 
-  .item-details {
+  :where(.subtext) > .item-details {
     padding: 10px;
   }
 
-  .item-header {
+  :where(.item) > .item-header {
     padding-bottom: 10px;
   }
 
   @media #{$mobile-only} {
-    .item-header {
+    :where(.item) > .item-header {
       padding: 10px 0;
       position: fixed;
       width: 100%;
@@ -122,12 +120,12 @@
     }
   }
 
-  .pollResults {
+  :where(.item) > .pollResults {
     margin-bottom: 1em;
   }
 
-  .pollContent {
-    > div:not(.pollBar) {
+  :where(.pollResults) > .pollContent {
+    > div {
       padding-bottom: 0;
       margin-bottom: -1em;
       margin-top: 1em;
@@ -139,12 +137,12 @@
     }
   }
 
-  .item > .comment-list {
+  :where(.item) > ul {
     list-style-type: none;
     padding: 10px 0;
   }
 
-  .item > .comment-list > li {
+  :where(.item > .comment-list) > li {
     display: list-item;
   }
 }

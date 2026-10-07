@@ -9,6 +9,7 @@ describe('Comment', () => {
     const user = userEvent.setup()
     renderWithAppProviders(<Comment comment={makeComment()} />)
     const content = screen.getByText('A comment')
+    expect(screen.getByText('[-]').nextSibling).toHaveProperty('tagName', 'A')
     expect(content.parentElement).not.toHaveAttribute('hidden')
 
     await user.click(screen.getByText('[-]'))

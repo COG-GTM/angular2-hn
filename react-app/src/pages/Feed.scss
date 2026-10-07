@@ -1,8 +1,7 @@
 @use '../styles/media' as *;
 
 .app-feed {
-  .nav a,
-  .job-header a {
+  :where(.nav, .job-header) a {
     text-decoration: none;
     font-weight: bold;
 
@@ -21,11 +20,12 @@
       padding: 0 10px;
     }
 
-    li {
-      position: relative;
-      -webkit-transition: background-color 0.2s ease;
-      transition: background-color 0.2s ease;
-    }
+  }
+
+  :where(ol) > li {
+    position: relative;
+    -webkit-transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;
   }
 
   .list-margin {

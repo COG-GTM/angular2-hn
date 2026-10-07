@@ -13,7 +13,7 @@ export default function Comment({ comment }: { comment: CommentData }) {
           <div className={`meta${collapse ? ' meta-collapse' : ''}`}>
             <span className="collapse" onClick={() => setCollapse((current) => !current)}>
               [{collapse ? '+' : '-'}]
-            </span>{' '}
+            </span>
             <Link to={`/user/${comment.user}`}>{comment.user}</Link>
             <span className="time">{comment.time_ago}</span>
           </div>

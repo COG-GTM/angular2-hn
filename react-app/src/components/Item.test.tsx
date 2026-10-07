@@ -12,6 +12,15 @@ describe('Item', () => {
     )
   })
 
+  it('separates an external title from its domain', () => {
+    renderWithAppProviders(
+      <Item item={makeStory({ url: 'https://example.com/story', domain: 'example.com' })} />,
+    )
+    expect(screen.getByRole('link', { name: 'A Hacker News story' }).parentElement).toHaveTextContent(
+      'A Hacker News story (example.com)',
+    )
+  })
+
   it('links stories without an external URL to their item page', () => {
     renderWithAppProviders(<Item item={makeStory({ id: 42 })} />)
     expect(screen.getByRole('link', { name: 'A Hacker News story' })).toHaveAttribute('href', '/item/42')

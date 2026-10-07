@@ -76,11 +76,13 @@ describe('ItemDetails page', () => {
     itemRequest.mockResolvedValue(makeStory({
       id: 5,
       title: 'Detailed story',
+      url: 'https://example.com/story',
+      domain: 'example.com',
       content: '<strong>Story body</strong>',
       comments: [makeComment()],
       comments_count: 1,
     }))
-    render(withSettings(
+    const { container } = render(withSettings(
       <MemoryRouter initialEntries={['/item/5']}>
         <Routes>
           <Route path="/item/:id" element={<ItemDetails />} />
@@ -89,6 +91,7 @@ describe('ItemDetails page', () => {
     ))
 
     expect(await screen.findAllByText('Detailed story')).toHaveLength(2)
+    expect(container.querySelector('.laptop p')?.textContent).toBe('Detailed story (example.com)')
     expect(screen.getByText('Story body').tagName).toBe('STRONG')
     expect(screen.getByText('A comment')).toBeInTheDocument()
   })

@@ -27,7 +27,12 @@ export default function Item({ item }: { item: Story }) {
               {item.title}
             </Link>
           )}
-          {hasUrl && item.domain && <span className="domain">({item.domain})</span>}
+          {hasUrl && item.domain && (
+            <>
+              {' '}
+              <span className="domain">({item.domain})</span>
+            </>
+          )}
         </p>
         <div className="subtext-palm">
           {item.type !== 'job' && (

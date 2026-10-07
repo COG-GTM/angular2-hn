@@ -20,6 +20,7 @@ export default function Settings() {
                   checked={settings.openLinkInNewTab}
                   onChange={settings.toggleOpenLinksInNewTab}
                 />
+                {' '}
                 Open links in a new tab
               </label>
             </div>
@@ -40,6 +41,7 @@ export default function Settings() {
                         checked={settings.theme === theme}
                         onChange={() => settings.setTheme(theme)}
                       />
+                      {' '}
                       {label}
                     </label>
                   </div>

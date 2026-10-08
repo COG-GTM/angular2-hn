@@ -133,6 +133,13 @@ test('saved stories survive a browser restart and a service worker reset', async
     });
     await page.reload();
     await expect(page.locator('.saved-story .title')).toHaveText(['Second mocked story']);
+
+    // The comment tree lives in IndexedDB, so it is still readable offline once the app shell is back.
+    await waitForServiceWorker(page);
+    await goOffline(ctx);
+    await page.goto('/item/102');
+    await expect(page.locator('.offline-notice')).toBeVisible();
+    await expect(page.getByText('Nested reply on 102')).toBeVisible();
     await ctx.close();
   } finally {
     fs.rmSync(userDataDir, { recursive: true, force: true });

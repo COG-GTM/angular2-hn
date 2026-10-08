@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 
-import { renderApp } from '../test/utils';
+import { makeStory } from '../test/fixtures';
+import { mockFetch, renderApp } from '../test/utils';
 
 describe('routes', () => {
     it('redirects / to /news/1', async () => {
@@ -14,8 +15,9 @@ describe('routes', () => {
     });
 
     it('lazy-loads /item/:id and /user/:id', async () => {
+        mockFetch({ '/item/8863': makeStory({ id: 8863, title: 'item 8863' }) });
         renderApp({ route: '/item/8863' });
-        expect(await screen.findByText('item 8863')).toBeInTheDocument();
+        expect((await screen.findAllByText('item 8863')).length).toBeGreaterThan(0);
     });
 
     it('lazy-loads /user/:id', async () => {

@@ -44,3 +44,39 @@ Requires Node >= 20.19.
 - **Links**: use `<Link>` from `react-router` for internal routes (`/item/:id`, `/user/:id`, `/:feed/:page`). For `routerLinkActive="active"`, use `<NavLink>` (it adds `active`).
 - **Tests**: Vitest + Testing Library, `*.test.tsx` next to the component. Use the helpers in `src/test`: `renderApp({ route })` (full route tree), `renderWithProviders(ui, { path, route, settings, handle })`, `mockFetch({ 'url-substring': body | { status, body } })`, and the fixtures in `test/fixtures.ts`.
 - **Formatting**: Prettier settings are copied from the root `package.json` (4 spaces, single quotes, 120 cols, es5 trailing commas).
+
+## Build & deploy
+
+### PWA
+
+`vite-plugin-pwa` (`generateSW`, `registerType: 'autoUpdate'`) is configured in `vite.config.ts` and only runs on `npm run build`; the dev server has no service worker.
+
+- **Manifest**: generated as `dist/manifest.webmanifest` from the same fields as the Angular `src/manifest.json`. The plugin adds `<link rel="manifest">` to `index.html`.
+- **Precache**: JS/CSS/HTML/ico/png/svg in `dist/` (the app shell, lazy route chunks and `public/assets` icons) plus the manifest. Only `workbox.globPatterns` selects files. Don't add `includeAssets`, and keep `includeManifestIcons: false`: a URL listed twice makes Workbox throw `add-to-cache-list-conflicting-entries`, and the SW installs but caches nothing. Check `dist/sw.js` after changing the config.
+- **Deep links**: `navigateFallback: 'index.html'`, so `/item/123` loads offline.
+- **API**: `node-hnapi.herokuapp.com` and `api.hnpwa.com` use NetworkFirst (5 s timeout, 7 day / 200 + 100 entry cap). Pages visited online work offline.
+- **Registration**: `src/pwa/index.ts` (imported by `main.tsx`) calls `registerServiceWorker` from `src/pwa/registerSW.ts`. The new SW activates immediately (`skipWaiting` + `clientsClaim`), and open tabs check for an update every hour while online.
+
+### E2E
+
+`npm run e2e` builds the app and runs Playwright against `vite preview` on port 4173. Service workers are blocked by default, so `page.route` mocks keep working. `e2e/offline.spec.ts` opts back in with `test.use({ serviceWorkers: 'allow' })`. `playwright.config.ts` sets `PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1` so `context.route` also sees the SW's fetches. `context.setOffline(true)` doesn't stop the SW's own fetches, so the test also aborts every route. If `npx playwright install` is blocked, the config uses the system Chrome under `/opt/.devin/chrome` or `PLAYWRIGHT_CHROME_PATH`.
+
+### Firebase Hosting
+
+`firebase.json` (repo root) serves `react-app/dist`:
+
+- `predeploy` runs `npm ci` + `npm run build` in `react-app/`.
+- SPA rewrite `** → /index.html`.
+- `Cache-Control: no-cache` for `sw.js`, `index.html`, `manifest.webmanifest` and extensionless SPA routes.
+- `public, max-age=31536000, immutable` for Vite's hashed files (`/assets/<name>-<8 char hash>.<ext>`). The unhashed icons in `/assets/icons` and `/assets/images` keep Firebase's default caching.
+- The `database` rules entry is unchanged.
+
+Manual deploy from the repo root: `npx firebase-tools deploy --only hosting` (project aliases are in `.firebaserc`).
+
+### CI
+
+`.github/workflows/react-app.yml` replaces `.travis.yml`:
+
+- **check**: on PRs and pushes to `master`, runs `npm ci`, lint, typecheck, test, build and format:check on Node 20 with the npm cache.
+- **e2e**: runs the Playwright offline/PWA tests and uploads the report if they fail.
+- **deploy**: on pushes to `master`, after both jobs pass. It uses `FirebaseExtended/action-hosting-deploy` if the `FIREBASE_SERVICE_ACCOUNT` secret is set, or falls back to `firebase-tools` with `FIREBASE_TOKEN`. With neither secret it skips with a notice, so forks don't fail.

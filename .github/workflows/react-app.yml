@@ -1,0 +1,100 @@
+name: React app
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: react-app
+
+jobs:
+  check:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react-app/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm run format:check
+
+  e2e:
+    name: Playwright (offline / PWA)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react-app/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            react-app/playwright-report
+            react-app/test-results
+          retention-days: 7
+
+  deploy:
+    name: Deploy to Firebase Hosting
+    needs: [check, e2e]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Check for Firebase credentials
+        id: creds
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          [ -n "$FIREBASE_SERVICE_ACCOUNT" ] && echo "service_account=true" >> "$GITHUB_OUTPUT"
+          [ -n "$FIREBASE_TOKEN" ] && echo "token=true" >> "$GITHUB_OUTPUT"
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ] && [ -z "$FIREBASE_TOKEN" ]; then
+            echo "::notice::No FIREBASE_SERVICE_ACCOUNT or FIREBASE_TOKEN secret; skipping deploy."
+          fi
+      - uses: actions/checkout@v4
+        if: steps.creds.outputs.service_account == 'true' || steps.creds.outputs.token == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.creds.outputs.service_account == 'true' || steps.creds.outputs.token == 'true'
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: react-app/package-lock.json
+      # firebase.json's hosting predeploy runs `npm ci` + `npm run build` in react-app/.
+      - name: Deploy (service account)
+        if: steps.creds.outputs.service_account == 'true'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: angular2-hn
+          channelId: live
+      - name: Deploy (token)
+        if: steps.creds.outputs.service_account != 'true' && steps.creds.outputs.token == 'true'
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: npx --yes firebase-tools@15 deploy --only hosting --project default --non-interactive

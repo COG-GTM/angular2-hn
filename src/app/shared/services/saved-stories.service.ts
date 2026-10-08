@@ -27,6 +27,10 @@ export class SavedStoriesService {
       .then(s => s.getStories())
       .then(stories => this.emit(stories), () => this.emit([]))
       .then(() => this.loadedSubject.next(true));
+    this.ready.then(() => this.cacheMissingItems());
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', () => this.cacheMissingItems());
+    }
   }
 
   get stories$(): Observable<SavedStory[]> {
@@ -53,10 +57,15 @@ export class SavedStoriesService {
     await this.ready;
     const record = toSavedStory(story, Date.now());
     this.emit([record, ...this.stories.filter(s => s.id !== record.id)]);
-    const storage = await this.storage;
-    await storage.putStory(record);
+    try {
+      const storage = await this.storage;
+      await storage.putStory(record);
+    } catch (e) {
+      this.emit(this.stories.filter(s => s.id !== record.id));
+      throw e;
+    }
     if (isFullItem(story)) {
-      await storage.putItem(story);
+      await this.cacheItem(story);
     } else {
       this.fetchAndCache(record.id);
     }
@@ -70,20 +79,33 @@ export class SavedStoriesService {
       return undefined;
     }
     this.emit(this.stories.filter(s => s.id !== id));
-    const storage = await this.storage;
-    const item = await storage.getItem(id).catch((): Story => undefined);
-    await storage.deleteStory(id);
-    await storage.deleteItem(id);
+    let item: Story;
+    try {
+      const storage = await this.storage;
+      item = await storage.getItem(id).catch((): Story => undefined);
+      await storage.deleteStory(id);
+    } catch (e) {
+      this.emit([story, ...this.stories.filter(s => s.id !== id)]);
+      throw e;
+    }
+    // A leftover item is harmless: getCachedItem only serves items whose story is still saved.
+    await this.storage.then(s => s.deleteItem(id)).catch(() => {});
     return { story, item };
   }
 
   async restore(removed: RemovedStory): Promise<void> {
     await this.ready;
-    this.emit([removed.story, ...this.stories.filter(s => s.id !== removed.story.id)]);
-    const storage = await this.storage;
-    await storage.putStory(removed.story);
+    const id = removed.story.id;
+    this.emit([removed.story, ...this.stories.filter(s => s.id !== id)]);
+    try {
+      const storage = await this.storage;
+      await storage.putStory(removed.story);
+    } catch (e) {
+      this.emit(this.stories.filter(s => s.id !== id));
+      throw e;
+    }
     if (removed.item) {
-      await storage.putItem(removed.item);
+      await this.cacheItem(removed.item);
     } else {
       this.fetchAndCache(removed.story.id);
     }
@@ -112,15 +134,36 @@ export class SavedStoriesService {
     await storage.putItem(item);
   }
 
+  /** Retries offline caching for saved stories whose comment tree never got stored (e.g. saved just before going offline). */
+  async cacheMissingItems(): Promise<void> {
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      return;
+    }
+    try {
+      const storage = await this.storage;
+      for (const story of this.stories) {
+        if (!(await storage.getItem(story.id))) {
+          this.fetchAndCache(story.id);
+        }
+      }
+    } catch {
+      // Storage unavailable; nothing to retry.
+    }
+  }
+
   private fetchAndCache(id: number) {
     this.hackerNewsAPIService.fetchItemContent(id).subscribe(
       item => {
         if (item && this.isSaved(id)) {
-          this.storage.then(s => s.putItem(item)).catch(() => {});
+          this.cacheItem(item);
         }
       },
       () => {}
     );
+  }
+
+  private cacheItem(item: Story): Promise<void> {
+    return this.storage.then(s => s.putItem(item)).catch(() => {});
   }
 
   private emit(stories: SavedStory[]) {

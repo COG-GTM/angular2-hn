@@ -21,6 +21,8 @@ export class ItemDetailsComponent implements OnInit {
   errorMessage = '';
   settings: Settings;
   showingCachedCopy = false;
+  private currentId: number;
+  private fetchSub: Subscription;
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
@@ -35,10 +37,14 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const itemID = +params['id'];
+      this.currentId = itemID;
       this.item = undefined;
       this.errorMessage = '';
       this.showingCachedCopy = false;
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
+      if (this.fetchSub) {
+        this.fetchSub.unsubscribe();
+      }
+      this.fetchSub = this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
         this.item = item;
         this.savedStoriesService.refresh(item).catch(() => {});
       }, () => this.loadCachedCopy(itemID));
@@ -47,16 +53,27 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   loadCachedCopy(itemID: number) {
+    const failed = 'Could not load item comments.';
     this.savedStoriesService.getCachedItem(itemID).then(
       cached => {
+        if (itemID !== this.currentId) {
+          return;
+        }
         if (cached) {
           this.item = cached;
           this.showingCachedCopy = true;
+        } else if (this.savedStoriesService.isSaved(itemID)) {
+          this.errorMessage =
+            `${failed} This saved story wasn't downloaded for offline reading yet; it will be the next time you're online.`;
         } else {
-          this.errorMessage = 'Could not load item comments.';
+          this.errorMessage = failed;
         }
       },
-      () => (this.errorMessage = 'Could not load item comments.')
+      () => {
+        if (itemID === this.currentId) {
+          this.errorMessage = failed;
+        }
+      }
     );
   }
 

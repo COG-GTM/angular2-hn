@@ -35,14 +35,23 @@ export class BookmarkButtonComponent implements OnChanges, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
     const service = this.savedStoriesService;
+    const toast = this.toastService;
     if (this.saved) {
-      const removed = await service.remove(this.story.id);
-      if (removed) {
-        this.toastService.show('Removed', () => service.restore(removed));
+      try {
+        const removed = await service.remove(this.story.id);
+        if (removed) {
+          toast.show('Removed', () => service.restore(removed).catch(() => toast.show(`Couldn't restore story`)));
+        }
+      } catch {
+        toast.show(`Couldn't remove story`);
       }
     } else {
-      const record = await service.save(this.story);
-      this.toastService.show('Saved', () => service.remove(record.id));
+      try {
+        const record = await service.save(this.story);
+        toast.show('Saved', () => service.remove(record.id).catch(() => toast.show(`Couldn't remove story`)));
+      } catch {
+        toast.show(`Couldn't save story`);
+      }
     }
   }
 

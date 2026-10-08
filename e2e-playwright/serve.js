@@ -14,7 +14,9 @@ const types = {
 http.createServer((req, res) => {
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
   let file = path.join(root, urlPath);
-  if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+  const rel = path.relative(root, file);
+  const outsideRoot = rel.startsWith('..') || path.isAbsolute(rel);
+  if (outsideRoot || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     file = path.join(root, 'index.html');
   }
   res.writeHead(200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });

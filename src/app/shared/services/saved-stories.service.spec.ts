@@ -256,6 +256,35 @@ describe('SavedStoriesService', () => {
     expect(await storage.getItem(3)).toBeUndefined();
   });
 
+  it('rolls back the bookmark when persisting a save fails', async () => {
+    const service = createService();
+    spyOn(storage, 'putStory').and.returnValue(Promise.reject(new Error('quota')));
+    let error: Error;
+    await service.save(makeStory(1)).catch(e => (error = e));
+    expect(error).toBeDefined();
+    expect(service.isSaved(1)).toBe(false);
+  });
+
+  it('keeps the bookmark when persisting a removal fails', async () => {
+    const service = createService();
+    await service.save(makeItem(1));
+    spyOn(storage, 'deleteStory').and.returnValue(Promise.reject(new Error('locked')));
+    let error: Error;
+    await service.remove(1).catch(e => (error = e));
+    expect(error).toBeDefined();
+    expect(service.isSaved(1)).toBe(true);
+  });
+
+  it('retries offline caching for saved stories whose comment tree is missing', async () => {
+    await storage.putStory(toSavedStory(makeStory(7), 1));
+    const service = createService();
+    await service.ready;
+    await service.cacheMissingItems();
+
+    expect(api.fetchItemContent).toHaveBeenCalledWith(7);
+    expect((await service.getCachedItem(7)).comments.length).toBe(1);
+  });
+
   it('starts empty when storage fails to open', async () => {
     const service = new SavedStoriesService(Promise.reject(new Error('nope')), api);
     await service.ready;

@@ -90,7 +90,9 @@ describe('registerServiceWorker', () => {
         expect(observer.observe).toHaveBeenCalledWith({ type: 'resource' });
 
         // A request in flight at control time is re-requested; one started afterwards went through the SW.
+        // The snapshot entry reported again by the observer is not re-requested a second time.
         emit([
+            entry('https://node-hnapi.herokuapp.com/news?page=1', 10),
             entry('https://node-hnapi.herokuapp.com/item/1', 50),
             entry('https://node-hnapi.herokuapp.com/item/2', 150),
         ]);

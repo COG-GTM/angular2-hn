@@ -56,6 +56,7 @@ Requires Node >= 20.19.
 - **Deep links**: `navigateFallback: 'index.html'`, so `/item/123` loads offline.
 - **API**: `node-hnapi.herokuapp.com` and `api.hnpwa.com` use NetworkFirst (5 s timeout, 7 day / 200 + 100 entry cap). Pages visited online work offline.
 - **Registration**: `src/pwa/index.ts` (imported by `main.tsx`) calls `registerServiceWorker` from `src/pwa/registerSW.ts`. The new SW activates immediately (`skipWaiting` + `clientsClaim`), and open tabs check for an update every hour while online. On the first visit the API requests start before the SW controls the page, so once it takes control `registerSW` re-requests them (from `performance` resource entries) through the SW; otherwise the page you landed on would not work offline.
+- **Retiring the Angular SW**: returning visitors still have `@angular/service-worker` registered at `/ngsw-worker.js`. `public/ngsw-worker.js` is a safety worker served at that URL (excluded from the precache, `no-cache` on Firebase): on the browser's next update check it replaces the old worker, deletes the `ngsw:*` caches, unregisters itself and reloads open tabs, which then register `sw.js`.
 
 ### E2E
 

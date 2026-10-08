@@ -13,9 +13,15 @@ interface Options {
 
 export const IN_FLIGHT_WINDOW_MS = 60 * 1000;
 
-export function warmRuntimeCache(entries: PerformanceEntryList, fetchFn: typeof fetch = fetch) {
-    const urls = new Set(entries.map((entry) => entry.name).filter(isRuntimeCachedUrl));
-    return Promise.allSettled([...urls].map((url) => fetchFn(url)));
+export function warmRuntimeCache(
+    entries: PerformanceEntryList,
+    fetchFn: typeof fetch = fetch,
+    warmed = new Set<string>()
+) {
+    const urls = entries.map((entry) => entry.name).filter((url) => isRuntimeCachedUrl(url) && !warmed.has(url));
+    const unique = [...new Set(urls)];
+    unique.forEach((url) => warmed.add(url));
+    return Promise.allSettled(unique.map((url) => fetchFn(url)));
 }
 
 // On the first visit the API requests start before the SW takes control, so they never reach its
@@ -26,15 +32,16 @@ function warmRuntimeCacheOnFirstControl() {
         'controllerchange',
         () => {
             const controlledAt = performance.now();
+            const warmed = new Set<string>();
             const startedBeforeControl = (entries: PerformanceEntryList) =>
                 entries.filter((entry) => entry.startTime < controlledAt);
 
-            void warmRuntimeCache(startedBeforeControl(performance.getEntriesByType('resource')));
+            void warmRuntimeCache(startedBeforeControl(performance.getEntriesByType('resource')), fetch, warmed);
             if (typeof PerformanceObserver === 'undefined') {
                 return;
             }
             const observer = new PerformanceObserver(
-                (list) => void warmRuntimeCache(startedBeforeControl(list.getEntries()))
+                (list) => void warmRuntimeCache(startedBeforeControl(list.getEntries()), fetch, warmed)
             );
             observer.observe({ type: 'resource' });
             setTimeout(() => observer.disconnect(), IN_FLIGHT_WINDOW_MS);

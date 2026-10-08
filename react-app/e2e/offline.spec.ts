@@ -121,3 +121,27 @@ test('serves a valid web app manifest', async ({ page }) => {
         expect((await page.request.get(icon.src)).ok()).toBe(true);
     }
 });
+
+test('ngsw-worker.js retires a previously installed Angular service worker', async ({ page }) => {
+    await page.goto('/');
+    await waitForServiceWorkerControl(page);
+
+    // Simulate a returning Angular visitor: Angular caches plus a registration for ngsw-worker.js.
+    // The safety worker reloads the page once it has cleaned up.
+    const reloaded = page.waitForEvent('load');
+    await page.evaluate(async () => {
+        await (await caches.open('ngsw:/:db:control')).put('/x', new Response('x'));
+        void navigator.serviceWorker.register('/ngsw-worker.js');
+    });
+    await reloaded;
+
+    await expect
+        .poll(() => page.evaluate(async () => (await caches.keys()).filter((key) => key.startsWith('ngsw:'))))
+        .toEqual([]);
+    // The reloaded page registers the React SW again.
+    await expect
+        .poll(() =>
+            page.evaluate(async () => (await navigator.serviceWorker.getRegistration())?.active?.scriptURL ?? '')
+        )
+        .toMatch(/\/sw\.js$/);
+});

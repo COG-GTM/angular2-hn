@@ -36,6 +36,8 @@ export default defineConfig({
             workbox: {
                 // App shell: JS/CSS/HTML/icons/svg. manifest.webmanifest is added by the plugin.
                 globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+                // Retires the Angular app's service worker; see public/ngsw-worker.js.
+                globIgnores: ['ngsw-worker.js'],
                 navigateFallback: 'index.html',
                 // Firebase reserved URLs and file requests must not get the app shell.
                 navigateFallbackDenylist: [/^\/__\//, /\/[^/?]+\.[^/]+$/],

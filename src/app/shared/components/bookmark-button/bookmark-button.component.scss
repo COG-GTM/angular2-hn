@@ -1,0 +1,30 @@
+:host {
+  display: inline-block;
+  line-height: 0;
+}
+
+.bookmark-button {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 0;
+  cursor: pointer;
+  color: inherit;
+  line-height: 0;
+  opacity: 0.75;
+
+  &:hover,
+  &.saved {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 1px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

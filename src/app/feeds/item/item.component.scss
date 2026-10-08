@@ -66,3 +66,22 @@ p {
   .item-details {
     padding: 10px;
   }
+
+  .item-row {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .item-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .item-bookmark {
+    margin-left: 12px;
+    flex-shrink: 0;
+
+    @media #{$mobile-only} {
+      margin-left: 8px;
+    }
+  }

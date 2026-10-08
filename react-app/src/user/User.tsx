@@ -9,6 +9,7 @@ export function User() {
     const { id = '' } = useParams();
     const navigate = useNavigate();
     const { data: user, isError } = useUser(id);
+    const goBack = () => navigate(-1);
 
     if (isError) {
         return <ErrorMessage message={`Could not load user ${id}.`} />;
@@ -21,7 +22,19 @@ export function User() {
         <div className="profile">
             <div className="mobile item-header">
                 <p className="title-block">
-                    <span className="back-button" role="button" aria-label="Back" onClick={() => navigate(-1)}></span>
+                    <span
+                        className="back-button"
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Back"
+                        onClick={goBack}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                goBack();
+                            }
+                        }}
+                    ></span>
                     Profile: {user.id}
                 </p>
             </div>

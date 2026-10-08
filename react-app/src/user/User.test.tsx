@@ -102,6 +102,21 @@ describe('User', () => {
         expect(router.state.location.pathname).toBe('/');
     });
 
+    it.each(['Enter', ' '])('goes back when %j is pressed on the focusable back button', async (key) => {
+        mockFetch({ [USER_URL]: makeUser() });
+        renderRoutes([
+            { path: '/', element: <Link to="/user/pg">to profile</Link> },
+            { path: '/user/:id', element: <User /> },
+        ]);
+        fireEvent.click(screen.getByText('to profile'));
+        await screen.findByText('Profile: pg');
+
+        const back = screen.getByRole('button', { name: 'Back' });
+        expect(back).toHaveAttribute('tabindex', '0');
+        fireEvent.keyDown(back, { key });
+        expect(await screen.findByText('to profile')).toBeInTheDocument();
+    });
+
     it('is lazy-loaded by the /user/:id route', async () => {
         mockFetch({ [USER_URL]: makeUser(), 'node-hnapi': [] });
         renderApp({ route: '/user/pg' });

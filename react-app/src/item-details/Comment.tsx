@@ -1,6 +1,57 @@
-import type { Comment as CommentModel } from '../shared/models';
+import { useState } from 'react';
+import { NavLink } from 'react-router';
 
-// Placeholder: ported by the item details + comments workstream (src/app/item-details/comment).
+import type { Comment as CommentModel } from '../shared/models';
+import { sanitizeHtml } from '../shared/utils';
+import './Comment.scss';
+
 export function Comment({ comment }: { comment: CommentModel }) {
-    return <span>{comment.user}</span>;
+    const [collapse, setCollapse] = useState(false);
+
+    if (comment.deleted) {
+        return (
+            <div>
+                <div className="deleted-meta">
+                    <span className="collapse">[deleted]</span> | Comment Deleted
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <div className={collapse ? 'meta meta-collapse' : 'meta'}>
+                <span
+                    className="collapse"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={!collapse}
+                    aria-label={collapse ? 'Expand comment' : 'Collapse comment'}
+                    onClick={() => setCollapse((c) => !c)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setCollapse((c) => !c);
+                        }
+                    }}
+                >
+                    [{collapse ? '+' : '-'}]
+                </span>
+                <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
+                <span className="time">{comment.time_ago}</span>
+            </div>
+            <div className="comment-tree">
+                <div hidden={collapse}>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
+                    <ul className="subtree">
+                        {(comment.comments ?? []).map((subComment) => (
+                            <li key={subComment.id}>
+                                <Comment comment={subComment} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -16,6 +16,7 @@ describe('Item', () => {
         expect(title).toHaveAttribute('href', 'https://example.com/post');
         expect(title).toHaveTextContent('Example story');
         expect(container.querySelector('span.domain')).toHaveTextContent('(example.com)');
+        expect(container.querySelector('p')).toHaveTextContent('Example story (example.com)');
     });
 
     it('links self posts to /item/:id without a domain', () => {

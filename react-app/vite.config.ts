@@ -3,6 +3,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+import { API_CACHES } from './src/pwa/runtime-cache';
+
 const API_CACHE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
 
 export default defineConfig({
@@ -41,28 +43,16 @@ export default defineConfig({
                 // autoUpdate only sets these itself when injectRegister is 'auto'.
                 skipWaiting: true,
                 clientsClaim: true,
-                runtimeCaching: [
-                    {
-                        urlPattern: /^https:\/\/node-hnapi\.herokuapp\.com\/.*/,
-                        handler: 'NetworkFirst',
-                        options: {
-                            cacheName: 'hn-api',
-                            networkTimeoutSeconds: 5,
-                            expiration: { maxEntries: 200, maxAgeSeconds: API_CACHE_MAX_AGE_SECONDS },
-                            cacheableResponse: { statuses: [200] },
-                        },
+                runtimeCaching: API_CACHES.map(({ origin, cacheName, maxEntries }) => ({
+                    urlPattern: new RegExp(`^${origin.replace(/[.]/g, '\\.')}/`),
+                    handler: 'NetworkFirst' as const,
+                    options: {
+                        cacheName,
+                        networkTimeoutSeconds: 5,
+                        expiration: { maxEntries, maxAgeSeconds: API_CACHE_MAX_AGE_SECONDS },
+                        cacheableResponse: { statuses: [200] },
                     },
-                    {
-                        urlPattern: /^https:\/\/api\.hnpwa\.com\/.*/,
-                        handler: 'NetworkFirst',
-                        options: {
-                            cacheName: 'hnpwa-api',
-                            networkTimeoutSeconds: 5,
-                            expiration: { maxEntries: 100, maxAgeSeconds: API_CACHE_MAX_AGE_SECONDS },
-                            cacheableResponse: { statuses: [200] },
-                        },
-                    },
-                ],
+                })),
             },
         }),
     ],

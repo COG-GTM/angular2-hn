@@ -1,5 +1,7 @@
 import type { RegisterSWOptions } from 'virtual:pwa-register';
 
+import { isRuntimeCachedUrl } from './runtime-cache';
+
 export type RegisterSW = (options?: RegisterSWOptions) => (reloadPage?: boolean) => Promise<void>;
 
 export const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
@@ -9,6 +11,38 @@ interface Options {
     logger?: Pick<Console, 'info' | 'error'>;
 }
 
+export const IN_FLIGHT_WINDOW_MS = 60 * 1000;
+
+export function warmRuntimeCache(entries: PerformanceEntryList, fetchFn: typeof fetch = fetch) {
+    const urls = new Set(entries.map((entry) => entry.name).filter(isRuntimeCachedUrl));
+    return Promise.allSettled([...urls].map((url) => fetchFn(url)));
+}
+
+// On the first visit the API requests start before the SW takes control, so they never reach its
+// runtime cache. Once it controls the page, request them again through the SW, including requests
+// that were still in flight at that moment.
+function warmRuntimeCacheOnFirstControl() {
+    navigator.serviceWorker.addEventListener(
+        'controllerchange',
+        () => {
+            const controlledAt = performance.now();
+            const startedBeforeControl = (entries: PerformanceEntryList) =>
+                entries.filter((entry) => entry.startTime < controlledAt);
+
+            void warmRuntimeCache(startedBeforeControl(performance.getEntriesByType('resource')));
+            if (typeof PerformanceObserver === 'undefined') {
+                return;
+            }
+            const observer = new PerformanceObserver(
+                (list) => void warmRuntimeCache(startedBeforeControl(list.getEntries()))
+            );
+            observer.observe({ type: 'resource' });
+            setTimeout(() => observer.disconnect(), IN_FLIGHT_WINDOW_MS);
+        },
+        { once: true }
+    );
+}
+
 // The SW auto-updates (skipWaiting + clientsClaim); a long-lived tab also polls for a new SW.
 export function registerServiceWorker(
     register: RegisterSW,
@@ -16,6 +50,9 @@ export function registerServiceWorker(
 ) {
     if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) {
         return undefined;
+    }
+    if (!navigator.serviceWorker.controller) {
+        warmRuntimeCacheOnFirstControl();
     }
     return register({
         immediate: true,

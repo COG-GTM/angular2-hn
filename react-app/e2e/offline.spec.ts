@@ -18,8 +18,12 @@ const ITEM_URL = 'https://node-hnapi.herokuapp.com/item/8863';
 
 test.use({ serviceWorkers: 'allow' });
 
+// Slow enough that the first feed request is still in flight when the SW takes control.
+const API_LATENCY_MS = 1500;
+
 async function mockApi(context: BrowserContext) {
-    await context.route('https://node-hnapi.herokuapp.com/**', (route) => {
+    await context.route('https://node-hnapi.herokuapp.com/**', async (route) => {
+        await new Promise((resolve) => setTimeout(resolve, API_LATENCY_MS));
         const { pathname } = new URL(route.request().url());
         const body = pathname.startsWith('/item/') ? { ...story, comments: [], content: '' } : [story];
         return route.fulfill({ json: body, headers: { 'access-control-allow-origin': '*' } });
@@ -45,6 +49,10 @@ async function goOffline(context: BrowserContext) {
     await context.setOffline(true);
 }
 
+function isCached(page: Page, cacheName: string, url: string) {
+    return page.evaluate(async ([name, u]) => !!(await (await caches.open(name)).match(u)), [cacheName, url] as const);
+}
+
 function fetchJson(page: Page, url: string) {
     return page.evaluate(async (u) => (await fetch(u)).json(), url);
 }
@@ -57,9 +65,9 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     await expect(page.getByText(story.title).first()).toBeVisible();
     await waitForServiceWorkerControl(page);
 
-    // Feed/item requests made online go through the SW's NetworkFirst cache.
-    // (Made explicitly so this test doesn't depend on the page components' markup.)
-    expect(await fetchJson(page, FEED_URL)).toEqual([story]);
+    // First visit: the feed request started before the SW took control, so registerSW re-requests it.
+    await expect.poll(() => isCached(page, 'hn-api', FEED_URL)).toBe(true);
+    // Item details render a placeholder for now, so request the item through the SW directly.
     expect(await fetchJson(page, ITEM_URL)).toMatchObject({ id: story.id });
 
     await goOffline(context);

@@ -5,33 +5,34 @@ $skull-size: 200px;
 // -------------------------------------------------------------------------------------------
 
 // Day theme colors
-$theme-day-body-background-color: #fff;
-$theme-day-wrapper-background-color: #f5f5f5;
-$theme-day-wrapper-mobile-background-color: #fff;
-$theme-day-text-color: #000;
-$theme-day-subtext-color: #696969;
-$theme-day-secondary-color: #b92b27;
+$theme-day-body-background-color: #f3edfa;
+$theme-day-wrapper-background-color: #faf7fd;
+$theme-day-wrapper-mobile-background-color: #faf7fd;
+$theme-day-text-color: #2a1145;
+$theme-day-subtext-color: #7a6a91;
+$theme-day-secondary-color: #6a1b9a;
 $theme-day-header-background-color: $theme-day-secondary-color;
 $theme-day-logo-inner: #fff;
 
 // Day theme extras
-$theme-day-border: 2px solid #b92b27;
+$theme-day-border: 2px solid $theme-day-secondary-color;
 
 // Night theme colors
-$theme-night-body-background-color: #37474F;
-$theme-night-wrapper-background-color: #263238;
+$theme-night-body-background-color: #3a2a52;
+$theme-night-wrapper-background-color: #24173a;
 $theme-night-wrapper-mobile-background-color: $theme-night-wrapper-background-color;
-$theme-night-text-color: rgba(255, 255, 255, 0.7);
-$theme-night-subtext-color: #999;
-$theme-night-secondary-color: #00c0ff;
-$theme-night-header-background-color: #263238;
+$theme-night-text-color: rgba(240, 230, 255, 0.8);
+$theme-night-subtext-color: #a898c4;
+$theme-night-secondary-color: #c29bff;
+$theme-night-header-background-color: #24173a;
 $theme-night-logo-inner: $theme-night-header-background-color;
 
 // Night theme extras
-$theme-night-border: 2px solid #00c0ff;
+$theme-night-border: 2px solid $theme-night-secondary-color;
 
 // Black theme colors
 $theme-amoledblack-body-background-color: #000;
-$theme-amoledblack-text-color: rgba(255, 255, 255, 0.75);
-$theme-amoledblack-subtext-color: rgba(255, 255, 255, 0.5);
-$theme-amoledblack-secondary-color: rgba(255, 255, 255, 0.6);
+$theme-amoledblack-text-color: rgba(235, 220, 255, 0.8);
+$theme-amoledblack-visited-color: #9a86b8;
+$theme-amoledblack-subtext-color: rgba(200, 170, 255, 0.55);
+$theme-amoledblack-secondary-color: #9d6bff;

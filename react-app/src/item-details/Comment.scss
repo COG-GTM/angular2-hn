@@ -2,16 +2,9 @@
 @import '../shared/scss/theme_variables';
 
 // Port of comment.component.scss. Comments only render inside `.comment-list`, which stands in for the
-// encapsulated `app-comment` host. `:host >>> a` pierced into the HN HTML, so links in comment text are bold too.
+// encapsulated `app-comment` host. The Angular `:host >>> a` rule never applied in the built app (comment text
+// links render normal weight and underlined), so it is left out.
 .comment-list {
-    a {
-        font-weight: bold;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
     .meta {
         font-size: 13px;
         color: #696969;

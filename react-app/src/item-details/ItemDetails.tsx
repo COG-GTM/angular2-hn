@@ -75,7 +75,7 @@ export function ItemDetails() {
                                 <span>
                                     {item.points} points by <NavLink to={`/user/${item.user}`}>{item.user}</NavLink>
                                 </span>
-                            )}{' '}
+                            )}
                             <span className={item.type !== 'job' ? 'item-details' : undefined}>
                                 {item.time_ago}
                                 {item.type !== 'job' && (

@@ -57,7 +57,7 @@ describe('ItemDetails', () => {
         expect(title).not.toHaveAttribute('target');
         expect(laptop.querySelector('.domain')).toHaveTextContent('(example.com)');
         const subtext = laptop.querySelector('.subtext')!;
-        expect(subtext).toHaveTextContent('42 points by pg 2 hours ago | 2 comments');
+        expect(subtext).toHaveTextContent(/^42 points by pg\s*2 hours ago \| 2 comments$/);
         expect(subtext.querySelector('a[href="/user/pg"]')).toBeInTheDocument();
         expect(subtext.querySelector('.item-details a')).toHaveAttribute('href', '/item/8863');
         expect(container.querySelector('.mobile.item-header .title-block a.title')).toHaveAttribute(

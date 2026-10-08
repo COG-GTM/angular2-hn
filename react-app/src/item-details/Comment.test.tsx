@@ -15,6 +15,7 @@ describe('Comment', () => {
         expect(meta.querySelector('.collapse')).toHaveTextContent('[-]');
         expect(meta.querySelector('a')).toHaveAttribute('href', '/user/dang');
         expect(meta.querySelector('.time')).toHaveTextContent('1 hour ago');
+        expect(meta.textContent).toBe('[-]dang1 hour ago');
         expect(container.querySelector('p.comment-text')!.innerHTML).toBe('<p>Hello <i>world</i></p>');
     });
 

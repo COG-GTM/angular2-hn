@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
+import { SavedStoriesService } from '../shared/services/saved-stories.service';
 
 import { Story } from '../shared/models/story';
 import { Settings } from '../shared/models/settings';
@@ -19,10 +20,12 @@ export class ItemDetailsComponent implements OnInit {
   item: Story;
   errorMessage = '';
   settings: Settings;
+  showingCachedCopy = false;
 
   constructor(
     private _hackerNewsAPIService: HackerNewsAPIService,
     private _settingsService: SettingsService,
+    private savedStoriesService: SavedStoriesService,
     private route: ActivatedRoute,
     private _location: Location
   ) {
@@ -31,12 +34,30 @@ export class ItemDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let itemID = +params['id'];
+      const itemID = +params['id'];
+      this.item = undefined;
+      this.errorMessage = '';
+      this.showingCachedCopy = false;
       this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
         this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
+        this.savedStoriesService.refresh(item).catch(() => {});
+      }, () => this.loadCachedCopy(itemID));
     });
     window.scrollTo(0, 0);
+  }
+
+  loadCachedCopy(itemID: number) {
+    this.savedStoriesService.getCachedItem(itemID).then(
+      cached => {
+        if (cached) {
+          this.item = cached;
+          this.showingCachedCopy = true;
+        } else {
+          this.errorMessage = 'Could not load item comments.';
+        }
+      },
+      () => (this.errorMessage = 'Could not load item comments.')
+    );
   }
 
   goBack() {

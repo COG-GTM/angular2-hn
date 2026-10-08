@@ -1,4 +1,5 @@
-<div [ngStyle]="{'margin-bottom': settings.listSpacing+'px'}">
+<div class="item-row" [ngStyle]="{'margin-bottom': settings.listSpacing+'px'}">
+<div class="item-body">
   <p *ngIf="hasUrl">
     <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
       {{item.title}}
@@ -36,4 +37,6 @@
       </span>
     </span>
   </div>
+</div>
+<app-bookmark-button class="item-bookmark" [story]="item"></app-bookmark-button>
 </div>

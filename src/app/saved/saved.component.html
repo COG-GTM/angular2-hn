@@ -1,0 +1,39 @@
+<div class="main-content saved-page">
+  <app-loader *ngIf="(loaded$ | async) === false"></app-loader>
+
+  <ng-container *ngIf="loaded$ | async">
+    <ng-container *ngIf="stories$ | async as stories">
+      <div *ngIf="stories.length === 0" class="empty-state">
+        <svg class="empty-icon" viewBox="0 0 24 24" width="48" height="48" aria-hidden="true" focusable="false">
+          <path d="M6 3.5h12a.5.5 0 0 1 .5.5v16.6l-6.5-4.3-6.5 4.3V4a.5.5 0 0 1 .5-.5z"
+            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <h2>No saved stories yet</h2>
+        <p>Tap the bookmark icon on any story to save it here. Saved stories and their comments are available offline.</p>
+      </div>
+
+      <ol *ngIf="stories.length > 0" class="saved-list">
+        <li *ngFor="let story of stories; trackBy: trackById" class="post saved-story"
+          [ngStyle]="{'margin-bottom': settings.listSpacing + 'px'}">
+          <div class="story-body">
+            <p>
+              <a *ngIf="hasUrl(story)" class="title" [ngStyle]="{'font-size': settings.titleFontSize + 'px'}"
+                href="{{story.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null"
+                [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">{{story.title}}</a>
+              <a *ngIf="!hasUrl(story)" class="title" [ngStyle]="{'font-size': settings.titleFontSize + 'px'}"
+                [routerLink]="['/item', story.id]">{{story.title}}</a>
+              <span *ngIf="domain(story)" class="domain"> ({{domain(story)}})</span>
+            </p>
+            <div class="subtext">
+              <span *ngIf="story.by">{{story.score}} points by
+                <a [routerLink]="['/user', story.by]">{{story.by}}</a> | </span>
+              <span>saved {{story.savedAt | date:'MMM d, y, h:mm a'}}</span> |
+              <a [routerLink]="['/item', story.id]" class="comments-link">comments</a>
+            </div>
+          </div>
+          <app-bookmark-button class="story-bookmark" [story]="story"></app-bookmark-button>
+        </li>
+      </ol>
+    </ng-container>
+  </ng-container>
+</div>

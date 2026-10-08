@@ -181,6 +181,19 @@
         }
       }
 
+      .bookmark-button {
+        color: $secondary-link-color;
+      }
+
+      .toast {
+        background: $header-background-color;
+        border: $border;
+      }
+
+      .empty-state .empty-icon, .offline-notice {
+        color: $subtext-color;
+      }
+
       .main-details {
         .name {
           color: $secondary-link-color;

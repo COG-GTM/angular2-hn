@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithProviders } from '../test/utils';
@@ -83,5 +83,17 @@ describe('Settings', () => {
         await user.click(screen.getByText('×'));
         await user.click(screen.getByAltText('Settings'));
         expect(screen.getByLabelText('Font size:')).toHaveValue(18);
+    });
+
+    it('saves changes made without a keyup (spinner, paste)', () => {
+        renderOpen();
+        fireEvent.change(screen.getByLabelText('Font size:'), { target: { value: '17' } });
+        fireEvent.change(screen.getByLabelText('List spacing:'), { target: { value: '2' } });
+        expect(localStorage.getItem('titleFontSize')).toBe('17');
+        expect(localStorage.getItem('listSpacing')).toBe('2');
+        fireEvent.click(screen.getByText('×'));
+        fireEvent.click(screen.getByAltText('Settings'));
+        expect(screen.getByLabelText('Font size:')).toHaveValue(17);
+        expect(screen.getByLabelText('List spacing:')).toHaveValue(2);
     });
 });

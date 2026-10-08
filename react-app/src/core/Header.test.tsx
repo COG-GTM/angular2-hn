@@ -65,4 +65,26 @@ describe('Header', () => {
         await user.click(screen.getByAltText('Settings'));
         expect(container.querySelector('#popup1')).toBeNull();
     });
+
+    it('opens and closes settings from the keyboard', async () => {
+        const user = userEvent.setup();
+        const { container } = renderWithProviders(<Header />);
+        const cog = screen.getByRole('button', { name: 'Settings' });
+        expect(cog).toHaveAttribute('aria-expanded', 'false');
+
+        await user.tab();
+        await user.tab();
+        await user.tab();
+        await user.tab();
+        await user.tab();
+        await user.tab();
+        expect(cog).toHaveFocus();
+        await user.keyboard('{Enter}');
+        expect(container.querySelector('#popup1')).toBeInTheDocument();
+        expect(cog).toHaveAttribute('aria-expanded', 'true');
+
+        screen.getByRole('button', { name: 'Close settings' }).focus();
+        await user.keyboard(' ');
+        expect(container.querySelector('#popup1')).toBeNull();
+    });
 });

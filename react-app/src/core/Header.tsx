@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, type KeyboardEvent } from 'react';
 import { NavLink } from 'react-router';
 
 import { useSettings } from '../shared/hooks';
@@ -14,6 +14,16 @@ const FEED_LINKS = [
 
 function scrollTop() {
     window.scrollTo(0, 0);
+}
+
+// Keyboard activation for the image/span controls kept from the Angular markup.
+function onActivateKey(action: () => void) {
+    return (event: KeyboardEvent) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            action();
+        }
+    };
 }
 
 export function Header() {
@@ -40,7 +50,16 @@ export function Header() {
                     </div>
                 </div>
                 <div className="info">
-                    <img className="settings" src="assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
+                    <img
+                        className="settings"
+                        src="assets/images/cog.svg"
+                        alt="Settings"
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={settings.showSettings}
+                        onClick={toggleSettings}
+                        onKeyDown={onActivateKey(toggleSettings)}
+                    />
                 </div>
             </div>
             {settings.showSettings && <Settings />}

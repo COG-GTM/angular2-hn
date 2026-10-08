@@ -1,7 +1,16 @@
-import { useState, type KeyboardEvent } from 'react';
+import type { KeyboardEvent } from 'react';
 
 import { useSettings } from '../shared/hooks';
 import './Settings.scss';
+
+function onActivateKey(action: () => void) {
+    return (event: KeyboardEvent) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            action();
+        }
+    };
+}
 
 const THEME_OPTIONS = [
     { value: 'default', label: 'Default' },
@@ -11,15 +20,20 @@ const THEME_OPTIONS = [
 
 export function Settings() {
     const { settings, closeSettings, toggleOpenLinksInNewTab, setTheme, setFont, setSpacing } = useSettings();
-    const [titleFontSize, setTitleFontSize] = useState(settings.titleFontSize);
-    const [listSpacing, setListSpacing] = useState(settings.listSpacing);
 
     return (
         <div id="popup1" className="overlay">
             <div className="popup">
                 <h1>Settings</h1>
                 <hr />
-                <span className="close" onClick={closeSettings}>
+                <span
+                    className="close"
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Close settings"
+                    onClick={closeSettings}
+                    onKeyDown={onActivateKey(closeSettings)}
+                >
                     &times;
                 </span>
                 <div className="content">
@@ -57,11 +71,10 @@ export function Settings() {
                                     Font size:
                                     <input
                                         min="1"
-                                        value={titleFontSize}
+                                        value={settings.titleFontSize}
                                         name="theme"
                                         type="number"
-                                        onChange={(e) => setTitleFontSize(e.target.value)}
-                                        onKeyUp={(e: KeyboardEvent<HTMLInputElement>) => setFont(e.currentTarget.value)}
+                                        onChange={(e) => setFont(e.target.value)}
                                     />
                                 </label>
                             </div>
@@ -70,13 +83,10 @@ export function Settings() {
                                     List spacing:
                                     <input
                                         min="0"
-                                        value={listSpacing}
+                                        value={settings.listSpacing}
                                         name="theme"
                                         type="number"
-                                        onChange={(e) => setListSpacing(e.target.value)}
-                                        onKeyUp={(e: KeyboardEvent<HTMLInputElement>) =>
-                                            setSpacing(e.currentTarget.value)
-                                        }
+                                        onChange={(e) => setSpacing(e.target.value)}
                                     />
                                 </label>
                             </div>

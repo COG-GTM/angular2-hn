@@ -1,8 +1,8 @@
 @import '../shared/scss/media';
 @import '../shared/scss/theme_variables';
 
-// Nested under .overlay: Angular's settings styles were view-encapsulated.
-.overlay {
+// Nested under #popup1: Angular's settings styles were view-encapsulated.
+#popup1.overlay {
     position: fixed;
     top: 0;
     bottom: 0;

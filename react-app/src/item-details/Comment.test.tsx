@@ -82,6 +82,19 @@ describe('Comment', () => {
         expect(screen.getByText('child text')).toBeVisible();
     });
 
+    it('toggles collapse from the keyboard with aria-expanded', async () => {
+        const { container } = renderWithProviders(<Comment comment={makeComment({ content: '<p>parent text</p>' })} />);
+        const toggle = screen.getByRole('button', { name: 'Collapse comment' });
+        expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+        expect(toggle).toHaveAccessibleName('Expand comment');
+        expect(container.querySelector('.comment-tree > div')).toHaveAttribute('hidden');
+        await userEvent.keyboard(' ');
+        expect(container.querySelector('.comment-tree > div')).not.toHaveAttribute('hidden');
+    });
+
     it('collapses a reply independently of its parent', async () => {
         const tree = makeComment({
             id: 1,

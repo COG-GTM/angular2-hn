@@ -21,7 +21,20 @@ export function Comment({ comment }: { comment: CommentModel }) {
     return (
         <div>
             <div className={collapse ? 'meta meta-collapse' : 'meta'}>
-                <span className="collapse" onClick={() => setCollapse((c) => !c)}>
+                <span
+                    className="collapse"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={!collapse}
+                    aria-label={collapse ? 'Expand comment' : 'Collapse comment'}
+                    onClick={() => setCollapse((c) => !c)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setCollapse((c) => !c);
+                        }
+                    }}
+                >
                     [{collapse ? '+' : '-'}]
                 </span>
                 <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>

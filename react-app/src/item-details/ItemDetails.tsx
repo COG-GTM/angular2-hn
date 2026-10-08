@@ -31,7 +31,9 @@ function TitleLink({ item, openLinkInNewTab }: { item: Story; openLinkInNewTab: 
 export function ItemDetails() {
     const { id } = useParams();
     const itemId = Number(id);
-    const { data: item, isError } = useItem(itemId);
+    const invalidId = !Number.isFinite(itemId);
+    const { data: item, isError: fetchFailed } = useItem(itemId);
+    const isError = invalidId || fetchFailed;
     const { settings } = useSettings();
     const navigate = useNavigate();
 
@@ -48,7 +50,19 @@ export function ItemDetails() {
                 <div className="item">
                     <div className="mobile item-header">
                         <p className="title-block">
-                            <span className="back-button" onClick={() => navigate(-1)}></span>
+                            <span
+                                className="back-button"
+                                role="button"
+                                tabIndex={0}
+                                aria-label="Back"
+                                onClick={() => navigate(-1)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        navigate(-1);
+                                    }
+                                }}
+                            ></span>
                             <TitleLink item={item} openLinkInNewTab={settings.openLinkInNewTab} />
                         </p>
                     </div>
@@ -97,7 +111,9 @@ export function ItemDetails() {
                                     <div className="subtext">{pollResult.points} points</div>
                                     <div
                                         className="pollBar"
-                                        style={{ width: `${(pollResult.points / item.poll_votes_count) * 100}%` }}
+                                        style={{
+                                            width: `${item.poll_votes_count ? (pollResult.points / item.poll_votes_count) * 100 : 0}%`,
+                                        }}
                                     ></div>
                                 </div>
                             ))}

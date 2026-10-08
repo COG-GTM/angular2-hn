@@ -41,6 +41,14 @@ describe('ItemDetails', () => {
         expect(await screen.findByText('Could not load item comments.')).toBeInTheDocument();
     });
 
+    it('shows the error message for a non-numeric item id', async () => {
+        const fetchSpy = vi.fn();
+        vi.stubGlobal('fetch', fetchSpy);
+        renderWithProviders(<ItemDetails />, { path: '/item/:id', route: '/item/foo' });
+        expect(await screen.findByText('Could not load item comments.')).toBeInTheDocument();
+        expect(fetchSpy).not.toHaveBeenCalled();
+    });
+
     it('scrolls to the top on mount', async () => {
         renderItem(makeStory());
         await screen.findAllByText('Example story');
@@ -125,6 +133,14 @@ describe('ItemDetails', () => {
         expect(rows[1].innerHTML).not.toContain('script');
     });
 
+    it('renders zero-width bars when a poll has no votes', async () => {
+        const poll = makeStory({ id: 126809, type: 'poll', url: 'item?id=126809', poll: [{ content: '', points: 0 }] });
+        mockFetch({ '/item/': (url: string) => (url.endsWith('/126810') ? { content: 'Yes', points: 0 } : poll) });
+        const { container } = renderWithProviders(<ItemDetails />, { path: '/item/:id', route: '/item/126809' });
+        await screen.findAllByText('Example story');
+        expect(container.querySelector<HTMLElement>('.pollBar')!.style.width).toBe('0%');
+    });
+
     it('does not render poll results for non-polls', async () => {
         const { container } = renderItem(makeStory());
         await screen.findAllByText('Example story');
@@ -179,5 +195,27 @@ describe('ItemDetails', () => {
         await userEvent.click(container.querySelector('.back-button')!);
         expect(await screen.findByText('feed page')).toBeInTheDocument();
         expect(router.state.location.pathname).toBe('/news/1');
+    });
+
+    it('goes back in history from the keyboard', async () => {
+        mockFetch({ '/item/1': makeStory() });
+        const router = createMemoryRouter(
+            [
+                { path: '/news/1', element: <div>feed page</div> },
+                { path: '/item/:id', element: <ItemDetails /> },
+            ],
+            { initialEntries: ['/news/1', '/item/1'], initialIndex: 1 }
+        );
+        render(
+            <QueryClientProvider client={createTestQueryClient()}>
+                <SettingsProvider>
+                    <RouterProvider router={router} />
+                </SettingsProvider>
+            </QueryClientProvider>
+        );
+        await screen.findAllByText('Example story');
+        screen.getByRole('button', { name: 'Back' }).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(await screen.findByText('feed page')).toBeInTheDocument();
     });
 });

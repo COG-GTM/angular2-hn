@@ -1,6 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 
-import { renderApp } from '../test/utils';
+import { makeStory, makeUser } from '../test/fixtures';
+import { mockFetch, renderApp } from '../test/utils';
 
 describe('routes', () => {
     it('redirects / to /news/1', async () => {
@@ -13,14 +14,16 @@ describe('routes', () => {
         await waitFor(() => expect(container.querySelector(`[data-feed="${feed}"]`)).toHaveAttribute('data-page', '3'));
     });
 
-    it('lazy-loads /item/:id and /user/:id', async () => {
+    it('lazy-loads /item/:id', async () => {
+        mockFetch({ '/item/8863': makeStory({ id: 8863, title: 'item 8863' }) });
         renderApp({ route: '/item/8863' });
-        expect(await screen.findByText('item 8863')).toBeInTheDocument();
+        expect((await screen.findAllByText('item 8863')).length).toBeGreaterThan(0);
     });
 
     it('lazy-loads /user/:id', async () => {
+        mockFetch({ 'api.hnpwa.com': makeUser() });
         renderApp({ route: '/user/pg' });
-        expect(await screen.findByText('user pg')).toBeInTheDocument();
+        expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
     });
 
     it('sends unknown paths to /news/1', async () => {

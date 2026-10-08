@@ -55,7 +55,7 @@ Requires Node >= 20.19.
 - **Precache**: JS/CSS/HTML/ico/png/svg in `dist/` (the app shell, lazy route chunks and `public/assets` icons) plus the manifest. Only `workbox.globPatterns` selects files. Don't add `includeAssets`, and keep `includeManifestIcons: false`: a URL listed twice makes Workbox throw `add-to-cache-list-conflicting-entries`, and the SW installs but caches nothing. Check `dist/sw.js` after changing the config.
 - **Deep links**: `navigateFallback: 'index.html'`, so `/item/123` loads offline.
 - **API**: `node-hnapi.herokuapp.com` and `api.hnpwa.com` use NetworkFirst (5 s timeout, 7 day / 200 + 100 entry cap). Pages visited online work offline.
-- **Registration**: `src/pwa/index.ts` (imported by `main.tsx`) calls `registerServiceWorker` from `src/pwa/registerSW.ts`. The new SW activates immediately (`skipWaiting` + `clientsClaim`), and open tabs check for an update every hour while online.
+- **Registration**: `src/pwa/index.ts` (imported by `main.tsx`) calls `registerServiceWorker` from `src/pwa/registerSW.ts`. The new SW activates immediately (`skipWaiting` + `clientsClaim`), and open tabs check for an update every hour while online. On the first visit the API requests start before the SW controls the page, so once it takes control `registerSW` re-requests them (from `performance` resource entries) through the SW; otherwise the page you landed on would not work offline.
 
 ### E2E
 

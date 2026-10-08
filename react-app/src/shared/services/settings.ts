@@ -43,7 +43,7 @@ export function loadSettings(): Settings {
     const openLinkInNewTab = read(STORAGE_KEYS.openLinkInNewTab);
     return {
         showSettings: false,
-        openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) === true : false,
+        openLinkInNewTab: openLinkInNewTab === 'true',
         theme: read(STORAGE_KEYS.theme) ?? systemTheme(),
         titleFontSize: read(STORAGE_KEYS.titleFontSize) ?? '16',
         listSpacing: read(STORAGE_KEYS.listSpacing) ?? '0',

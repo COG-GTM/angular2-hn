@@ -18,6 +18,11 @@ describe('settings', () => {
         });
     });
 
+    it('ignores a malformed openLinkInNewTab value', () => {
+        localStorage.setItem('openLinkInNewTab', 'undefined');
+        expect(loadSettings().openLinkInNewTab).toBe(false);
+    });
+
     it('reads values saved by the Angular app', () => {
         localStorage.setItem('theme', 'amoledblack');
         localStorage.setItem('openLinkInNewTab', 'true');

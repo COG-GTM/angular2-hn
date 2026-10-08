@@ -31,6 +31,25 @@ describe('hackernews-api', () => {
         expect(story.poll_votes_count).toBe(8);
     });
 
+    it('fetchItemContent keeps the poll when an option fails', async () => {
+        mockFetch({
+            '/item/10': makeStory({
+                id: 10,
+                type: 'poll',
+                poll: [
+                    { points: 0, content: '' },
+                    { points: 0, content: '' },
+                ],
+            }),
+            '/item/11': { points: 3, content: 'A' },
+            '/item/12': { status: 503, body: {} },
+        });
+        const story = await fetchItemContent(10);
+        expect(story.id).toBe(10);
+        expect(story.poll).toEqual([{ points: 3, content: 'A' }]);
+        expect(story.poll_votes_count).toBe(3);
+    });
+
     it('fetchUser uses HNPWA and treats null / non-JSON bodies as errors', async () => {
         const fetchMock = mockFetch({ '/user/pg.json': { id: 'pg', karma: 1 } });
         await expect(fetchUser('pg')).resolves.toMatchObject({ id: 'pg' });

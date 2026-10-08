@@ -45,7 +45,10 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
     if (story.type === 'poll') {
         // Poll options are the items that directly follow the poll's id.
         const options = story.poll ?? [];
-        const results = await Promise.all(options.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
+        // A failed option must not hide the story itself; keep the options that loaded.
+        const settled = await Promise.allSettled(options.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
+        signal?.throwIfAborted();
+        const results = settled.flatMap((r) => (r.status === 'fulfilled' ? [r.value] : []));
         story.poll = results;
         story.poll_votes_count = results.reduce((sum, result) => sum + result.points, 0);
     }

@@ -7,7 +7,7 @@ export function makeStory(overrides: Partial<Story> = {}): Story {
         points: 42,
         user: 'pg',
         time: 1700000000,
-        time_ago: '2 hours ago' as unknown as number,
+        time_ago: '2 hours ago',
         type: 'story',
         url: 'https://example.com/post',
         domain: 'example.com',

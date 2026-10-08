@@ -114,6 +114,20 @@ h1 {
     &:hover {
       color: #fff;
     }
+
+    @media #{$mobile-only} {
+      margin: 0 3px;
+      letter-spacing: 0.6px;
+    }
+  }
+
+  @media only screen and (max-width: 360px) {
+    margin-left: 48px;
+    font-size: 14px;
+
+    a {
+      letter-spacing: 0.2px;
+    }
   }
 
   .active {

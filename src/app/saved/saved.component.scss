@@ -1,0 +1,90 @@
+@import "../shared/scss/media";
+
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 8px 0;
+  z-index: 0;
+
+  @media #{$mobile-only} {
+    padding-top: 70px;
+  }
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.saved-list {
+  list-style: none;
+  padding: 0 40px;
+  margin: 0;
+
+  @media #{$mobile-only} {
+    padding: 0 10px;
+  }
+}
+
+.post {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0 10px 5px;
+  border-bottom: 1px solid #CECECB;
+}
+
+.story-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.story-bookmark {
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+p {
+  margin: 2px 0;
+}
+
+.title {
+  font-size: 16px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.domain {
+  letter-spacing: 0.5px;
+}
+
+.subtext {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+
+  h2 {
+    font-size: 18px;
+    margin: 12px 0 8px;
+  }
+
+  p {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}

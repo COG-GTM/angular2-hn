@@ -1,0 +1,6 @@
+<div class="toast-region" role="status" aria-live="polite">
+  <div *ngIf="toastService.current as toast" class="toast">
+    <span class="toast-message">{{ toast.message }}</span>
+    <button *ngIf="toast.undo" type="button" class="toast-undo" (click)="toastService.undo()">Undo</button>
+  </div>
+</div>

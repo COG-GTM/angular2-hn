@@ -62,13 +62,16 @@ test('app shell, deep links and visited API responses work offline', async ({ co
 
     await page.goto('/news/1');
     await expect(page.locator('#root .main-content')).toBeVisible();
-    await expect(page.getByText(story.title).first()).toBeVisible();
+    await expect(page.getByText(story.title).filter({ visible: true }).first()).toBeVisible();
     await waitForServiceWorkerControl(page);
 
     // First visit: the feed request started before the SW took control, so registerSW re-requests it.
     await expect.poll(() => isCached(page, 'hn-api', FEED_URL)).toBe(true);
-    // Item details render a placeholder for now, so request the item through the SW directly.
-    expect(await fetchJson(page, ITEM_URL)).toMatchObject({ id: story.id });
+    // Visit the item page client-side (through the SW) so its API response is cached too.
+    await page.getByRole('link', { name: `${story.comments_count} comments` }).click();
+    await expect(page).toHaveURL(/\/item\/8863$/);
+    await expect(page.getByText(story.title).filter({ visible: true }).first()).toBeVisible();
+    await page.goBack();
 
     await goOffline(context);
 
@@ -76,7 +79,7 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     expect(reload?.fromServiceWorker()).toBe(true);
     await expect(page.locator('#root .main-content')).toBeVisible();
     // The feed renders from the SW's runtime cache.
-    await expect(page.getByText(story.title).first()).toBeVisible();
+    await expect(page.getByText(story.title).filter({ visible: true }).first()).toBeVisible();
     await expect(page).toHaveTitle('Angular 2 HN');
     expect(await fetchJson(page, FEED_URL)).toEqual([story]);
 
@@ -85,6 +88,7 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     expect(deepLink?.fromServiceWorker()).toBe(true);
     await expect(page).toHaveURL(/\/item\/8863$/);
     await expect(page.locator('#root .main-content')).toBeVisible();
+    await expect(page.getByText(story.title).filter({ visible: true }).first()).toBeVisible();
     expect(await fetchJson(page, ITEM_URL)).toMatchObject({ id: story.id, title: story.title });
 
     // Pages never visited online have no cached API data.

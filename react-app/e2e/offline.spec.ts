@@ -54,6 +54,7 @@ test('app shell, deep links and visited API responses work offline', async ({ co
 
     await page.goto('/news/1');
     await expect(page.locator('#root .main-content')).toBeVisible();
+    await expect(page.getByText(story.title).first()).toBeVisible();
     await waitForServiceWorkerControl(page);
 
     // Feed/item requests made online go through the SW's NetworkFirst cache.
@@ -66,6 +67,8 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     const reload = await page.reload();
     expect(reload?.fromServiceWorker()).toBe(true);
     await expect(page.locator('#root .main-content')).toBeVisible();
+    // The feed renders from the SW's runtime cache.
+    await expect(page.getByText(story.title).first()).toBeVisible();
     await expect(page).toHaveTitle('Angular 2 HN');
     expect(await fetchJson(page, FEED_URL)).toEqual([story]);
 

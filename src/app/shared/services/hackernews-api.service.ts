@@ -15,6 +15,7 @@ interface FeedPage {
   page: number;
   stories: Story[];
   seenIds: Set<number>;
+  isEmpty: boolean;
 }
 
 // wrap fetch in observable so we can keep it chill
@@ -34,16 +35,17 @@ export class HackerNewsAPIService {
     const cutoff = Math.floor(Date.now() / 1000) - SECONDS_PER_WEEK;
     const fetchPage = (page: number, seenIds: Set<number>) =>
       this.fetchFeed('news', page).pipe(map((stories: Story[]): FeedPage => {
-        const newStories = (stories || []).filter(story => !seenIds.has(story.id));
+        const pageStories = stories || [];
+        const newStories = pageStories.filter(story => !seenIds.has(story.id));
         const nextSeenIds = new Set(seenIds);
         newStories.forEach(story => nextSeenIds.add(story.id));
-        return { page, stories: newStories, seenIds: nextSeenIds };
+        return { page, stories: newStories, seenIds: nextSeenIds, isEmpty: pageStories.length === 0 };
       }));
 
     return fetchPage(1, new Set<number>()).pipe(
-      expand(({ page, stories, seenIds }) => {
+      expand(({ page, stories, seenIds, isEmpty }) => {
         const reachedOlderStory = stories.some(story => story.time < cutoff);
-        return !reachedOlderStory && page < WEEKLY_SUMMARY_MAX_PAGES
+        return !isEmpty && !reachedOlderStory && page < WEEKLY_SUMMARY_MAX_PAGES
           ? fetchPage(page + 1, seenIds)
           : EMPTY;
       }),

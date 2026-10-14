@@ -1,0 +1,14 @@
+<div class="main-content">
+  <app-loader *ngIf="!items && !errorMessage"></app-loader>
+  <app-error-message [message]="errorMessage" *ngIf="!items && errorMessage !==''"></app-error-message>
+
+  <div *ngIf="items">
+    <h2 class="summary-header">Top stories this week</h2>
+    <p class="empty-state" *ngIf="items.length === 0">No stories from the last 7 days were found.</p>
+    <ol *ngIf="items.length > 0">
+      <li *ngFor="let item of items" class="post">
+        <item class="item-block" [item]="item"></item>
+      </li>
+    </ol>
+  </div>
+</div>

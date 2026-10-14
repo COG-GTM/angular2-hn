@@ -1,0 +1,16 @@
+import { QueryClient } from '@tanstack/react-query';
+
+export function createQueryClient(): QueryClient {
+    return new QueryClient({
+        defaultOptions: {
+            queries: {
+                staleTime: 60_000,
+                gcTime: 24 * 60 * 60_000,
+                networkMode: 'offlineFirst',
+                refetchOnWindowFocus: false,
+            },
+        },
+    });
+}
+
+export const queryClient = createQueryClient();

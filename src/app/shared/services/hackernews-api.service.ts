@@ -15,7 +15,6 @@ interface FeedPage {
   page: number;
   stories: Story[];
   seenIds: Set<number>;
-  hasNewStories: boolean;
 }
 
 // wrap fetch in observable so we can keep it chill
@@ -38,13 +37,13 @@ export class HackerNewsAPIService {
         const newStories = (stories || []).filter(story => !seenIds.has(story.id));
         const nextSeenIds = new Set(seenIds);
         newStories.forEach(story => nextSeenIds.add(story.id));
-        return { page, stories: newStories, seenIds: nextSeenIds, hasNewStories: newStories.length > 0 };
+        return { page, stories: newStories, seenIds: nextSeenIds };
       }));
 
     return fetchPage(1, new Set<number>()).pipe(
-      expand(({ page, stories, seenIds, hasNewStories }) => {
+      expand(({ page, stories, seenIds }) => {
         const reachedOlderStory = stories.some(story => story.time < cutoff);
-        return hasNewStories && !reachedOlderStory && page < WEEKLY_SUMMARY_MAX_PAGES
+        return !reachedOlderStory && page < WEEKLY_SUMMARY_MAX_PAGES
           ? fetchPage(page + 1, seenIds)
           : EMPTY;
       }),

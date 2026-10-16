@@ -40,6 +40,13 @@ describe('User', () => {
         expect(container.querySelector('.other-details p')).toHaveTextContent('Bug fixer.');
     });
 
+    it('scrolls to the top while the profile is still loading', () => {
+        vi.mocked(window.scrollTo).mockClear();
+        mockFetch({ [USER_URL]: makeUser() });
+        renderUser();
+        expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
+    });
+
     it('requests the HNPWA user endpoint for the route id', async () => {
         const fetchMock = mockFetch({ [USER_URL]: makeUser({ id: 'dang' }) });
         renderUser('dang');

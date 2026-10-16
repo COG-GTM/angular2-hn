@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import { ErrorMessage, Loader } from '../shared/components';
@@ -10,6 +11,10 @@ export function User() {
     const navigate = useNavigate();
     const { data: user, isError } = useUser(id);
     const goBack = () => navigate(-1);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
     if (isError) {
         return <ErrorMessage message={`Could not load user ${id}.`} />;

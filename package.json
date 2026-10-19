@@ -2,6 +2,11 @@
   "name": "angular-hnpwa",
   "version": "0.0.0",
   "scripts": {
+    "dev": "npm --prefix react-app run dev",
+    "react:install": "npm --prefix react-app ci",
+    "react:build": "npm --prefix react-app run build",
+    "react:test": "npm --prefix react-app test",
+    "react:e2e": "npm --prefix react-app run e2e",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

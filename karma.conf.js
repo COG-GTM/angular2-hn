@@ -20,12 +20,23 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+    // Serve assets (e.g. header logo/cog images) straight from the webpack output so they
+    // don't go through the CLI fallback middleware, which crashes on Node >= 16.
+    proxies: {
+      '/assets/': '/_karma_webpack_/assets/'
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadlessCI'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });

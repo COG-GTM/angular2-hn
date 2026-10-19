@@ -1,20 +1,21 @@
 // Ported from src/app/core/header
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSettings } from '../settings/SettingsContext';
 import { Settings } from './Settings';
 import './Header.scss';
 
 const NAV_FEEDS = [
-  { to: '/newest/1', label: 'new' },
-  { to: '/show/1', label: 'show' },
-  { to: '/ask/1', label: 'ask' },
-  { to: '/jobs/1', label: 'jobs' },
+  { feed: 'newest', label: 'new' },
+  { feed: 'show', label: 'show' },
+  { feed: 'ask', label: 'ask' },
+  { feed: 'jobs', label: 'jobs' },
 ];
 
 const scrollTop = () => window.scrollTo(0, 0);
 
 export function Header() {
   const { settings, toggleSettings } = useSettings();
+  const currentFeed = useLocation().pathname.split('/')[1];
   return (
     <header>
       <div id="header">
@@ -25,14 +26,22 @@ export function Header() {
         <div className="header-text">
           <div className="left">
             <nav className="header-nav">
-              {NAV_FEEDS.map((feed, i) => (
-                <span key={feed.to}>
-                  {i > 0 && ' | '}
-                  <NavLink to={feed.to} onClick={scrollTop} end={false}>
-                    {feed.label}
-                  </NavLink>
-                </span>
-              ))}
+              {NAV_FEEDS.map(({ feed, label }, i) => {
+                const active = feed === currentFeed;
+                return (
+                  <span key={feed}>
+                    {i > 0 && ' | '}
+                    <Link
+                      to={`/${feed}/1`}
+                      onClick={scrollTop}
+                      className={active ? 'active' : undefined}
+                      aria-current={active ? 'page' : undefined}
+                    >
+                      {label}
+                    </Link>
+                  </span>
+                );
+              })}
             </nav>
           </div>
         </div>

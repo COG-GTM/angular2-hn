@@ -12,17 +12,19 @@ test('manifest is linked and installable fields are present', async ({ page, req
   expect(manifest.icons.map((i: { sizes: string }) => i.sizes)).toContain('512x512');
 });
 
-test('works offline after the first visit (precached shell + cached API)', async ({ context, page }) => {
+test('works offline after a single first visit (precached shell + cached API)', async ({ context, page }) => {
   await mockHnApi(context);
   await page.goto('/news/1');
   await expect(page.getByRole('link', { name: FEED_TITLES.news(1), exact: true })).toBeVisible();
-  await page.evaluate(async () => {
-    await navigator.serviceWorker.ready;
-  });
-  // Reload once so the now-active service worker controls the page and caches the API response.
-  await page.reload();
-  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
-  await expect(page.getByRole('link', { name: FEED_TITLES.news(1), exact: true })).toBeVisible();
+  // No reload: the feed request made before the worker took control must still end up cached.
+  await expect
+    .poll(() =>
+      page.evaluate(async () => {
+        const keys = await (await caches.open('hn-api')).keys();
+        return keys.some((req) => req.url.includes('/news?page=1'));
+      })
+    )
+    .toBe(true);
 
   await context.setOffline(true);
   await page.goto('/news/1');

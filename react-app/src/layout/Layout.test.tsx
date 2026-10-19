@@ -29,6 +29,28 @@ describe('Layout shell (header, settings, footer)', () => {
     expect(screen.getByRole('link', { name: 'new' })).not.toHaveClass('active');
   });
 
+  it('keeps the feed link active on later pages', () => {
+    renderLayout('/newest/3');
+    expect(screen.getByRole('link', { name: 'new' })).toHaveClass('active');
+    expect(screen.getByRole('link', { name: 'new' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'show' })).not.toHaveClass('active');
+  });
+
+  it('moves focus into the settings dialog, traps Tab and restores focus on close', async () => {
+    const user = userEvent.setup();
+    renderLayout();
+    const cog = screen.getByRole('button', { name: 'Settings' });
+    await user.click(cog);
+    const close = screen.getByRole('button', { name: 'Close settings' });
+    expect(close).toHaveFocus();
+    await user.tab({ shift: true });
+    expect(screen.getByRole('spinbutton', { name: /list spacing/i })).toHaveFocus();
+    await user.tab();
+    expect(close).toHaveFocus();
+    await user.keyboard('{Escape}');
+    expect(cog).toHaveFocus();
+  });
+
   it('opens and closes the settings popup from the cog, close button and Escape', async () => {
     const user = userEvent.setup();
     renderLayout();

@@ -1,14 +1,38 @@
 // Ported from src/app/core/settings
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { THEMES, useSettings } from '../settings/SettingsContext';
 import './Settings.scss';
 
 export function Settings() {
   const { settings, toggleSettings, toggleOpenLinksInNewTab, setTheme, setFont, setSpacing } = useSettings();
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    return () => opener?.focus();
+  }, []);
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') toggleSettings();
+      if (e.key === 'Escape') {
+        toggleSettings();
+        return;
+      }
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>('button, input');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const inside = dialogRef.current.contains(document.activeElement);
+      if (e.shiftKey && (document.activeElement === first || !inside)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !inside)) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
@@ -16,10 +40,10 @@ export function Settings() {
 
   return (
     <div id="popup1" className="overlay">
-      <div className="popup" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div ref={dialogRef} className="popup" role="dialog" aria-modal="true" aria-labelledby="settings-title">
         <h1 id="settings-title">Settings</h1>
         <hr />
-        <button type="button" className="close" onClick={toggleSettings} aria-label="Close settings">
+        <button ref={closeRef} type="button" className="close" onClick={toggleSettings} aria-label="Close settings">
           &times;
         </button>
         <div className="content">

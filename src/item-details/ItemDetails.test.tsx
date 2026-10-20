@@ -206,6 +206,46 @@ describe('ItemDetails', () => {
         expect(screen.queryByText('Loading...')).toBeNull();
     });
 
+    it('shows the error message instead of an endless loader for an invalid id', () => {
+        renderItem('/item/abc');
+
+        expect(screen.getByText('Could not load item comments.')).toBeInTheDocument();
+        expect(screen.queryByText('Loading...')).toBeNull();
+        expect(fetchItemContent).not.toHaveBeenCalled();
+    });
+
+    it('scrolls to the top once on route entry, not again when the item refetches', async () => {
+        fetchItemContent.mockResolvedValue(makeStory());
+        const { rerender } = renderItem();
+        await screen.findAllByRole('link', { name: 'A great story' });
+        expect(window.scrollTo).toHaveBeenCalledTimes(1);
+
+        rerender(
+            <QueryClientProvider client={createQueryClient()}>
+                <MemoryRouter initialEntries={['/item/42']}>
+                    <Routes>
+                        <Route path="/item/:id" element={<ItemDetails />} />
+                    </Routes>
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await screen.findAllByRole('link', { name: 'A great story' });
+        expect(window.scrollTo).toHaveBeenCalledTimes(1);
+    });
+
+    it('strips scripts and event handlers from injected story content', async () => {
+        fetchItemContent.mockResolvedValue(
+            makeStory({
+                url: 'item?id=42',
+                content: '<p onclick="alert(1)">Ask text</p><script>alert(1)</script><a href="javascript:alert(1)">bad</a>',
+            })
+        );
+        const { container } = renderItem();
+
+        await screen.findByText('Ask text');
+        expect(container.querySelector('.subject')?.innerHTML).toBe('<p>Ask text</p><a>bad</a>');
+    });
+
     it('navigates back when the mobile back button is clicked', async () => {
         fetchItemContent.mockResolvedValue(makeStory());
         const { container } = renderItem();

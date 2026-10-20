@@ -36,6 +36,16 @@ describe('Comment', () => {
         expect(container.querySelector('.comment-text')?.innerHTML).toContain('<p>Hello');
     });
 
+    it('sanitizes injected comment HTML like Angular [innerHTML] did', () => {
+        const { container } = renderComment(
+            makeComment({
+                content: '<p>Hi <img src="x" onerror="alert(1)"><a href="javascript:alert(1)">x</a></p><script>alert(1)</script>',
+            })
+        );
+
+        expect(container.querySelector('.comment-text')?.innerHTML).toBe('<p>Hi <img src="x"><a>x</a></p>');
+    });
+
     it('renders nested comments recursively inside ul.subtree', () => {
         const { container } = renderComment(
             makeComment({

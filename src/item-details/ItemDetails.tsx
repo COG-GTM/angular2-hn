@@ -8,6 +8,7 @@ import type { Story } from '../shared/models';
 import { useSettingsStore } from '../shared/store/settings';
 import { formatCommentCount } from '../shared/utils/comment';
 import { Comment } from './Comment';
+import { sanitizeHtml } from './sanitize-html';
 import './ItemDetails.scss';
 
 const ERROR_MESSAGE = 'Could not load item comments.';
@@ -61,17 +62,19 @@ export default function ItemDetails() {
     const openLinkInNewTab = useSettingsStore((state) => state.openLinkInNewTab);
     const { data: item, isError } = useItem(itemId);
 
+    const hasValidId = Number.isFinite(itemId) && itemId > 0;
+
+    // Angular scrolled in the `getItem` subscribe callback; scrolling on route entry instead
+    // avoids jumping to the top on a background refetch and still covers the error state.
     useEffect(() => {
-        if (item) {
-            window.scrollTo(0, 0);
-        }
-    }, [item]);
+        window.scrollTo(0, 0);
+    }, [itemId]);
 
     return (
         <div className="app-item-details">
             <div className="main-content">
-                {!item && !isError && <Loader />}
-                {!item && isError && <ErrorMessage message={ERROR_MESSAGE} />}
+                {!item && hasValidId && !isError && <Loader />}
+                {!item && (!hasValidId || isError) && <ErrorMessage message={ERROR_MESSAGE} />}
 
                 {item && (
                     <div className="item">
@@ -119,7 +122,7 @@ export default function ItemDetails() {
                             <div className="pollResults">
                                 {(item.poll ?? []).map((pollResult, index) => (
                                     <div key={index} className="pollContent">
-                                        <div dangerouslySetInnerHTML={{ __html: pollResult.content ?? '' }}></div>
+                                        <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
                                         <div className="subtext">{pollResult.points ?? '?'} points</div>
                                         <div
                                             className="pollBar"
@@ -132,7 +135,7 @@ export default function ItemDetails() {
                                 )}
                             </div>
                         )}
-                        <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                        <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}></p>
                         <ul className="comment-list">
                             {item.comments.map((comment) => (
                                 <li key={comment.id}>

@@ -9,21 +9,24 @@ export interface FeedItemProps {
     item: Story;
 }
 
-/** Angular's `url.indexOf('http') === 0`, tightened to absolute http(s) URLs that the sanitizer also accepts. */
-function isExternalHttpUrl(url: string | undefined): url is string {
-    if (typeof url !== 'string' || url.indexOf('http') !== 0) return false;
+/**
+ * Angular's `url.indexOf('http') === 0`, tightened to absolute http(s) URLs the sanitizer accepts.
+ * Returns the canonical href so lax forms like `http:/host` can't resolve against the current page.
+ */
+function externalHttpHref(url: string | undefined): string | null {
+    if (typeof url !== 'string' || url.indexOf('http') !== 0) return null;
     try {
-        const { protocol } = new URL(url);
-        return (protocol === 'http:' || protocol === 'https:') && isSafeHref(url);
+        const { protocol, href } = new URL(url);
+        return (protocol === 'http:' || protocol === 'https:') && isSafeHref(href) ? href : null;
     } catch {
-        return false;
+        return null;
     }
 }
 
 /** Port of Angular `ItemComponent` (`<item class="item-block">`): one row of the feed list. */
 export function FeedItem({ item }: FeedItemProps) {
     const { settings } = useSettings();
-    const hasUrl = isExternalHttpUrl(item.url);
+    const externalHref = externalHttpHref(item.url);
     const isJob = item.type === 'job';
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
     const comments = commentLabel(item.comments_count);
@@ -32,12 +35,12 @@ export function FeedItem({ item }: FeedItemProps) {
     return (
         <div className="feed-item item-block">
             <div style={{ marginBottom: `${settings.listSpacing}px` }}>
-                {hasUrl ? (
+                {externalHref ? (
                     <p>
                         <a
                             className="title"
                             style={titleStyle}
-                            href={item.url}
+                            href={externalHref}
                             target={settings.openLinkInNewTab ? '_blank' : undefined}
                             rel={settings.openLinkInNewTab ? 'noopener' : undefined}
                         >

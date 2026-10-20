@@ -206,6 +206,14 @@ describe('ItemDetails', () => {
         expect(screen.queryByText('Loading...')).toBeNull();
     });
 
+    it('shows the error message when the API answers 200 with an error payload', async () => {
+        fetchItemContent.mockResolvedValue({ error: 'Item 999999999999 not found' } as unknown as Story);
+        renderItem('/item/999999999999');
+
+        expect(await screen.findByText('Could not load item comments.')).toBeInTheDocument();
+        expect(screen.queryByText('Loading...')).toBeNull();
+    });
+
     it('shows the error message instead of an endless loader for an invalid id', () => {
         renderItem('/item/abc');
 

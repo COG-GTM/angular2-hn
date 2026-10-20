@@ -60,9 +60,13 @@ export default function ItemDetails() {
     const itemId = Number(id);
     const navigate = useNavigate();
     const openLinkInNewTab = useSettingsStore((state) => state.openLinkInNewTab);
-    const { data: item, isError } = useItem(itemId);
+    const { data, isError } = useItem(itemId);
 
     const hasValidId = Number.isFinite(itemId) && itemId > 0;
+    // node-hnapi answers unknown ids with HTTP 200 `{ "error": "Item … not found" }`.
+    const isErrorPayload = data !== undefined && (typeof data.id !== 'number' || 'error' in data);
+    const item = isErrorPayload ? undefined : data;
+    const showError = !hasValidId || isError || isErrorPayload;
 
     // Angular scrolled in the `getItem` subscribe callback; scrolling on route entry instead
     // avoids jumping to the top on a background refetch and still covers the error state.
@@ -73,8 +77,8 @@ export default function ItemDetails() {
     return (
         <div className="app-item-details">
             <div className="main-content">
-                {!item && hasValidId && !isError && <Loader />}
-                {!item && (!hasValidId || isError) && <ErrorMessage message={ERROR_MESSAGE} />}
+                {!item && !showError && <Loader />}
+                {!item && showError && <ErrorMessage message={ERROR_MESSAGE} />}
 
                 {item && (
                     <div className="item">
@@ -137,7 +141,7 @@ export default function ItemDetails() {
                         )}
                         <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}></p>
                         <ul className="comment-list">
-                            {item.comments.map((comment) => (
+                            {(item.comments ?? []).map((comment) => (
                                 <li key={comment.id}>
                                     <Comment comment={comment} />
                                 </li>

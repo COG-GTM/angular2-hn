@@ -3,6 +3,7 @@
 
 // Angular emulated view encapsulation is replaced by nesting the component styles
 // under a wrapper class that the React component puts on its root element.
+// Skull/teeth colours come from the `theme()` mixin in `../scss/_themes`.
 .app-error-message {
   .error-section {
     height: 300px;

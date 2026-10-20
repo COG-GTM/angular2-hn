@@ -1,12 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
+import './AppShell.scss';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
-/**
- * Layout route (mirrors `app.component.html`). The theme class lives on <html> (SettingsProvider),
- * so the wrapper needs no theme class. Phase 2 · Core shell may restyle but keep this structure.
- */
+/** Layout route (port of `app.component.html`). The theme class lives on <html> (SettingsProvider). */
 export function AppShell() {
     return (
         <>

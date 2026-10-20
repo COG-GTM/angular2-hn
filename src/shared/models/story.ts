@@ -17,6 +17,8 @@ export interface Story {
     comments_count: number;
     poll?: PollResult[];
     poll_votes_count?: number;
+    /** Set when at least one poll option request failed, so `poll_votes_count` is a lower bound. */
+    poll_incomplete?: boolean;
     deleted?: boolean;
     dead?: boolean;
 }

@@ -59,6 +59,7 @@ describe('hackernews-api', () => {
             { points: 0, content: 'C' },
         ]);
         expect(result.poll_votes_count).toBe(12);
+        expect(result.poll_incomplete).toBeUndefined();
         expect(fetchMock).toHaveBeenCalledTimes(4);
     });
 
@@ -83,6 +84,7 @@ describe('hackernews-api', () => {
         expect(result.comments).toEqual([{ id: 200 }]);
         expect(result.poll).toEqual([{ points: 5, content: 'A' }, { content: 'B (from story)' }]);
         expect(result.poll_votes_count).toBe(5);
+        expect(result.poll_incomplete).toBe(true);
     });
 
     it('fetchUser encodes the id', async () => {

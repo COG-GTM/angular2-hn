@@ -1,5 +1,15 @@
 import { SETTINGS_STORAGE_KEYS, loadInitialSettings, subscribeToSystemColorScheme, useSettingsStore } from './settings';
 
+const unsubscribers: Array<() => void> = [];
+function subscribe() {
+    const unsubscribe = subscribeToSystemColorScheme();
+    unsubscribers.push(unsubscribe);
+    return unsubscribe;
+}
+afterEach(() => {
+    unsubscribers.splice(0).forEach((unsubscribe) => unsubscribe());
+});
+
 type Listener = (event: MediaQueryListEvent) => void;
 
 function stubMatchMedia(matches: boolean) {
@@ -82,7 +92,7 @@ describe('settings store', () => {
 
     it('follows prefers-color-scheme changes until unsubscribed', () => {
         const media = stubMatchMedia(false);
-        const unsubscribe = subscribeToSystemColorScheme();
+        const unsubscribe = subscribe();
 
         media.fire(true);
         expect(useSettingsStore.getState().theme).toBe('night');
@@ -97,7 +107,7 @@ describe('settings store', () => {
 
     it('does not override an explicitly chosen theme on prefers-color-scheme changes', () => {
         const media = stubMatchMedia(false);
-        subscribeToSystemColorScheme();
+        subscribe();
         useSettingsStore.getState().setTheme('amoledblack');
 
         media.fire(true);
@@ -110,7 +120,7 @@ describe('settings store', () => {
 
     it('mirrors a theme chosen in another tab and stops following the OS', () => {
         const media = stubMatchMedia(false);
-        const unsubscribe = subscribeToSystemColorScheme();
+        const unsubscribe = subscribe();
 
         localStorage.setItem(SETTINGS_STORAGE_KEYS.theme, 'amoledblack');
         window.dispatchEvent(
@@ -138,7 +148,7 @@ describe('settings store', () => {
         const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
             throw new DOMException('QuotaExceededError');
         });
-        subscribeToSystemColorScheme();
+        subscribe();
         useSettingsStore.getState().setTheme('amoledblack');
 
         media.fire(true);

@@ -17,16 +17,21 @@ env:
     FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID || 'angular2-hn' }}
 
 jobs:
-    credentials:
-        name: check Firebase credentials
+    deploy:
+        name: build and deploy
         runs-on: ubuntu-latest
-        outputs:
-            available: ${{ steps.check.outputs.available }}
+        # Credentials are checked inside this job so production-environment secrets are visible to the check.
+        environment: production
+        env:
+            FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        defaults:
+            run:
+                working-directory: react-app
         steps:
-            - id: check
-              env:
-                  FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+            - name: Check Firebase credentials
+              id: credentials
+              working-directory: .
               run: |
                   if [ -n "$FIREBASE_SERVICE_ACCOUNT" ] || [ -n "$FIREBASE_TOKEN" ]; then
                       echo "available=true" >> "$GITHUB_OUTPUT"
@@ -34,32 +39,26 @@ jobs:
                       echo "available=false" >> "$GITHUB_OUTPUT"
                       echo "::notice::FIREBASE_SERVICE_ACCOUNT / FIREBASE_TOKEN secret not set; skipping Firebase deploy."
                   fi
-
-    deploy:
-        name: build and deploy
-        needs: credentials
-        if: needs.credentials.outputs.available == 'true'
-        runs-on: ubuntu-latest
-        environment: production
-        defaults:
-            run:
-                working-directory: react-app
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+            - if: steps.credentials.outputs.available == 'true'
+              uses: actions/checkout@v4
+            - if: steps.credentials.outputs.available == 'true'
+              uses: actions/setup-node@v4
               with:
                   node-version: 22
                   cache: npm
                   cache-dependency-path: react-app/package-lock.json
-            - run: npm ci
-            - run: npm run lint
-            - run: npm run typecheck
-            - run: npm test
-            - run: npm run build
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm ci
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run lint
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run typecheck
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm test
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run build
             - name: Deploy to Firebase Hosting
-              env:
-                  FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+              if: steps.credentials.outputs.available == 'true'
               run: |
                   if [ -n "$FIREBASE_SERVICE_ACCOUNT" ]; then
                       export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-sa.json"

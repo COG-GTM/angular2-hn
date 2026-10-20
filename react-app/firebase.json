@@ -4,7 +4,7 @@
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
         "rewrites": [
             {
-                "source": "**",
+                "regex": "^/(?:(?:news|newest|show|ask|jobs|item|user)/.*|[^.]*)$",
                 "destination": "/index.html"
             }
         ],

@@ -33,7 +33,14 @@ export const STATIC_FILE_EXTENSIONS = [
     'ani',
 ] as const;
 
-export const STATIC_FILE_PATTERN = new RegExp(`\\.(?:${STATIC_FILE_EXTENSIONS.join('|')})$`, 'i');
+/** First path segments of client routes (src/app/routes.tsx); their params may contain dots, e.g. `/user/john.json`. */
+export const APP_ROUTE_PREFIXES = ['news', 'newest', 'show', 'ask', 'jobs', 'item', 'user'] as const;
+
+/** Workbox tests navigateFallbackDenylist against `pathname + search`. */
+export const STATIC_FILE_PATTERN = new RegExp(
+    `^(?!/(?:${APP_ROUTE_PREFIXES.join('|')})/)[^?]*\\.(?:${STATIC_FILE_EXTENSIONS.join('|')})(?:\\?.*)?$`,
+    'i'
+);
 
 export function escapeRegExp(value: string): string {
     return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

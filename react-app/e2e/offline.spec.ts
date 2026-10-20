@@ -52,6 +52,10 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     expect(userPage?.fromServiceWorker()).toBe(true);
     await expect(page.getByTestId('user-profile')).toBeVisible();
     expect(await fetchJson(page, urls.user(user.id))).toMatchObject({ id: user.id, karma: user.karma });
+    // Route params that look like file names still get the shell (only static files are denylisted).
+    const dottedUserPage = await page.goto('/user/john.json');
+    expect(dottedUserPage?.fromServiceWorker()).toBe(true);
+    await expect(page.getByTestId('user-profile')).toBeVisible();
 
     // Negative controls: API data never fetched online is not available, and static files are not
     // answered with the SPA fallback.

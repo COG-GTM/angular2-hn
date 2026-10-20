@@ -113,7 +113,10 @@ export function subscribeToSystemColorScheme(): () => void {
         if (isTheme(event.newValue)) {
             useSettingsStore.setState({ theme: event.newValue, themeChosen: true });
         } else {
-            useSettingsStore.setState({ themeChosen: false });
+            useSettingsStore.setState({
+                theme: themeForColorScheme(getDarkSchemeMedia()?.matches ?? false),
+                themeChosen: false,
+            });
         }
     };
     window.addEventListener('storage', onStorage);

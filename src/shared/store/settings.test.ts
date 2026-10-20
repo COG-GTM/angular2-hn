@@ -133,8 +133,14 @@ describe('settings store', () => {
 
         localStorage.removeItem(SETTINGS_STORAGE_KEYS.theme);
         window.dispatchEvent(new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: null }));
-        media.fire(false);
         expect(useSettingsStore.getState().theme).toBe('default');
+        expect(useSettingsStore.getState().themeChosen).toBe(false);
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('night');
+        window.dispatchEvent(new StorageEvent('storage', { key: null, newValue: null }));
+        expect(useSettingsStore.getState().theme).toBe('default');
+        media.fire(false);
 
         unsubscribe();
         window.dispatchEvent(

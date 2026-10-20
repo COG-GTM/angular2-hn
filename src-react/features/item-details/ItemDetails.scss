@@ -29,14 +29,13 @@
         }
 
         > .mobile > p,
-        > .laptop > p,
-        > p.subject {
+        > .laptop > p {
             margin: 2px 0;
         }
 
         > .subject {
             word-wrap: break-word;
-            margin-top: 20px;
+            margin: 20px 0 2px;
         }
 
         > .mobile a,

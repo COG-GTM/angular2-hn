@@ -136,6 +136,16 @@ describe('Feed', () => {
         expect(screen.queryByText(/These are jobs at startups/)).not.toBeInTheDocument();
     });
 
+    it.each(['0', '-2', '1.5', 'nope'])('redirects invalid page "%s" to page 1 without fetching', async (page) => {
+        fetchFeed.mockResolvedValue(makeStories(3));
+        const { container } = renderFeed('news', `/news/${page}`);
+
+        await screen.findByText('Story 1');
+        expect(fetchFeed).toHaveBeenCalledTimes(1);
+        expect(fetchFeed).toHaveBeenCalledWith('news', 1, expect.anything());
+        expect(container.querySelector('ol')).toHaveAttribute('start', '1');
+    });
+
     it('shows the error message when the request fails', async () => {
         fetchFeed.mockRejectedValue(new api.HttpError(500, 'https://node-hnapi.herokuapp.com/news?page=1'));
         const { container } = renderFeed('news', '/news/1');

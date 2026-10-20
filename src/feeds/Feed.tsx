@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { useFeed } from '../shared/api/hooks';
 import { ErrorMessage } from '../shared/components/ErrorMessage';
@@ -16,7 +16,8 @@ interface FeedProps {
 export function Feed({ feedType }: FeedProps) {
     const { page } = useParams<{ page: string }>();
     const pageNum = page ? Number(page) : 1;
-    const { data: items, error } = useFeed(feedType, pageNum);
+    const isValidPage = Number.isInteger(pageNum) && pageNum > 0;
+    const { data: items, error } = useFeed(feedType, isValidPage ? pageNum : 0);
     const listStart = (pageNum - 1) * FEED_PAGE_SIZE + 1;
 
     useEffect(() => {
@@ -24,6 +25,10 @@ export function Feed({ feedType }: FeedProps) {
             window.scrollTo(0, 0);
         }
     }, [items]);
+
+    if (!isValidPage) {
+        return <Navigate to={`/${feedType}/1`} replace />;
+    }
 
     return (
         <div className="app-feed">

@@ -8,9 +8,24 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the app title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to angular-hnpwa!');
+    expect(page.getTitleText()).toEqual('Angular 2 HN');
+  });
+
+  it('should redirect to the first page of the news feed', () => {
+    page.navigateTo();
+    expect(browser.getCurrentUrl()).toMatch(/\/news\/1$/);
+  });
+
+  it('should render the header navigation', () => {
+    page.navigateTo();
+    expect(page.getNavLinkTexts()).toEqual(['new', 'show', 'ask', 'jobs']);
+  });
+
+  it('should render the footer', () => {
+    page.navigateTo();
+    expect(page.getFooterText()).toContain('Show this project some');
   });
 
   afterEach(async () => {

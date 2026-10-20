@@ -20,6 +20,11 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+    // Serve assets (header logo/cog images) straight from the webpack output; the CLI's
+    // fallback middleware crashes on them under Node >= 16.
+    proxies: {
+      '/assets/': '/_karma_webpack_/assets/'
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

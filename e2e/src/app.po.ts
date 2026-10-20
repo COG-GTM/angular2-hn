@@ -6,6 +6,14 @@ export class AppPage {
   }
 
   getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+    return browser.getTitle() as Promise<string>;
+  }
+
+  getNavLinkTexts() {
+    return element.all(by.css('app-header .header-nav a')).getText() as unknown as Promise<string[]>;
+  }
+
+  getFooterText() {
+    return element(by.css('app-footer #footer')).getText() as Promise<string>;
   }
 }

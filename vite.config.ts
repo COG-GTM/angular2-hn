@@ -36,8 +36,8 @@ export default defineConfig(({ mode }) => {
                     globPatterns: ['**/*.{js,css,html,ico,svg,png,webmanifest,json}'],
                     navigateFallback: '/index.html',
                     // Firebase Hosting reserved namespace (/__/*) and static asset URLs must not fall back to the shell
-                    // (match by known extension only: route params such as /user/:id may contain dots).
-                    navigateFallbackDenylist: [/^\/__/, /\.(?:js|css|map|json|webmanifest|ico|png|jpe?g|gif|svg|webp|woff2?|ttf|txt|xml)$/i],
+                    // (match by known extension, with an optional query string: route params such as /user/:id may contain dots).
+                    navigateFallbackDenylist: [/^\/__/, /\.(?:js|css|map|json|webmanifest|ico|png|jpe?g|gif|svg|webp|woff2?|ttf|txt|xml)(?:\?.*)?$/i],
                     cleanupOutdatedCaches: true,
                     clientsClaim: true,
                     skipWaiting: true,

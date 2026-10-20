@@ -3,6 +3,9 @@
 
 // Angular emulated view encapsulation is replaced by nesting the component styles
 // under a wrapper class that the React component puts on its root element.
+// Element selectors (p, a, ul, li) that Angular scoped to this component's own template
+// are narrowed here so they do not leak into the nested comments or the HTML injected
+// via dangerouslySetInnerHTML (which Angular's encapsulation never styled either).
 .app-item-details {
   .main-content {
     position: relative;
@@ -38,7 +41,9 @@
     margin-bottom: 15px;
   }
 
-  p {
+  // :where() keeps the specificity of the Angular element selector (p) so that
+  // .title-block / .subject still override the margin as they did before.
+  :where(.item > p, .item > div > p) {
     margin: 2px 0;
   }
 
@@ -47,7 +52,8 @@
     margin-top: 20px;
   }
 
-  a {
+  .title,
+  .subtext a {
     cursor: pointer;
     text-decoration: none;
   }
@@ -133,7 +139,7 @@
   }
 
   .pollContent {
-    * {
+    > * {
       padding-bottom: 0;
       margin-bottom: -1em;
       margin-top: 1em;
@@ -144,12 +150,12 @@
     }
   }
 
-  ul {
+  .comment-list {
     list-style-type: none;
     padding: 10px 0;
   }
 
-  li {
+  .comment-list > li {
     display: list-item;
   }
 }

@@ -3,17 +3,14 @@
 
 // Angular emulated view encapsulation is replaced by nesting the component styles
 // under a wrapper class that the React component puts on its root element.
+//
+// The Angular source had a `:host >>> a { font-weight: bold; text-decoration: none }`
+// block meant to style links inside the injected comment HTML. Sass compiled it to the
+// invalid selector `[_nghost] > > > a[_ngcontent]`, so it never applied in the shipped
+// app: comment-body links rendered with the browser default (underlined, normal weight)
+// and the theme link colour from `.wrapper a`. The rule is intentionally not ported so
+// the React build renders the same as the live Angular app.
 .app-comment {
-  & {
-    a {
-      font-weight: bold;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .meta {
     font-size: 13px;
     color: #696969;

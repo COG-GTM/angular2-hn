@@ -1,0 +1,3 @@
+# Verbatim copies of the Angular SCSS; keep byte-identical to src/app/shared/scss.
+src-react/shared/scss/
+src-react/shared/components/*.scss

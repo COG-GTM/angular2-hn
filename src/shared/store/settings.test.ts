@@ -23,7 +23,7 @@ describe('settings store', () => {
     beforeEach(() => {
         localStorage.clear();
         stubMatchMedia(false);
-        useSettingsStore.setState(loadInitialSettings());
+        useSettingsStore.setState({ ...loadInitialSettings(), themeChosen: false });
     });
 
     afterEach(() => {
@@ -106,5 +106,18 @@ describe('settings store', () => {
         media.fire(false);
         expect(useSettingsStore.getState().theme).toBe('amoledblack');
         expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBe('amoledblack');
+    });
+
+    it('keeps an explicitly chosen theme even when localStorage writes fail', () => {
+        const media = stubMatchMedia(false);
+        const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+            throw new DOMException('QuotaExceededError');
+        });
+        subscribeToSystemColorScheme();
+        useSettingsStore.getState().setTheme('amoledblack');
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+        setItem.mockRestore();
     });
 });

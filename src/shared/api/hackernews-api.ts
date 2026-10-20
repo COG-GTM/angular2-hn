@@ -39,7 +39,8 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
  * story in place as each poll-option request resolved; here we wait for every option
  * with `Promise.allSettled` and return a fully populated story. An option whose
  * request fails keeps the (points-less) entry from the story payload so a single
- * failed option doesn't hide the story and its comments.
+ * failed option doesn't hide the story and its comments; `poll_incomplete` is set so
+ * the UI can flag `poll_votes_count` as a lower bound.
  */
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await fetchJson<Story>(`/item/${id}`, signal);
@@ -53,10 +54,12 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
         const options = results.map((result, index) =>
             result.status === 'fulfilled' ? result.value : story.poll![index]
         );
+        const failed = results.some((result) => result.status === 'rejected');
         return {
             ...story,
             poll: options,
             poll_votes_count: options.reduce((total, option) => total + (option.points ?? 0), 0),
+            ...(failed ? { poll_incomplete: true } : {}),
         };
     }
     return story;

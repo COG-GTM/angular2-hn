@@ -59,6 +59,8 @@ export function loadInitialSettings(): Settings {
 }
 
 export interface SettingsState extends Settings {
+    /** True once the user picked a theme explicitly (or one was restored from storage). */
+    themeChosen: boolean;
     toggleSettings: () => void;
     toggleOpenLinksInNewTab: () => void;
     setTheme: (theme: Theme) => void;
@@ -68,6 +70,7 @@ export interface SettingsState extends Settings {
 
 export const useSettingsStore = create<SettingsState>()((set, get) => ({
     ...loadInitialSettings(),
+    themeChosen: isTheme(readStorage(SETTINGS_STORAGE_KEYS.theme)),
 
     toggleSettings: () => set((state) => ({ showSettings: !state.showSettings })),
 
@@ -79,7 +82,7 @@ export const useSettingsStore = create<SettingsState>()((set, get) => ({
 
     setTheme: (theme) => {
         writeStorage(SETTINGS_STORAGE_KEYS.theme, theme);
-        set({ theme });
+        set({ theme, themeChosen: true });
     },
 
     setFont: (titleFontSize) => {
@@ -96,9 +99,9 @@ export const useSettingsStore = create<SettingsState>()((set, get) => ({
 /**
  * Mirrors `SettingsService.subscribeToSystemPreferredColorScheme`: when the OS colour
  * scheme flips, switch between `night` and `default`. Unlike the Angular service this
- * only applies while the user has not picked a theme explicitly (nothing saved in
- * localStorage) and never persists the automatic choice, so an explicit "amoledblack"
- * survives a light/dark switch. Returns an unsubscribe function.
+ * only applies while the user has not picked a theme explicitly (`themeChosen`, tracked in
+ * memory so a failed localStorage write doesn't lose the choice) and never persists the
+ * automatic choice, so an explicit "amoledblack" survives a light/dark switch. Returns an unsubscribe function.
  */
 export function subscribeToSystemColorScheme(): () => void {
     const media = getDarkSchemeMedia();
@@ -106,7 +109,7 @@ export function subscribeToSystemColorScheme(): () => void {
         return () => {};
     }
     const handler = (event: MediaQueryListEvent) => {
-        if (isTheme(readStorage(SETTINGS_STORAGE_KEYS.theme))) {
+        if (useSettingsStore.getState().themeChosen) {
             return;
         }
         useSettingsStore.setState({ theme: themeForColorScheme(event.matches) });

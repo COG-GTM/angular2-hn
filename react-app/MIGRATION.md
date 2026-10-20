@@ -190,6 +190,7 @@ function fetchUser(id: string | undefined, signal?: AbortSignal): Promise<User>;
 const queryKeys: { all; feeds(); feed(feedType, page); items(); item(id); users(); user(id) }; // ['hn', …]
 function shouldRetry(failureCount: number, error: unknown): boolean; // no retry for non-retryable ApiError, else ≤ 2
 function createQueryClient(): QueryClient; // staleTime 60s, gcTime 5m, retry: shouldRetry, no refetchOnWindowFocus
+// Hooks: key = [...queryKeys.x(param), { locationKey }], gcTime 0 → refetch on every navigation incl. Back.
 function useFeed(feedType: FeedType, page: number | string | undefined): UseQueryResult<Story[], Error>;
 function useItem(id: number | string | undefined): UseQueryResult<Story, Error>;
 function useUser(id: string | undefined): UseQueryResult<User, Error>;
@@ -248,7 +249,8 @@ function useScrollToTop(dep: unknown): void; // window.scrollTo(0, 0) on mount a
 `sanitizeHtml` (DOMParser-based allowlist): keeps HN formatting tags (`p a i b em strong code pre br` …),
 drops `script/style/iframe/object/…` with content, unwraps unknown tags, strips all attributes except `a[href]`,
 removes `javascript:`/`data:`/`vbscript:` (incl. entity-encoded/whitespace-obfuscated), rejects `//` and `/\`
-protocol-relative hrefs, forces `rel="nofollow noopener noreferrer"` and removes `target`. **Every**
+protocol-relative hrefs, rewrites HN-relative hrefs to absolute HN URLs (`item?id=1` →
+`https://news.ycombinator.com/item?id=1`), forces `rel="nofollow noopener noreferrer"` and removes `target`. **Every**
 `dangerouslySetInnerHTML` must be `{{ __html: sanitizeHtml(x) }}`.
 
 ### `shared/components`
@@ -321,8 +323,8 @@ function mockMatchMedia(matches = false): { setMatches(next: boolean): void };  
 
 - Use only `useFeed` / `useItem` / `useUser` with raw route params; render `<Loader />` while `isPending`,
   `<ErrorMessage message=… />` when `isError`, content when `data`. No `enabled:` flags, no local fetch.
-- Never show a previous resource as current: the hooks key on `useLocation().key`, so a new navigation is a new
-  query. Don't use `placeholderData: keepPreviousData` on route pages.
+- Never show a previous resource as current: the hooks key on `useLocation().key` and use `gcTime: 0`, so every
+  navigation (including Back/Forward) is a fresh fetch with the loader, like Angular. Don't use `placeholderData: keepPreviousData` on route pages.
 - Feed pagination: `page` comes from the URL; "next"/"prev" are `<Link>`s to `/${feedType}/${page ± 1}`
   (Angular shows the "More ›" link only when `items.length === 30`).
 - Poll vote bars: `poll_votes_count` may be 0 → guard the division.

@@ -1,5 +1,5 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
 import { deferred, mockFetch, renderWithProviders } from '../test-utils';
@@ -22,11 +22,13 @@ function ItemProbe() {
 function UserProbe() {
     const { id } = useParams();
     const q = useUser(id);
+    const navigate = useNavigate();
     return (
         <>
             <Status q={q} />
             <Link to="/user/a">to a</Link>
             <Link to="/user/b">to b</Link>
+            <button onClick={() => navigate(-1)}>back</button>
         </>
     );
 }
@@ -75,6 +77,24 @@ describe('query hooks', () => {
         expect(screen.getByText('loading')).toBeInTheDocument();
         await act(async () => secondA.resolve({ id: 'a', karma: 2 }));
         expect(await screen.findByText('data: {"id":"a","karma":2}')).toBeInTheDocument();
+        expect(handle.callsTo(apiUrls.user('a'))).toHaveLength(2);
+    });
+
+    it('Back within staleTime refetches and shows the loader (no cached resource)', async () => {
+        const secondA = deferred<unknown>();
+        let aCalls = 0;
+        const handle = mockFetch({
+            [apiUrls.user('a')]: () => (++aCalls === 1 ? { id: 'a' } : secondA.promise),
+            [apiUrls.user('b')]: { id: 'b' },
+        });
+        const { user } = renderWithProviders(<UserProbe />, { route: '/user/a', path: '/user/:id' });
+        expect(await screen.findByText('data: {"id":"a"}')).toBeInTheDocument();
+        await user.click(screen.getByText('to b'));
+        expect(await screen.findByText('data: {"id":"b"}')).toBeInTheDocument();
+        await user.click(screen.getByText('back'));
+        expect(screen.getByText('loading')).toBeInTheDocument();
+        await act(async () => secondA.resolve({ id: 'a', karma: 3 }));
+        expect(await screen.findByText('data: {"id":"a","karma":3}')).toBeInTheDocument();
         expect(handle.callsTo(apiUrls.user('a'))).toHaveLength(2);
     });
 

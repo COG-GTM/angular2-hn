@@ -76,6 +76,12 @@ export function isSafeHref(rawHref: string): boolean {
     return true;
 }
 
+/** HN-relative links (`item?id=1`, `/user?id=pg`) would resolve against the app's URL; point them at HN. */
+function absoluteHref(href: string): string {
+    if (/^[a-z][a-z0-9+.-]*:/i.test(href.trim())) return href;
+    return new URL(href, URL_BASE).href;
+}
+
 function escapeHtml(text: string): string {
     return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -105,7 +111,10 @@ function cleanChildren(parent: Node, doc: Document): void {
         }
         if (tag === 'A') {
             const href = el.getAttribute('href');
-            if (href !== null && !isSafeHref(href)) el.removeAttribute('href');
+            if (href !== null) {
+                if (isSafeHref(href)) el.setAttribute('href', absoluteHref(href));
+                else el.removeAttribute('href');
+            }
             el.setAttribute('rel', LINK_REL);
         }
     }
@@ -115,7 +124,8 @@ function cleanChildren(parent: Node, doc: Document): void {
  * Allowlist sanitizer for HN HTML (`content`, `about`, poll text) before `dangerouslySetInnerHTML`.
  * Angular's `[innerHTML]` was sanitized by DomSanitizer; React does no sanitizing.
  * Keeps basic formatting tags; drops scripts/styles/embeds with their content; strips every attribute
- * except `a[href]`; removes `javascript:`/`data:`/protocol-relative (`//`, `/\`) hrefs; forces
+ * except `a[href]`; removes `javascript:`/`data:`/protocol-relative (`//`, `/\`) hrefs; makes HN-relative hrefs absolute
+ * (`item?id=1` → `https://news.ycombinator.com/item?id=1`); forces
  * `rel="nofollow noopener noreferrer"` on links.
  */
 export function sanitizeHtml(html: string | null | undefined): string {

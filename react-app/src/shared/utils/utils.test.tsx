@@ -85,6 +85,13 @@ describe('sanitizeHtml', () => {
         expect(a?.hasAttribute('href')).toBe(false);
     });
 
+    it('makes HN-relative links absolute so they do not resolve against the app route', () => {
+        expect(sanitizeHtml('<a href="item?id=123">p</a>')).toBe(
+            '<a href="https://news.ycombinator.com/item?id=123" rel="nofollow noopener noreferrer">p</a>'
+        );
+        expect(sanitizeHtml('<a href="/user?id=pg">u</a>')).toContain('href="https://news.ycombinator.com/user?id=pg"');
+    });
+
     it('removes comments', () => {
         expect(sanitizeHtml('a<!-- x -->b')).toBe('ab');
     });

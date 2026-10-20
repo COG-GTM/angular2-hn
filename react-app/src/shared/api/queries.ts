@@ -44,13 +44,15 @@ export function createQueryClient(): QueryClient {
 }
 
 /**
- * Every history entry gets its own cache entry (React Router's `location.key` is appended to the key),
- * so `/user/a → /user/b → /user/a` (or Back) always shows the loader and refetches instead of showing a
- * previous resource as current — same as Angular, which refetched on every navigation.
+ * Route resources are fetched per navigation, like Angular (no client cache): the key includes React
+ * Router's `location.key` (new entry → new query) and `gcTime: 0` drops a query as soon as its page stops
+ * using it, so Back/Forward (which restore an old `location.key`) also show the loader and refetch.
  */
 function useLocationKey(): string {
     return useLocation().key;
 }
+
+const PER_NAVIGATION = { gcTime: 0 } as const;
 
 /** Feed page. `page` may be the raw `:page` param; anything but a positive integer → `isError` (never disabled). */
 export function useFeed(feedType: FeedType, page: number | string | undefined): UseQueryResult<Story[], Error> {
@@ -58,6 +60,7 @@ export function useFeed(feedType: FeedType, page: number | string | undefined): 
     const pageNumber = toPositiveInt(page);
     return useQuery({
         queryKey: [...queryKeys.feed(feedType, paramKey(pageNumber, page)), { locationKey }],
+        ...PER_NAVIGATION,
         queryFn: ({ signal }) => fetchFeed(feedType, Number.isNaN(pageNumber) ? String(page) : pageNumber, signal),
     });
 }
@@ -68,6 +71,7 @@ export function useItem(id: number | string | undefined): UseQueryResult<Story, 
     const itemId = toPositiveInt(id);
     return useQuery({
         queryKey: [...queryKeys.item(paramKey(itemId, id)), { locationKey }],
+        ...PER_NAVIGATION,
         queryFn: ({ signal }) => fetchItem(Number.isNaN(itemId) ? String(id) : itemId, signal),
     });
 }
@@ -77,6 +81,7 @@ export function useUser(id: string | undefined): UseQueryResult<User, Error> {
     const locationKey = useLocationKey();
     return useQuery({
         queryKey: [...queryKeys.user(id ?? ''), { locationKey }],
+        ...PER_NAVIGATION,
         queryFn: ({ signal }) => fetchUser(id, signal),
     });
 }

@@ -63,13 +63,39 @@ Built in theme engine! Current themes: Default, Night, Black (AMOLED). The app f
 ## Build process
 
  - `npm install`
- - `npm run dev` to run the Vite dev server
- - `npm run build` to type-check and produce the production bundle in `dist/`
- - `npm run preview` to serve `dist/` locally (service worker included)
- - `npm test` to run the Vitest suite, `npm run lint` for ESLint
+ - `npm run dev` to run the Vite dev server (no service worker in dev)
+ - `npm run build` to type-check and produce the production bundle in `dist/` (includes `sw.js`,
+   `workbox-*.js` and the precache manifest)
+ - `npm run preview` to serve `dist/` locally on http://localhost:4173 with the service worker active
+ - `npm test` to run the Vitest suite, `npm run lint` for ESLint, `npm run typecheck` for `tsc -b`
 
 The API base URL defaults to `https://node-hnapi.herokuapp.com` and can be overridden with
-`VITE_HN_API_BASE_URL`. User profiles come from `https://api.hnpwa.com/v0` (node-hnapi no longer serves `/user/:id`); override with `VITE_HN_USER_API_BASE_URL`.
+`VITE_HN_API_BASE_URL`. User profiles come from `https://api.hnpwa.com/v0` (node-hnapi no longer serves `/user/:id`); override with `VITE_HN_USER_API_BASE_URL`. The service worker's API cache rule follows both variables at build time.
+
+## Progressive Web App
+
+The Angular service worker (`@angular/service-worker` + `ngsw-config.json`) is replaced by
+[vite-plugin-pwa](https://vite-pwa-org.netlify.app/) in `generateSW` mode (Workbox), configured in
+`vite.config.ts`:
+
+| `ngsw-config.json` | Workbox equivalent |
+| --- | --- |
+| `app` asset group, `installMode: prefetch` (`index.html`, `*.js`, `*.css`, favicon, manifest) | precache manifest (`globPatterns`), including the lazy `ItemDetails-*.js` / `User-*.js` route chunks so deep links work offline |
+| `index: /index.html` | `navigateFallback: /index.html` (SPA shell for every navigation except `/__/*` and file URLs) |
+| `assets` group, `installMode: lazy` (`/assets/**`, images, fonts) | `CacheFirst` runtime rule for image/icon/font requests (30 days, 100 entries) |
+| — (no API data group) | `NetworkFirst` runtime rule for the Hacker News API (5 s network timeout; cached entries kept 24 h / 60 entries purely as the offline fallback — online users always get fresh data) so the last feed is readable offline |
+
+Registration happens in `src/pwa.ts` (`registerSW` from `virtual:pwa-register`, called from `main.tsx`)
+with `registerType: 'autoUpdate'`: a new deployment activates on the next navigation without a prompt.
+The web app manifest is the static `public/manifest.webmanifest`, linked from `index.html`.
+
+## Deploy
+
+Travis (`.travis.yml`) runs `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` on every push and deploys
+`master` to Firebase Hosting with `firebase deploy`. `firebase.json` serves `dist/`, rewrites every
+route to `/index.html`, sends `Cache-Control: no-cache` for `index.html`, the app routes, `sw.js`,
+`workbox-*.js` and the manifest, and `public, max-age=31536000, immutable` for the hashed files
+under `/assets/**`.
 
 ## Contributors
 

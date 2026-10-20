@@ -108,12 +108,28 @@ describe('settings store', () => {
         expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBe('amoledblack');
     });
 
-    it('respects a theme saved by another tab on prefers-color-scheme changes', () => {
+    it('mirrors a theme chosen in another tab and stops following the OS', () => {
         const media = stubMatchMedia(false);
-        subscribeToSystemColorScheme();
+        const unsubscribe = subscribeToSystemColorScheme();
+
         localStorage.setItem(SETTINGS_STORAGE_KEYS.theme, 'amoledblack');
+        window.dispatchEvent(
+            new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: 'amoledblack' })
+        );
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
 
         media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+
+        localStorage.removeItem(SETTINGS_STORAGE_KEYS.theme);
+        window.dispatchEvent(new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: null }));
+        media.fire(false);
+        expect(useSettingsStore.getState().theme).toBe('default');
+
+        unsubscribe();
+        window.dispatchEvent(
+            new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: 'night' })
+        );
         expect(useSettingsStore.getState().theme).toBe('default');
     });
 

@@ -39,13 +39,15 @@ export default defineConfig(({ mode }) => {
                         {
                             // Hacker News API: NetworkFirst so an online user always sees fresh stories,
                             // while the last successful response is served when offline or when the
-                            // API is slow (> 5s). Entries expire after 5 minutes like the HN front page.
-                            urlPattern: new RegExp(`^${escapeRegExp(apiBaseUrl)}/`),
+                            // API is slow (> 5s). The max-age only bounds how long that offline fallback
+                            // stays usable (Workbox drops expired entries even when offline), so it is a
+                            // day rather than minutes. `/+` tolerates a trailing slash in the base URL.
+                            urlPattern: new RegExp(`^${escapeRegExp(apiBaseUrl)}/+`),
                             handler: 'NetworkFirst',
                             options: {
                                 cacheName: 'hn-api',
                                 networkTimeoutSeconds: 5,
-                                expiration: { maxEntries: 60, maxAgeSeconds: 5 * 60 },
+                                expiration: { maxEntries: 60, maxAgeSeconds: 24 * 60 * 60 },
                                 cacheableResponse: { statuses: [0, 200] },
                             },
                         },

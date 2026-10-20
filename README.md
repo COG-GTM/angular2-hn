@@ -83,7 +83,7 @@ The Angular service worker (`@angular/service-worker` + `ngsw-config.json`) is r
 | `app` asset group, `installMode: prefetch` (`index.html`, `*.js`, `*.css`, favicon, manifest) | precache manifest (`globPatterns`), including the lazy `ItemDetails-*.js` / `User-*.js` route chunks so deep links work offline |
 | `index: /index.html` | `navigateFallback: /index.html` (SPA shell for every navigation except `/__/*` and file URLs) |
 | `assets` group, `installMode: lazy` (`/assets/**`, images, fonts) | `CacheFirst` runtime rule for image/icon/font requests (30 days, 100 entries) |
-| — (no API data group) | `NetworkFirst` runtime rule for the Hacker News API (5 s network timeout, 5 min / 60 entries) so the last feed is readable offline |
+| — (no API data group) | `NetworkFirst` runtime rule for the Hacker News API (5 s network timeout; cached entries kept 24 h / 60 entries purely as the offline fallback — online users always get fresh data) so the last feed is readable offline |
 
 Registration happens in `src/pwa.ts` (`registerSW` from `virtual:pwa-register`, called from `main.tsx`)
 with `registerType: 'autoUpdate'`: a new deployment activates on the next navigation without a prompt.

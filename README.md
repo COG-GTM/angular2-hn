@@ -1,20 +1,11 @@
 <p align="center">
   <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
+    <img alt="HN PWA" title="HN PWA" src="http://i.imgur.com/J303pQ4.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
-</p>
-
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
-
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
+  A progressive Hacker News client — originally built with Angular, now ported to React + TypeScript + Vite
 </p>
 
 ---
@@ -23,66 +14,88 @@
 
 :iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+## Stack
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+| Concern | Angular (before) | React (now) |
+| --- | --- | --- |
+| Build | Angular CLI / Webpack | [Vite](https://vitejs.dev) |
+| UI | Angular 9 components | React 18 + TypeScript |
+| Routing | `@angular/router` (`loadChildren` lazy modules) | React Router v6 (`React.lazy` for `/item/:id` and `/user/:id`) |
+| Data fetching | `HackerNewsAPIService` (RxJS `lazyFetch`) | plain `fetch` client + TanStack Query hooks (`useFeed`, `useItem`, `useUser`) with `AbortSignal` cancellation |
+| Settings | `SettingsService` | Zustand store (`useSettingsStore`) persisted to `localStorage` |
+| Styling | SCSS, theme mixin | same SCSS files, theme mixin keyed off the theme class on the app root |
+| PWA | `@angular/service-worker` (`ngsw-config.json`) | `vite-plugin-pwa` / Workbox |
+| Tests | Karma + Jasmine, Protractor | Vitest + Testing Library |
 
-## Mobile Preview
+## Project layout
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+```
+src/
+  main.tsx              # React root, QueryClientProvider, BrowserRouter
+  App.tsx / App.scss    # app shell: theme class on root, header, routes, footer
+  routes.tsx            # /news|newest|show|ask|jobs/:page, lazy /item/:id and /user/:id
+  core/                 # Header, Footer, Settings popup
+  feeds/                # Feed (list + pagination) and Item (feed row)
+  item-details/         # ItemDetails and the recursive Comment
+  user/                 # User profile
+  shared/
+    api/                # hackernews-api.ts (fetch client), hooks.ts (TanStack Query), query-client.ts
+    store/settings.ts   # Zustand settings store + prefers-color-scheme listener
+    models/             # Story, Comment, User, PollResult, Settings, FeedType
+    components/         # Loader, ErrorMessage
+    utils/comment.ts    # formatCommentCount (former CommentPipe)
+    scss/               # _media, _theme_variables, _themes (theme mixin)
+public/                 # manifest.json, favicon, assets/icons, assets/images
+```
 
-## Laptop Preview
+### Styling conventions
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
-
-## Offline Support
-
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
-
-## Manifest
-
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
-
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+Angular's emulated view encapsulation is replaced by nesting each component's SCSS under a wrapper
+class (`.app-header`, `.app-feed`, `.app-comment`, …) that the React component places on its root
+element. The theme mixin in `src/shared/scss/_themes.scss` is unchanged; `App.tsx` applies the theme
+name (`default`, `night`, `amoledblack`) as a class on the app root.
 
 ## Themes
 
-Built in theme engine!
-
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
-
-More to come!
-
-## Areas of improvement
-
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
-
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+Built in theme engine! Current themes: Default, Night, Black (AMOLED). The app follows the OS
+`prefers-color-scheme` until a theme is chosen explicitly.
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
-
- - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm run dev` to run the Vite dev server (no service worker in dev)
+ - `npm run build` to type-check and produce the production bundle in `dist/` (includes `sw.js`,
+   `workbox-*.js` and the precache manifest)
+ - `npm run preview` to serve `dist/` locally on http://localhost:4173 with the service worker active
+ - `npm test` to run the Vitest suite, `npm run lint` for ESLint, `npm run typecheck` for `tsc -b`
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The API base URL defaults to `https://node-hnapi.herokuapp.com` and can be overridden with
+`VITE_HN_API_BASE_URL`. User profiles come from `https://api.hnpwa.com/v0` (node-hnapi no longer serves `/user/:id`); override with `VITE_HN_USER_API_BASE_URL`. The service worker's API cache rule follows both variables at build time.
+
+## Progressive Web App
+
+The Angular service worker (`@angular/service-worker` + `ngsw-config.json`) is replaced by
+[vite-plugin-pwa](https://vite-pwa-org.netlify.app/) in `generateSW` mode (Workbox), configured in
+`vite.config.ts`:
+
+| `ngsw-config.json` | Workbox equivalent |
+| --- | --- |
+| `app` asset group, `installMode: prefetch` (`index.html`, `*.js`, `*.css`, favicon, manifest) | precache manifest (`globPatterns`), including the lazy `ItemDetails-*.js` / `User-*.js` route chunks so deep links work offline |
+| `index: /index.html` | `navigateFallback: /index.html` (SPA shell for every navigation except `/__/*` and file URLs) |
+| `assets` group, `installMode: lazy` (`/assets/**`, images, fonts) | `CacheFirst` runtime rule for image/icon/font requests (30 days, 100 entries) |
+| — (no API data group) | `NetworkFirst` runtime rule for the Hacker News API (5 s network timeout; cached entries kept 24 h / 60 entries purely as the offline fallback — online users always get fresh data) so the last feed is readable offline |
+
+Registration happens in `src/pwa.ts` (`registerSW` from `virtual:pwa-register`, called from `main.tsx`)
+with `registerType: 'autoUpdate'`: a new deployment activates on the next navigation without a prompt.
+The web app manifest is the static `public/manifest.webmanifest`, linked from `index.html`.
+
+## Deploy
+
+Travis (`.travis.yml`) runs `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` on every push and deploys
+`master` to Firebase Hosting with `firebase deploy`. `firebase.json` serves `dist/`, rewrites every
+route to `/index.html`, sends `Cache-Control: no-cache` for `index.html`, the app routes, `sw.js`,
+`workbox-*.js` and the manifest, and `public, max-age=31536000, immutable` for the hashed files
+under `/assets/**`.
 
 ## Contributors
 

@@ -89,8 +89,22 @@ describe('settings store', () => {
 
         media.fire(false);
         expect(useSettingsStore.getState().theme).toBe('default');
+        expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBeNull();
 
         unsubscribe();
         expect(media.listeners.size).toBe(0);
+    });
+
+    it('does not override an explicitly chosen theme on prefers-color-scheme changes', () => {
+        const media = stubMatchMedia(false);
+        subscribeToSystemColorScheme();
+        useSettingsStore.getState().setTheme('amoledblack');
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+
+        media.fire(false);
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+        expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBe('amoledblack');
     });
 });

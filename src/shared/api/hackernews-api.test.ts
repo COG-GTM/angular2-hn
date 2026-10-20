@@ -62,6 +62,29 @@ describe('hackernews-api', () => {
         expect(fetchMock).toHaveBeenCalledTimes(4);
     });
 
+    it('fetchItemContent keeps the story when a single poll option request fails', async () => {
+        const poll = {
+            id: 100,
+            type: 'poll',
+            title: 'Poll',
+            comments: [{ id: 200 }],
+            poll: [{ content: 'A (from story)' }, { content: 'B (from story)' }],
+        };
+        fetchMock.mockImplementation(async (input) => {
+            const url = String(input);
+            if (url.endsWith('/item/100')) return jsonResponse(poll);
+            if (url.endsWith('/item/101')) return jsonResponse({ points: 5, content: 'A' });
+            if (url.endsWith('/item/102')) return jsonResponse({ error: 'gone' }, 404);
+            throw new Error(`unexpected url ${url}`);
+        });
+
+        const result = await fetchItemContent(100);
+
+        expect(result.comments).toEqual([{ id: 200 }]);
+        expect(result.poll).toEqual([{ points: 5, content: 'A' }, { content: 'B (from story)' }]);
+        expect(result.poll_votes_count).toBe(5);
+    });
+
     it('fetchUser encodes the id', async () => {
         fetchMock.mockResolvedValueOnce(jsonResponse({ id: 'a b' }));
 

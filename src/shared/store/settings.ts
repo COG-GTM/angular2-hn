@@ -95,8 +95,10 @@ export const useSettingsStore = create<SettingsState>()((set, get) => ({
 
 /**
  * Mirrors `SettingsService.subscribeToSystemPreferredColorScheme`: when the OS colour
- * scheme flips, switch between `night` and `default` (and persist, as Angular did).
- * Returns an unsubscribe function.
+ * scheme flips, switch between `night` and `default`. Unlike the Angular service this
+ * only applies while the user has not picked a theme explicitly (nothing saved in
+ * localStorage) and never persists the automatic choice, so an explicit "amoledblack"
+ * survives a light/dark switch. Returns an unsubscribe function.
  */
 export function subscribeToSystemColorScheme(): () => void {
     const media = getDarkSchemeMedia();
@@ -104,7 +106,10 @@ export function subscribeToSystemColorScheme(): () => void {
         return () => {};
     }
     const handler = (event: MediaQueryListEvent) => {
-        useSettingsStore.getState().setTheme(themeForColorScheme(event.matches));
+        if (isTheme(readStorage(SETTINGS_STORAGE_KEYS.theme))) {
+            return;
+        }
+        useSettingsStore.setState({ theme: themeForColorScheme(event.matches) });
     };
     media.addEventListener('change', handler);
     return () => media.removeEventListener('change', handler);

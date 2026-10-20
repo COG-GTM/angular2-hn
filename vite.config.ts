@@ -7,7 +7,6 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                api: 'modern-compiler',
                 // The theme SCSS is ported verbatim from the Angular app and still uses
                 // @import, slash division and darken(); silence those deprecations.
                 silenceDeprecations: ['import', 'slash-div', 'global-builtin', 'color-functions'],

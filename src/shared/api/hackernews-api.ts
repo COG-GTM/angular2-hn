@@ -37,13 +37,21 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
 /**
  * Fetches a story with its comment tree. For polls the Angular service mutated the
  * story in place as each poll-option request resolved; here we wait for every option
- * with `Promise.all` and return a fully populated story.
+ * with `Promise.allSettled` and return a fully populated story. An option whose
+ * request fails keeps the (points-less) entry from the story payload so a single
+ * failed option doesn't hide the story and its comments.
  */
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await fetchJson<Story>(`/item/${id}`, signal);
     if (story.type === 'poll' && Array.isArray(story.poll)) {
-        const options = await Promise.all(
+        const results = await Promise.allSettled(
             story.poll.map((_option, index) => fetchPollContent(story.id + index + 1, signal))
+        );
+        if (signal?.aborted) {
+            throw signal.reason instanceof Error ? signal.reason : new DOMException('Aborted', 'AbortError');
+        }
+        const options = results.map((result, index) =>
+            result.status === 'fulfilled' ? result.value : story.poll![index]
         );
         return {
             ...story,

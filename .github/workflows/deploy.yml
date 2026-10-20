@@ -1,0 +1,63 @@
+name: Deploy (Firebase Hosting)
+
+on:
+    push:
+        branches: [master]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: deploy
+    cancel-in-progress: false
+
+env:
+    # Angular's .firebaserc default project; override with the FIREBASE_PROJECT_ID repository variable.
+    FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID || 'angular2-hn' }}
+
+jobs:
+    deploy:
+        name: build and deploy
+        runs-on: ubuntu-latest
+        # Credentials are checked inside this job so production-environment secrets are visible to the check.
+        environment: production
+        env:
+            FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        steps:
+            - name: Check Firebase credentials
+              id: credentials
+              run: |
+                  if [ -n "$FIREBASE_SERVICE_ACCOUNT" ] || [ -n "$FIREBASE_TOKEN" ]; then
+                      echo "available=true" >> "$GITHUB_OUTPUT"
+                  else
+                      echo "available=false" >> "$GITHUB_OUTPUT"
+                      echo "::notice::FIREBASE_SERVICE_ACCOUNT / FIREBASE_TOKEN secret not set; skipping Firebase deploy."
+                  fi
+            - if: steps.credentials.outputs.available == 'true'
+              uses: actions/checkout@v4
+            - if: steps.credentials.outputs.available == 'true'
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm ci
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run lint
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run typecheck
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm test
+            - if: steps.credentials.outputs.available == 'true'
+              run: npm run build
+            - name: Deploy to Firebase Hosting
+              if: steps.credentials.outputs.available == 'true'
+              run: |
+                  if [ -n "$FIREBASE_SERVICE_ACCOUNT" ]; then
+                      export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-sa.json"
+                      printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$GOOGLE_APPLICATION_CREDENTIALS"
+                      unset FIREBASE_TOKEN
+                  fi
+                  npx --yes firebase-tools@15 deploy --only hosting --project "$FIREBASE_PROJECT_ID" --non-interactive

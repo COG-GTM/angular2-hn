@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useUser } from '../shared/api/hooks';
 import { Loader } from '../shared/components/Loader';
 import { ErrorMessage } from '../shared/components/ErrorMessage';
+import { sanitizeHtml } from './sanitize-html';
 import './User.scss';
 
 /**
@@ -18,6 +19,7 @@ export default function User() {
 
     const user = data && data.id ? data : undefined;
     const errorMessage = isError || (isSuccess && !user) ? `Could not load user ${id}.` : '';
+    const aboutHtml = useMemo(() => (user?.about ? sanitizeHtml(user.about) : ''), [user?.about]);
 
     useEffect(() => {
         if (user) {
@@ -45,7 +47,7 @@ export default function User() {
                     </div>
                     {user.about && (
                         <div className="other-details">
-                            <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+                            <p dangerouslySetInnerHTML={{ __html: aboutHtml }}></p>
                         </div>
                     )}
                 </div>

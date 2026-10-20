@@ -1,8 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import User from './User';
+import { sanitizeHtml } from './sanitize-html';
 import type { User as UserModel } from '../shared/models';
 
 const fetchUserMock = vi.fn<(id: string) => Promise<UserModel | null>>();
@@ -34,6 +35,18 @@ function renderUser(path: string) {
         </QueryClientProvider>
     );
 }
+
+describe('sanitizeHtml', () => {
+    it('keeps the markup HN emits and unwraps unknown elements', () => {
+        expect(sanitizeHtml('Bug <b>fixer</b>.<p>Second <code>x</code><pre>y</pre>')).toBe(
+            'Bug <b>fixer</b>.<p>Second <code>x</code></p><pre>y</pre>'
+        );
+        expect(sanitizeHtml('<div class="c"><span style="x">text</span></div>')).toBe('text');
+        expect(sanitizeHtml('<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>')).toBe(
+            '<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>'
+        );
+    });
+});
 
 describe('User', () => {
     beforeEach(() => {
@@ -108,12 +121,31 @@ describe('User', () => {
         expect(await screen.findByText('Could not load user ghost.')).toBeInTheDocument();
     });
 
+    it('sanitizes the about HTML like Angular [innerHTML] did', async () => {
+        fetchUserMock.mockResolvedValue({
+            ...pg,
+            about: '<p>Hi <i>there</i><script>alert(1)</script><img src=x onerror="alert(1)"><a href="javascript:alert(1)" onclick="x()">x</a><a href="https://example.com" title="t">ok</a></p>',
+        });
+        const { container } = renderUser('/user/pg');
+
+        await screen.findByText('pg', { selector: '.name' });
+        const about = container.querySelector('.other-details > p') as HTMLElement;
+        expect(about.querySelector('script')).toBeNull();
+        expect(about.querySelector('img')).toBeNull();
+        expect(about.querySelector('i')).toHaveTextContent('there');
+        const links = about.querySelectorAll('a');
+        expect(links[0]).not.toHaveAttribute('href');
+        expect(links[0]).not.toHaveAttribute('onclick');
+        expect(links[1]).toHaveAttribute('href', 'https://example.com');
+        expect(links[1]).toHaveAttribute('title', 't');
+    });
+
     it('navigates back when the mobile back arrow is clicked', async () => {
         fetchUserMock.mockResolvedValue(pg);
         const { container } = renderUser('/user/pg');
 
         await screen.findByText('pg', { selector: '.name' });
-        (container.querySelector('.back-button') as HTMLElement).click();
+        act(() => (container.querySelector('.back-button') as HTMLElement).click());
 
         await waitFor(() => expect(screen.getByText('feed page')).toBeInTheDocument());
     });

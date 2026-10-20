@@ -109,7 +109,8 @@ export function subscribeToSystemColorScheme(): () => void {
         return () => {};
     }
     const handler = (event: MediaQueryListEvent) => {
-        if (useSettingsStore.getState().themeChosen) {
+        // in-memory flag covers failed storage writes; the storage read covers a choice made in another tab
+        if (useSettingsStore.getState().themeChosen || isTheme(readStorage(SETTINGS_STORAGE_KEYS.theme))) {
             return;
         }
         useSettingsStore.setState({ theme: themeForColorScheme(event.matches) });

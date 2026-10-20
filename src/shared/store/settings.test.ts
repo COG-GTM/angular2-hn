@@ -108,6 +108,15 @@ describe('settings store', () => {
         expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBe('amoledblack');
     });
 
+    it('respects a theme saved by another tab on prefers-color-scheme changes', () => {
+        const media = stubMatchMedia(false);
+        subscribeToSystemColorScheme();
+        localStorage.setItem(SETTINGS_STORAGE_KEYS.theme, 'amoledblack');
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('default');
+    });
+
     it('keeps an explicitly chosen theme even when localStorage writes fail', () => {
         const media = stubMatchMedia(false);
         const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {

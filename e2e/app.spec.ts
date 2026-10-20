@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import { collectConsoleErrors, mockHnApi } from './fixtures';
 
-// Port of the Angular protractor spec (e2e/src/app.e2e-spec.ts): the app loads and the browser
+// Port of the original Angular end-to-end spec (`e2e/src/app.e2e-spec.ts`): the app loads and the browser
 // logs no SEVERE errors. The Angular "Welcome to angular-hnpwa!" title check was stale CLI scaffolding.
 test.describe('app', () => {
     test.beforeEach(async ({ page }) => {

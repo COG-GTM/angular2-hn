@@ -1,4 +1,4 @@
-name: react-app deploy (Firebase Hosting)
+name: Deploy (Firebase Hosting)
 
 on:
     push:
@@ -9,7 +9,7 @@ permissions:
     contents: read
 
 concurrency:
-    group: react-app-deploy
+    group: deploy
     cancel-in-progress: false
 
 env:
@@ -25,13 +25,9 @@ jobs:
         env:
             FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        defaults:
-            run:
-                working-directory: react-app
         steps:
             - name: Check Firebase credentials
               id: credentials
-              working-directory: .
               run: |
                   if [ -n "$FIREBASE_SERVICE_ACCOUNT" ] || [ -n "$FIREBASE_TOKEN" ]; then
                       echo "available=true" >> "$GITHUB_OUTPUT"
@@ -46,7 +42,6 @@ jobs:
               with:
                   node-version: 22
                   cache: npm
-                  cache-dependency-path: react-app/package-lock.json
             - if: steps.credentials.outputs.available == 'true'
               run: npm ci
             - if: steps.credentials.outputs.available == 'true'

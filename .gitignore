@@ -8,3 +8,12 @@ blob-report
 *.tsbuildinfo
 *.local
 .vite
+
+# IDEs and OS files
+/.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+npm-debug.log*
+.DS_Store
+Thumbs.db

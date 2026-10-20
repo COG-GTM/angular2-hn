@@ -7,7 +7,7 @@ import { SettingsProvider } from '../shared/settings';
 import { createTestQueryClient } from '../shared/test-utils';
 import { routes } from './routes';
 
-// Routing only: feature modules are stubbed so this test stays green whatever Wave 2 ships.
+// Routing only: feature modules are stubbed so this test does not depend on what the pages render.
 vi.mock('../features/shell', () => ({
     AppShell: () => (
         <div data-testid="app-shell">

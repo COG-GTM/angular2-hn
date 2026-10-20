@@ -26,7 +26,7 @@ async function findProfile() {
 }
 
 describe('UserProfile', () => {
-    it('keeps the placeholder test id on its root', () => {
+    it('keeps the user-profile test id (used by e2e) on its root', () => {
         mockFetch({ [apiUrls.user('pg')]: deferred().promise });
         renderUser('pg');
         expect(screen.getByTestId('user-profile')).toHaveClass('user-page');

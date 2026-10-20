@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 import { API_CACHE_MAX_AGE_SECONDS, API_CACHES, escapeRegExp, STATIC_FILE_PATTERN } from './src/pwa/runtimeCache';
 
-// Owned by the PWA/e2e/CI child (Wave 2). Unit tests use vitest.config.ts and never load this file.
+// Unit tests use vitest.config.ts and never load this file.
 export default defineConfig({
     plugins: [
         react(),

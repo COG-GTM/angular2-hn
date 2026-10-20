@@ -4,8 +4,8 @@ import type { BrowserContext, Page } from '@playwright/test';
  * Shared HN API fixtures and helpers for the e2e specs.
  *
  * Selectors the specs rely on (Angular class names kept by the React port, see MIGRATION.md):
- * - always present: `[data-testid=header|footer|feed-list|item-details|user-profile]` (component roots)
- * - after the Wave 2 merge: `a.home-link`, `.header-nav a`, `img.settings`, `#popup1`, `.close`,
+ * - component roots: `[data-testid=header|footer|feed-list|item-details|user-profile]`
+ * - components: `a.home-link`, `.header-nav a`, `img.settings`, `#popup1`, `.close`,
  *   `.post`, `.nav .more`, `.item`, `.comment-list`, `.profile`, `.main-details .name`, `#footer`
  */
 export const HN_API = 'https://node-hnapi.herokuapp.com';
@@ -87,7 +87,7 @@ export async function mockHnApi(target: Page | BrowserContext, { latencyMs = 0 }
 }
 
 /**
- * Port of the protractor afterEach (no SEVERE browser log entries). With `serviceWorkers: 'block'`
+ * Port of the original Angular e2e afterEach (no SEVERE browser log entries). With `serviceWorkers: 'block'`
  * registerSW logs "Service worker registration failed" on every page; that one is expected.
  */
 export function collectConsoleErrors(page: Page): string[] {

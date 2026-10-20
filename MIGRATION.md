@@ -1,10 +1,11 @@
-# MBA-3267 — Angular → React migration contract
+# Architecture and migration notes
 
-This file is the contract between Wave 1 (foundation, this folder) and the Wave 2 children. The Angular 9
-app at the repo root (`src/app/**`) is the **parity reference**: match its behaviour and look, never edit it.
-The final integration wave moves `react-app/*` to the repo root and deletes Angular.
+This app is a React port of the original Angular 9 angular2-hn PWA (Jira MBA-3267). The Angular code was removed
+from the tree in the integration PR; to compare behaviour or looks with the original, check out the last Angular
+commit (see "Running the Angular reference" below). This file records the architecture, the conventions the port
+follows, the Angular quirks kept for parity and the traps found while porting.
 
-## Stack and versions (`react-app/package.json`, npm, Node ≥ 22.12)
+## Stack and versions (`package.json`, npm, Node ≥ 22.12)
 
 | Area        | Package                                                                                                              | Version                       |
 | ----------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
@@ -19,12 +20,9 @@ The final integration wave moves `react-app/*` to the repo root and deletes Angu
 | E2E         | `@playwright/test` (≥ 1.56 for Snyk)                                                                                 | 1.64                          |
 | Lint/format | `eslint` 9 flat config + `typescript-eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `prettier` | 9.39, 8.72, 7.1, 0.5, 3.9     |
 
-Every dependency later waves need is already installed. **Do not change `package.json` or `package-lock.json`**;
-if you truly need a package, put it in `shared_changes_needed`.
-
 Known Snyk finding: `deepmerge` via `vite-plugin-pwa → workbox-build` has no fix upstream — report it, don't fight it.
 
-Scripts (run from `react-app/`):
+Scripts:
 
 | Script                            | What                                                                                    |
 | --------------------------------- | --------------------------------------------------------------------------------------- |
@@ -35,50 +33,44 @@ Scripts (run from `react-app/`):
 | `npm run lint`                    | ESLint (0 warnings expected)                                                            |
 | `npm run typecheck`               | `tsc -p tsconfig.app.json && tsc -p tsconfig.node.json`                                 |
 | `npm run format` / `format:check` | Prettier (Angular's config: tabWidth 4, singleQuote, printWidth 120, trailingComma es5) |
-| `npm run e2e`                     | `playwright test` (config + specs created by the PWA child)                             |
+| `npm run e2e`                     | `playwright test` against the production build (`vite preview` on :4173)                |
 
-Before opening a PR: `npm run lint && npm run format:check && npm run typecheck && npm test && npm run build`
-(CI runs exactly these in `.github/workflows/react-app-ci.yml`).
+Before opening a PR: `npm run lint && npm run format:check && npm run typecheck && npm test && npm run build && npm run e2e`
+(CI runs these in `.github/workflows/ci.yml`; `.github/workflows/deploy.yml` deploys `dist/` to Firebase Hosting on
+pushes to `master` when a Firebase secret is configured).
 
 ## Folder layout
 
 ```
-react-app/
+.
 ├── index.html                  # Angular src/index.html port: meta/OG/icons, manifest link, inline .app-loader, #root
-├── public/                     # copied verbatim: assets/** (logos, icons, cog.svg), favicon.ico
-│                               # PWA child adds manifest.webmanifest (+ ngsw-worker.js kill-switch if needed)
-├── vite.config.ts              # react plugin + SCSS options; marked spot for VitePWA (PWA child owns it)
+├── public/                     # copied verbatim: assets/** (logos, icons, cog.svg), favicon.ico,
+│                               # manifest.webmanifest, ngsw-worker.js (retires the old Angular service worker)
+├── vite.config.ts              # react plugin, SCSS options, VitePWA (precache + runtime caching for both API hosts)
 ├── vitest.config.ts            # standalone test config (jsdom, setup file); never loads vite.config.ts
+├── playwright.config.ts, e2e/  # Playwright specs against the production build
+├── firebase.json, .firebaserc, database.rules.json   # Firebase Hosting (dist/) + database rules
 ├── eslint.config.js, .prettierrc.json, tsconfig*.json
 └── src/
     ├── main.tsx                # createRoot(#root) + StrictMode + global styles + registerServiceWorker()
     ├── app/App.tsx             # QueryClientProvider → SettingsProvider → RouterProvider(createBrowserRouter)
-    ├── app/routes.tsx          # route table (mirrors src/app/app.routes.ts)
-    ├── pwa/registerSW.ts       # registerServiceWorker() — no-op stub, PWA child implements
+    ├── app/routes.tsx          # route table (mirrors Angular's app.routes.ts)
+    ├── pwa/                    # registerSW.ts, setupServiceWorker.ts (hourly update checks, first-visit cache warm-up), runtimeCache.ts
     ├── features/
-    │   ├── feeds/              # FeedList.tsx, FeedItem.tsx, index.ts
-    │   ├── item-details/       # ItemDetails.tsx, Comment.tsx, index.ts
-    │   ├── user/               # UserProfile.tsx, index.ts
-    │   └── shell/              # AppShell.tsx, Header.tsx, Footer.tsx, Settings.tsx, index.ts
-    └── shared/                 # FROZEN after Wave 1
-        ├── models/  api/  settings/  utils/  components/  scss/  test-utils/
+    │   ├── feeds/              # FeedList, FeedItem (Angular feeds/feed, feeds/item)
+    │   ├── item-details/       # ItemDetails, Comment (Angular item-details/**)
+    │   ├── user/               # UserProfile (Angular user/**)
+    │   └── shell/              # AppShell, Header, Footer, Settings (Angular core/**, app.component)
+    └── shared/                 # models/ api/ settings/ utils/ components/ scss/ test-utils/
 ```
 
-Placeholders already have their final file names, exports and props. Keep the exported names/props; add any
-extra files (sub-components, `.scss`, tests) inside your own folder.
+Every component has a colocated `Component.scss` and `Component.test.tsx`. `src/app/routes.test.tsx` tests
+routing only: it `vi.mock`s the feature barrels (`AppShell`, `FeedList`, `ItemDetails`, `UserProfile`), so it does not
+depend on what the pages render.
 
-Each placeholder has its own test next to it (`FeedList.test.tsx`, `FeedItem.test.tsx`, `ItemDetails.test.tsx`,
-`Comment.test.tsx`, `UserProfile.test.tsx`, `AppShell.test.tsx`, `Header.test.tsx`, `Footer.test.tsx`,
-`Settings.test.tsx`). **These files belong to the feature child: replace them with real tests** (delete
-the placeholder assertions; the `data-testid`s don't need to be kept).
+## Routing (`src/app/routes.tsx`)
 
-`src/app/routes.test.tsx` (frozen) tests routing only. It `vi.mock`s `../features/{shell,feeds,item-details,user}`
-with stubs (`AppShell` renders `<Outlet />`), so it doesn't depend on what the feature children ship. It does depend
-on the barrel export names (`AppShell`, `FeedList`, `ItemDetails`, `UserProfile`): keep them.
-
-## Routing (`src/app/routes.tsx`, frozen)
-
-Mirrors `src/app/app.routes.ts`:
+Mirrors Angular's `src/app/app.routes.ts`:
 
 | URL                                                                        | Element                                                                                                                                                                                                                                                                                                                                       |
 | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -91,7 +83,7 @@ Mirrors `src/app/app.routes.ts`:
 All routes are children of a layout route whose element is `<AppShell />`. Components read params with
 `useParams()` from `react-router`. Links use `<Link to=…>` / `<NavLink>` from `react-router`.
 
-## Shared library — every export (`src/shared/**`, frozen)
+## Shared library — every export (`src/shared/**`)
 
 Import from the folder barrels (`../../shared/api`, `../../shared/models`, …).
 
@@ -205,7 +197,7 @@ and makes no request. They must be called inside a router (they read `useLocatio
 
 ```ts
 function SettingsProvider({ children }): JSX.Element;
-function useSettings(): {               // own file; frozen signature, Angular SettingsService names
+function useSettings(): {               // Angular SettingsService names
   settings: Settings;
   toggleSettings(): void;               // showSettings (not persisted)
   toggleOpenLinksInNewTab(): void;      // persists JSON boolean
@@ -355,42 +347,46 @@ function mockMatchMedia(matches = false): { setMatches(next: boolean): void };  
   Test the Loader by holding the request open with `deferred()`. Never hit the network in unit tests.
 - Query by role/text; titles rendered twice (`.mobile` + `.laptop` variants) need `getAllBy…` or a scoped query.
 - Settings: set `localStorage` before rendering, or drive the UI and assert `localStorage`.
-- Playwright (PWA child): run against `npm run build && npm run preview`; `serviceWorkers: 'block'` except in
+- Playwright: run against `npm run build && npm run preview`; `serviceWorkers: 'block'` except in
   SW/offline specs; mock the APIs with `page.route`. The app-loader in `index.html` has its own `img[alt=Logo]` —
   target the header logo with `a.home-link`. Filter duplicated titles with `.filter({ visible: true })`.
 
-## Wave 2 ownership map
+## Documented deviations and kept Angular quirks
 
-- Feeds: `react-app/src/features/feeds/**` (Angular `feeds/feed`, `feeds/item`)
-- Item details: `react-app/src/features/item-details/**` (Angular `item-details/**`)
-- User: `react-app/src/features/user/**` (Angular `user/**`)
-- Shell & theming: `react-app/src/features/shell/**` (Angular `core/**`: header, footer, settings, app.component layout)
-- PWA, e2e, CI & hosting: `react-app/vite.config.ts`, `react-app/src/pwa/**`, `react-app/public/manifest.webmanifest`, `react-app/public/ngsw-worker.js`, `react-app/playwright.config.ts`, `react-app/e2e/**`, `react-app/firebase.json`, `.github/workflows/**`
-- Everything else (package.json/lockfile, index.html, main.tsx, App/routes, shared/**, vitest config, tsconfigs, eslint) is frozen; changes go in `shared_changes_needed`.
+Deviations from Angular (intentional):
 
-Notes for children:
+- Unknown URLs (`/nope`, `/news`, `/item`) keep the URL and render the shell with an empty outlet (Angular resets
+  the address bar to `/` because of its "Cannot match any routes" navigation error).
+- The `User` model uses HNPWA's `created_time` (Angular declared `crated_time`, and called node-hnapi, which 404s).
+- Escape closes the settings popup (React addition, with a focus trap and focus return to the cog).
+- Links opened in a new tab use `rel="noopener noreferrer"`; links in sanitized HN HTML use `rel="nofollow noopener noreferrer"`.
+- API errors (non-2xx, `{ error }` bodies, `null`/non-JSON user bodies, invalid ids/pages) show the error message
+  instead of an endless loader.
 
-- Shell: `Header` renders `<Settings />` when `settings.showSettings`; the theme class already lives on `<html>`.
-  `AppShell` keeps `.body-cover` + `.wrapper` > `Header`, `<Outlet />`, `Footer`.
-- PWA: implement `registerServiceWorker()` in `src/pwa/registerSW.ts` (already called once from `main.tsx`), add
-  `VitePWA({...})` at the marked spot in `vite.config.ts` (manifest from Angular `src/manifest.webmanifest`, runtime
-  caching for both API hosts), extend `.github/workflows/react-app-ci.yml` with e2e/deploy jobs.
+Angular quirks kept for parity:
 
-## Running React and the Angular reference side by side
+- `.head-margin` never applies.
+- Replies under deleted comments are hidden.
+- "1 points" is not pluralised.
+- The first-visit system colour scheme is persisted as the theme, and live system scheme changes switch it.
+- `titleFontSize` only changes feed list titles.
+- The settings popup's full-screen overlay sits above the header, so only × (or Escape) closes it.
+
+## Running the Angular reference
+
+The Angular app is no longer in the tree. To compare with it, check out the last Angular commit (the parent of the
+integration merge on `master`, or any commit before it) in a separate worktree:
 
 ```bash
-# React (this branch)
-cd react-app && npm ci && npm run dev            # http://localhost:4200
-
-# Angular reference — separate worktree of origin/master, never this checkout
-git fetch origin && git worktree add ../ng-ref origin/master
+git worktree add ../ng-ref <last-angular-commit>
 cd ../ng-ref && npm install && git checkout yarn.lock   # npm rewrites yarn.lock; never commit it
 NODE_OPTIONS=--openssl-legacy-provider npx ng serve --port 4300   # http://localhost:4300 (Angular 9 on Node 22)
 ```
 
-Compare the same URL on both ports at 1280px and 375px for each theme (set `localStorage.theme` to `default`,
-`night`, `amoledblack` and reload). Don't build/test/edit in a tree the testing agent is serving; use another
-worktree for mid-run fixes.
+Run React next to it (`npm run dev` on :4200 or `npm run build && npm run preview` on :4173) and compare the same
+URL at 1280px and 375px for each theme (set `localStorage.theme` to `default`, `night`, `amoledblack` and reload).
+Angular's user page calls node-hnapi `/user/*`, which 404s for everyone; route it to HNPWA
+(`https://api.hnpwa.com/v0/user/<id>.json`) with Playwright `context.route` to compare profiles.
 
 ## Known traps
 

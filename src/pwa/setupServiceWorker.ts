@@ -13,7 +13,10 @@ export interface SetupOptions {
     logger?: Pick<Console, 'info' | 'error'>;
 }
 
-/** Re-requests runtime-cached API URLs (once each per `warmed` set) so they go through the SW's cache. */
+/**
+ * Re-requests runtime-cached API URLs so they go through the SW's cache. A URL stays in `warmed` while in flight
+ * and after a successful response; failed or non-2xx warm-ups are removed so a later call retries them.
+ */
 export function warmRuntimeCache(
     entries: PerformanceEntryList,
     fetchFn: typeof fetch = fetch,
@@ -23,7 +26,18 @@ export function warmRuntimeCache(
         (url) => isRuntimeCachedUrl(url) && !warmed.has(url)
     );
     urls.forEach((url) => warmed.add(url));
-    return Promise.allSettled(urls.map((url) => fetchFn(url)));
+    return Promise.allSettled(
+        urls.map(async (url) => {
+            try {
+                const response = await fetchFn(url);
+                if (!response.ok) warmed.delete(url);
+                return response;
+            } catch (error) {
+                warmed.delete(url);
+                throw error;
+            }
+        })
+    );
 }
 
 /**

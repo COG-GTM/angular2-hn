@@ -362,6 +362,10 @@ Deviations from Angular (intentional):
 - Links opened in a new tab use `rel="noopener noreferrer"`; links in sanitized HN HTML use `rel="nofollow noopener noreferrer"`.
 - API errors (non-2xx, `{ error }` bodies, `null`/non-JSON user bodies, invalid ids/pages) show the error message
   instead of an endless loader.
+- Google Analytics is not ported. Angular loaded `analytics.js` for the Universal Analytics property
+  `UA-66348622-3` and sent a pageview on every `NavigationEnd`; Google has shut down Universal Analytics, so those
+  hits are no longer processed. Add a GA4 (or other) client in `src/main.tsx` plus a route-change listener if
+  analytics is wanted.
 
 Angular quirks kept for parity:
 

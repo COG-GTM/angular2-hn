@@ -43,7 +43,7 @@ describe('sanitizeHtml', () => {
         );
         expect(sanitizeHtml('<custom-el><font>text</font></custom-el>')).toBe('text');
         expect(sanitizeHtml('<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>')).toBe(
-            '<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>'
+            '<a href="mailto:a@b.c">m</a><a href="https://news.ycombinator.com/user/pg">u</a>'
         );
     });
 
@@ -154,7 +154,7 @@ describe('User', () => {
         const links = about.querySelectorAll('a');
         expect(links[0]).not.toHaveAttribute('href');
         expect(links[0]).not.toHaveAttribute('onclick');
-        expect(links[1]).toHaveAttribute('href', 'https://example.com');
+        expect(links[1]).toHaveAttribute('href', 'https://example.com/');
         expect(links[1]).toHaveAttribute('title', 't');
     });
 

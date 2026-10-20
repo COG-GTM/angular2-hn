@@ -17,15 +17,26 @@ const ALLOWED_ATTRS = new Set([
     'hreflang', 'lang', 'loop', 'media', 'muted', 'preload', 'rel', 'rowspan', 'scope', 'span', 'start', 'summary',
     'target', 'title', 'type', 'valign', 'width',
 ]);
-const SAFE_URL = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/i;
+// HN emits relative links (`item?id=…`, `user?id=…`) that must resolve against news.ycombinator.com,
+// not against the React route the reader is on.
+const HN_ORIGIN = 'https://news.ycombinator.com/';
+const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'ftp:', 'tel:', 'sms:']);
 const SAFE_DATA_IMAGE = /^data:image\/(?:bmp|gif|jpe?g|png|tiff|webp);base64,[a-z0-9+/]+=*$/i;
 
-function isSafeUrl(value: string) {
-    // Browsers drop ASCII whitespace / control characters before parsing the scheme
-    // (`java&#10;script:` is still `javascript:`), so compare against the same form.
-    // eslint-disable-next-line no-control-regex
-    const url = value.replace(/[\u0000-\u0020\u007f]/g, '');
-    return SAFE_URL.test(url) || SAFE_DATA_IMAGE.test(url);
+/**
+ * Returns the normalised URL to keep, or null when it must be dropped. The browser's own URL
+ * parser decides the scheme (so `java\nscript:` and friends cannot slip through) and the
+ * normalised form is what gets written back to the attribute.
+ */
+function safeUrl(value: string): string | null {
+    if (SAFE_DATA_IMAGE.test(value.trim())) return value.trim();
+    let url: URL;
+    try {
+        url = new URL(value, HN_ORIGIN);
+    } catch {
+        return null;
+    }
+    return SAFE_PROTOCOLS.has(url.protocol) ? url.href : null;
 }
 
 /**
@@ -49,8 +60,13 @@ export function sanitizeHtml(html: string | null | undefined): string {
             }
             for (const attr of Array.from(child.attributes)) {
                 const name = attr.name.toLowerCase();
-                const keep = URL_ATTRS.has(name) ? isSafeUrl(attr.value) : ALLOWED_ATTRS.has(name);
-                if (!keep) child.removeAttribute(attr.name);
+                if (URL_ATTRS.has(name)) {
+                    const url = safeUrl(attr.value);
+                    if (url === null) child.removeAttribute(attr.name);
+                    else child.setAttribute(attr.name, url);
+                } else if (!ALLOWED_ATTRS.has(name)) {
+                    child.removeAttribute(attr.name);
+                }
             }
         }
     };

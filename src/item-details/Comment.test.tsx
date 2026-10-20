@@ -32,7 +32,7 @@ describe('Comment', () => {
         expect(screen.getByRole('link', { name: 'alice' })).toHaveAttribute('href', '/user/alice');
         expect(screen.getByText('2 hours ago')).toHaveClass('time');
         expect(screen.getByText('[-]')).toHaveClass('collapse');
-        expect(screen.getByRole('link', { name: 'world' })).toHaveAttribute('href', 'https://example.com');
+        expect(screen.getByRole('link', { name: 'world' })).toHaveAttribute('href', 'https://example.com/');
         expect(container.querySelector('.comment-text')?.innerHTML).toContain('<p>Hello');
     });
 
@@ -43,7 +43,7 @@ describe('Comment', () => {
             })
         );
 
-        expect(container.querySelector('.comment-text')?.innerHTML).toBe('<p>Hi <img src="x"><a>x</a></p>');
+        expect(container.querySelector('.comment-text')?.innerHTML).toBe('<p>Hi <img src="https://news.ycombinator.com/x"><a>x</a></p>');
     });
 
     it('renders nested comments recursively inside ul.subtree', () => {

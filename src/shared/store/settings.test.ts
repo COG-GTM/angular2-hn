@@ -1,5 +1,15 @@
 import { SETTINGS_STORAGE_KEYS, loadInitialSettings, subscribeToSystemColorScheme, useSettingsStore } from './settings';
 
+const unsubscribers: Array<() => void> = [];
+function subscribe() {
+    const unsubscribe = subscribeToSystemColorScheme();
+    unsubscribers.push(unsubscribe);
+    return unsubscribe;
+}
+afterEach(() => {
+    unsubscribers.splice(0).forEach((unsubscribe) => unsubscribe());
+});
+
 type Listener = (event: MediaQueryListEvent) => void;
 
 function stubMatchMedia(matches: boolean) {
@@ -82,7 +92,7 @@ describe('settings store', () => {
 
     it('follows prefers-color-scheme changes until unsubscribed', () => {
         const media = stubMatchMedia(false);
-        const unsubscribe = subscribeToSystemColorScheme();
+        const unsubscribe = subscribe();
 
         media.fire(true);
         expect(useSettingsStore.getState().theme).toBe('night');
@@ -97,7 +107,7 @@ describe('settings store', () => {
 
     it('does not override an explicitly chosen theme on prefers-color-scheme changes', () => {
         const media = stubMatchMedia(false);
-        subscribeToSystemColorScheme();
+        subscribe();
         useSettingsStore.getState().setTheme('amoledblack');
 
         media.fire(true);
@@ -108,12 +118,43 @@ describe('settings store', () => {
         expect(localStorage.getItem(SETTINGS_STORAGE_KEYS.theme)).toBe('amoledblack');
     });
 
+    it('mirrors a theme chosen in another tab and stops following the OS', () => {
+        const media = stubMatchMedia(false);
+        const unsubscribe = subscribe();
+
+        localStorage.setItem(SETTINGS_STORAGE_KEYS.theme, 'amoledblack');
+        window.dispatchEvent(
+            new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: 'amoledblack' })
+        );
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('amoledblack');
+
+        localStorage.removeItem(SETTINGS_STORAGE_KEYS.theme);
+        window.dispatchEvent(new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: null }));
+        expect(useSettingsStore.getState().theme).toBe('default');
+        expect(useSettingsStore.getState().themeChosen).toBe(false);
+
+        media.fire(true);
+        expect(useSettingsStore.getState().theme).toBe('night');
+        window.dispatchEvent(new StorageEvent('storage', { key: null, newValue: null }));
+        expect(useSettingsStore.getState().theme).toBe('default');
+        media.fire(false);
+
+        unsubscribe();
+        window.dispatchEvent(
+            new StorageEvent('storage', { key: SETTINGS_STORAGE_KEYS.theme, newValue: 'night' })
+        );
+        expect(useSettingsStore.getState().theme).toBe('default');
+    });
+
     it('keeps an explicitly chosen theme even when localStorage writes fail', () => {
         const media = stubMatchMedia(false);
         const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
             throw new DOMException('QuotaExceededError');
         });
-        subscribeToSystemColorScheme();
+        subscribe();
         useSettingsStore.getState().setTheme('amoledblack');
 
         media.fire(true);

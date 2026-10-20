@@ -101,12 +101,29 @@ export const useSettingsStore = create<SettingsState>()((set, get) => ({
  * scheme flips, switch between `night` and `default`. Unlike the Angular service this
  * only applies while the user has not picked a theme explicitly (`themeChosen`, tracked in
  * memory so a failed localStorage write doesn't lose the choice) and never persists the
- * automatic choice, so an explicit "amoledblack" survives a light/dark switch. Returns an unsubscribe function.
+ * automatic choice, so an explicit "amoledblack" survives a light/dark switch.
+ * A theme chosen (or cleared) in another tab is mirrored via the `storage` event so every
+ * tab shows the same theme. Returns an unsubscribe function.
  */
 export function subscribeToSystemColorScheme(): () => void {
+    const onStorage = (event: StorageEvent) => {
+        if (event.key !== SETTINGS_STORAGE_KEYS.theme && event.key !== null) {
+            return;
+        }
+        if (isTheme(event.newValue)) {
+            useSettingsStore.setState({ theme: event.newValue, themeChosen: true });
+        } else {
+            useSettingsStore.setState({
+                theme: themeForColorScheme(getDarkSchemeMedia()?.matches ?? false),
+                themeChosen: false,
+            });
+        }
+    };
+    window.addEventListener('storage', onStorage);
+
     const media = getDarkSchemeMedia();
     if (!media) {
-        return () => {};
+        return () => window.removeEventListener('storage', onStorage);
     }
     const handler = (event: MediaQueryListEvent) => {
         if (useSettingsStore.getState().themeChosen) {
@@ -115,5 +132,8 @@ export function subscribeToSystemColorScheme(): () => void {
         useSettingsStore.setState({ theme: themeForColorScheme(event.matches) });
     };
     media.addEventListener('change', handler);
-    return () => media.removeEventListener('change', handler);
+    return () => {
+        media.removeEventListener('change', handler);
+        window.removeEventListener('storage', onStorage);
+    };
 }

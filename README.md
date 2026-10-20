@@ -70,7 +70,7 @@ Built in theme engine! Current themes: Default, Night, Black (AMOLED). The app f
  - `npm test` to run the Vitest suite, `npm run lint` for ESLint, `npm run typecheck` for `tsc -b`
 
 The API base URL defaults to `https://node-hnapi.herokuapp.com` and can be overridden with
-`VITE_HN_API_BASE_URL` (the service worker API cache rule follows the same variable at build time).
+`VITE_HN_API_BASE_URL`. User profiles come from `https://api.hnpwa.com/v0` (node-hnapi no longer serves `/user/:id`); override with `VITE_HN_USER_API_BASE_URL`. The service worker's API cache rule follows both variables at build time.
 
 ## Progressive Web App
 
@@ -91,7 +91,7 @@ The web app manifest is the static `public/manifest.webmanifest`, linked from `i
 
 ## Deploy
 
-Travis (`.travis.yml`) runs `npm run lint`, `npm test` and `npm run build` on every push and deploys
+Travis (`.travis.yml`) runs `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` on every push and deploys
 `master` to Firebase Hosting with `firebase deploy`. `firebase.json` serves `dist/`, rewrites every
 route to `/index.html`, sends `Cache-Control: no-cache` for `index.html`, the app routes, `sw.js`,
 `workbox-*.js` and the manifest, and `public, max-age=31536000, immutable` for the hashed files

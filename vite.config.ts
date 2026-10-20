@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const DEFAULT_API_BASE_URL = 'https://node-hnapi.herokuapp.com';
+const DEFAULT_USER_API_BASE_URL = 'https://api.hnpwa.com/v0';
 
 function escapeRegExp(value: string): string {
     return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -11,7 +12,11 @@ function escapeRegExp(value: string): string {
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', 'VITE_');
-    const apiBaseUrl = (env.VITE_HN_API_BASE_URL || DEFAULT_API_BASE_URL).replace(/\/+$/, '');
+    // Same defaults as src/shared/api/hackernews-api.ts (feeds/items vs. user profiles).
+    const apiBaseUrls = [
+        env.VITE_HN_API_BASE_URL || DEFAULT_API_BASE_URL,
+        env.VITE_HN_USER_API_BASE_URL || DEFAULT_USER_API_BASE_URL,
+    ].map((url) => escapeRegExp(url.replace(/\/+$/, '')));
 
     return {
         plugins: [
@@ -42,7 +47,7 @@ export default defineConfig(({ mode }) => {
                             // API is slow (> 5s). The max-age only bounds how long that offline fallback
                             // stays usable (Workbox drops expired entries even when offline), so it is a
                             // day rather than minutes. `/+` tolerates a trailing slash in the base URL.
-                            urlPattern: new RegExp(`^${escapeRegExp(apiBaseUrl)}/+`),
+                            urlPattern: new RegExp(`^(?:${apiBaseUrls.join('|')})/+`),
                             handler: 'NetworkFirst',
                             options: {
                                 cacheName: 'hn-api',

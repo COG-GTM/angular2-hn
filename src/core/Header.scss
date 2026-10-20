@@ -100,7 +100,9 @@
     }
   }
 
-  .header-nav {
+  // `#header` raises specificity above the theme's `.wrapper a` / `a:visited` rules, which
+  // Angular's emulated encapsulation attributes used to outrank.
+  #header .header-nav {
     display: inline-block;
     margin-left: 20px;
 

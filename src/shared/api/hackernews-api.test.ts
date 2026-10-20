@@ -1,4 +1,4 @@
-import { HN_API_BASE_URL, HttpError, fetchFeed, fetchItemContent, fetchUser } from './hackernews-api';
+import { HN_API_BASE_URL, HN_USER_API_BASE_URL, HttpError, fetchFeed, fetchItemContent, fetchUser } from './hackernews-api';
 
 function jsonResponse(body: unknown, status = 200) {
     return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
@@ -92,6 +92,6 @@ describe('hackernews-api', () => {
 
         await fetchUser('a b');
 
-        expect(fetchMock.mock.calls[0][0]).toBe(`${HN_API_BASE_URL}/user/a%20b`);
+        expect(fetchMock.mock.calls[0][0]).toBe(`${HN_USER_API_BASE_URL}/user/a%20b.json`);
     });
 });

@@ -1,0 +1,169 @@
+// Port of Angular item-details.component.scss, scoped under `.main-content.item-details`. Angular's view
+// encapsulation only styled template elements, so element selectors (`p`, `a`, `ul`, `li`, `*`) are limited to
+// the template structure and never reach the sanitized item HTML or the comment tree. `:where()` keeps
+// Angular's specificity so `_themes.scss` rules still win.
+@use '../../shared/scss/media' as *;
+
+.main-content.item-details {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    -webkit-transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
+    box-sizing: border-box;
+    padding: 8px 0;
+    z-index: 0;
+}
+
+:where(.main-content.item-details) {
+    .item {
+        box-sizing: border-box;
+        padding: 10px 40px 0 40px;
+        z-index: 0;
+    }
+
+    @media #{$tablet-only} {
+        .item {
+            padding: 10px 20px 0 40px;
+        }
+    }
+
+    @media #{$mobile-only} {
+        .item {
+            box-sizing: border-box;
+            padding: 110px 15px 0 15px;
+        }
+    }
+
+    .head-margin {
+        margin-bottom: 15px;
+    }
+
+    :where(.item, .mobile, .laptop) > p {
+        margin: 2px 0;
+    }
+
+    .subject {
+        word-wrap: break-word;
+        margin-top: 20px;
+    }
+
+    :where(.item-header, .laptop) a {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    @media #{$mobile-only} {
+        .laptop {
+            display: none;
+        }
+    }
+
+    @media #{$laptop-only} {
+        .mobile {
+            display: none;
+        }
+    }
+
+    .title {
+        font-size: 16px;
+        font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .title-block {
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0 75px;
+    }
+
+    @media #{$mobile-only} {
+        .title {
+            font-size: 15px;
+        }
+        .back-button {
+            position: absolute;
+            top: 52%;
+            width: 0.6rem;
+            height: 0.6rem;
+            background: transparent;
+            box-shadow: 0 0 0 lightgray;
+            transition: all 200ms ease;
+            left: 4%;
+            transform: translate3d(0, -50%, 0) rotate(-135deg);
+            cursor: pointer;
+        }
+    }
+
+    .subtext {
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    .domain {
+        letter-spacing: 0.5px;
+    }
+
+    .subtext a {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .subtext .item-details {
+        padding: 10px;
+    }
+
+    .item-header {
+        padding-bottom: 10px;
+    }
+
+    @media #{$mobile-only} {
+        .item-header {
+            padding: 10px 0 10px 0;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top: 62px;
+        }
+    }
+
+    .pollResults {
+        margin-bottom: 1em;
+    }
+
+    .pollContent {
+        > * {
+            padding-bottom: 0;
+            margin-bottom: -1em;
+            margin-top: 1em;
+        }
+        .pollBar {
+            height: 10px;
+            margin-bottom: 1em;
+        }
+    }
+
+    .comment-list {
+        list-style-type: none;
+        padding: 10px 0;
+    }
+
+    .comment-list > li {
+        display: list-item;
+    }
+}
+
+// Sanitized HN HTML (story text, poll options): browser-default paragraphs and links, pinned with full
+// specificity so that other components' leaked rules can't restyle it.
+.main-content.item-details :is(.subject, .pollContent > div) {
+    p {
+        margin: 1em 0;
+    }
+    a {
+        font-weight: normal;
+        text-decoration: underline;
+    }
+}

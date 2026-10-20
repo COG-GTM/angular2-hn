@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import type { Comment as CommentModel } from '../shared/models';
 import './Comment.scss';
-import { sanitizeHtml } from './sanitize-html';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 
 interface CommentProps {
     comment: CommentModel;

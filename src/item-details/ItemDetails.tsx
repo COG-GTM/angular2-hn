@@ -8,7 +8,7 @@ import type { Story } from '../shared/models';
 import { useSettingsStore } from '../shared/store/settings';
 import { formatCommentCount } from '../shared/utils/comment';
 import { Comment } from './Comment';
-import { sanitizeHtml } from './sanitize-html';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 import './ItemDetails.scss';
 
 const ERROR_MESSAGE = 'Could not load item comments.';

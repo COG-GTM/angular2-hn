@@ -1,6 +1,7 @@
 // Element / attribute allowlists mirror Angular's DomSanitizer (packages/core/src/sanitization/html_sanitizer.ts):
-// unknown elements are unwrapped (their text is kept), unknown attributes (including `class`, `style`
-// and every `on*` handler) are dropped, and URL attributes must use a safe scheme.
+// unknown elements are unwrapped (their text is kept, except for script/style/template whose content is
+// dropped), unknown attributes (including `class`, `style` and every `on*` handler) are dropped, and URL
+// attributes must use a safe scheme.
 const ALLOWED_TAGS = new Set([
     'a', 'abbr', 'address', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'blockquote', 'br', 'caption', 'cite',
     'code', 'col', 'colgroup', 'data', 'dd', 'del', 'dfn', 'div', 'dl', 'dt', 'em', 'figcaption', 'figure', 'footer',
@@ -9,6 +10,7 @@ const ALLOWED_TAGS = new Set([
     'span', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'time', 'tr', 'track',
     'tt', 'u', 'ul', 'var', 'video',
 ]);
+const DROP_CONTENT_TAGS = new Set(['script', 'style', 'template']);
 const URL_ATTRS = new Set(['href', 'src', 'cite', 'longdesc', 'poster', 'usemap']);
 const ALLOWED_ATTRS = new Set([
     'abbr', 'align', 'alt', 'border', 'cellpadding', 'cellspacing', 'colspan', 'controls', 'dir', 'headers', 'height',
@@ -19,7 +21,10 @@ const SAFE_URL = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/
 const SAFE_DATA_IMAGE = /^data:image\/(?:bmp|gif|jpe?g|png|tiff|webp);base64,[a-z0-9+/]+=*$/i;
 
 function isSafeUrl(value: string) {
-    const url = value.trim();
+    // Browsers drop ASCII whitespace / control characters before parsing the scheme
+    // (`java&#10;script:` is still `javascript:`), so compare against the same form.
+    // eslint-disable-next-line no-control-regex
+    const url = value.replace(/[\u0000-\u0020\u007f]/g, '');
     return SAFE_URL.test(url) || SAFE_DATA_IMAGE.test(url);
 }
 
@@ -27,13 +32,18 @@ function isSafeUrl(value: string) {
  * Angular's `[innerHTML]` binding ran the value through `DomSanitizer`; React's
  * `dangerouslySetInnerHTML` does not, so apply an equivalent allowlist here.
  */
-export function sanitizeHtml(html: string): string {
-    if (typeof DOMParser === 'undefined') return '';
-    const doc = new DOMParser().parseFromString(html, 'text/html');
+export function sanitizeHtml(html: string | null | undefined): string {
+    if (!html || typeof DOMParser === 'undefined') return '';
+    const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html');
     const walk = (node: Element) => {
         for (const child of Array.from(node.children)) {
+            const tag = child.tagName.toLowerCase();
+            if (DROP_CONTENT_TAGS.has(tag)) {
+                child.remove();
+                continue;
+            }
             walk(child);
-            if (!ALLOWED_TAGS.has(child.tagName.toLowerCase())) {
+            if (!ALLOWED_TAGS.has(tag)) {
                 child.replaceWith(...Array.from(child.childNodes));
                 continue;
             }

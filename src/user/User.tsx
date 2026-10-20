@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../shared/api/hooks';
 import { Loader } from '../shared/components/Loader';
 import { ErrorMessage } from '../shared/components/ErrorMessage';
-import { sanitizeHtml } from './sanitize-html';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 import './User.scss';
 
 /**

@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import User from './User';
-import { sanitizeHtml } from './sanitize-html';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 import type { User as UserModel } from '../shared/models';
 
 const fetchUserMock = vi.fn<(id: string) => Promise<UserModel | null>>();
@@ -62,7 +62,7 @@ describe('sanitizeHtml', () => {
         expect(sanitizeHtml('<script>alert(1)</script><img src="javascript:alert(1)" onerror="x()">')).toBe('<img>');
         expect(sanitizeHtml('<a href="JavaScript:alert(1)" onclick="x()">x</a>')).toBe('<a>x</a>');
         expect(sanitizeHtml('<img src="data:text/html;base64,PHNjcmlwdD4=">')).toBe('<img>');
-        expect(sanitizeHtml('<iframe src="https://evil"></iframe><style>p{}</style>ok')).toBe('p{}ok');
+        expect(sanitizeHtml('<iframe src="https://evil"></iframe><style>p{}</style>ok')).toBe('ok');
     });
 });
 

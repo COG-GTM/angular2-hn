@@ -19,6 +19,9 @@ describe('sanitizeHtml', () => {
     it('drops javascript: and data: URLs and inline styles', () => {
         expect(sanitizeHtml('<a href="javascript:alert(1)" style="color:red">x</a>')).toBe('<a>x</a>');
         expect(sanitizeHtml('<a href=" JavaScript:alert(1)">x</a>')).toBe('<a>x</a>');
+        expect(sanitizeHtml('<a href="java&#10;script:alert(1)">x</a>')).toBe('<a>x</a>');
+        expect(sanitizeHtml('<a href="java&#9;scr&#13;ipt:alert(1)">x</a>')).toBe('<a>x</a>');
+        expect(sanitizeHtml('<a href="&#x6A;avascript:alert(1)">x</a>')).toBe('<a>x</a>');
         expect(sanitizeHtml('<a href="item?id=1">x</a><a href="mailto:a@b.c">y</a>')).toBe(
             '<a href="item?id=1">x</a><a href="mailto:a@b.c">y</a>'
         );

@@ -30,7 +30,10 @@ const URL_ATTRIBUTES = new Set(['href', 'src', 'xlink:href', 'formaction', 'acti
 const SAFE_URL_PATTERN = /^(?!javascript:)(?:[a-z0-9+.-]+:|[^&:/?#]*(?:[/?#]|$))/i;
 
 function isSafeUrl(value: string): boolean {
-    const url = value.trim();
+    // Browsers drop ASCII whitespace / control characters before parsing the scheme
+    // (`java&#10;script:` is still `javascript:`), so compare against the same form.
+    // eslint-disable-next-line no-control-regex
+    const url = value.replace(/[\u0000-\u0020\u007f]/g, '');
     return SAFE_URL_PATTERN.test(url) && !/^(?:javascript|vbscript|data):/i.test(url);
 }
 

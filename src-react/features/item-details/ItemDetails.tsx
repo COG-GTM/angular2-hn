@@ -5,7 +5,8 @@ import { useItem } from '../../shared/api';
 import { ErrorMessage, Loader } from '../../shared/components';
 import type { Story } from '../../shared/models';
 import { useSettings } from '../../shared/settings';
-import { commentLabel, sanitizeHtml, useScrollToTop } from '../../shared/utils';
+import { commentLabel, useScrollToTop } from '../../shared/utils';
+import { sanitizeHnHtml } from './hn-html';
 import { Comment } from './Comment';
 import './ItemDetails.scss';
 
@@ -126,7 +127,7 @@ export function ItemDetails() {
                     <div className="pollResults">
                         {(item.poll ?? []).filter(Boolean).map((pollResult, index) => (
                             <div className="pollContent" key={index}>
-                                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: sanitizeHnHtml(pollResult.content) }}></div>
                                 <div className="subtext">{pollResult.points} points</div>
                                 <div
                                     className="pollBar"
@@ -137,7 +138,7 @@ export function ItemDetails() {
                         ))}
                     </div>
                 )}
-                <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}></p>
+                <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHnHtml(item.content) }}></p>
                 <ul className="comment-list">
                     {(item.comments ?? []).map((comment, index) => (
                         <li key={comment.id ?? `i${index}`}>

@@ -2,7 +2,7 @@ import { useState, type KeyboardEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import type { Comment as CommentModel } from '../../shared/models';
-import { sanitizeHtml } from '../../shared/utils';
+import { sanitizeHnHtml } from './hn-html';
 import './Comment.scss';
 
 export interface CommentProps {
@@ -50,7 +50,10 @@ export function Comment({ comment }: CommentProps) {
             </div>
             <div className="comment-tree">
                 <div hidden={collapse}>
-                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
+                    <p
+                        className="comment-text"
+                        dangerouslySetInnerHTML={{ __html: sanitizeHnHtml(comment.content) }}
+                    ></p>
                     <ul className="subtree">
                         {(comment.comments ?? []).map((subComment, index) => (
                             <li key={subComment.id ?? `i${index}`}>

@@ -67,13 +67,14 @@ react-app/
 Placeholders already have their final file names, exports and props. Keep the exported names/props; add any
 extra files (sub-components, `.scss`, tests) inside your own folder.
 
-Placeholder `data-testid`s checked by `src/features/placeholders.test.tsx` and `src/app/routes.test.tsx`:
-`feed-list`, `feed-item`, `item-details`, `comment`, `user-profile`, `header`, `footer`, `settings`.
-These tests are frozen; when you replace a placeholder, keep the same `data-testid` on your component's root
-element so they keep passing (the integration wave deletes them). The route tests assert the text
-`"<feed> page <n>"`, `"item <id>"` and `"user <id>"` only via placeholders — **if your real component no
-longer renders that text, put "update `src/app/routes.test.tsx` / `src/features/placeholders.test.tsx`" in
-`shared_changes_needed`** rather than editing them.
+Each placeholder has its own test next to it (`FeedList.test.tsx`, `FeedItem.test.tsx`, `ItemDetails.test.tsx`,
+`Comment.test.tsx`, `UserProfile.test.tsx`, `AppShell.test.tsx`, `Header.test.tsx`, `Footer.test.tsx`,
+`Settings.test.tsx`). **These files belong to the feature child: replace them with real tests** (delete
+the placeholder assertions; the `data-testid`s don't need to be kept).
+
+`src/app/routes.test.tsx` (frozen) tests routing only. It `vi.mock`s `../features/{shell,feeds,item-details,user}`
+with stubs (`AppShell` renders `<Outlet />`), so it doesn't depend on what the feature children ship. It does depend
+on the barrel export names (`AppShell`, `FeedList`, `ItemDetails`, `UserProfile`): keep them.
 
 ## Routing (`src/app/routes.tsx`, frozen)
 

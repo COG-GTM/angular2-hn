@@ -1,0 +1,11 @@
+dist
+dev-dist
+coverage
+node_modules
+playwright-report
+test-results
+public
+package-lock.json
+src/shared/scss/_media.scss
+src/shared/scss/_theme_variables.scss
+src/shared/scss/_themes.scss

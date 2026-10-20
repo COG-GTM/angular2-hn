@@ -80,8 +80,14 @@ describe('App shell', () => {
         expect(await screen.findByText(/Item 123/)).toBeInTheDocument();
         unmount();
 
+        vi.stubGlobal(
+            'fetch',
+            vi.fn().mockResolvedValue(
+                new Response(JSON.stringify({ id: 'pg', created: '20 years ago', karma: 1 }), { status: 200 })
+            )
+        );
         renderApp('/user/pg');
-        expect(await screen.findByText(/User pg/)).toBeInTheDocument();
+        expect(await screen.findByText('pg', { selector: '.app-user .name' })).toBeInTheDocument();
     });
 
     it('toggles the settings popup and switches theme', async () => {

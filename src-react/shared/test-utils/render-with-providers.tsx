@@ -2,7 +2,7 @@ import type { QueryClient } from '@tanstack/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import { createQueryClient } from '../api';
@@ -31,23 +31,27 @@ export function createTestQueryClient(): QueryClient {
     return client;
 }
 
-/** Renders `ui` inside QueryClientProvider + SettingsProvider + MemoryRouter/Routes at `route`. */
+/**
+ * Renders `ui` inside QueryClientProvider + SettingsProvider + MemoryRouter/Routes at `route`.
+ * `rerender(newUi)` keeps the same providers, client and current location.
+ */
 export function renderWithProviders(
     ui: ReactElement,
     { route = '/', path = '*', queryClient = createTestQueryClient(), ...options }: RenderWithProvidersOptions = {}
 ): RenderWithProvidersResult {
     const user = userEvent.setup();
-    const result = render(
+    const wrap = (element: ReactNode) => (
         <QueryClientProvider client={queryClient}>
             <SettingsProvider>
                 <MemoryRouter initialEntries={[route]} future={ROUTER_FUTURE_FLAGS}>
                     <Routes>
-                        <Route path={path} element={ui} />
+                        <Route path={path} element={element} />
                     </Routes>
                 </MemoryRouter>
             </SettingsProvider>
-        </QueryClientProvider>,
-        options
+        </QueryClientProvider>
     );
-    return { ...result, queryClient, user };
+    const result = render(wrap(ui), options);
+    const rerender = (next: ReactNode) => result.rerender(wrap(next));
+    return { ...result, rerender, queryClient, user };
 }

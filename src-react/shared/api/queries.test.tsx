@@ -39,6 +39,14 @@ describe('query hooks', () => {
         await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent(/^error:Invalid item id/));
     });
 
+    it('useItem: switching between two invalid ids re-validates the new id', async () => {
+        mockFetch({});
+        const { rerender } = renderWithProviders(<ItemProbe id="abc" />);
+        await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('error:Invalid item id: abc'));
+        rerender(<ItemProbe id="def" />);
+        await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('error:Invalid item id: def'));
+    });
+
     it('useItem: unknown item → error', async () => {
         mockFetch({ [apiUrls.item(9)]: { error: 'Item 9 not found' } });
         renderWithProviders(<ItemProbe id={9} />);

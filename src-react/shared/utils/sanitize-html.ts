@@ -55,6 +55,7 @@ const DROPPED_TAGS = new Set([
 
 const LINK_REL = 'nofollow noopener noreferrer';
 const SAFE_SCHEMES = new Set(['http:', 'https:', 'mailto:']);
+const URL_BASE = 'https://news.ycombinator.com/';
 
 export function isSafeHref(rawHref: string): boolean {
     // Browsers ignore ASCII whitespace/control chars inside schemes ("java\nscript:").
@@ -63,7 +64,15 @@ export function isSafeHref(rawHref: string): boolean {
     if (!href) return false;
     if (href.startsWith('//') || href.startsWith('/\\') || href.startsWith('\\')) return false;
     const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(href);
-    if (scheme) return SAFE_SCHEMES.has(`${scheme[1].toLowerCase()}:`);
+    if (scheme && !SAFE_SCHEMES.has(`${scheme[1].toLowerCase()}:`)) return false;
+    // Second opinion from the WHATWG URL parser (what the browser will actually navigate to).
+    try {
+        const url = new URL(rawHref, URL_BASE);
+        if (!SAFE_SCHEMES.has(url.protocol)) return false;
+        if (!scheme && url.origin !== new URL(URL_BASE).origin) return false;
+    } catch {
+        return false;
+    }
     return true;
 }
 

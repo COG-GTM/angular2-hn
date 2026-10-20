@@ -38,7 +38,9 @@ export async function fetchFeed(feedType: FeedType, page: number | string, signa
 }
 
 export async function fetchPollContent(id: number, signal?: AbortSignal): Promise<PollResult> {
-    const item = await fetchJson<RawPollItem>(apiUrls.item(id), { signal });
+    const itemId = toPositiveInt(id);
+    if (Number.isNaN(itemId)) throw invalid(`Invalid item id: ${String(id)}`);
+    const item = await fetchJson<RawPollItem>(apiUrls.item(itemId), { signal });
     return { points: item.points ?? 0, content: item.content ?? '' };
 }
 

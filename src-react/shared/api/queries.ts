@@ -8,12 +8,17 @@ import { fetchFeed, fetchItemContent, fetchUser } from './hackernews-api';
 export const queryKeys = {
     all: ['hn'] as const,
     feeds: () => [...queryKeys.all, 'feed'] as const,
-    feed: (feedType: FeedType, page: number) => [...queryKeys.feeds(), feedType, page] as const,
+    feed: (feedType: FeedType, page: number | string) => [...queryKeys.feeds(), feedType, page] as const,
     items: () => [...queryKeys.all, 'item'] as const,
-    item: (id: number) => [...queryKeys.items(), id] as const,
+    item: (id: number | string) => [...queryKeys.items(), id] as const,
     users: () => [...queryKeys.all, 'user'] as const,
     user: (id: string) => [...queryKeys.users(), id] as const,
 };
+
+/** Valid params key by number; invalid ones keep their raw text so `/item/abc` → `/item/def` re-validates. */
+function paramKey(parsed: number, raw: number | string | undefined): number | string {
+    return Number.isNaN(parsed) ? `invalid:${String(raw)}` : parsed;
+}
 
 const MAX_RETRIES = 2;
 
@@ -42,7 +47,7 @@ export const queryClient = createQueryClient();
 export function useFeed(feedType: FeedType, page: number | string | undefined): UseQueryResult<Story[], Error> {
     const pageNumber = toPositiveInt(page);
     return useQuery({
-        queryKey: queryKeys.feed(feedType, pageNumber),
+        queryKey: queryKeys.feed(feedType, paramKey(pageNumber, page)),
         queryFn: ({ signal }) => fetchFeed(feedType, Number.isNaN(pageNumber) ? String(page) : pageNumber, signal),
     });
 }
@@ -51,7 +56,7 @@ export function useFeed(feedType: FeedType, page: number | string | undefined): 
 export function useItem(id: number | string | undefined): UseQueryResult<Story, Error> {
     const itemId = toPositiveInt(id);
     return useQuery({
-        queryKey: queryKeys.item(itemId),
+        queryKey: queryKeys.item(paramKey(itemId, id)),
         queryFn: ({ signal }) => fetchItemContent(Number.isNaN(itemId) ? String(id) : itemId, signal),
     });
 }

@@ -67,6 +67,24 @@ describe('sanitizeHtml', () => {
         expect(isSafeHref('item?id=1')).toBe(true);
     });
 
+    it.each([
+        'java&#x09;script:alert(1)',
+        'java&#10;script:alert(1)',
+        '&#106;avascript:alert(1)',
+        'javascript&colon;alert(1)',
+        '&#x20;javascript:alert(1)',
+        '&#x2F;&#x2F;evil.com',
+        '&#x2F;&#x5C;evil.com',
+        '/&#x09;/evil.com',
+        'data&colon;text/html,<b>x</b>',
+        'vbscript:msgbox(1)',
+    ])('drops entity-encoded unsafe href %s', (href) => {
+        const container = document.createElement('div');
+        container.innerHTML = sanitizeHtml(`<a href="${href}">x</a>`);
+        const a = container.querySelector('a');
+        expect(a?.hasAttribute('href')).toBe(false);
+    });
+
     it('removes comments', () => {
         expect(sanitizeHtml('a<!-- x -->b')).toBe('ab');
     });

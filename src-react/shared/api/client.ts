@@ -25,7 +25,13 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
         );
     }
 
-    const text = await res.text();
+    let text: string;
+    try {
+        text = await res.text();
+    } catch (cause) {
+        if (cause instanceof DOMException && cause.name === 'AbortError') throw cause;
+        throw new ApiError(`Network request failed: ${url}`, 'network', { status: res.status, url, cause });
+    }
     let body: unknown;
     try {
         body = JSON.parse(text);

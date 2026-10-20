@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { deferred, jsonResponse, mockFetch, textResponse } from '../test-utils';
 import {
@@ -7,6 +7,7 @@ import {
     fetchFeed,
     fetchItemContent,
     fetchJson,
+    fetchPollContent,
     fetchUser,
     queryKeys,
     shouldRetry,
@@ -47,6 +48,28 @@ describe('fetchJson', () => {
             },
         });
         await expect(fetchJson('https://x/down')).rejects.toMatchObject({ kind: 'network', retryable: true });
+    });
+});
+
+describe('fetchJson body read', () => {
+    it('wraps a body that fails mid-read as a network ApiError', async () => {
+        const res = { ok: true, status: 200, text: () => Promise.reject(new TypeError('terminated')) };
+        vi.stubGlobal('fetch', vi.fn().mockResolvedValue(res));
+        await expect(fetchJson('https://x.test/a')).rejects.toMatchObject({ name: 'ApiError', kind: 'network' });
+    });
+
+    it('lets an abort during the body read propagate as AbortError', async () => {
+        const res = { ok: true, status: 200, text: () => Promise.reject(new DOMException('aborted', 'AbortError')) };
+        vi.stubGlobal('fetch', vi.fn().mockResolvedValue(res));
+        await expect(fetchJson('https://x.test/a')).rejects.toMatchObject({ name: 'AbortError' });
+    });
+});
+
+describe('fetchPollContent', () => {
+    it.each([[0], [NaN], [-3]])('rejects invalid id %j without fetching', async (id) => {
+        const handle = mockFetch({});
+        await expect(fetchPollContent(id)).rejects.toMatchObject({ kind: 'invalid-param' });
+        expect(handle.calls).toHaveLength(0);
     });
 });
 

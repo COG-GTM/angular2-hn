@@ -110,7 +110,7 @@ class ApiError extends Error { kind: 'http' | 'parse' | 'empty' | 'not-found' | 
 isApiError(e): e is ApiError
 ```
 
-`fetchJson` rejects when the network fails (`network`); `!res.ok` (`http`, or `not-found` for 404 — Angular's
+`fetchJson` rejects when the network fails or the body read is interrupted (`network`); `!res.ok` (`http`, or `not-found` for 404 — Angular's
 `lazyFetch` never checked `res.ok`); the body is not JSON (`parse` — HNPWA sends plain text for some unknown users);
 the body is `null` (`empty` — HNPWA's other answer for unknown users); or the body is an object with an `error` field
 (node-hnapi answers unknown items with HTTP 200 `{"error":"Item … not found"}` → `not-found`).
@@ -127,6 +127,7 @@ React Query (v5):
 
 ```ts
 queryKeys.all | feeds() | feed(feedType, page) | items() | item(id) | users() | user(id)   // ['hn', 'feed', 'news', 1] …
+                                 // hooks key invalid params as 'invalid:<raw>' so /item/abc → /item/def re-validates
 createQueryClient(): QueryClient // staleTime 60s, gcTime 5min, refetchOnWindowFocus false, retry = shouldRetry
 queryClient                      // app singleton used by App.tsx
 shouldRetry(failureCount, error) // no retry for non-retryable ApiErrors (invalid-param/not-found/parse/empty/4xx); else up to 2
@@ -230,7 +231,7 @@ const { user, queryClient } = renderWithProviders(<ItemDetails />, { route: '/it
 ```
 
 - `renderWithProviders(ui, { route = '/', path = '*', queryClient?, ...rtlOptions })` → RTL result + `queryClient` +
-  `user` (`userEvent.setup()`). Wraps a **fresh** QueryClient (`retry: false`), `SettingsProvider`,
+  `user` (`userEvent.setup()`); `rerender(newUi)` re-renders inside the same providers and location. Wraps a **fresh** QueryClient (`retry: false`), `SettingsProvider`,
   `MemoryRouter initialEntries={[route]}` and `<Routes><Route path={path} element={ui} /></Routes>`.
   `createTestQueryClient()` is exported too.
 - `mockFetch(routes)` stubs global `fetch`; keys are **exact URLs** (build them with `apiUrls`). A plain value is sent

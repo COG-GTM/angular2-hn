@@ -41,10 +41,28 @@ describe('sanitizeHtml', () => {
         expect(sanitizeHtml('Bug <b>fixer</b>.<p>Second <code>x</code><pre>y</pre>')).toBe(
             'Bug <b>fixer</b>.<p>Second <code>x</code></p><pre>y</pre>'
         );
-        expect(sanitizeHtml('<div class="c"><span style="x">text</span></div>')).toBe('text');
+        expect(sanitizeHtml('<custom-el><font>text</font></custom-el>')).toBe('text');
         expect(sanitizeHtml('<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>')).toBe(
             '<a href="mailto:a@b.c">m</a><a href="/user/pg">u</a>'
         );
+    });
+
+    it('preserves safe block elements and images like DomSanitizer, dropping class/style', () => {
+        expect(
+            sanitizeHtml(
+                '<div class="c" style="x">First</div><div>Second</div><img src="https://example.com/a.png" alt="a" width="10">'
+            )
+        ).toBe('<div>First</div><div>Second</div><img src="https://example.com/a.png" alt="a" width="10">');
+        expect(sanitizeHtml('<img src="data:image/png;base64,iVBORw0KGgo=">')).toBe(
+            '<img src="data:image/png;base64,iVBORw0KGgo=">'
+        );
+    });
+
+    it('strips scripts, event handlers and unsafe URL schemes', () => {
+        expect(sanitizeHtml('<script>alert(1)</script><img src="javascript:alert(1)" onerror="x()">')).toBe('<img>');
+        expect(sanitizeHtml('<a href="JavaScript:alert(1)" onclick="x()">x</a>')).toBe('<a>x</a>');
+        expect(sanitizeHtml('<img src="data:text/html;base64,PHNjcmlwdD4=">')).toBe('<img>');
+        expect(sanitizeHtml('<iframe src="https://evil"></iframe><style>p{}</style>ok')).toBe('p{}ok');
     });
 });
 
@@ -131,7 +149,7 @@ describe('User', () => {
         await screen.findByText('pg', { selector: '.name' });
         const about = container.querySelector('.other-details > p') as HTMLElement;
         expect(about.querySelector('script')).toBeNull();
-        expect(about.querySelector('img')).toBeNull();
+        expect(about.querySelector('img')).not.toHaveAttribute('onerror');
         expect(about.querySelector('i')).toHaveTextContent('there');
         const links = about.querySelectorAll('a');
         expect(links[0]).not.toHaveAttribute('href');

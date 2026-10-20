@@ -1,26 +1,65 @@
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import type { FeedType } from '../shared/models';
+import { useFeed } from '../shared/api/hooks';
+import { ErrorMessage } from '../shared/components/ErrorMessage';
+import { Loader } from '../shared/components/Loader';
+import { FEED_PAGE_SIZE, type FeedType } from '../shared/models';
+import { Item } from './Item';
 import './Feed.scss';
 
 interface FeedProps {
     feedType: FeedType;
 }
 
-/**
- * Foundation placeholder for the `/news|newest|show|ask|jobs/:page` routes.
- * Track A replaces this with the ported `FeedComponent` (list + pagination) and `Item` row.
- */
+/** Port of the Angular `FeedComponent` (`/news|newest|show|ask|jobs/:page`). */
 export function Feed({ feedType }: FeedProps) {
     const { page } = useParams<{ page: string }>();
     const pageNum = page ? Number(page) : 1;
+    const { data: items, error } = useFeed(feedType, pageNum);
+    const listStart = (pageNum - 1) * FEED_PAGE_SIZE + 1;
+
+    useEffect(() => {
+        if (items) {
+            window.scrollTo(0, 0);
+        }
+    }, [items]);
 
     return (
         <div className="app-feed">
             <div className="main-content">
-                <p style={{ padding: '0 40px' }}>
-                    Feed <strong>{feedType}</strong>, page {pageNum} — coming in Track A.
-                </p>
+                {!items && !error && <Loader />}
+                {!items && error && <ErrorMessage message={`Could not load ${feedType} stories.`} />}
+
+                {items && (
+                    <div>
+                        {feedType === 'jobs' && (
+                            <p className="job-header">
+                                These are jobs at startups that were funded by Y Combinator. You can also get a job at a
+                                YC startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
+                            </p>
+                        )}
+                        <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={listStart}>
+                            {items.map((item) => (
+                                <li key={item.id} className="post">
+                                    <Item item={item} />
+                                </li>
+                            ))}
+                        </ol>
+                        <div className="nav">
+                            {listStart !== 1 && (
+                                <Link to={`/${feedType}/${pageNum - 1}`} className="prev">
+                                    ‹ Prev
+                                </Link>
+                            )}
+                            {items.length === FEED_PAGE_SIZE && (
+                                <Link to={`/${feedType}/${pageNum + 1}`} className="more">
+                                    More ›
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

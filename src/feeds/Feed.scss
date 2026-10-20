@@ -3,8 +3,12 @@
 
 // Angular emulated view encapsulation is replaced by nesting the component styles
 // under a wrapper class that the React component puts on its root element.
+// Angular's emulated encapsulation limited the bare `a` rule to the anchors in the
+// feed template itself (job header + pagination), not to the nested `<item>` rows,
+// so it is scoped to those two blocks here.
 .app-feed {
-  a {
+  .job-header a,
+  .nav a {
     text-decoration: none;
     font-weight: bold;
 

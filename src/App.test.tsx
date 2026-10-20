@@ -3,8 +3,29 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 
 import App from './App';
+import * as api from './shared/api/hackernews-api';
 import { createQueryClient } from './shared/api/query-client';
+import type { Story } from './shared/models';
 import { loadInitialSettings, useSettingsStore } from './shared/store/settings';
+
+vi.mock('./shared/api/hackernews-api', async (importOriginal) => {
+    const original = await importOriginal<typeof api>();
+    return { ...original, fetchFeed: vi.fn() };
+});
+
+const story: Story = {
+    id: 1,
+    title: 'Hello HN',
+    points: 1,
+    user: 'pg',
+    time: 1,
+    time_ago: '1 hour ago',
+    type: 'link',
+    url: 'https://example.com',
+    domain: 'example.com',
+    comments: [],
+    comments_count: 0,
+};
 
 function renderApp(path: string) {
     return render(
@@ -21,6 +42,8 @@ describe('App shell', () => {
         localStorage.clear();
         vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }));
         useSettingsStore.setState(loadInitialSettings());
+        vi.stubGlobal('scrollTo', vi.fn());
+        vi.mocked(api.fetchFeed).mockResolvedValue([story]);
     });
 
     afterEach(() => {
@@ -37,16 +60,19 @@ describe('App shell', () => {
     });
 
     it('redirects / to /news/1 and renders the feed route', async () => {
-        renderApp('/');
+        const { container } = renderApp('/');
 
-        expect(await screen.findByText('news', { selector: 'strong' })).toBeInTheDocument();
+        expect(await screen.findByText('Hello HN')).toBeInTheDocument();
+        expect(api.fetchFeed).toHaveBeenCalledWith('news', 1, expect.anything());
+        expect(container.querySelector('.app-feed ol')).toHaveAttribute('start', '1');
     });
 
     it.each(['news', 'newest', 'show', 'ask', 'jobs'])('renders the %s feed route', async (feedType) => {
-        renderApp(`/${feedType}/2`);
+        const { container } = renderApp(`/${feedType}/2`);
 
-        expect(await screen.findByText(feedType, { selector: 'strong' })).toBeInTheDocument();
-        expect(screen.getByText(/page 2/)).toBeInTheDocument();
+        expect(await screen.findByText('Hello HN')).toBeInTheDocument();
+        expect(api.fetchFeed).toHaveBeenCalledWith(feedType, 2, expect.anything());
+        expect(container.querySelector('.app-feed ol')).toHaveAttribute('start', '31');
     });
 
     it('lazy-loads the item and user routes', async () => {

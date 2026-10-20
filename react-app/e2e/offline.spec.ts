@@ -12,12 +12,6 @@ const FEED_URL = urls.feed('news', 1);
 
 test('app shell, deep links and visited API responses work offline', async ({ context, page }) => {
     await mockHnApi(context, { latencyMs: API_LATENCY_MS });
-    // Stand-in for FeedList until the feature lands: request the feed as the page boots, i.e. before the SW
-    // controls it, which is exactly the first-visit case registerSW's cache warm-up handles.
-    await page.addInitScript((url) => {
-        if (location.pathname === '/news/1' && !navigator.serviceWorker.controller) void fetch(url);
-    }, FEED_URL);
-
     await page.goto('/news/1');
     await expect(page.getByTestId('feed-list')).toBeVisible();
     await waitForServiceWorkerControl(page);
@@ -64,8 +58,7 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     await expect(page.goto('/missing-file.png')).rejects.toThrow();
 });
 
-// TODO(MBA-3267 integration wave): remove test.fixme once FeedList/ItemDetails are merged.
-test.fixme('visited feed and item render offline from the cache (real components)', async ({ context, page }) => {
+test('visited feed and item render offline from the cache (real components)', async ({ context, page }) => {
     await mockHnApi(context, { latencyMs: API_LATENCY_MS });
     await page.goto('/news/1');
     await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();

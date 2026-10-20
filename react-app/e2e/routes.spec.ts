@@ -43,9 +43,8 @@ test.describe('routes (component roots)', () => {
     });
 });
 
-// TODO(MBA-3267 integration wave): remove test.fixme once the Wave 2 feature components are merged.
 test.describe('routes (real components)', () => {
-    test.fixme('feed lists 30 stories with title, domain and More link', async ({ page }) => {
+    test('feed lists 30 stories with title, domain and More link', async ({ page }) => {
         await page.goto('/news/1');
         await expect(page.locator('.post')).toHaveCount(30);
         await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();
@@ -55,7 +54,7 @@ test.describe('routes (real components)', () => {
         await expect(page.locator('.post')).toHaveCount(30);
     });
 
-    test.fixme('header logo and nav links switch feeds', async ({ page }) => {
+    test('header logo and nav links switch feeds', async ({ page }) => {
         await page.goto('/news/1');
         for (const [label, feed] of [
             ['new', 'newest'],
@@ -71,7 +70,7 @@ test.describe('routes (real components)', () => {
         await expect(page).toHaveURL(/\/news\/1$/);
     });
 
-    test.fixme('item page shows the story and its comment tree', async ({ page }) => {
+    test('item page shows the story and its comment tree', async ({ page }) => {
         await page.goto(`/item/${item.id}`);
         await expect(page.locator('.item')).toBeVisible();
         await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();
@@ -79,12 +78,12 @@ test.describe('routes (real components)', () => {
         await expect(page.locator('.comment-list')).toContainText(item.comments[0].user);
     });
 
-    test.fixme('unknown item shows the Angular error message', async ({ page }) => {
+    test('unknown item shows the Angular error message', async ({ page }) => {
         await page.goto('/item/1');
         await expect(page.getByRole('alert')).toContainText('Could not load item comments.');
     });
 
-    test.fixme('user page shows id, karma, created and about', async ({ page }) => {
+    test('user page shows id, karma, created and about', async ({ page }) => {
         await page.goto(`/user/${user.id}`);
         await expect(page.locator('.profile')).toBeVisible();
         await expect(page.locator('.main-details .name')).toHaveText(user.id);
@@ -93,12 +92,12 @@ test.describe('routes (real components)', () => {
         await expect(page.locator('.profile')).toContainText('Fixture about text');
     });
 
-    test.fixme('unknown user shows the Angular error message', async ({ page }) => {
+    test('unknown user shows the Angular error message', async ({ page }) => {
         await page.goto('/user/nobody-here');
         await expect(page.getByRole('alert')).toContainText('Could not load user nobody-here.');
     });
 
-    test.fixme('footer links to the GitHub project', async ({ page }) => {
+    test('footer links to the GitHub project', async ({ page }) => {
         await page.goto('/news/1');
         await expect(page.locator('#footer a')).toHaveAttribute('href', 'https://github.com/hdjirdeh/angular2-hn');
     });

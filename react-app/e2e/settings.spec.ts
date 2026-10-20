@@ -30,9 +30,8 @@ test.describe('settings persistence (SettingsProvider)', () => {
     });
 });
 
-// TODO(MBA-3267 integration wave): remove test.fixme once the Shell (Header/Settings) components are merged.
 test.describe('settings popup (real components)', () => {
-    test.fixme('switching the theme in the popup persists across reloads', async ({ page }) => {
+    test('switching the theme in the popup persists across reloads', async ({ page }) => {
         await page.goto('/news/1');
         await page.locator('img.settings').click();
         const dialog = page.locator('#popup1');

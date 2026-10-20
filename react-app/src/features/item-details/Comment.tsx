@@ -43,8 +43,8 @@ export function Comment({ comment }: CommentProps) {
                     onKeyDown={onKeyDown}
                 >
                     [{collapse ? '+' : '-'}]
-                </span>{' '}
-                <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>{' '}
+                </span>
+                <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
                 <span className="time">{comment.time_ago}</span>
             </div>
             <div className="comment-tree">

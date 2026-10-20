@@ -21,7 +21,7 @@ describe('Comment', () => {
 
         const meta = container.querySelector('.meta')!;
         expect(meta).not.toHaveClass('meta-collapse');
-        expect(meta).toHaveTextContent('[-] alice 2 hours ago');
+        expect(meta).toHaveTextContent('[-]alice2 hours ago');
         expect(screen.getByRole('link', { name: 'alice' })).toHaveAttribute('href', '/user/alice');
         expect(container.querySelector('.time')).toHaveTextContent('2 hours ago');
 

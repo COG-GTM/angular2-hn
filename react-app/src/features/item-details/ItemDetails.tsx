@@ -70,7 +70,7 @@ function ItemView({ item }: { item: Story }) {
                         aria-label="Back"
                         onClick={goBack}
                         onKeyDown={onBackKeyDown}
-                    ></span>{' '}
+                    ></span>
                     {titleLink}
                 </p>
             </div>

@@ -69,7 +69,7 @@ Built in theme engine! Current themes: Default, Night, Black (AMOLED). The app f
  - `npm test` to run the Vitest suite, `npm run lint` for ESLint
 
 The API base URL defaults to `https://node-hnapi.herokuapp.com` and can be overridden with
-`VITE_HN_API_BASE_URL`.
+`VITE_HN_API_BASE_URL`. User profiles come from `https://api.hnpwa.com/v0` (node-hnapi no longer serves `/user/:id`); override with `VITE_HN_USER_API_BASE_URL`.
 
 ## Contributors
 

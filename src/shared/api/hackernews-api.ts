@@ -6,6 +6,11 @@ import type { FeedType, PollResult, Story, User } from '../models';
  * which TanStack Query passes in automatically when a query is cancelled.
  */
 export const HN_API_BASE_URL = import.meta.env.VITE_HN_API_BASE_URL ?? 'https://node-hnapi.herokuapp.com';
+/**
+ * node-hnapi no longer serves `/user/:id` (404 for every user), so profiles come from the
+ * HNPWA API, which returns the same `User` shape (`id`, `created_time`, `created`, `karma`, `about`).
+ */
+export const HN_USER_API_BASE_URL = import.meta.env.VITE_HN_USER_API_BASE_URL ?? 'https://api.hnpwa.com/v0';
 
 export class HttpError extends Error {
     constructor(
@@ -17,8 +22,8 @@ export class HttpError extends Error {
     }
 }
 
-async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
-    const url = `${HN_API_BASE_URL}${path}`;
+async function fetchJson<T>(path: string, signal?: AbortSignal, baseUrl = HN_API_BASE_URL): Promise<T> {
+    const url = `${baseUrl}${path}`;
     const res = await fetch(url, { signal });
     if (!res.ok) {
         throw new HttpError(res.status, url);
@@ -66,5 +71,5 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
 }
 
 export function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
-    return fetchJson<User>(`/user/${encodeURIComponent(id)}`, signal);
+    return fetchJson<User>(`/user/${encodeURIComponent(id)}.json`, signal, HN_USER_API_BASE_URL);
 }

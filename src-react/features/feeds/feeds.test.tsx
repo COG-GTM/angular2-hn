@@ -247,6 +247,11 @@ describe('FeedItem', () => {
         expect(container.querySelector('.feed-item > div')).toHaveStyle({ marginBottom: '0px' });
     });
 
+    it('links relative urls that merely start with "http" to /item/:id', () => {
+        renderWithProviders(<FeedItem item={story(42, { url: 'http-example', domain: undefined })} />);
+        expect(screen.getByRole('link', { name: 'Story 42' })).toHaveAttribute('href', '/item/42');
+    });
+
     it('does not render unsafe external urls as hrefs', () => {
         renderWithProviders(<FeedItem item={story(4, { url: 'http\u0000javascript:alert(1)' })} />);
         expect(screen.getByRole('link', { name: 'Story 4' }).getAttribute('href')).not.toMatch(/javascript/);

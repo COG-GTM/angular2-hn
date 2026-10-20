@@ -12,7 +12,7 @@ export interface FeedItemProps {
 /** Port of Angular `ItemComponent` (`<item class="item-block">`): one row of the feed list. */
 export function FeedItem({ item }: FeedItemProps) {
     const { settings } = useSettings();
-    const hasUrl = typeof item.url === 'string' && item.url.indexOf('http') === 0 && isSafeHref(item.url);
+    const hasUrl = typeof item.url === 'string' && /^https?:\/\//i.test(item.url) && isSafeHref(item.url);
     const isJob = item.type === 'job';
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
     const comments = commentLabel(item.comments_count);

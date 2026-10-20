@@ -78,7 +78,7 @@ export function isSafeHref(rawHref: string): boolean {
 
 /** HN-relative links (`item?id=1`, `/user?id=pg`) would resolve against the app's URL; point them at HN. */
 function absoluteHref(href: string): string {
-    if (/^[a-z][a-z0-9+.-]*:/i.test(href.trim())) return href;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(href.trim()) || href.trim().startsWith('#')) return href;
     return new URL(href, URL_BASE).href;
 }
 

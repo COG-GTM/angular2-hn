@@ -92,6 +92,10 @@ describe('sanitizeHtml', () => {
         expect(sanitizeHtml('<a href="/user?id=pg">u</a>')).toContain('href="https://news.ycombinator.com/user?id=pg"');
     });
 
+    it('keeps fragment-only links on the current page', () => {
+        expect(sanitizeHtml('<a href="#123">c</a>')).toBe('<a href="#123" rel="nofollow noopener noreferrer">c</a>');
+    });
+
     it('removes comments', () => {
         expect(sanitizeHtml('a<!-- x -->b')).toBe('ab');
     });

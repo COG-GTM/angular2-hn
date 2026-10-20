@@ -1,18 +1,52 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import type { Comment as CommentModel } from '../shared/models';
 import './Comment.scss';
+import { sanitizeHtml } from './sanitize-html';
 
 interface CommentProps {
     comment: CommentModel;
 }
 
 /**
- * Foundation placeholder for the recursive comment (former `<app-comment>`).
- * Track B replaces this with the ported `CommentComponent`, rendering itself for `comment.comments`.
+ * Port of the recursive `CommentComponent` (`<app-comment>`): meta line with a
+ * collapse toggle, the HTML comment body and the nested sub-tree rendered via itself.
  */
 export function Comment({ comment }: CommentProps) {
+    const [collapse, setCollapse] = useState(false);
+
+    if (comment.deleted) {
+        return (
+            <div className="app-comment">
+                <div className="deleted-meta">
+                    <span className="collapse">[deleted]</span> | Comment Deleted
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="app-comment">
-            <div className="meta">{comment.user}</div>
+            <div className={collapse ? 'meta meta-collapse' : 'meta'}>
+                <span className="collapse" onClick={() => setCollapse((value) => !value)}>
+                    [{collapse ? '+' : '-'}]
+                </span>
+                <Link to={`/user/${comment.user}`}>{comment.user}</Link>
+                <span className="time">{comment.time_ago}</span>
+            </div>
+            <div className="comment-tree">
+                <div hidden={collapse}>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
+                    <ul className="subtree">
+                        {comment.comments.map((subComment) => (
+                            <li key={subComment.id}>
+                                <Comment comment={subComment} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 }

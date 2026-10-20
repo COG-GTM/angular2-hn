@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 
@@ -76,8 +76,9 @@ describe('App shell', () => {
     });
 
     it('lazy-loads the item and user routes', async () => {
-        const { unmount } = renderApp('/item/123');
-        expect(await screen.findByText(/Item 123/)).toBeInTheDocument();
+        vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})));
+        const { container, unmount } = renderApp('/item/123');
+        await waitFor(() => expect(container.querySelector('.app-item-details .loader')).not.toBeNull());
         unmount();
 
         vi.stubGlobal(

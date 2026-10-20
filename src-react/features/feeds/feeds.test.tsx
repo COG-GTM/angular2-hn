@@ -252,6 +252,11 @@ describe('FeedItem', () => {
         expect(screen.getByRole('link', { name: 'Story 42' })).toHaveAttribute('href', '/item/42');
     });
 
+    it('treats absolute http urls without a double slash as external', () => {
+        renderWithProviders(<FeedItem item={story(43, { url: 'http:/example.com/article' })} />);
+        expect(screen.getByRole('link', { name: 'Story 43' })).toHaveAttribute('href', 'http:/example.com/article');
+    });
+
     it('does not render unsafe external urls as hrefs', () => {
         renderWithProviders(<FeedItem item={story(4, { url: 'http\u0000javascript:alert(1)' })} />);
         expect(screen.getByRole('link', { name: 'Story 4' }).getAttribute('href')).not.toMatch(/javascript/);

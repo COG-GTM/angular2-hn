@@ -9,10 +9,21 @@ export interface FeedItemProps {
     item: Story;
 }
 
+/** Angular's `url.indexOf('http') === 0`, tightened to absolute http(s) URLs that the sanitizer also accepts. */
+function isExternalHttpUrl(url: string | undefined): url is string {
+    if (typeof url !== 'string' || url.indexOf('http') !== 0) return false;
+    try {
+        const { protocol } = new URL(url);
+        return (protocol === 'http:' || protocol === 'https:') && isSafeHref(url);
+    } catch {
+        return false;
+    }
+}
+
 /** Port of Angular `ItemComponent` (`<item class="item-block">`): one row of the feed list. */
 export function FeedItem({ item }: FeedItemProps) {
     const { settings } = useSettings();
-    const hasUrl = typeof item.url === 'string' && /^https?:\/\//i.test(item.url) && isSafeHref(item.url);
+    const hasUrl = isExternalHttpUrl(item.url);
     const isJob = item.type === 'job';
     const titleStyle = { fontSize: `${settings.titleFontSize}px` };
     const comments = commentLabel(item.comments_count);

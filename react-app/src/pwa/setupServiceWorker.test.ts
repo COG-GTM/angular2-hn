@@ -196,4 +196,22 @@ describe('warmRuntimeCache', () => {
             { status: 'rejected', reason: expect.any(TypeError) },
         ]);
     });
+
+    it('retries URLs whose warm-up failed or returned a non-OK response', async () => {
+        const USER = 'https://api.hnpwa.com/v0/user/pg.json';
+        const fetchMock = vi
+            .fn<typeof fetch>()
+            .mockRejectedValueOnce(new TypeError('offline'))
+            .mockResolvedValueOnce(new Response('', { status: 503 }))
+            .mockResolvedValue(new Response('{}'));
+        const warmed = new Set<string>();
+
+        await warmRuntimeCache([entry(FEED), entry(USER)], fetchMock, warmed);
+        expect(warmed.size).toBe(0);
+        await warmRuntimeCache([entry(FEED), entry(USER)], fetchMock, warmed);
+        await warmRuntimeCache([entry(FEED), entry(USER)], fetchMock, warmed);
+
+        expect(fetchMock.mock.calls.map(([url]) => url)).toEqual([FEED, USER, FEED, USER]);
+        expect([...warmed]).toEqual([FEED, USER]);
+    });
 });

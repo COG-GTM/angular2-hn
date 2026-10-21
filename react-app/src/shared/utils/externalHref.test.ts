@@ -6,6 +6,7 @@ describe('externalHref', () => {
     it('returns http(s) URLs unchanged (Angular binds item.url as-is)', () => {
         expect(externalHref('https://example.com/a?b=1')).toBe('https://example.com/a?b=1');
         expect(externalHref('http://example.com')).toBe('http://example.com');
+        expect(externalHref('httpS://example.com/a')).toBe('httpS://example.com/a');
     });
 
     it.each([
@@ -13,6 +14,8 @@ describe('externalHref', () => {
         ['javascript: URL', 'javascript:alert(1)'],
         ['data: URL', 'data:text/html,hi'],
         ['"http" prefix that is not a URL', 'httpfoo'],
+        ['scheme-only https URL', 'https:example.com'],
+        ['scheme-only http URL with one slash', 'http:/example.com'],
         ['empty string', ''],
         ['undefined', undefined],
     ])('returns null for %s', (_, url) => {

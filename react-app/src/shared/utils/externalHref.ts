@@ -6,7 +6,7 @@ import { isSafeHref } from './sanitizeHtml';
  * Scheme-only forms like `https:example.com` are rejected: `new URL` accepts them, but as an href the browser resolves
  * them relative to the page.
  */
-const ABSOLUTE_HTTP = /^https?:\/\//;
+const ABSOLUTE_HTTP = /^http[sS]?:\/\//;
 
 export function externalHref(url: string | null | undefined): string | null {
     if (typeof url !== 'string' || !ABSOLUTE_HTTP.test(url) || !isSafeHref(url)) return null;

@@ -6,6 +6,7 @@ describe('externalHref', () => {
     it('returns http(s) URLs unchanged (Angular binds item.url as-is)', () => {
         expect(externalHref('https://example.com/a?b=1')).toBe('https://example.com/a?b=1');
         expect(externalHref('http://example.com')).toBe('http://example.com');
+        expect(externalHref('httpS://example.com/a')).toBe('httpS://example.com/a');
     });
 
     it.each([

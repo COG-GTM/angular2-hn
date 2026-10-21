@@ -1,0 +1,26 @@
+import { describe, expect, it } from 'vitest';
+
+import { externalHref } from './externalHref';
+
+describe('externalHref', () => {
+    it('returns http(s) URLs unchanged (Angular binds item.url as-is)', () => {
+        expect(externalHref('https://example.com/a?b=1')).toBe('https://example.com/a?b=1');
+        expect(externalHref('http://example.com')).toBe('http://example.com');
+    });
+
+    it.each([
+        ['HN-relative Ask/Show URL', 'item?id=123'],
+        ['javascript: URL', 'javascript:alert(1)'],
+        ['data: URL', 'data:text/html,hi'],
+        ['"http" prefix that is not a URL', 'httpfoo'],
+        ['empty string', ''],
+        ['undefined', undefined],
+    ])('returns null for %s', (_, url) => {
+        expect(externalHref(url)).toBeNull();
+    });
+
+    it('rejects values that start with "http" but are not http(s) URLs', () => {
+        expect(externalHref('httpjavascript:alert(1)')).toBeNull();
+        expect(externalHref('https')).toBeNull();
+    });
+});

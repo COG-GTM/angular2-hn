@@ -85,6 +85,25 @@ describe('UserPage', () => {
     expect(container.querySelector('.profile')).not.toBeInTheDocument();
   });
 
+  it('shows the loader, not the old profile, when returning to a user mid-navigation', async () => {
+    mockedFetchUser.mockResolvedValueOnce(pg).mockReturnValue(new Promise(() => {}));
+    const { container, router } = renderUser();
+    await screen.findByText('Profile: pg');
+    await router.navigate('/user/dang');
+    await waitFor(() => expect(mockedFetchUser).toHaveBeenCalledTimes(2));
+    await router.navigate('/user/pg');
+    await waitFor(() => expect(mockedFetchUser).toHaveBeenCalledTimes(3));
+    expect(container.querySelector('.loading-section')).toBeInTheDocument();
+    expect(container.querySelector('.profile')).not.toBeInTheDocument();
+  });
+
+  it('sanitizes the about HTML like Angular [innerHTML]', async () => {
+    mockedFetchUser.mockResolvedValue({ ...pg, about: '<img src=x onerror="alert(1)"><a href="javascript:alert(2)">x</a>' });
+    const { container } = renderUser();
+    await screen.findByText('Profile: pg');
+    expect(container.querySelector('.other-details p')!.innerHTML).toBe('<a>x</a>');
+  });
+
   it('aborts the request on unmount and does not show an error', () => {
     mockedFetchUser.mockReturnValue(new Promise(() => {}));
     const { unmount } = renderUser();

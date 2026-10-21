@@ -5,6 +5,7 @@ import { fetchUser } from '../../api/hackernews';
 import ErrorMessage from '../../components/shared/ErrorMessage';
 import Loader from '../../components/shared/Loader';
 import type { User } from '../../models';
+import { sanitizeHtml } from './sanitizeHtml';
 import './UserPage.scss';
 
 type UserState = { id: string; user: User | null; errorMessage: string };
@@ -13,12 +14,19 @@ type UserState = { id: string; user: User | null; errorMessage: string };
 export default function UserPage() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const [state, setState] = useState<UserState | null>(null);
+  const [state, setState] = useState<UserState>({ id, user: null, errorMessage: '' });
+  if (state.id !== id) {
+    setState({ id, user: null, errorMessage: '' });
+  }
 
   useEffect(() => {
     const controller = new AbortController();
     fetchUser(id, controller.signal).then(
-      (user) => setState({ id, user, errorMessage: '' }),
+      (user) => {
+        if (!controller.signal.aborted) {
+          setState({ id, user, errorMessage: '' });
+        }
+      },
       () => {
         if (!controller.signal.aborted) {
           setState({ id, user: null, errorMessage: `Could not load user ${id}.` });
@@ -28,9 +36,7 @@ export default function UserPage() {
     return () => controller.abort();
   }, [id]);
 
-  const current = state?.id === id ? state : null;
-  const user = current?.user ?? null;
-  const errorMessage = current?.errorMessage ?? '';
+  const { user, errorMessage } = state;
 
   return (
     <div className="app-user">
@@ -52,7 +58,7 @@ export default function UserPage() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
             </div>
           )}
         </div>

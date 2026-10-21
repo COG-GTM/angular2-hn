@@ -15,10 +15,9 @@ function isTheme(value: string | null): value is Theme {
 
 function initialSettings(): Settings {
   const savedTheme = localStorage.getItem(STORAGE_KEYS.theme);
-  const openLinkInNewTab = localStorage.getItem(STORAGE_KEYS.openLinkInNewTab);
   return {
     showSettings: false,
-    openLinkInNewTab: openLinkInNewTab ? JSON.parse(openLinkInNewTab) === true : false,
+    openLinkInNewTab: localStorage.getItem(STORAGE_KEYS.openLinkInNewTab) === 'true',
     theme: isTheme(savedTheme) ? savedTheme : darkSchemeMedia()?.matches ? 'night' : 'default',
     titleFontSize: localStorage.getItem(STORAGE_KEYS.titleFontSize) || '16',
     listSpacing: localStorage.getItem(STORAGE_KEYS.listSpacing) || '0',

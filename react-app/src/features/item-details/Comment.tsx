@@ -1,10 +1,59 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router';
+
 import type { Comment as CommentModel } from '../../shared/models';
+import { sanitizeHtml } from '../../shared/utils';
+import { onButtonKeyDown } from './buttonKeys';
+import './Comment.scss';
 
 export interface CommentProps {
     comment: CommentModel;
 }
 
-/** Placeholder — Item-details child ports Angular `item-details/comment` (recursive tree). */
+/** Port of Angular `app-comment` (item-details/comment): recursive tree with a `[-]`/`[+]` collapse toggle. */
 export function Comment({ comment }: CommentProps) {
-    return <div data-testid="comment">Comment placeholder: {comment.user}</div>;
+    const [collapse, setCollapse] = useState(false);
+    const toggle = () => setCollapse((value) => !value);
+
+    if (comment.deleted) {
+        return (
+            <div className="app-comment">
+                <div className="deleted-meta">
+                    <span className="collapse">[deleted]</span> | Comment Deleted
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="app-comment">
+            <div className={collapse ? 'meta meta-collapse' : 'meta'}>
+                <span
+                    className="collapse"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={!collapse}
+                    aria-label={`${collapse ? 'Expand' : 'Collapse'} comment by ${comment.user}`}
+                    onClick={toggle}
+                    onKeyDown={onButtonKeyDown(toggle)}
+                >
+                    [{collapse ? '+' : '-'}]
+                </span>
+                <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
+                <span className="time">{comment.time_ago}</span>
+            </div>
+            <div className="comment-tree">
+                <div hidden={collapse}>
+                    <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
+                    <ul className="subtree">
+                        {(comment.comments ?? []).map((subComment) => (
+                            <li key={subComment.id}>
+                                <Comment comment={subComment} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
 }

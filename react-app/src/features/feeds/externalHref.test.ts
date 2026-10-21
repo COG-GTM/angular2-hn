@@ -14,6 +14,8 @@ describe('externalHref', () => {
         ['data: URL', 'data:text/html,hi'],
         ['protocol-relative URL', '//evil.example'],
         ['"http" prefix that is not a URL', 'httpfoo'],
+        ['scheme-only https URL', 'https:example.com'],
+        ['scheme-only http URL with one slash', 'http:/example.com'],
         ['empty string', ''],
         ['undefined', undefined],
     ])('returns null for %s', (_, url) => {

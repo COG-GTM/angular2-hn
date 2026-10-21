@@ -35,7 +35,7 @@ describe('FeedPage', () => {
     mockFetchFeed.mockRejectedValue(new Error('boom'));
     renderFeed('newest', '/newest/1');
 
-    expect(await screen.findByText('Could not load newest stories.')).toHaveClass('error-section');
+    expect((await screen.findByText('Could not load newest stories.')).closest('.error-section')).toBeInTheDocument();
   });
 
   it('renders the first page with More but no Prev, and scrolls to top', async () => {

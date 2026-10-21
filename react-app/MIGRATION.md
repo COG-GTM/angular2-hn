@@ -17,6 +17,7 @@ npm run typecheck && npm run lint && npx vitest run && npm run build
 | `src/api/hackernews.ts` | `shared/services/hackernews-api.service.ts` | foundation |
 | `src/settings/` | `shared/services/settings.service.ts` | foundation |
 | `src/lib/formatCommentCount.ts` | `shared/pipes/comment.pipe.ts` | foundation |
+| `src/lib/sanitizeHtml.ts` | Angular `DomSanitizer` behind `[innerHTML]` | foundation |
 | `src/routes.tsx`, `src/App.tsx`, `src/styles/` | `app.routes.ts`, `app.component.*`, `styles.scss`, `shared/scss/` | foundation |
 | `src/features/feeds/` | `feeds/` | feeds |
 | `src/features/item-details/` | `item-details/` (incl. `comment/`) | item-details |
@@ -43,6 +44,9 @@ useSettings(): {
 }
 
 formatCommentCount(n): 'discuss' | '1 comment' | `${n} comments`
+
+// Always wrap API HTML (comment/story/poll content, user about): DOMPurify, like Angular's [innerHTML]
+sanitizeHtml(html?: string | null): { __html: string }  // <p dangerouslySetInnerHTML={sanitizeHtml(c.content)} />
 ```
 
 Routes: `/` → `/news/1`, `/:feedType/:page` for `FEED_TYPES` (`FeedPage` is keyed by feed type), and lazy `/item/:id` and `/user/:id`.

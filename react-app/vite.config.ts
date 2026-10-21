@@ -23,7 +23,7 @@ export default defineConfig({
         start_url: './?utm_source=web_app_manifest',
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html}', 'favicon.ico'],
+        globPatterns: ['**/*.{js,css,html,webmanifest}', 'favicon.ico'],
         navigateFallback: 'index.html',
         runtimeCaching: [
           {

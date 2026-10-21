@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { fetchUser } from '../../api/hackernews';
 import ErrorMessage from '../../components/shared/ErrorMessage';
 import Loader from '../../components/shared/Loader';
+import { sanitizeHtml } from '../../lib/sanitizeHtml';
 import type { User } from '../../models';
-import { sanitizeHtml } from './sanitizeHtml';
 import './UserPage.scss';
 
 type UserState = { id: string; user: User | null; errorMessage: string };
@@ -58,7 +58,7 @@ export default function UserPage() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
+              <p dangerouslySetInnerHTML={sanitizeHtml(user.about)}></p>
             </div>
           )}
         </div>

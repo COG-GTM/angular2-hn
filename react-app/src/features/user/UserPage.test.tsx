@@ -97,11 +97,18 @@ describe('UserPage', () => {
     expect(container.querySelector('.profile')).not.toBeInTheDocument();
   });
 
-  it('sanitizes the about HTML like Angular [innerHTML]', async () => {
-    mockedFetchUser.mockResolvedValue({ ...pg, about: '<img src=x onerror="alert(1)"><a href="javascript:alert(2)">x</a>' });
+  it('strips <script> and onerror from the about HTML', async () => {
+    mockedFetchUser.mockResolvedValue({
+      ...pg,
+      about: '<p>hi <a href="https://e.com">site</a></p><script>alert(1)</script><img src="x" onerror="alert(2)">',
+    });
     const { container } = renderUser();
     await screen.findByText('Profile: pg');
-    expect(container.querySelector('.other-details p')!.innerHTML).toBe('<img src="x"><a>x</a>');
+    const about = container.querySelector('.other-details')!;
+    expect(about.querySelector('script')).toBeNull();
+    expect(about.querySelector('[onerror]')).toBeNull();
+    expect(about.querySelector('img')).toHaveAttribute('src', 'x');
+    expect(screen.getByRole('link', { name: 'site' })).toHaveAttribute('href', 'https://e.com');
   });
 
   it('aborts the request on unmount and does not show an error', () => {

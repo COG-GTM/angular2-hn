@@ -21,5 +21,10 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
+  },
+  {
+    // Route tables and test helpers are never Fast Refresh boundaries.
+    files: ['src/routes.tsx', 'src/test/**', '**/*.test.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   }
 );

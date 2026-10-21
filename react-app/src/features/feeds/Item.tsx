@@ -16,19 +16,14 @@ export default function Item({ item }: ItemProps) {
   const isJob = item.type === 'job';
   const titleStyle = { fontSize: `${settings.titleFontSize}px` };
   const commentCount = formatCommentCount(item.comments_count);
+  const newTab = settings.openLinkInNewTab ? { target: '_blank', rel: 'noopener' } : {};
 
   return (
     <div className="item-block">
       <div style={{ marginBottom: `${settings.listSpacing}px` }}>
         {hasUrl ? (
           <p>
-            <a
-              className="title"
-              style={titleStyle}
-              href={item.url}
-              target={settings.openLinkInNewTab ? '_blank' : undefined}
-              rel={settings.openLinkInNewTab ? 'noopener' : undefined}
-            >
+            <a className="title" style={titleStyle} href={item.url} {...newTab}>
               {item.title}
             </a>{' '}
             {item.domain && <span className="domain">({item.domain})</span>}

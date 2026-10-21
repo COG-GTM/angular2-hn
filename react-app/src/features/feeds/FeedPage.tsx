@@ -31,9 +31,8 @@ export default function FeedPage({ feedType }: FeedPageProps) {
         window.scrollTo(0, 0);
       },
       () => {
-        if (!controller.signal.aborted) {
-          setResult({ page, error: `Could not load ${feedType} stories.` });
-        }
+        if (controller.signal.aborted) return;
+        setResult({ page, error: `Could not load ${feedType} stories.` });
       }
     );
     return () => controller.abort();

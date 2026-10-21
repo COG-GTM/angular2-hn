@@ -10,7 +10,7 @@ describe('sanitizeHtml', () => {
 
   it('drops scripts, styles and event handlers', () => {
     expect(sanitizeHtml('<img src=x onerror="alert(1)"><script>alert(2)</script><style>p{}</style><p onclick="x()">ok</p>')).toBe(
-      '<p>ok</p>'
+      '<img src="x"><p>ok</p>'
     );
   });
 
@@ -18,6 +18,11 @@ describe('sanitizeHtml', () => {
     expect(sanitizeHtml('<a href="javascript:alert(1)">a</a><a href=" JaVaScRiPt:alert(1)">b</a>')).toBe('<a>a</a><a>b</a>');
     expect(sanitizeHtml('<a href="java&#09;script:alert(1)">c</a>')).toBe('<a>c</a>');
     expect(sanitizeHtml('<a href="/user/pg">d</a>')).toBe('<a href="/user/pg">d</a>');
+  });
+
+  it('keeps images with safe src, like Angular', () => {
+    expect(sanitizeHtml('<img src="https://e.com/l.png" alt="logo" width="10">')).toBe('<img src="https://e.com/l.png" alt="logo" width="10">');
+    expect(sanitizeHtml('<img src="javascript:alert(1)" alt="x">')).toBe('<img alt="x">');
   });
 
   it('unwraps unknown elements but keeps their text', () => {

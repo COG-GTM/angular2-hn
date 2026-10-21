@@ -101,7 +101,7 @@ describe('UserPage', () => {
     mockedFetchUser.mockResolvedValue({ ...pg, about: '<img src=x onerror="alert(1)"><a href="javascript:alert(2)">x</a>' });
     const { container } = renderUser();
     await screen.findByText('Profile: pg');
-    expect(container.querySelector('.other-details p')!.innerHTML).toBe('<a>x</a>');
+    expect(container.querySelector('.other-details p')!.innerHTML).toBe('<img src="x"><a>x</a>');
   });
 
   it('aborts the request on unmount and does not show an error', () => {

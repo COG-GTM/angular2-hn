@@ -1,14 +1,15 @@
 const ALLOWED_TAGS = new Set(
-  'A ABBR B BLOCKQUOTE BR CITE CODE DEL DIV EM H1 H2 H3 H4 H5 H6 HR I LI OL P PRE Q S SMALL SPAN STRONG SUB SUP U UL'.split(' ')
+  'A ABBR B BLOCKQUOTE BR CITE CODE DEL DIV EM H1 H2 H3 H4 H5 H6 HR I IMG LI OL P PRE Q S SMALL SPAN STRONG SUB SUP U UL'.split(' ')
 );
 const DROPPED_TAGS = new Set('SCRIPT STYLE TEMPLATE NOSCRIPT IFRAME OBJECT EMBED SVG MATH TITLE'.split(' '));
-const ALLOWED_ATTRS = new Set(['href', 'title', 'rel']);
+const ALLOWED_ATTRS = new Set(['href', 'src', 'alt', 'width', 'height', 'title', 'rel']);
+const URL_ATTRS = new Set(['href', 'src']);
 /** Angular's SAFE_URL_PATTERN. */
 const SAFE_URL = /^(?!javascript:)(?:[a-z0-9+.-]+:|[^&:/?#]*(?:[/?#]|$))/i;
 
 /**
  * Allowlist sanitizer standing in for the DomSanitizer that Angular applied to `[innerHTML]`:
- * drops scripts, event handlers, unknown attributes and unsafe URLs, and unwraps unknown tags.
+ * drops scripts, event handlers, unknown attributes and unsafe href/src URLs, and unwraps unknown tags.
  */
 export function sanitizeHtml(html: string): string {
   const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -35,7 +36,7 @@ function cleanChildren(parent: Element) {
     }
     for (const { name, value } of Array.from(node.attributes)) {
       const attr = name.toLowerCase();
-      if (!ALLOWED_ATTRS.has(attr) || (attr === 'href' && !SAFE_URL.test(value.trim()))) {
+      if (!ALLOWED_ATTRS.has(attr) || (URL_ATTRS.has(attr) && !SAFE_URL.test(value.trim()))) {
         node.removeAttribute(name);
       }
     }

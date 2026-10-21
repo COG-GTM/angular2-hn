@@ -31,7 +31,7 @@ export const storyDetail = story(STORY_ID, {
   title: 'A story with comments',
   comments: [
     comment(2001, 'dang', '<p>Top-level comment</p>', [comment(2002, 'tptacek', '<p>Nested reply</p>')]),
-    comment(2003, 'patio11', '<p>Second thread <img src="x" onerror="window.__xss=1"></p>'),
+    comment(2003, 'patio11', '<p>Second thread <a href="https://example.com/ref">ref</a> <img src="x" onerror="window.__xss=1"></p>'),
   ],
 });
 

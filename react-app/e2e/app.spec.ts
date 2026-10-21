@@ -72,6 +72,10 @@ test.describe('item details', () => {
     await top.locator('.collapse').first().click();
     await expect(nested).toBeVisible();
 
+    const bodyLink = page.locator('.comment-text a[href="https://example.com/ref"]');
+    await expect(bodyLink).toHaveCSS('font-weight', '400');
+    await expect(page.locator('.meta').getByRole('link', { name: 'dang' })).toHaveCSS('font-weight', '700');
+
     await expect(page.locator('img[onerror]')).toHaveCount(0);
     expect(await page.evaluate(() => (window as { __xss?: number }).__xss)).toBeUndefined();
   });

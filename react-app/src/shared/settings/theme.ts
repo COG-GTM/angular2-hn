@@ -26,9 +26,13 @@ export function systemTheme(): string {
  * in `<div class="{{ settings.theme }}">`; `_themes.scss` only needs the class on *an ancestor* of
  * `.body-cover` / `.wrapper`, so `<html>` works and keeps portals/overlays themed too.
  */
+export function isTheme(value: string | null | undefined): value is string {
+    return typeof value === 'string' && (THEMES as readonly string[]).includes(value);
+}
+
 export function applyThemeClass(theme: string, root: HTMLElement = document.documentElement): void {
     for (const name of THEMES) {
         if (name !== theme) root.classList.remove(name);
     }
-    if (theme) root.classList.add(theme);
+    if (isTheme(theme)) root.classList.add(theme);
 }

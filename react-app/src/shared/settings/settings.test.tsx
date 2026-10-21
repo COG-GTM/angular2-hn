@@ -80,6 +80,18 @@ describe('SettingsProvider', () => {
         document.documentElement.classList.remove('keep-me');
     });
 
+    it('ignores a malformed stored theme and invalid setTheme values', () => {
+        mockMatchMedia(true);
+        localStorage.setItem('theme', 'night mode');
+        const { result } = renderSettings();
+        expect(result.current.settings.theme).toBe('night');
+        expect(localStorage.getItem('theme')).toBe('night');
+        act(() => result.current.setTheme('bogus theme'));
+        expect(result.current.settings.theme).toBe('night');
+        expect(localStorage.getItem('theme')).toBe('night');
+        expect(document.documentElement.classList.contains('night')).toBe(true);
+    });
+
     it('derives AND persists the first-visit theme from prefers-color-scheme (Angular parity)', () => {
         mockMatchMedia(true);
         expect(renderSettings().result.current.settings.theme).toBe('night');

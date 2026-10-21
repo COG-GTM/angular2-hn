@@ -1,4 +1,5 @@
 import { QueryClient, useQuery, type UseQueryResult } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router';
 
 import type { FeedType, Story, User } from '../models';
@@ -45,11 +46,15 @@ export function createQueryClient(): QueryClient {
 
 /**
  * Route resources are fetched per navigation, like Angular (no client cache): the key includes React
- * Router's `location.key` (new entry → new query) and `gcTime: 0` drops a query as soon as its page stops
- * using it, so Back/Forward (which restore an old `location.key`) also show the loader and refetch.
+ * Router's `location.key` plus a per-navigation counter (so Back/Forward to a restored key is a new query too,
+ * even before the old one is garbage-collected) and `gcTime: 0` drops a query once its page stops using it.
  */
+let navigationCount = 0;
+
+/** A fresh key per navigation, including Back/Forward to a restored `location.key`. */
 function useLocationKey(): string {
-    return useLocation().key;
+    const { key } = useLocation();
+    return useMemo(() => `${key}:${++navigationCount}`, [key]);
 }
 
 const PER_NAVIGATION = { gcTime: 0 } as const;

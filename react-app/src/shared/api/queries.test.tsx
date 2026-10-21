@@ -1,4 +1,4 @@
-import { act, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
@@ -95,6 +95,23 @@ describe('query hooks', () => {
         expect(screen.getByText('loading')).toBeInTheDocument();
         await act(async () => secondA.resolve({ id: 'a', karma: 3 }));
         expect(await screen.findByText('data: {"id":"a","karma":3}')).toBeInTheDocument();
+        expect(handle.callsTo(apiUrls.user('a'))).toHaveLength(2);
+    });
+
+    it('rapid Back (before the old query is garbage-collected) still refetches and shows the loader', async () => {
+        const secondA = deferred<unknown>();
+        let aCalls = 0;
+        const handle = mockFetch({
+            [apiUrls.user('a')]: () => (++aCalls === 1 ? { id: 'a' } : secondA.promise),
+            [apiUrls.user('b')]: { id: 'b' },
+        });
+        renderWithProviders(<UserProbe />, { route: '/user/a', path: '/user/:id' });
+        expect(await screen.findByText('data: {"id":"a"}')).toBeInTheDocument();
+        fireEvent.click(screen.getByText('to b'));
+        fireEvent.click(screen.getByText('back'));
+        expect(screen.getByText('loading')).toBeInTheDocument();
+        await act(async () => secondA.resolve({ id: 'a', karma: 4 }));
+        expect(await screen.findByText('data: {"id":"a","karma":4}')).toBeInTheDocument();
         expect(handle.callsTo(apiUrls.user('a'))).toHaveLength(2);
     });
 

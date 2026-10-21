@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactN
 
 import { SettingsContext, type SettingsContextValue } from './settings-context';
 import { readBoolean, readStorage, readString, STORAGE_KEYS, writeStorage } from './storage';
-import { applyThemeClass, darkSchemeMedia, DEFAULT_SETTINGS, systemTheme } from './theme';
+import { applyThemeClass, darkSchemeMedia, DEFAULT_SETTINGS, isTheme, systemTheme } from './theme';
 
 /**
  * Port of Angular's SettingsService (same localStorage keys and defaults). Theme parity: with nothing
@@ -20,9 +20,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const [listSpacing, setListSpacing] = useState(() =>
         readString(STORAGE_KEYS.listSpacing, DEFAULT_SETTINGS.listSpacing)
     );
-    const [theme, setThemeState] = useState(() => readStorage(STORAGE_KEYS.theme) || systemTheme());
+    const [theme, setThemeState] = useState(() => {
+        const stored = readStorage(STORAGE_KEYS.theme);
+        return isTheme(stored) ? stored : systemTheme();
+    });
 
     const setTheme = useCallback((next: string) => {
+        if (!isTheme(next)) return;
         setThemeState(next);
         writeStorage(STORAGE_KEYS.theme, next);
     }, []);
@@ -44,7 +48,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
     // Angular initTheme(): persist the system-derived theme on first visit (parity, intentional).
     useEffect(() => {
-        if (!readStorage(STORAGE_KEYS.theme)) writeStorage(STORAGE_KEYS.theme, theme);
+        if (!isTheme(readStorage(STORAGE_KEYS.theme))) writeStorage(STORAGE_KEYS.theme, theme);
         // Mount only.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

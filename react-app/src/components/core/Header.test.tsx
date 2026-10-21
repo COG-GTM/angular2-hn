@@ -37,12 +37,14 @@ describe('Header', () => {
     expect(screen.getByRole('link', { name: 'jobs' })).toHaveClass('active');
   });
 
-  it('toggles the settings popup with the cog', async () => {
+  it('opens settings with the cog and closes/reopens it from the keyboard', async () => {
     renderAt('/news/1');
+    await userEvent.click(screen.getByRole('button', { name: 'Settings' }));
+    screen.getByRole('button', { name: 'Close' }).focus();
+    await userEvent.keyboard(' ');
     expect(screen.queryByRole('heading', { name: 'Settings' })).not.toBeInTheDocument();
-    await userEvent.click(screen.getByAltText('Settings'));
+    screen.getByRole('button', { name: 'Settings' }).focus();
+    await userEvent.keyboard('{Enter}');
     expect(screen.getByRole('heading', { name: 'Settings' })).toBeInTheDocument();
-    await userEvent.click(screen.getByAltText('Settings'));
-    expect(screen.queryByRole('heading', { name: 'Settings' })).not.toBeInTheDocument();
   });
 });

@@ -46,7 +46,15 @@ export default function Header() {
           </div>
         </div>
         <div className="info">
-          <img className="settings" src="/assets/images/cog.svg" alt="Settings" onClick={toggleSettings} />
+          <img
+            className="settings"
+            src="/assets/images/cog.svg"
+            alt="Settings"
+            role="button"
+            tabIndex={0}
+            onClick={toggleSettings}
+            onKeyDown={(e) => ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
+          />
         </div>
       </div>
       {settings.showSettings && <Settings />}

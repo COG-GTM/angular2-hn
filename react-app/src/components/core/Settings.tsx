@@ -17,7 +17,14 @@ export default function Settings() {
       <div className="popup">
         <h1>Settings</h1>
         <hr />
-        <span className="close" onClick={toggleSettings}>
+        <span
+          className="close"
+          role="button"
+          aria-label="Close"
+          tabIndex={0}
+          onClick={toggleSettings}
+          onKeyDown={(e) => ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
+        >
           &times;
         </span>
         <div className="content">

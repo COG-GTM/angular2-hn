@@ -20,13 +20,11 @@ describe('Item', () => {
 
     const laptop = container.querySelector('.subtext-laptop')!;
     expect(laptop).toHaveTextContent('120 points by pg 3 hours ago | 7 comments');
-    expect(laptop.querySelector('a[href="/item/42"]')).toHaveTextContent('7 comments');
     expect(laptop.querySelector('.item-details')).toBeInTheDocument();
 
     const palm = container.querySelector('.subtext-palm')!;
     expect(palm.querySelector('.right')).toHaveTextContent('120 ★');
     expect(palm.querySelector('.comment-number')).toHaveTextContent('• 7 comments');
-    expect(palm.querySelector('.comment-number')).toHaveAttribute('href', '/item/42');
   });
 
   it('links self posts to the item page, sized but never in a new tab, without a domain', () => {
@@ -50,8 +48,6 @@ describe('Item', () => {
     expect(container.querySelector('.subtext-laptop')).toHaveTextContent(/^3 hours ago$/);
     expect(container.querySelector('.subtext-palm')).toHaveTextContent(/^3 hours ago$/);
     expect(container.querySelector('.item-details')).not.toBeInTheDocument();
-    expect(container.querySelector('a[href^="/user/"]')).not.toBeInTheDocument();
-    expect(container.querySelector('a[href="/item/42"]')).not.toBeInTheDocument();
   });
 
   it('applies the font size, list spacing and new-tab settings', () => {

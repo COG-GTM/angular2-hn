@@ -14,38 +14,43 @@ export interface FeedPageProps {
 
 const PAGE_SIZE = 30;
 
-type FeedResult = { page: number } & ({ items: Story[] } | { error: string });
+type FeedResult = { items: Story[] } | { error: string };
 
 /** Port of src/app/feeds/feed. */
 export default function FeedPage({ feedType }: FeedPageProps) {
   const params = useParams<{ page: string }>();
-  const page = Number(params.page) || 1;
+  const parsedPage = Number(params.page);
+  const page = Number.isSafeInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
   const [result, setResult] = useState<FeedResult | null>(null);
+  const [resultPage, setResultPage] = useState(page);
+  if (resultPage !== page) {
+    setResultPage(page);
+    setResult(null);
+  }
 
   useEffect(() => {
     const controller = new AbortController();
     fetchFeed(feedType, page, controller.signal).then(
       (items) => {
         if (controller.signal.aborted) return;
-        setResult({ page, items });
+        setResult({ items });
         window.scrollTo(0, 0);
       },
       () => {
         if (controller.signal.aborted) return;
-        setResult({ page, error: `Could not load ${feedType} stories.` });
+        setResult({ error: `Could not load ${feedType} stories.` });
       }
     );
     return () => controller.abort();
   }, [feedType, page]);
 
-  const current = result?.page === page ? result : null;
   const start = (page - 1) * PAGE_SIZE + 1;
 
   return (
     <div className="main-content">
-      {!current && <Loader />}
-      {current && 'error' in current && <ErrorMessage message={current.error} />}
-      {current && 'items' in current && (
+      {!result && <Loader />}
+      {result && 'error' in result && <ErrorMessage message={result.error} />}
+      {result && 'items' in result && (
         <div>
           {feedType === 'jobs' && (
             <p className="job-header">
@@ -54,7 +59,7 @@ export default function FeedPage({ feedType }: FeedPageProps) {
             </p>
           )}
           <ol className={feedType !== 'jobs' ? 'list-margin' : undefined} start={start}>
-            {current.items.map((item) => (
+            {result.items.map((item) => (
               <li key={item.id} className="post">
                 <Item item={item} />
               </li>
@@ -66,7 +71,7 @@ export default function FeedPage({ feedType }: FeedPageProps) {
                 ‹ Prev
               </Link>
             )}
-            {current.items.length === PAGE_SIZE && (
+            {result.items.length === PAGE_SIZE && (
               <Link to={`/${feedType}/${page + 1}`} className="more">
                 More ›
               </Link>

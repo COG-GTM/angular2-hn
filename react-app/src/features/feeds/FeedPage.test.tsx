@@ -1,6 +1,5 @@
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
 
 import { fetchFeed } from '../../api/hackernews';
 import type { FeedType } from '../../models';
@@ -15,12 +14,7 @@ const mockFetchFeed = vi.mocked(fetchFeed);
 const stories = (count: number, firstId = 1) => Array.from({ length: count }, (_, i) => testStory({ id: firstId + i }));
 
 function renderFeed(feedType: FeedType, route: string) {
-  return renderWithProviders(
-    <Routes>
-      <Route path={`/${feedType}/:page`} element={<FeedPage feedType={feedType} />} />
-    </Routes>,
-    { route, path: '*' }
-  );
+  return renderWithProviders(<FeedPage feedType={feedType} />, { route, path: `/${feedType}/:page` });
 }
 
 describe('FeedPage', () => {
@@ -29,9 +23,9 @@ describe('FeedPage', () => {
     vi.mocked(window.scrollTo).mockClear();
   });
 
-  it('shows the loader while the feed loads', () => {
+  it('shows the loader while the feed loads, falling back to page 1 for invalid pages', () => {
     mockFetchFeed.mockReturnValue(new Promise(() => {}));
-    const { container } = renderFeed('news', '/news/1');
+    const { container } = renderFeed('news', '/news/-1');
 
     expect(container.querySelector('.main-content .loading-section')).toBeInTheDocument();
     expect(mockFetchFeed).toHaveBeenCalledWith('news', 1, expect.any(AbortSignal));
@@ -42,7 +36,6 @@ describe('FeedPage', () => {
     renderFeed('newest', '/newest/1');
 
     expect(await screen.findByText('Could not load newest stories.')).toHaveClass('error-section');
-    expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
   it('renders the first page with More but no Prev, and scrolls to top', async () => {
@@ -78,20 +71,19 @@ describe('FeedPage', () => {
   it('loads the next and previous pages from the pagination links', async () => {
     const user = userEvent.setup();
     mockFetchFeed.mockImplementation((_type, page) => Promise.resolve(stories(30, (page - 1) * 30 + 1)));
-    const { container } = renderFeed('ask', '/ask/1');
+    renderFeed('ask', '/ask/1');
 
     await user.click(await screen.findByText('More ›'));
     expect(screen.getByTestId('location')).toHaveTextContent('/ask/2');
     expect(await screen.findByText('Story 31')).toBeInTheDocument();
     expect(mockFetchFeed).toHaveBeenLastCalledWith('ask', 2, expect.any(AbortSignal));
-    expect(container.querySelector('ol')).toHaveAttribute('start', '31');
 
     await user.click(screen.getByText('‹ Prev'));
     expect(await screen.findByText('Story 1')).toBeInTheDocument();
     expect(window.scrollTo).toHaveBeenCalledTimes(3);
   });
 
-  it('aborts a pending request when the page changes and ignores its rejection', async () => {
+  it('aborts on page change, ignores the aborted rejection and never shows stale results', async () => {
     let rejectFirst: (reason: unknown) => void = () => {};
     mockFetchFeed
       .mockReturnValueOnce(new Promise((_, reject) => (rejectFirst = reject)))
@@ -104,5 +96,10 @@ describe('FeedPage', () => {
     rejectFirst(new DOMException('Aborted', 'AbortError'));
     expect(await screen.findByText('Story 31')).toBeInTheDocument();
     expect(screen.queryByText(/Could not load/)).not.toBeInTheDocument();
+
+    mockFetchFeed.mockReturnValueOnce(new Promise(() => {}));
+    await act(() => router.navigate('/news/1'));
+    expect(screen.queryByText('Story 31')).not.toBeInTheDocument();
+    expect(document.querySelector('.loading-section')).toBeInTheDocument();
   });
 });

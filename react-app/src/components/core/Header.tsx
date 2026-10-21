@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import type { FeedType } from '../../models';
 import { useSettings } from '../../settings';
@@ -13,6 +13,9 @@ const NAV_FEEDS: { feedType: FeedType; label: string }[] = [
   { feedType: 'jobs', label: 'jobs' },
 ];
 
+// Like routerLinkActive, a link is active only on its exact page-1 path.
+const activeClass = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
+
 function scrollTop() {
   window.scrollTo(0, 0);
 }
@@ -20,14 +23,11 @@ function scrollTop() {
 /** Port of src/app/core/header. */
 export default function Header() {
   const { settings, toggleSettings } = useSettings();
-  const feed = useLocation().pathname.split('/')[1];
-  // Like routerLinkActive in Angular, a link is active for any page of its feed.
-  const activeFor = (feedType: FeedType) => (feed === feedType ? 'active' : '');
 
   return (
     <header>
       <div id="header">
-        <NavLink to="/news/1" className={() => `home-link ${activeFor('news')}`.trim()} onClick={scrollTop}>
+        <NavLink to="/news/1" end className={(s) => `home-link ${activeClass(s)}`.trim()} onClick={scrollTop}>
           <div className="logo-inner"></div>
           <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
         </NavLink>
@@ -37,7 +37,7 @@ export default function Header() {
               {NAV_FEEDS.map(({ feedType, label }, i) => (
                 <Fragment key={feedType}>
                   {i > 0 && ' | '}
-                  <NavLink to={`/${feedType}/1`} className={() => activeFor(feedType)} onClick={scrollTop}>
+                  <NavLink to={`/${feedType}/1`} end className={activeClass} onClick={scrollTop}>
                     {label}
                   </NavLink>
                 </Fragment>

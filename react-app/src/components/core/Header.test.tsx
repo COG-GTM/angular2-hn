@@ -16,17 +16,20 @@ describe('Header', () => {
     expect(screen.getByRole('link', { name: 'jobs' })).toHaveAttribute('href', '/jobs/1');
   });
 
-  it('marks the home link active on any news page', () => {
-    renderAt('/news/3');
+  it('marks the home link active only on /news/1', () => {
+    renderAt('/news/1');
     expect(screen.getByAltText('Logo').closest('a')).toHaveClass('home-link', 'active');
     expect(screen.getByRole('link', { name: 'new' })).not.toHaveClass('active');
   });
 
-  it('marks a feed link active on any page of its feed', () => {
-    renderAt('/show/2');
+  it('marks a feed link active only on its exact page-1 path, like routerLinkActive', () => {
+    const { unmount } = renderAt('/show/1');
     expect(screen.getByRole('link', { name: 'show' })).toHaveClass('active');
     expect(screen.getByRole('link', { name: 'ask' })).not.toHaveClass('active');
     expect(screen.getByAltText('Logo').closest('a')).not.toHaveClass('active');
+    unmount();
+    renderAt('/show/2');
+    expect(screen.getByRole('link', { name: 'show' })).not.toHaveClass('active');
   });
 
   it('navigates and scrolls to the top when a nav link is clicked', async () => {

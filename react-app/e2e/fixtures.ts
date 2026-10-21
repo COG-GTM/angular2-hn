@@ -5,7 +5,7 @@ import type { BrowserContext, Page } from '@playwright/test';
  *
  * Selectors are Angular class names kept by the React port (MIGRATION.md), never placeholder test ids:
  * - shell (this workstream): `#header`, `a.home-link`, `.header-nav a`, `img.settings`, `#popup1`, `.close`, `#footer`
- * - feature pages (other workstreams, specs marked `test.fixme` until they land): `.main-content`, `.post`,
+ * - feature pages: `.main-content`, `.post`,
  *   `.nav .more`, `.nav .prev`, `.item`, `.comment-list`, `.collapse`, `.profile`, `.main-details .name`
  */
 export const HN_API = 'https://node-hnapi.herokuapp.com';

@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
     await mockHnApi(page);
 });
 
-test.describe('routes (smoke, works with placeholder pages)', () => {
+test.describe('routes', () => {
     test('/ redirects to /news/1', async ({ page }) => {
         await page.goto('/');
         await expect(page).toHaveURL(/\/news\/1$/);
@@ -61,9 +61,8 @@ test.describe('routes (smoke, works with placeholder pages)', () => {
     });
 });
 
-// fixme until Workstreams 2 (feeds) and 3 (item-details, user) are merged into the integration branch.
 test.describe('feature pages (real components)', () => {
-    test.fixme('feed lists 30 stories and paginates with More › / ‹ Prev', async ({ page }) => {
+    test('feed lists 30 stories and paginates with More › / ‹ Prev', async ({ page }) => {
         await page.goto('/news/1');
         await expect(page.locator('.post')).toHaveCount(30);
         await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();
@@ -77,7 +76,7 @@ test.describe('feature pages (real components)', () => {
         await expect(page).toHaveURL(/\/news\/1$/);
     });
 
-    test.fixme('item page shows the story and its comment tree', async ({ page }) => {
+    test('item page shows the story and its comment tree', async ({ page }) => {
         await page.goto(`/item/${item.id}`);
         await expect(page.locator('.item')).toBeVisible();
         await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();
@@ -85,7 +84,7 @@ test.describe('feature pages (real components)', () => {
         await expect(page.locator('.comment-list')).toContainText(item.comments[0].user);
     });
 
-    test.fixme('[-] collapses a comment subtree and [+] expands it', async ({ page }) => {
+    test('[-] collapses a comment subtree and [+] expands it', async ({ page }) => {
         await page.goto(`/item/${item.id}`);
         const toggle = page.locator('.comment-list .collapse').first();
         await expect(toggle).toHaveText('[-]');
@@ -99,12 +98,12 @@ test.describe('feature pages (real components)', () => {
         await expect(page.getByText('Fixture reply body')).toBeVisible();
     });
 
-    test.fixme('unknown item shows the Angular error message', async ({ page }) => {
+    test('unknown item shows the Angular error message', async ({ page }) => {
         await page.goto('/item/1');
         await expect(page.getByRole('alert')).toContainText('Could not load item comments.');
     });
 
-    test.fixme('user page shows id, karma, created and about', async ({ page }) => {
+    test('user page shows id, karma, created and about', async ({ page }) => {
         await page.goto(`/user/${user.id}`);
         await expect(page.locator('.profile')).toBeVisible();
         await expect(page.locator('.main-details .name')).toHaveText(user.id);
@@ -113,7 +112,7 @@ test.describe('feature pages (real components)', () => {
         await expect(page.locator('.profile')).toContainText('Fixture about text');
     });
 
-    test.fixme('unknown user shows the Angular error message', async ({ page }) => {
+    test('unknown user shows the Angular error message', async ({ page }) => {
         await page.goto('/user/nobody-here');
         await expect(page.getByRole('alert')).toContainText('Could not load user nobody-here.');
     });

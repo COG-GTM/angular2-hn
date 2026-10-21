@@ -64,8 +64,7 @@ test('app shell, deep links and visited API responses work offline', async ({ co
     await expect(page.goto('/missing-file.png')).rejects.toThrow();
 });
 
-// fixme until Workstreams 2/3 (FeedList, ItemDetails) are merged into the integration branch.
-test.fixme('visited feed and item render offline from the cache (real components)', async ({ context, page }) => {
+test('visited feed and item render offline from the cache (real components)', async ({ context, page }) => {
     await mockHnApi(context, { latencyMs: API_LATENCY_MS });
     await page.goto('/news/1');
     await expect(page.getByRole('link', { name: story.title }).filter({ visible: true }).first()).toBeVisible();

@@ -4,17 +4,12 @@ import { useItem } from '../../shared/api';
 import { ErrorMessage, Loader } from '../../shared/components';
 import type { Story } from '../../shared/models';
 import { useSettings } from '../../shared/settings';
-import { commentLabel, sanitizeHtml, useScrollToTop } from '../../shared/utils';
+import { commentLabel, externalHref, sanitizeHtml, useScrollToTop } from '../../shared/utils';
 import { Comment } from './Comment';
 import { onButtonKeyDown } from './buttonKeys';
 import './ItemDetails.scss';
 
 const ITEM_ERROR_MESSAGE = 'Could not load item comments.';
-
-/** Angular `hasUrl`: external stories have an absolute `http(s)` url; Ask HN/text posts have `item?id=…`. */
-function hasUrl(item: Story): boolean {
-    return typeof item.url === 'string' && item.url.indexOf('http') === 0;
-}
 
 /** Poll bar width in %; `poll_votes_count` can be 0 (Angular divided unguarded). */
 function pollBarWidth(points: number, total: number | undefined): string {
@@ -39,12 +34,13 @@ export function ItemDetails() {
 function ItemView({ item }: { item: Story }) {
     const navigate = useNavigate();
     const { settings } = useSettings();
-    const external = hasUrl(item);
+    const href = externalHref(item.url);
+    const external = href !== null;
     const isJob = item.type === 'job';
     const goBack = () => void navigate(-1);
     const newTab = settings.openLinkInNewTab ? ({ target: '_blank', rel: 'noopener noreferrer' } as const) : {};
     const titleLink = external ? (
-        <a className="title" href={item.url} {...newTab}>
+        <a className="title" href={href} {...newTab}>
             {item.title}
         </a>
     ) : (

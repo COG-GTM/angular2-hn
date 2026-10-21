@@ -1,19 +1,20 @@
 @use '../../styles/media' as *;
 
+// Angular's `:host >>> a` rule never compiled, so comment-body links keep the global link style;
+// only the meta (author) and deleted-meta links drop the underline.
 .app-comment {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
   .meta {
     font-size: 13px;
     color: #696969;
     font-weight: bold;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .time {
       padding-left: 5px;
     }
@@ -26,6 +27,9 @@
     font-weight: bold;
     letter-spacing: 0.5px;
     margin: 30px 0;
+    a {
+      text-decoration: none;
+    }
   }
   .collapse {
     font-size: 13px;

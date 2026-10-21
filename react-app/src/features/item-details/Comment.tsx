@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { sanitizeHtml } from '../../lib/sanitizeHtml';
 import type { Comment as CommentModel } from '../../models';
 import './Comment.scss';
 
-export interface CommentProps {
-  comment: CommentModel;
-}
-
 /** Port of src/app/item-details/comment/comment.component (recursive). */
-export default function Comment({ comment }: CommentProps) {
+export default function Comment({ comment }: { comment: CommentModel }) {
   const [collapse, setCollapse] = useState(false);
 
   if (comment.deleted) {
@@ -33,7 +30,7 @@ export default function Comment({ comment }: CommentProps) {
       </div>
       <div className="comment-tree">
         <div hidden={collapse}>
-          <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }} />
+          <p className="comment-text" dangerouslySetInnerHTML={sanitizeHtml(comment.content)} />
           <ul className="subtree">
             {comment.comments.map((subComment) => (
               <li key={subComment.id}>

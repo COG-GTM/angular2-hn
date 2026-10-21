@@ -1,6 +1,5 @@
 @use '../../styles/media' as *;
 
-// Element selectors are scoped (and kept low-specificity with :where) as Angular's encapsulation did.
 .app-item-details {
   .main-content {
     position: relative;

@@ -23,7 +23,7 @@ export default function Settings() {
           aria-label="Close"
           tabIndex={0}
           onClick={toggleSettings}
-          onKeyDown={(e) => ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
+          onKeyDown={(e) => !e.repeat && ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
         >
           &times;
         </span>

@@ -53,7 +53,7 @@ export default function Header() {
             role="button"
             tabIndex={0}
             onClick={toggleSettings}
-            onKeyDown={(e) => ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
+            onKeyDown={(e) => !e.repeat && ['Enter', ' '].includes(e.key) && (e.preventDefault(), toggleSettings())}
           />
         </div>
       </div>

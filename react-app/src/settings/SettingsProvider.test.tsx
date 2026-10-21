@@ -61,6 +61,14 @@ describe('SettingsProvider', () => {
     });
   });
 
+  it('ignores malformed saved values', () => {
+    mockMatchMedia(false);
+    localStorage.setItem('openLinkInNewTab', 'undefined');
+    localStorage.setItem('theme', 'bogus');
+    const { result } = renderHook(() => useSettings(), { wrapper });
+    expect(result.current.settings).toMatchObject({ openLinkInNewTab: false, theme: 'default' });
+  });
+
   it('follows prefers-color-scheme changes and unsubscribes on unmount', () => {
     const { media, emit } = mockMatchMedia(false);
     const { result, unmount } = renderHook(() => useSettings(), { wrapper });

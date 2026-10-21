@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import type { Story } from '../../shared/models';
 import { useSettings } from '../../shared/settings';
 import { commentLabel } from '../../shared/utils';
-import { externalHref } from './externalHref';
+import { externalHref } from '../../shared/utils';
 import './FeedItem.scss';
 
 export interface FeedItemProps {

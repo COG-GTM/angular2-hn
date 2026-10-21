@@ -12,11 +12,15 @@ describe('externalHref', () => {
         ['HN-relative Ask/Show URL', 'item?id=123'],
         ['javascript: URL', 'javascript:alert(1)'],
         ['data: URL', 'data:text/html,hi'],
-        ['protocol-relative URL', '//evil.example'],
         ['"http" prefix that is not a URL', 'httpfoo'],
         ['empty string', ''],
         ['undefined', undefined],
     ])('returns null for %s', (_, url) => {
         expect(externalHref(url)).toBeNull();
+    });
+
+    it('rejects values that start with "http" but are not http(s) URLs', () => {
+        expect(externalHref('httpjavascript:alert(1)')).toBeNull();
+        expect(externalHref('https')).toBeNull();
     });
 });

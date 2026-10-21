@@ -1,4 +1,4 @@
-import { isSafeHref } from '../../shared/utils';
+import { isSafeHref } from './sanitizeHtml';
 
 /**
  * Angular `hasUrl` (`url.indexOf('http') === 0`), tightened: only a parseable, safe http(s) URL renders as an

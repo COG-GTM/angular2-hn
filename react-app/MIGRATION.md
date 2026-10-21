@@ -245,6 +245,7 @@ theme div. Do not add another theme wrapper; read the theme from `useSettings().
 function commentLabel(count: number | null | undefined): string; // 0/undefined → 'discuss', 1 → '1 comment', n → 'n comments'
 function sanitizeHtml(html: string | null | undefined): string;
 function isSafeHref(href: string): boolean;
+function externalHref(url: string | null | undefined): string | null; // safe absolute http(s) story URL, else null → link to /item/:id
 function useScrollToTop(dep: unknown): void; // window.scrollTo(0, 0) on mount and when dep changes
 ```
 

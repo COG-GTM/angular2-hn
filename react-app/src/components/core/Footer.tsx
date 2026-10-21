@@ -1,4 +1,15 @@
-/** Placeholder: ported by the "chrome" session (src/app/core/footer). */
+import './Footer.scss';
+
+/** Port of src/app/core/footer. */
 export default function Footer() {
-  return <footer />;
+  return (
+    <div id="footer">
+      <p>
+        Show this project some ❤ on{' '}
+        <a href="https://github.com/hdjirdeh/angular2-hn" target="_blank" rel="noopener">
+          GitHub
+        </a>
+      </p>
+    </div>
+  );
 }

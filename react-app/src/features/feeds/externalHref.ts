@@ -8,7 +8,7 @@ export function externalHref(url: string | null | undefined): string | null {
     if (typeof url !== 'string' || url.indexOf('http') !== 0 || !isSafeHref(url)) return null;
     try {
         const parsed = new URL(url);
-        return parsed.protocol === 'http:' || parsed.protocol === 'https:' ? parsed.href : null;
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:' ? url : null;
     } catch {
         return null;
     }

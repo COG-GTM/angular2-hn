@@ -38,14 +38,19 @@ export function FeedPage({ feedType }: FeedPageProps) {
     const key = `${feedType}/${page}/${location.key}`;
     useScrollToTop(key);
     useManualScrollRestoration();
-    const state = useFetch((signal) => fetchFeed(feedType, page, signal), key);
+    const state = useFetch(
+        (signal) => fetchFeed(feedType, page, signal).then((items) => ({ items, pageNum: Number(page) })),
+        key
+    );
+    // Angular keeps the previous page's list on screen until the next page arrives.
+    const shown = state.status === 'loading' ? state.stale : state.data;
 
     // Angular: `window.scrollTo(0, 0)` once the feed request completes.
     useEffect(() => {
         if (state.status === 'success') window.scrollTo(0, 0);
     }, [state.status, key]);
 
-    if (state.status === 'loading') {
+    if (state.status === 'loading' && !shown) {
         return (
             <div className="main-content feed">
                 <Loader />
@@ -60,9 +65,9 @@ export function FeedPage({ feedType }: FeedPageProps) {
         );
     }
 
-    const items = state.data;
+    const { items } = shown!;
     const pageNum = Number(page);
-    const listStart = (pageNum - 1) * PAGE_SIZE + 1;
+    const listStart = (shown!.pageNum - 1) * PAGE_SIZE + 1;
 
     return (
         <div className="main-content feed">

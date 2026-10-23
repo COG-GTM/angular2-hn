@@ -24,10 +24,10 @@ describe('UserPage', () => {
         const pending = deferred();
         mockFetch({ [apiUrls.user('pg')]: () => pending.promise });
         renderUser();
-        expect(screen.getByTestId('loader-placeholder')).toBeInTheDocument();
+        expect(screen.getByRole('status')).toBeInTheDocument();
         await act(async () => pending.resolve(pg));
         expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
-        expect(screen.queryByTestId('loader-placeholder')).not.toBeInTheDocument();
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
     });
 
     it('renders id, karma, created and sanitized about HTML', async () => {
@@ -60,9 +60,7 @@ describe('UserPage', () => {
     ])('shows the error message for an unknown user (%s)', async (_label, response) => {
         mockFetch({ [apiUrls.user('nosuchuser')]: response });
         renderUser('/user/nosuchuser');
-        expect(await screen.findByTestId('error-message-placeholder')).toHaveTextContent(
-            'Could not load user nosuchuser.'
-        );
+        expect(await screen.findByRole('alert')).toHaveTextContent('Could not load user nosuchuser.');
         expect(document.querySelector('.profile')).toBeNull();
     });
 

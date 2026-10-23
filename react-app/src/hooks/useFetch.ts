@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { isAbortError } from '../api';
 
 export type FetchState<T> =
-    | { status: 'loading'; data: undefined; error: undefined }
+    | { status: 'loading'; data: undefined; error: undefined; stale?: T }
     | { status: 'success'; data: T; error: undefined }
     | { status: 'error'; data: undefined; error: unknown };
 
@@ -17,7 +17,7 @@ const LOADING = { status: 'loading', data: undefined, error: undefined } as cons
 /**
  * Runs `fetcher(signal)` whenever `key` changes and aborts the previous request (Angular unsubscribed
  * from `lazyFetch`). A result only counts for the key it was fetched for, so changing the key shows
- * `loading` immediately instead of the previous page's data, and late results of aborted requests are
+ * `loading` immediately (with the previous success as `stale`), and late results of aborted requests are
  * dropped. Route pages should include `useLocation().key` in `key` so every history entry refetches.
  */
 export function useFetch<T>(fetcher: (signal: AbortSignal) => Promise<T>, key: string): FetchState<T> {
@@ -44,5 +44,7 @@ export function useFetch<T>(fetcher: (signal: AbortSignal) => Promise<T>, key: s
         return () => controller.abort();
     }, [key]);
 
-    return settled && settled.key === key ? settled.state : LOADING;
+    if (settled && settled.key === key) return settled.state;
+    // `stale` is the previous key's successful result, for pages that keep it on screen while refetching.
+    return settled?.state.status === 'success' ? { ...LOADING, stale: settled.state.data } : LOADING;
 }

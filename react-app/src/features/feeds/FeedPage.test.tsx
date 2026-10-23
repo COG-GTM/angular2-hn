@@ -22,12 +22,12 @@ describe('FeedPage', () => {
         mockFetch({ [apiUrls.feed('news', 1)]: () => pending.promise });
         const { container } = renderFeed('news', 1);
 
-        expect(screen.getByTestId('loader-placeholder')).toBeInTheDocument();
+        expect(screen.getByRole('status')).toBeInTheDocument();
         expect(container.querySelector('ol')).toBeNull();
 
         await act(async () => pending.resolve(jsonResponse(testStories(30))));
         expect(await screen.findByText('Story 1')).toBeInTheDocument();
-        expect(screen.queryByTestId('loader-placeholder')).toBeNull();
+        expect(screen.queryByRole('status')).toBeNull();
         expect(items(container)).toHaveLength(30);
     });
 
@@ -42,7 +42,7 @@ describe('FeedPage', () => {
         mockFetch({ [apiUrls.feed('ask', 1)]: textResponse('boom', 500) });
         renderFeed('ask', 1);
         expect(await screen.findByText('Could not load ask stories.')).toBeInTheDocument();
-        expect(screen.queryByTestId('loader-placeholder')).toBeNull();
+        expect(screen.queryByRole('status')).toBeNull();
     });
 
     it('shows the error for a non-numeric page', async () => {
@@ -116,6 +116,25 @@ describe('FeedPage', () => {
         expect(screen.queryByText('Story 1')).toBeNull();
         expect(container.querySelector('ol')).toHaveAttribute('start', '31');
         expect(window.scrollTo).toHaveBeenLastCalledWith(0, 0);
+    });
+
+    it('keeps the previous page on screen while the next page loads (Angular parity)', async () => {
+        const next = deferred<Response>();
+        mockFetch({
+            [apiUrls.feed('news', 1)]: testStories(30),
+            [apiUrls.feed('news', 2)]: () => next.promise,
+        });
+        const { user, container } = renderFeed('news', 1);
+        await screen.findByText('Story 1');
+
+        await user.click(screen.getByRole('link', { name: 'More ›' }));
+        expect(screen.queryByRole('status')).toBeNull();
+        expect(screen.getByText('Story 1')).toBeInTheDocument();
+        expect(container.querySelector('ol')).toHaveAttribute('start', '1');
+
+        await act(async () => next.resolve(jsonResponse(testStories(30, 31))));
+        expect(await screen.findByText('Story 31')).toBeInTheDocument();
+        expect(container.querySelector('ol')).toHaveAttribute('start', '31');
     });
 
     it('scrolls to top on load', async () => {

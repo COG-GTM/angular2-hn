@@ -36,6 +36,24 @@ describe('hnApi', () => {
         await expect(fetchUser('pg')).resolves.toMatchObject({ id: 'pg' });
     });
 
+    it('fetchItemContent falls back to embedded option text only, never a numeric option reference', async () => {
+        mockFetch({
+            [apiUrls.item(100)]: {
+                id: 100,
+                type: 'poll',
+                poll: [{ item: 'a', points: 2 }, { item: 102 }],
+                comments: [],
+            },
+            [apiUrls.item(101)]: textResponse('down', 503),
+            [apiUrls.item(102)]: textResponse('down', 503),
+        });
+        const story = await fetchItemContent('100');
+        expect(story.poll).toEqual([
+            { points: 2, content: 'a' },
+            { points: 0, content: '' },
+        ]);
+    });
+
     it('fetchItemContent fetches poll options at story.id + i and sums poll_votes_count', async () => {
         mockFetch({
             [apiUrls.item(100)]: { id: 100, type: 'poll', poll: [{ item: 'a' }, { item: 'b' }], comments: [] },

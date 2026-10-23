@@ -42,8 +42,9 @@ export function FeedPage({ feedType }: FeedPageProps) {
         (signal) => fetchFeed(feedType, page, signal).then((items) => ({ items, pageNum: Number(page) })),
         key
     );
-    // Angular keeps the previous page's list on screen until the next page arrives.
-    const shown = state.status === 'loading' ? state.stale : state.data;
+    // Angular keeps the previous page's list on screen until the next page arrives, and keeps it (with no error
+    // message) if that request fails.
+    const shown = state.status === 'success' ? state.data : state.stale;
 
     // Angular: `window.scrollTo(0, 0)` once the feed request completes.
     useEffect(() => {
@@ -57,7 +58,7 @@ export function FeedPage({ feedType }: FeedPageProps) {
             </div>
         );
     }
-    if (state.status === 'error') {
+    if (state.status === 'error' && !shown) {
         return (
             <div className="main-content feed">
                 <ErrorMessage message={`Could not load ${feedType} stories.`} />

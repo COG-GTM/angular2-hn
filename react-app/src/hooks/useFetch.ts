@@ -5,7 +5,7 @@ import { isAbortError } from '../api';
 export type FetchState<T> =
     | { status: 'loading'; data: undefined; error: undefined; stale?: T }
     | { status: 'success'; data: T; error: undefined }
-    | { status: 'error'; data: undefined; error: unknown };
+    | { status: 'error'; data: undefined; error: unknown; stale?: T };
 
 interface Settled<T> {
     key: string;
@@ -22,6 +22,7 @@ const LOADING = { status: 'loading', data: undefined, error: undefined } as cons
  */
 export function useFetch<T>(fetcher: (signal: AbortSignal) => Promise<T>, key: string): FetchState<T> {
     const [settled, setSettled] = useState<Settled<T> | null>(null);
+    const [lastSuccess, setLastSuccess] = useState<Settled<T> | null>(null);
     const fetcherRef = useRef(fetcher);
 
     useEffect(() => {
@@ -33,7 +34,9 @@ export function useFetch<T>(fetcher: (signal: AbortSignal) => Promise<T>, key: s
         fetcherRef.current(controller.signal).then(
             (data) => {
                 if (!controller.signal.aborted) {
-                    setSettled({ key, state: { status: 'success', data, error: undefined } });
+                    const next: Settled<T> = { key, state: { status: 'success', data, error: undefined } };
+                    setSettled(next);
+                    setLastSuccess(next);
                 }
             },
             (error: unknown) => {
@@ -44,7 +47,13 @@ export function useFetch<T>(fetcher: (signal: AbortSignal) => Promise<T>, key: s
         return () => controller.abort();
     }, [key]);
 
-    if (settled && settled.key === key) return settled.state;
-    // `stale` is the previous key's successful result, for pages that keep it on screen while refetching.
-    return settled?.state.status === 'success' ? { ...LOADING, stale: settled.state.data } : LOADING;
+    // `stale` is the last successful result for another key, for pages that keep it on screen while refetching.
+    const stale =
+        lastSuccess && lastSuccess.key !== key && lastSuccess.state.status === 'success'
+            ? lastSuccess.state.data
+            : undefined;
+    if (settled && settled.key === key) {
+        return settled.state.status === 'error' && stale !== undefined ? { ...settled.state, stale } : settled.state;
+    }
+    return stale !== undefined ? { ...LOADING, stale } : LOADING;
 }

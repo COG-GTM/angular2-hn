@@ -137,6 +137,21 @@ describe('FeedPage', () => {
         expect(container.querySelector('ol')).toHaveAttribute('start', '31');
     });
 
+    it('keeps the previous page (and no error) when the next page fails (Angular parity)', async () => {
+        mockFetch({
+            [apiUrls.feed('news', 1)]: testStories(30),
+            [apiUrls.feed('news', 2)]: textResponse('boom', 500),
+        });
+        const { user, container } = renderFeed('news', 1);
+        await screen.findByText('Story 1');
+
+        await user.click(screen.getByRole('link', { name: 'More ›' }));
+        await act(async () => {});
+        expect(screen.queryByRole('alert')).toBeNull();
+        expect(screen.getByText('Story 1')).toBeInTheDocument();
+        expect(container.querySelector('ol')).toHaveAttribute('start', '1');
+    });
+
     it('scrolls to top on load', async () => {
         mockFetch({ [apiUrls.feed('news', 1)]: testStories(3) });
         renderFeed('news', 1);

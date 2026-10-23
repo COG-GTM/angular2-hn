@@ -17,7 +17,7 @@ export const apiUrls = {
 
 /** `story.poll[i]` as node-hnapi embeds it, before the options are fetched. */
 interface RawPollOption {
-    item?: string;
+    item?: string | number;
     content?: string;
     points?: number | null;
 }
@@ -75,7 +75,8 @@ export async function fetchItemContent(id: number | string, signal?: AbortSignal
                     return await fetchPollContent(story.id + index + 1, signal);
                 } catch (error) {
                     if (signal?.aborted) throw error;
-                    return { points: raw.points ?? 0, content: raw.content ?? raw.item ?? '' };
+                    const embedded = raw.content ?? (typeof raw.item === 'string' ? raw.item : undefined);
+                    return { points: raw.points ?? 0, content: embedded ?? '' };
                 }
             })
         );

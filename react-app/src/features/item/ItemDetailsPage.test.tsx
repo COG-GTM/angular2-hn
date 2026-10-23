@@ -23,11 +23,11 @@ describe('ItemDetailsPage', () => {
         const pending = deferred<unknown>();
         mockFetch({ [apiUrls.item(42)]: () => pending.promise });
         renderAt(42);
-        expect(screen.getByTestId('loader-placeholder')).toBeInTheDocument();
+        expect(screen.getByRole('status')).toBeInTheDocument();
         expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
         pending.resolve(makeStory());
         expect(await screen.findAllByText('A story')).toHaveLength(2);
-        expect(screen.queryByTestId('loader-placeholder')).toBeNull();
+        expect(screen.queryByRole('status')).toBeNull();
     });
 
     it('shows the error message when the request fails', async () => {

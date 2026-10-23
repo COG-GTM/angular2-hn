@@ -66,9 +66,9 @@ export function FeedPage({ feedType }: FeedPageProps) {
         );
     }
 
-    const { items } = shown!;
-    const pageNum = Number(page);
-    const listStart = (shown!.pageNum - 1) * PAGE_SIZE + 1;
+    // Numbering and Prev/More follow the list on screen, so a failed page can be retried with More.
+    const { items, pageNum } = shown!;
+    const listStart = (pageNum - 1) * PAGE_SIZE + 1;
 
     return (
         <div className="main-content feed">

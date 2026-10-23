@@ -150,6 +150,7 @@ describe('FeedPage', () => {
         expect(screen.queryByRole('alert')).toBeNull();
         expect(screen.getByText('Story 1')).toBeInTheDocument();
         expect(container.querySelector('ol')).toHaveAttribute('start', '1');
+        expect(screen.getByRole('link', { name: 'More ›' })).toHaveAttribute('href', '/news/2');
     });
 
     it('scrolls to top on load', async () => {

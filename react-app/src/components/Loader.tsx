@@ -1,4 +1,10 @@
-/** PLACEHOLDER (Phase 5 replaces): port of src/app/shared/components/loader. */
+import './Loader.scss';
+
+/** Port of src/app/shared/components/loader. */
 export function Loader() {
-    return <div data-testid="loader-placeholder">Loading...</div>;
+    return (
+        <div className="loading-section" role="status" aria-live="polite">
+            <div className="loader">Loading...</div>
+        </div>
+    );
 }

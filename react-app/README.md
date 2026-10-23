@@ -29,23 +29,22 @@ npm run lint && npm run typecheck && npm run format:check
 
 ## Layout and ownership
 
-| Path                              | Contents                                                                               | Owner                    |
-| --------------------------------- | -------------------------------------------------------------------------------------- | ------------------------ |
-| `src/types/`                      | `Story`, `User`, `Comment`, `Settings`, `PollResult`, `FeedType`                       | Phase 1 (shared, frozen) |
-| `src/api/`                        | `fetchFeed`, `fetchItemContent`, `fetchPollContent`, `fetchUser` (fetch + AbortSignal) | Phase 1 (shared, frozen) |
-| `src/context/SettingsContext.tsx` | `SettingsProvider`, `useSettings()`                                                    | Phase 1 (shared, frozen) |
-| `src/hooks/useFetch.ts`           | `useFetch(fetcher, key)` -> `loading` / `success` / `error`, aborts on key change      | Phase 1 (shared, frozen) |
-| `src/utils/`                      | `formatCommentCount`, `externalHref`, `sanitizeHtml`, `useScrollToTop`, `usePageViews` | Phase 1 (shared, frozen) |
-| `src/styles/`                     | Angular `shared/scss` partials + global styles + app layout                            | Phase 1 (shared, frozen) |
-| `src/pwa/`, `vite.config.ts`      | Workbox via `vite-plugin-pwa`                                                          | Phase 1 (shared, frozen) |
-| `src/test/`                       | `renderWithProviders`, `mockFetch`, `mockMatchMedia`, setup                            | Phase 1 (shared, frozen) |
-| `src/features/feeds/`             | `FeedPage`, `Item`                                                                     | Phase 2                  |
-| `src/features/item/`              | `ItemDetailsPage`, recursive `Comment`                                                 | Phase 3                  |
-| `src/features/user/`              | `UserPage`                                                                             | Phase 4                  |
-| `src/components/`                 | `Header`, `Footer`, `Settings`, `Loader`, `ErrorMessage`                               | Phase 5                  |
+| Path                              | Contents                                                                                      | Owner                    |
+| --------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------ |
+| `src/types/`                      | `Story`, `User`, `Comment`, `Settings`, `PollResult`, `FeedType`                              | Phase 1 (shared, frozen) |
+| `src/api/`                        | `fetchFeed`, `fetchItemContent`, `fetchPollContent`, `fetchUser` (fetch + AbortSignal)        | Phase 1 (shared, frozen) |
+| `src/context/SettingsContext.tsx` | `SettingsProvider`, `useSettings()`                                                           | Phase 1 (shared, frozen) |
+| `src/hooks/useFetch.ts`           | `useFetch(fetcher, key)` -> `loading` (+ `stale`) / `success` / `error`, aborts on key change | Phase 1 (shared, frozen) |
+| `src/utils/`                      | `formatCommentCount`, `externalHref`, `sanitizeHtml`, `useScrollToTop`, `usePageViews`        | Phase 1 (shared, frozen) |
+| `src/styles/`                     | Angular `shared/scss` partials + global styles + app layout                                   | Phase 1 (shared, frozen) |
+| `src/pwa/`, `vite.config.ts`      | Workbox via `vite-plugin-pwa`                                                                 | Phase 1 (shared, frozen) |
+| `src/test/`                       | `renderWithProviders`, `mockFetch`, `mockMatchMedia`, setup                                   | Phase 1 (shared, frozen) |
+| `src/features/feeds/`             | `FeedPage`, `Item`                                                                            | Phase 2                  |
+| `src/features/item/`              | `ItemDetailsPage`, recursive `Comment`                                                        | Phase 3                  |
+| `src/features/user/`              | `UserPage`                                                                                    | Phase 4                  |
+| `src/components/`                 | `Header`, `Footer`, `Settings`, `Loader`, `ErrorMessage`                                      | Phase 5                  |
 
-Feature/component files start as placeholders; each phase replaces only its own folder and keeps the exports in that
-folder's `index.ts` (`App.tsx` imports from the barrels). Port each component's SCSS next to it and
+All phases are integrated. Each folder keeps its exports in its `index.ts` (`App.tsx` imports from the barrels). Port each component's SCSS next to it and
 `@import '../../styles/theme_variables'` etc. as needed. Theme classes (`default`, `night`, `amoledblack`) are applied on
 the root layout `div`, exactly as in Angular's `app.component.html`.
 
@@ -55,3 +54,10 @@ Conventions:
 - Use `externalHref(url)` for story links: non-null means external link, else link to `/item/:id`.
 - Pages call `useScrollToTop(key)` and `useFetch(...)`; `isAbortError` is handled inside `useFetch`.
 - Tests are colocated `*.test.tsx`, using `renderWithProviders` and `mockFetch` from `src/test`.
+
+## Deployment
+
+`firebase.json` at the repo root still serves the Angular build (`hosting.public: "dist"`). This app builds to
+`react-app/dist/`. To ship the React app, point `hosting.public` at `react-app/dist` (keep the `**` -> `/index.html`
+rewrite) once parity is signed off. Also add a `Cache-Control: no-cache` header for `/ngsw-worker.js` and `/sw.js`: `public/ngsw-worker.js` unregisters the old Angular service worker for returning
+visitors.

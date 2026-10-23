@@ -1,0 +1,17 @@
+// Port of src/styles.scss (global). The .app-loader rules live inline in index.html.
+@import './themes';
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+pre {
+    white-space: pre-wrap;
+}

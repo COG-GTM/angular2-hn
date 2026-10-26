@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage } from '../shared/components/ErrorMessage/ErrorMessage';
 import { Loader } from '../shared/components/Loader/Loader';
 import { useUser } from '../shared/hooks/use-hackernews';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 import './User.scss';
 
 export default function User() {
@@ -30,7 +31,7 @@ export default function User() {
                     </div>
                     {user.about && (
                         <div className="other-details">
-                            <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+                            <p dangerouslySetInnerHTML={sanitizeHtml(user.about)}></p>
                         </div>
                     )}
                 </div>

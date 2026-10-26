@@ -32,6 +32,14 @@ describe('hackernews-api', () => {
         expect(story.poll_votes_count).toBe(110 + 120 + 130);
     });
 
+    it('fetchItemContent rejects when a poll option fails to load', async () => {
+        mockFetch((url) => {
+            if (url.endsWith('/item/10')) return jsonResponse(makeStory({ id: 10, type: 'poll', poll: [{}, {}] as never }));
+            return url.endsWith('/item/12') ? jsonResponse({}, 500) : jsonResponse({ points: 1, content: 'ok' });
+        });
+        await expect(fetchItemContent(10)).rejects.toThrow('status 500');
+    });
+
     it('fetchItemContent leaves non-poll items untouched', async () => {
         const spy = mockFetch(() => jsonResponse(makeStory({ id: 5 })));
         const story = await fetchItemContent(5);

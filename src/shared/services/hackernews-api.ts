@@ -32,17 +32,11 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
     const story = await lazyFetch<Story>(`${BASE_URL}/item/${id}`, signal);
     if (story.type === 'poll') {
         const numberOfPollOptions = story.poll.length;
-        const results = await Promise.allSettled(
+        // Reject if any option fails so a partial vote total is never cached as a successful result.
+        story.poll = await Promise.all(
             Array.from({ length: numberOfPollOptions }, (_, i) => fetchPollContent(story.id + i + 1, signal))
         );
-        signal?.throwIfAborted();
-        story.poll_votes_count = 0;
-        results.forEach((result, i) => {
-            if (result.status === 'fulfilled') {
-                story.poll[i] = result.value;
-                story.poll_votes_count += result.value.points;
-            }
-        });
+        story.poll_votes_count = story.poll.reduce((total, pollResult) => total + pollResult.points, 0);
     }
     return story;
 }

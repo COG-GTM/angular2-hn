@@ -8,6 +8,7 @@ import type { Story } from '../shared/models/story';
 import { useSettings } from '../shared/settings/settings-context';
 import { commentLabel } from '../shared/utils/comment-label';
 import { hasUrl, linkTargetProps } from '../shared/utils/link-target';
+import { sanitizeHtml } from '../shared/utils/sanitize-html';
 import { Comment } from './Comment/Comment';
 import './ItemDetails.scss';
 
@@ -95,7 +96,7 @@ export default function ItemDetails() {
                             <div className="pollResults">
                                 {item.poll.map((pollResult, index) => (
                                     <div key={index} className="pollContent">
-                                        <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+                                        <div dangerouslySetInnerHTML={sanitizeHtml(pollResult.content)}></div>
                                         <div className="subtext">{pollResult.points} points</div>
                                         <div
                                             className="pollBar"
@@ -105,7 +106,7 @@ export default function ItemDetails() {
                                 ))}
                             </div>
                         )}
-                        <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+                        <p className="subject" dangerouslySetInnerHTML={sanitizeHtml(item.content)}></p>
                         <ul className="comment-list">
                             {item.comments?.map((comment) => (
                                 <li key={comment.id}>

@@ -43,12 +43,11 @@ export class HackerNewsAPIService {
       }));
 
     return fetchPage(1, new Set<number>()).pipe(
-      expand(({ page, stories, seenIds, isEmpty }) => {
-        const reachedOlderStory = stories.some(story => story.time < cutoff);
-        return !isEmpty && !reachedOlderStory && page < WEEKLY_SUMMARY_MAX_PAGES
+      expand(({ page, seenIds, isEmpty }) =>
+        !isEmpty && page < WEEKLY_SUMMARY_MAX_PAGES
           ? fetchPage(page + 1, seenIds)
-          : EMPTY;
-      }),
+          : EMPTY
+      ),
       reduce((all: Story[], { stories }) => all.concat(stories), []),
       map(stories => stories
         .filter(story => story.time >= cutoff)

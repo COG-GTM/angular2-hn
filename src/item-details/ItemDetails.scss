@@ -35,8 +35,8 @@
     margin-bottom: 15px;
   }
 
-  .item > div > p,
-  .item > p {
+  .item > div > p:not(.title-block),
+  .item > p:not(.title-block) {
     margin: 2px 0;
   }
 

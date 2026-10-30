@@ -1,34 +1,35 @@
-import { Component, inject } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 
-import { SettingsService } from './shared/services/settings.service';
-import { Settings } from './shared/models/settings';
-import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { HeaderComponent } from './core/header/header.component';
+import { SettingsService } from './shared/services/settings.service';
 
-declare let ga: Function;
+declare const ga: ((...args: unknown[]) => void) | undefined;
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [HeaderComponent, RouterOutlet, FooterComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [HeaderComponent, RouterOutlet, FooterComponent],
 })
-
 export class AppComponent {
-  private _settingsService = inject(SettingsService);
-  router = inject(Router);
-
-  settings: Settings;
-  theme: string;
+  readonly settings = inject(SettingsService).settings;
 
   constructor() {
-    this.settings = this._settingsService.settings;
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        ga('set', 'page', event.urlAfterRedirects);
-        ga('send', 'pageview');
-      }
-    });
+    inject(Router)
+      .events.pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe((event) => {
+        if (typeof ga === 'function') {
+          ga('set', 'page', event.urlAfterRedirects);
+          ga('send', 'pageview');
+        }
+      });
   }
 }

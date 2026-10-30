@@ -1,51 +1,55 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { catchError, combineLatest, EMPTY, switchMap, tap } from 'rxjs';
 
-import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
-import { Story } from '../../shared/models/story';
-import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { Story } from '../../shared/models/story';
+import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
 import { ItemComponent } from '../item/item.component';
 
+export const PAGE_SIZE = 30;
+
 @Component({
-    selector: 'app-feed',
-    templateUrl: './feed.component.html',
-    styleUrls: ['./feed.component.scss'],
-    imports: [LoaderComponent, ErrorMessageComponent, ItemComponent, RouterLinkActive, RouterLink]
+  selector: 'app-feed',
+  templateUrl: './feed.component.html',
+  styleUrls: ['./feed.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LoaderComponent, ErrorMessageComponent, ItemComponent, RouterLinkActive, RouterLink],
 })
+export class FeedComponent {
+  private readonly api = inject(HackerNewsAPIService);
+  private readonly route = inject(ActivatedRoute);
 
-export class FeedComponent implements OnInit {
-  private _hackerNewsAPIService = inject(HackerNewsAPIService);
-  private route = inject(ActivatedRoute);
+  readonly pageSize = PAGE_SIZE;
+  readonly items = signal<Story[] | undefined>(undefined);
+  readonly feedType = signal('');
+  readonly pageNum = signal(1);
+  readonly listStart = signal(1);
+  readonly errorMessage = signal('');
 
-  typeSub: Subscription;
-  pageSub: Subscription;
-  items: Story[];
-  feedType: string;
-  pageNum: number;
-  listStart: number;
-  errorMessage = '';
-
-  ngOnInit() {
-    this.typeSub = this.route
-      .data
-      .subscribe(data => {
-        this.feedType = (data as any).feedType;
+  constructor() {
+    combineLatest([this.route.data, this.route.paramMap])
+      .pipe(
+        tap(([data, params]) => {
+          this.feedType.set(data['feedType']);
+          this.pageNum.set(params.has('page') ? Number(params.get('page')) : 1);
+        }),
+        switchMap(() =>
+          this.api.fetchFeed(this.feedType(), this.pageNum()).pipe(
+            catchError(() => {
+              this.errorMessage.set(`Could not load ${this.feedType()} stories.`);
+              return EMPTY;
+            })
+          )
+        ),
+        takeUntilDestroyed()
+      )
+      .subscribe((items) => {
+        this.items.set(items);
+        this.listStart.set((this.pageNum() - 1) * PAGE_SIZE + 1);
+        window.scrollTo(0, 0);
       });
-
-    this.pageSub = this.route.params.subscribe(params => {
-      this.pageNum = params['page'] ? +params['page'] : 1;
-      this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
-        .subscribe(
-          items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
-          () => {
-            this.listStart = ((this.pageNum - 1) * 30) + 1;
-            window.scrollTo(0, 0);
-          }
-        );
-    });
   }
 }

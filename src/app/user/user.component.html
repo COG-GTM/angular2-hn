@@ -1,15 +1,15 @@
-@if (!user && !errorMessage) {
+@if (!user() && !errorMessage()) {
   <app-loader></app-loader>
 }
-@if (!user && errorMessage !== '') {
-  <app-error-message [message]="errorMessage"></app-error-message>
+@if (!user() && errorMessage() !== '') {
+  <app-error-message [message]="errorMessage()"></app-error-message>
 }
 
-@if (user) {
+@if (user(); as user) {
   <div class="profile">
     <div class="mobile item-header">
       <p class="title-block">
-        <span class="back-button" (click)="goBack()"></span>
+        <span class="back-button" role="button" tabindex="0" (click)="goBack()" (keydown.enter)="goBack()"></span>
         Profile: {{ user.id }}
       </p>
     </div>

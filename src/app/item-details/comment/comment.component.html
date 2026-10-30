@@ -1,15 +1,15 @@
-@if (!comment.deleted) {
+@if (!comment().deleted) {
   <div>
-    <div class="meta" [class.meta-collapse]="collapse">
-      <span class="collapse" (click)="collapse = !collapse">[{{collapse ? '+' : '-'}}]</span>
-      <a [routerLink]="['/user', comment.user]" routerLinkActive="active">{{comment.user}}</a>
-      <span class="time">{{comment.time_ago}}</span>
+    <div class="meta" [class.meta-collapse]="collapse()">
+      <span class="collapse" role="button" tabindex="0" (click)="toggleCollapse()" (keydown.enter)="toggleCollapse()">[{{collapse() ? '+' : '-'}}]</span>
+      <a [routerLink]="['/user', comment().user]" routerLinkActive="active">{{comment().user}}</a>
+      <span class="time">{{comment().time_ago}}</span>
     </div>
     <div class="comment-tree">
-      <div [hidden]="collapse">
-        <p class="comment-text" [innerHTML]="comment.content"></p>
+      <div [hidden]="collapse()">
+        <p class="comment-text" [innerHTML]="comment().content"></p>
         <ul class="subtree">
-          @for (subComment of comment.comments; track subComment) {
+          @for (subComment of comment().comments; track subComment.id) {
             <li>
               <app-comment [comment]="subComment"></app-comment>
             </li>
@@ -19,7 +19,7 @@
     </div>
   </div>
 }
-@if (comment.deleted) {
+@if (comment().deleted) {
   <div>
     <div class="deleted-meta">
       <span class="collapse">[deleted]</span> | Comment Deleted

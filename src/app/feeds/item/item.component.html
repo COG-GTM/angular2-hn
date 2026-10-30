@@ -1,50 +1,50 @@
-<div [ngStyle]="{'margin-bottom': settings.listSpacing+'px'}">
-  @if (hasUrl) {
+<div [ngStyle]="{'margin-bottom': settings().listSpacing+'px'}">
+  @if (hasUrl()) {
     <p>
-      <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
-        {{item.title}}
+      <a class="title" [ngStyle]="{'font-size': settings().titleFontSize+'px'}" href="{{item().url}}" [attr.target]="settings().openLinkInNewTab ? '_blank' : null" [attr.rel]="settings().openLinkInNewTab ? 'noopener' : null">
+        {{item().title}}
       </a>
-      @if (item.domain) {
-        <span class="domain">({{item.domain}})</span>
+      @if (item().domain) {
+        <span class="domain">({{item().domain}})</span>
       }
     </p>
   }
-  @if (!hasUrl) {
+  @if (!hasUrl()) {
     <p>
-      <a class="title" [ngStyle]="{'font-size': settings.titleFontSize+'px'}" [routerLink]="['/item', item.id]" routerLinkActive="active">
-        {{item.title}}
+      <a class="title" [ngStyle]="{'font-size': settings().titleFontSize+'px'}" [routerLink]="['/item', item().id]" routerLinkActive="active">
+        {{item().title}}
       </a>
     </p>
   }
   <div class="subtext-palm">
-    @if (item.type !== 'job') {
+    @if (item().type !== 'job') {
       <div class="details">
-        <span class="name"><a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a></span>
-        <span class="right">{{item.points}} ★</span>
+        <span class="name"><a [routerLink]="['/user', item().user]" routerLinkActive="active">{{item().user}}</a></span>
+        <span class="right">{{item().points}} ★</span>
       </div>
     }
     <div class="details">
-      {{ item.time_ago }}
-      @if (item.type !== 'job') {
-        <a [routerLink]="['/item', item.id]" routerLinkActive="active" class="comment-number"> •
-          {{item.comments_count | comment }}
+      {{ item().time_ago }}
+      @if (item().type !== 'job') {
+        <a [routerLink]="['/item', item().id]" routerLinkActive="active" class="comment-number"> •
+          {{item().comments_count | comment }}
         </a>
       }
     </div>
   </div>
   <div class="subtext-laptop">
-    @if (item.type !== 'job') {
+    @if (item().type !== 'job') {
       <span>
-        {{item.points}} points by
-        <a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a>
+        {{item().points}} points by
+        <a [routerLink]="['/user', item().user]" routerLinkActive="active">{{item().user}}</a>
       </span>
     }
-    <span [class.item-details]="item.type !== 'job'">
-      {{ item.time_ago }}
-      @if (item.type !== 'job') {
+    <span [class.item-details]="item().type !== 'job'">
+      {{ item().time_ago }}
+      @if (item().type !== 'job') {
         <span> |
-          <a [routerLink]="['/item', item.id]" routerLinkActive="active">
-            {{item.comments_count | comment }}
+          <a [routerLink]="['/item', item().id]" routerLinkActive="active">
+            {{item().comments_count | comment }}
           </a>
         </span>
       }

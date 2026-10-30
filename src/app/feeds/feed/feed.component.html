@@ -1,22 +1,22 @@
 <div class="main-content">
-  @if (!items && !errorMessage) {
+  @if (!items() && !errorMessage()) {
     <app-loader></app-loader>
   }
-  @if (!items && errorMessage !=='') {
-    <app-error-message [message]="errorMessage"></app-error-message>
+  @if (!items() && errorMessage() !== '') {
+    <app-error-message [message]="errorMessage()"></app-error-message>
   }
 
-  @if (items) {
+  @if (items(); as items) {
     <div>
-      @if (feedType === 'jobs') {
+      @if (feedType() === 'jobs') {
         <p class="job-header">
           These are jobs at startups that were funded by Y Combinator.
           You can also get a job at a YC startup through <a href="https://triplebyte.com/?ref=yc_jobs">Triplebyte</a>.
         </p>
       }
-      @if (feedType !== 'new') {
-        <ol [class.list-margin]="feedType !== 'jobs'" start="{{ listStart }}">
-          @for (item of items; track item) {
+      @if (feedType() !== 'new') {
+        <ol [class.list-margin]="feedType() !== 'jobs'" [start]="listStart()">
+          @for (item of items; track item.id) {
             <li class="post">
               <item class="item-block" [item]="item"></item>
             </li>
@@ -24,13 +24,13 @@
         </ol>
       }
       <div class="nav">
-        @if (listStart !== 1) {
-          <a [routerLink]="['/' + feedType, pageNum - 1]" routerLinkActive="active" class="prev">
+        @if (listStart() !== 1) {
+          <a [routerLink]="['/' + feedType(), pageNum() - 1]" routerLinkActive="active" class="prev">
             ‹ Prev
           </a>
         }
-        @if (items.length === 30) {
-          <a [routerLink]="['/' + feedType, pageNum + 1]" routerLinkActive="active" class="more">
+        @if (items.length === pageSize) {
+          <a [routerLink]="['/' + feedType(), pageNum() + 1]" routerLinkActive="active" class="more">
             More ›
           </a>
         }

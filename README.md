@@ -73,16 +73,15 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+Requires Node.js 22+.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
-
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+ - `npm start` to run the dev server on `localhost:4200`
+ - `npm run build` to create a production build (with the Angular service worker) in `dist/angular-hnpwa/browser`
+ - `npm run lint` to lint with ESLint (`angular-eslint`)
+ - `npm test` to run the Vitest unit tests
+ - `npm run e2e` to build for production and run the Playwright end-to-end tests (`npx playwright install chromium` first). These also verify the service worker registers.
 
 ## Contributors
 

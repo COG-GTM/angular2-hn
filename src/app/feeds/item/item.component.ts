@@ -1,26 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Story } from '../../shared/models/story';
+import { NgStyle } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
+import { Story } from '../../shared/models/story';
+import { CommentPipe } from '../../shared/pipes/comment.pipe';
 import { SettingsService } from '../../shared/services/settings.service';
-import { Settings } from '../../shared/models/settings';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  styleUrls: ['./item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgStyle, RouterLinkActive, RouterLink, CommentPipe],
 })
-export class ItemComponent implements OnInit {
-  @Input() item: Story;
-  settings: Settings;
-
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {}
-
-  get hasUrl(): boolean {
-    return this.item.url.indexOf('http') === 0;
-  }
-
+export class ItemComponent {
+  readonly item = input.required<Story>();
+  readonly settings = inject(SettingsService).settings;
+  readonly hasUrl = computed(() => this.item().url?.indexOf('http') === 0);
 }

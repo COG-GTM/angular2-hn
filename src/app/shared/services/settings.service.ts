@@ -1,89 +1,55 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 
 import { Settings } from '../models/settings';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class SettingsService {
-  settings: Settings = {
-    showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
-    theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
-  };
+@Injectable({ providedIn: 'root' })
+export class SettingsService implements OnDestroy {
+  private readonly state = signal<Settings>({
+    showSettings: false,
+    openLinkInNewTab: JSON.parse(localStorage.getItem('openLinkInNewTab') ?? 'false'),
+    theme: localStorage.getItem('theme') ?? 'default',
+    titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
+    listSpacing: localStorage.getItem('listSpacing') ?? '0',
+  });
 
-  darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
+  readonly settings = this.state.asReadonly();
+
+  private readonly darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+  private readonly onColorSchemeChange = (event: MediaQueryListEvent | MediaQueryList) =>
+    this.setTheme(event.matches ? 'night' : 'default');
+
   constructor() {
-    this.subscribeToSystemPreferredColorScheme();
-    this.initTheme();
+    this.darkColorSchemeMedia.addEventListener('change', this.onColorSchemeChange);
+    if (!localStorage.getItem('theme')) {
+      this.onColorSchemeChange(this.darkColorSchemeMedia);
+    }
   }
-  
+
   ngOnDestroy() {
-    this.unSubscribeToSystemPrefferedColorScheme();
-  }
-
-  handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
-    if (event.matches) {
-      theme = 'night';
-    } else {
-      theme = 'default';
-    }
-    this.setTheme(theme);
-  }
-  
-  subscribeToSystemPreferredColorScheme() {
-    this.darkColorSchemeMedia.addEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
-  }
-
-  initTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      this.settings.theme = savedTheme;
-    } else {
-      this.darkColorSchemeMedia.dispatchEvent(
-        new MediaQueryListEvent('change', {
-          media: this.darkColorSchemeMedia.media,
-          matches: this.darkColorSchemeMedia.matches
-        })
-      );
-    }
-  }
-
-  unSubscribeToSystemPrefferedColorScheme() {
-    this.darkColorSchemeMedia.removeEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
+    this.darkColorSchemeMedia.removeEventListener('change', this.onColorSchemeChange);
   }
 
   toggleSettings() {
-    this.settings.showSettings = !this.settings.showSettings;
+    this.state.update((s) => ({ ...s, showSettings: !s.showSettings }));
   }
 
   toggleOpenLinksInNewTab() {
-    this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
+    this.state.update((s) => ({ ...s, openLinkInNewTab: !s.openLinkInNewTab }));
+    localStorage.setItem('openLinkInNewTab', JSON.stringify(this.state().openLinkInNewTab));
   }
 
-  setTheme(theme) {
-    this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
+  setTheme(theme: string) {
+    this.state.update((s) => ({ ...s, theme }));
+    localStorage.setItem('theme', theme);
   }
 
-  setFont(fontSize){
-    this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
+  setFont(titleFontSize: string) {
+    this.state.update((s) => ({ ...s, titleFontSize }));
+    localStorage.setItem('titleFontSize', titleFontSize);
   }
 
-  setSpacing(listSpace){
-    this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
+  setSpacing(listSpacing: string) {
+    this.state.update((s) => ({ ...s, listSpacing }));
+    localStorage.setItem('listSpacing', listSpacing);
   }
 }

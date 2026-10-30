@@ -1,37 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, EMPTY, switchMap } from 'rxjs';
 
-import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { User } from '../shared/models/user';
+import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LoaderComponent, ErrorMessageComponent],
 })
-export class UserComponent implements OnInit {
-  sub: Subscription;
-  user: User;
-  errorMessage = '';
+export class UserComponent {
+  private readonly api = inject(HackerNewsAPIService);
+  private readonly location = inject(Location);
 
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private route: ActivatedRoute,
-    private _location: Location
-  ) {}
+  readonly user = signal<User | undefined>(undefined);
+  readonly errorMessage = signal('');
 
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
-      this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
-        this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
-    });
+  constructor() {
+    inject(ActivatedRoute)
+      .paramMap.pipe(
+        switchMap((params) => {
+          const userId = params.get('id') ?? '';
+          return this.api.fetchUser(userId).pipe(
+            catchError(() => {
+              this.errorMessage.set(`Could not load user ${userId}.`);
+              return EMPTY;
+            })
+          );
+        }),
+        takeUntilDestroyed()
+      )
+      .subscribe((user) => this.user.set(user));
   }
 
   goBack() {
-    this._location.back();
+    this.location.back();
   }
 }

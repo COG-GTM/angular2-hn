@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
@@ -17,6 +17,9 @@ import { ItemComponent } from '../item/item.component';
 })
 
 export class FeedComponent implements OnInit {
+  private _hackerNewsAPIService = inject(HackerNewsAPIService);
+  private route = inject(ActivatedRoute);
+
   typeSub: Subscription;
   pageSub: Subscription;
   items: Story[];
@@ -24,11 +27,6 @@ export class FeedComponent implements OnInit {
   pageNum: number;
   listStart: number;
   errorMessage = '';
-
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private route: ActivatedRoute
-  ) { }
 
   ngOnInit() {
     this.typeSub = this.route

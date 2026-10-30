@@ -6,8 +6,7 @@ import { Settings } from '../../shared/models/settings';
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.scss'],
-    standalone: false
+    styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
   settings: Settings;

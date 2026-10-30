@@ -7,7 +7,7 @@ import { User } from '../models/user';
 import { PollResult } from '../models/poll-result';
 
 // wrap fetch in observable so we can keep it chill
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HackerNewsAPIService {
   baseUrl: string;
 

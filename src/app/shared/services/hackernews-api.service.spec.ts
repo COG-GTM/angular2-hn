@@ -57,6 +57,20 @@ describe('HackerNewsAPIService', () => {
     expect(result?.poll_votes_count).toBe(3);
   });
 
+  it('errors when every poll option fails to load', () => {
+    let error: unknown;
+    service.fetchItemContent(10).subscribe({ error: (e) => (error = e) });
+
+    http.expectOne('https://node-hnapi.herokuapp.com/item/10').flush({ id: 10, type: 'poll', poll: [{}, {}] });
+    for (const id of [11, 12]) {
+      http
+        .expectOne(`https://node-hnapi.herokuapp.com/item/${id}`)
+        .flush('error', { status: 500, statusText: 'Server Error' });
+    }
+
+    expect(error).toBeInstanceOf(Error);
+  });
+
   it('fetches a user', () => {
     service.fetchUser('pg').subscribe();
     http.expectOne('https://node-hnapi.herokuapp.com/user/pg').flush({ id: 'pg' });

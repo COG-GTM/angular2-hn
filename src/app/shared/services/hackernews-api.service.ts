@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, switchMap, throwError } from 'rxjs';
 
 import { PollResult } from '../models/poll-result';
 import { Story } from '../models/story';
@@ -25,13 +25,16 @@ export class HackerNewsAPIService {
           this.fetchPollContent(story.id + i + 1).pipe(catchError(() => of(null)))
         );
         return forkJoin(pollRequests).pipe(
-          map((results) => {
+          switchMap((results) => {
             const poll = results.filter((result): result is PollResult => result !== null);
-            return {
+            if (!poll.length) {
+              return throwError(() => new Error(`Could not load poll options for item ${story.id}`));
+            }
+            return of({
               ...story,
               poll,
               poll_votes_count: poll.reduce((total, result) => total + result.points, 0),
-            };
+            });
           })
         );
       })

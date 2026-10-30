@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 import { PollResult } from '../models/poll-result';
 import { Story } from '../models/story';
@@ -21,13 +21,18 @@ export class HackerNewsAPIService {
         if (story.type !== 'poll' || !story.poll?.length) {
           return of(story);
         }
-        const pollRequests = story.poll.map((_, i) => this.fetchPollContent(story.id + i + 1));
+        const pollRequests = story.poll.map((_, i) =>
+          this.fetchPollContent(story.id + i + 1).pipe(catchError(() => of(null)))
+        );
         return forkJoin(pollRequests).pipe(
-          map((poll) => ({
-            ...story,
-            poll,
-            poll_votes_count: poll.reduce((total, result) => total + result.points, 0),
-          }))
+          map((results) => {
+            const poll = results.filter((result): result is PollResult => result !== null);
+            return {
+              ...story,
+              poll,
+              poll_votes_count: poll.reduce((total, result) => total + result.points, 0),
+            };
+          })
         );
       })
     );

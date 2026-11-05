@@ -18,8 +18,12 @@
         </div>
       </div>
       <div class="info">
-        <img class="settings" src="assets/images/cog.svg" alt="Settings" (click)="toggleSettings()">
+        <button type="button" class="settings-button" (click)="toggleSettings()">
+          <img class="settings" src="assets/images/cog.svg" alt="Settings">
+        </button>
       </div>
     </div>
-    <app-settings *ngIf="settings.showSettings"></app-settings>
+    @if (settings().showSettings) {
+      <app-settings></app-settings>
+    }
   </header>

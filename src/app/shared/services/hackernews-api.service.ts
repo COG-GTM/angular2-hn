@@ -11,7 +11,7 @@ export const HN_FIREBASE_API = 'https://hacker-news.firebaseio.com/v0';
 
 interface ApiPollOption {
   item: string;
-  points: number;
+  points?: number;
 }
 
 type ApiStory = Omit<Story, 'poll'> & { poll?: ApiPollOption[]; error?: string };
@@ -59,7 +59,7 @@ export class HackerNewsAPIService {
         if (!poll) {
           return story;
         }
-        const pollResults: PollResult[] = poll.map(option => ({ content: option.item, points: option.points }));
+        const pollResults: PollResult[] = poll.map(option => ({ content: option.item, points: option.points ?? 0 }));
         return {
           ...story,
           poll: pollResults,

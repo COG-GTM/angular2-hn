@@ -1,4 +1,4 @@
-export class PollResult {
-    points: number;
-    content: string;
+export interface PollResult {
+  points: number;
+  content: string;
 }

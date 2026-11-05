@@ -1,5 +1,5 @@
-@import "../../shared/scss/media";
-@import "../../shared/scss/theme_variables";
+@use "../../shared/scss/media" as *;
+@use "../../shared/scss/theme_variables" as *;
 
 #header {
   color: #fff;
@@ -129,6 +129,13 @@ h1 {
 
   @media #{$mobile-only} {
     right: 10px;
+  }
+
+  .settings-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
   }
 
   img {

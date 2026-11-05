@@ -1,38 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { catchError, map, of, startWith, switchMap } from 'rxjs';
 
-import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
+import { ErrorMessageComponent } from '../shared/components/error-message/error-message.component';
+import { LoaderComponent } from '../shared/components/loader/loader.component';
+import { LoadState, loading } from '../shared/models/load-state';
 import { User } from '../shared/models/user';
+import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 
 @Component({
-    selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.scss'],
-    standalone: false
+  selector: 'app-user',
+  imports: [LoaderComponent, ErrorMessageComponent],
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit {
-  sub: Subscription;
-  user: User;
-  errorMessage = '';
+export class UserComponent {
+  private readonly api = inject(HackerNewsAPIService);
+  private readonly location = inject(Location);
 
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private route: ActivatedRoute,
-    private _location: Location
-  ) {}
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
-      this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
-        this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
-    });
-  }
+  readonly state = toSignal(
+    inject(ActivatedRoute).paramMap.pipe(
+      map(params => params.get('id') ?? ''),
+      switchMap(userId =>
+        this.api.fetchUser(userId).pipe(
+          map((user): LoadState<User> => ({ data: user, error: '' })),
+          catchError(() => of<LoadState<User>>({ data: null, error: `Could not load user ${userId}.` })),
+          startWith(loading<User>())
+        )
+      )
+    ),
+    { initialValue: loading<User>() }
+  );
 
   goBack() {
-    this._location.back();
+    this.location.back();
   }
 }

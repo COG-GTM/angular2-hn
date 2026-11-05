@@ -1,1 +1,1 @@
-export type FeedType = 'poll' | 'story' | 'job';
+export type FeedType = 'link' | 'ask' | 'poll' | 'story' | 'job';

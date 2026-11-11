@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import DOMPurify from 'dompurify';
 import { fetchUser } from '../api/hackerNewsApi';
 import { Loader } from '../components/Loader/Loader';
 import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
@@ -45,6 +46,6 @@ export function UserPage() {
       <span className="right">{user.karma} ★</span>
       <p className="age">Created {user.created}</p>
     </div>
-    {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: user.about }} /></div>}
+    {user.about && <div className="other-details"><p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(user.about) }} /></div>}
   </div>;
 }

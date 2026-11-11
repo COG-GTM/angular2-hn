@@ -37,6 +37,17 @@ it('shows the shared error message on rejection', async () => {
   expect(await screen.findByText('Could not load user pg.')).toBeTruthy();
   expect(screen.queryByText('Loading...')).toBeNull();
 });
+it('strips unsafe about HTML while preserving paragraphs and links', async () => {
+  vi.mocked(fetchUser).mockResolvedValue({ ...user, about: '<p onclick="alert(1)">About <a href="https://example.com" onmouseover="alert(1)">website</a></p><img src="x" onerror="alert(1)"><script>alert(1)</script><a href="javascript:alert(1)">unsafe link</a>' });
+  const { container } = renderPage();
+  await screen.findByText('Created 20 years ago');
+  const about = container.querySelector('.other-details');
+  expect(about?.querySelector('script')).toBeNull();
+  expect(about?.querySelector('[onclick], [onmouseover], [onerror]')).toBeNull();
+  expect(about?.querySelector('p p')?.textContent).toBe('About website');
+  expect(screen.getByRole('link', { name: 'website' }).getAttribute('href')).toBe('https://example.com');
+  expect(screen.getByText('unsafe link').getAttribute('href')).toBeNull();
+});
 it('omits the about section when empty', async () => {
   vi.mocked(fetchUser).mockResolvedValue({ ...user, about: '' });
   const { container } = renderPage();

@@ -36,7 +36,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     return () => media.removeEventListener('change', onChange);
   }, []);
   function persist<K extends 'theme' | 'titleFontSize' | 'listSpacing'>(key: K, value: Settings[K]) {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, key === 'theme' && value === 'amoled' ? 'amoledblack' : value);
     setSettings(previous => ({ ...previous, [key]: value }));
   }
   return <SettingsContext.Provider value={{

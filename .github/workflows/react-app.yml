@@ -1,9 +1,9 @@
 name: React app
 on:
   push:
-    paths: ['react-app/**']
+    paths: ['react-app/**', '.github/workflows/react-app.yml']
   pull_request:
-    paths: ['react-app/**']
+    paths: ['react-app/**', '.github/workflows/react-app.yml']
 jobs:
   validate:
     runs-on: ubuntu-latest

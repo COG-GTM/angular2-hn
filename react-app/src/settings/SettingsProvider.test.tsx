@@ -15,7 +15,7 @@ it('provides defaults and persists all controls except visibility', () => {
   expect(result.current.settings).toEqual({ showSettings: true, openLinkInNewTab: true, theme: 'amoled', titleFontSize: '20', listSpacing: '8' });
   expect(localStorage.getItem('showSettings')).toBeNull();
   expect(localStorage.getItem('openLinkInNewTab')).toBe('true');
-  expect(localStorage.getItem('theme')).toBe('amoled');
+  expect(localStorage.getItem('theme')).toBe('amoledblack');
   expect(localStorage.getItem('titleFontSize')).toBe('20');
   expect(localStorage.getItem('listSpacing')).toBe('8');
   act(() => { result.current.toggleSettings(); result.current.toggleOpenLinksInNewTab(); });

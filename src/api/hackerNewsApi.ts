@@ -33,6 +33,11 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
     return story;
 }
 
-export function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
-    return getJson<User>(`${HN_USER_API_BASE_URL}/user/${encodeURIComponent(id)}.json`, signal);
+export async function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
+    const user = await getJson<User | null>(`${HN_USER_API_BASE_URL}/user/${encodeURIComponent(id)}.json`, signal);
+    // HNPWA answers 200 with `null` for unknown users.
+    if (!user) {
+        throw new Error(`User not found: ${id}`);
+    }
+    return user;
 }

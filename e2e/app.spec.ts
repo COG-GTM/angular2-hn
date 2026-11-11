@@ -24,10 +24,30 @@ test.beforeEach(async ({ context }) => {
 
 async function expectShell(page: Page) {
   await expect(page.getByRole('banner')).toBeAttached();
-  await expect(page.getByRole('img', { name: 'Logo', exact: true })).toBeVisible();
+  await expect(page.getByRole('banner').getByRole('img', { name: 'Logo', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'new', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Settings', exact: true })).toBeVisible();
 }
+
+test('loading shell shows before React mounts and hides afterwards', async ({ page, context }, testInfo) => {
+  let release!: () => void;
+  const ready = new Promise<void>(resolve => { release = resolve; });
+  await context.route('**/assets/index-*.js', async route => {
+    await ready;
+    await route.continue();
+  });
+  try {
+    await page.goto('/', { waitUntil: 'commit' });
+    await expect(page.locator('#root')).toBeEmpty();
+    await expect(page.locator('.app-loader')).toHaveCSS('opacity', '1');
+  } finally {
+    release();
+  }
+  await expectShell(page);
+  await expect(page.locator('#root')).not.toBeEmpty();
+  await expect(page.locator('.app-loader')).toHaveCSS('opacity', '0');
+  await testInfo.attach('mounted-shell', { body: await page.screenshot(), contentType: 'image/png' });
+});
 
 test('feed loads, pages forward and returns with Prev', async ({ page }) => {
   await page.goto('/');

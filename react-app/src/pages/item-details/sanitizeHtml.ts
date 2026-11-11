@@ -1,5 +1,5 @@
 const allowedTags = new Set('a abbr b blockquote br code dd del div dl dt em h1 h2 h3 h4 h5 h6 hr i img ins kbd li ol p pre q s small span strong sub sup table tbody td th thead tr u ul'.split(' '));
-const allowedAttributes = new Set('alt class colspan height rel rowspan target title width'.split(' '));
+const allowedAttributes = new Set('alt class colspan height rowspan target title width'.split(' '));
 
 export function sanitizeHtml(html: string): string {
   const template = document.createElement('template');
@@ -17,6 +17,7 @@ export function sanitizeHtml(html: string): string {
           if (/^(javascript|vbscript|data):/i.test(value)) node.setAttribute(name, `unsafe:${attribute.value}`);
         } else if (!allowedAttributes.has(name)) node.removeAttribute(name);
       }
+      if (tag === 'a' && node.hasAttribute('target')) node.setAttribute('rel', 'noopener noreferrer');
     }
   }
   clean(template.content);

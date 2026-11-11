@@ -92,3 +92,12 @@ it('aborts a pending request when leaving the page', async () => {
   view.unmount();
   await waitFor(() => expect(signal?.aborted).toBe(true));
 });
+it.each(['_blank', 'named-window', ''])('secures HTML links with target "%s" regardless of supplied rel', async target => {
+  const unsafe: typeof story = { ...story, content: `<a href="https://example.com" target="${target}" rel="opener">Targeted link</a><a href="https://example.com" rel="opener">Plain link</a>` };
+  vi.mocked(fetchItemContent).mockResolvedValue(unsafe);
+  show();
+  const link = await screen.findByText('Targeted link');
+  expect(link.getAttribute('target')).toBe(target);
+  expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+  expect(screen.getByText('Plain link').hasAttribute('rel')).toBe(false);
+});

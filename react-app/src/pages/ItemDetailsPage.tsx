@@ -7,6 +7,7 @@ import { Loader } from '../components/Loader/Loader';
 import type { Story } from '../models';
 import { useSettings } from '../settings';
 import { formatCommentCount } from '../utils/commentCount';
+import { buttonProps } from '../utils/activateOnKey';
 import { sanitizedHtml } from '../utils/sanitize';
 import './ItemDetailsPage.scss';
 
@@ -63,12 +64,7 @@ export default function ItemDetailsPage() {
                 <div className="item">
                     <div className="mobile item-header">
                         <p className="title-block">
-                            <span
-                                className="back-button"
-                                role="button"
-                                aria-label="Back"
-                                onClick={() => navigate(-1)}
-                            />
+                            <span className="back-button" aria-label="Back" {...buttonProps(() => navigate(-1))} />
                             <ItemTitle item={item} />
                         </p>
                     </div>
@@ -106,18 +102,21 @@ export default function ItemDetailsPage() {
                     </div>
                     {item.type === 'poll' && item.poll && (
                         <div className="pollResults">
-                            {item.poll.map((result, i) => (
-                                <div key={i} className="pollContent">
-                                    <div dangerouslySetInnerHTML={sanitizedHtml(result.content)} />
-                                    <div className="subtext">{result.points} points</div>
-                                    <div
-                                        className="pollBar"
-                                        style={{
-                                            width: `${item.poll_votes_count ? (result.points / item.poll_votes_count) * 100 : 0}%`,
-                                        }}
-                                    />
-                                </div>
-                            ))}
+                            {item.poll.map((result, i) => {
+                                // A poll option that failed to load keeps its empty placeholder entry.
+                                const points = result.points ?? 0;
+                                const total = item.poll_votes_count ?? 0;
+                                return (
+                                    <div key={i} className="pollContent">
+                                        <div dangerouslySetInnerHTML={sanitizedHtml(result.content)} />
+                                        <div className="subtext">{points} points</div>
+                                        <div
+                                            className="pollBar"
+                                            style={{ width: `${total ? (points / total) * 100 : 0}%` }}
+                                        />
+                                    </div>
+                                );
+                            })}
                         </div>
                     )}
                     <p className="subject" dangerouslySetInnerHTML={sanitizedHtml(item.content)} />

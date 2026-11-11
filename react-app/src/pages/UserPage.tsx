@@ -4,6 +4,7 @@ import { fetchUser } from '../api/hackerNewsApi';
 import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
 import { Loader } from '../components/Loader/Loader';
 import type { User } from '../models';
+import { buttonProps } from '../utils/activateOnKey';
 import { sanitizedHtml } from '../utils/sanitize';
 import './UserPage.scss';
 
@@ -37,12 +38,7 @@ export default function UserPage() {
                 <div className="profile">
                     <div className="mobile item-header">
                         <p className="title-block">
-                            <span
-                                className="back-button"
-                                role="button"
-                                aria-label="Back"
-                                onClick={() => navigate(-1)}
-                            />
+                            <span className="back-button" aria-label="Back" {...buttonProps(() => navigate(-1))} />
                             Profile: {user.id}
                         </p>
                     </div>

@@ -46,8 +46,12 @@ describe('routes', () => {
     });
 
     it('serves the user page', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async () => Response.json({ id: 'pg', karma: 1, created: 'today', created_time: 0 }))
+        );
         renderAt('/user/pg');
-        expect(await screen.findByTestId('user-page')).toHaveTextContent('user pg');
+        expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
     });
 
     it('applies the theme class', async () => {

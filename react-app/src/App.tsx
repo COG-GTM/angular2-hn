@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { Settings } from './components/Settings/Settings';
 import { useSettings } from './settings';
 import './styles/layout.scss';
 
@@ -11,7 +10,6 @@ export function App() {
     <div className="body-cover" />
     <div className="wrapper">
       <Header />
-      {settings.showSettings && <Settings />}
       <Outlet />
       <Footer />
     </div>

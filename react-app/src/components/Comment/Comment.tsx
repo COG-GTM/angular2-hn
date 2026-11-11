@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Comment as CommentModel } from '../../models';
+import { buttonProps } from '../../utils/activateOnKey';
 import { sanitizedHtml } from '../../utils/sanitize';
 import './Comment.scss';
 
@@ -20,12 +21,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
     return (
         <div className="comment">
             <div className={collapsed ? 'meta meta-collapse' : 'meta'}>
-                <span
-                    className="collapse"
-                    role="button"
-                    aria-expanded={!collapsed}
-                    onClick={() => setCollapsed((c) => !c)}
-                >
+                <span className="collapse" aria-expanded={!collapsed} {...buttonProps(() => setCollapsed((c) => !c))}>
                     [{collapsed ? '+' : '-'}]
                 </span>{' '}
                 <Link to={`/user/${comment.user}`}>{comment.user}</Link>

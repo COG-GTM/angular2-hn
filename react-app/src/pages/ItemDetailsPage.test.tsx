@@ -108,6 +108,29 @@ describe('ItemDetailsPage', () => {
         expect([...bars].map((b) => b.style.width)).toEqual(['75%', '25%']);
     });
 
+    it('renders a failed poll option as zero points', async () => {
+        stubApi({
+            [ITEM]: story({ type: 'poll', url: 'item?id=1', poll: [{}, {}] as Story['poll'] }),
+            'https://node-hnapi.herokuapp.com/item/2': { points: 5, content: '<p>Yes</p>' },
+        });
+        renderAt('/item/1');
+        expect(await screen.findByText('Yes')).toBeInTheDocument();
+        expect(screen.getByText('0 points')).toBeInTheDocument();
+        const bars = document.querySelectorAll<HTMLElement>('.pollBar');
+        expect([...bars].map((b) => b.style.width)).toEqual(['100%', '0%']);
+    });
+
+    it('toggles a comment from the keyboard', async () => {
+        stubApi({ [ITEM]: story({ comments: [comment(10)] }) });
+        renderAt('/item/1');
+        const toggle = await screen.findByRole('button', { name: '[-]' });
+        toggle.focus();
+        await userEvent.keyboard('{Enter}');
+        expect(toggle).toHaveTextContent('[+]');
+        await userEvent.keyboard(' ');
+        expect(toggle).toHaveTextContent('[-]');
+    });
+
     it('sanitizes HTML from the API', async () => {
         stubApi({
             [ITEM]: story({

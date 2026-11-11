@@ -16,6 +16,9 @@ it('ships every icon referenced by the manifest', () => {
 
 it('keeps a skip target, loading logo and no-script message before React starts', () => {
   expect(html.querySelector('#skip a')?.getAttribute('href')).toBe('#content');
-  expect(html.querySelector('#content #root .app-loader img')?.getAttribute('src')).toBe('assets/images/logo.svg');
-  expect(html.querySelector('#root noscript')?.textContent).toContain('JavaScript needs to be enabled');
+  expect(html.querySelector('#root:empty + .app-loader#content img')?.getAttribute('src')).toBe('assets/images/logo.svg');
+  expect(html.querySelector('#content noscript')?.textContent).toContain('JavaScript needs to be enabled');
+  const mounted = html.cloneNode(true) as Document;
+  mounted.querySelector('#root')!.appendChild(mounted.createElement('div'));
+  expect(mounted.querySelector('#root:empty + .app-loader')).toBeNull();
 });

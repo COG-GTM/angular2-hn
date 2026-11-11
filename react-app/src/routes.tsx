@@ -1,4 +1,4 @@
-import { Navigate, useRoutes, type RouteObject } from 'react-router-dom';
+import { Navigate, useRoutes, type RouteObject } from 'react-router';
 import { App } from './App';
 import { FEED_TYPES } from './models';
 import { FeedPage } from './pages/FeedPage';

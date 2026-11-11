@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 // TODO: Port item details and comments in a later phase.
 export function ItemDetailsPage() {

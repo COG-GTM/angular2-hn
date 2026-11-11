@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, useLocation } from 'react-router-dom';
+import { MemoryRouter, useLocation } from 'react-router';
 import { expect, it } from 'vitest';
 import { AppRoutes } from './routes';
 import { SettingsProvider } from './settings';
@@ -15,7 +15,7 @@ it.each([
   ['/item/123', 'Item: 123', '/item/123'],
   ['/user/alice', 'User: alice', '/user/alice'],
 ])('renders %s', (path, heading, destination) => {
-  render(<MemoryRouter initialEntries={[path]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}><SettingsProvider><AppRoutes /><Location /></SettingsProvider></MemoryRouter>);
+  render(<MemoryRouter initialEntries={[path]}><SettingsProvider><AppRoutes /><Location /></SettingsProvider></MemoryRouter>);
   expect(screen.getByRole('heading', { name: heading })).toBeTruthy();
   expect(screen.getByTestId('location').textContent).toBe(destination);
 });

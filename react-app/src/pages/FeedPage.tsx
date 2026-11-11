@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import type { FeedType } from '../models';
 
 // TODO: Port the feed list and pagination in a later phase.

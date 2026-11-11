@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 // TODO: Port the user profile in a later phase.
 export function UserPage() {

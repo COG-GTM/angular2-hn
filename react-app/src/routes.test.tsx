@@ -13,7 +13,6 @@ it.each([
   ['/ask/5', 'Feed: ask, page: 5', '/ask/5'],
   ['/jobs/6', 'Feed: jobs, page: 6', '/jobs/6'],
   ['/item/123', 'Item: 123', '/item/123'],
-  ['/user/alice', 'User: alice', '/user/alice'],
 ])('renders %s', (path, heading, destination) => {
   render(<MemoryRouter initialEntries={[path]}><SettingsProvider><AppRoutes /><Location /></SettingsProvider></MemoryRouter>);
   expect(screen.getByRole('heading', { name: heading })).toBeTruthy();

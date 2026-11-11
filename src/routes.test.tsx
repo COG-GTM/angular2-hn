@@ -1,10 +1,22 @@
+import { StrictMode } from 'react';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router';
-import { expect, it, vi } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
+import { RouteAnalytics } from './components/RouteAnalytics';
 import { AppRoutes } from './routes';
 import { SettingsProvider } from './settings';
 
 vi.mock('./pages/FeedPage', () => ({ FeedPage: ({ feedType }: { feedType: string }) => <h2>Feed: {feedType}, page: {useLocation().pathname.split('/')[2]}</h2> }));
+
+afterEach(() => vi.unstubAllGlobals());
+
+it('tracks only the destination pageview when the root route redirects', () => {
+  const ga = vi.fn();
+  vi.stubGlobal('ga', ga);
+  render(<StrictMode><MemoryRouter initialEntries={['/']}><RouteAnalytics /><SettingsProvider><AppRoutes /></SettingsProvider></MemoryRouter></StrictMode>);
+  expect(screen.getByRole('heading', { name: 'Feed: news, page: 1' })).toBeTruthy();
+  expect(ga.mock.calls).toEqual([['set', 'page', '/news/1'], ['send', 'pageview']]);
+});
 
 function Location() { return <output data-testid="location">{useLocation().pathname}</output>; }
 it.each([

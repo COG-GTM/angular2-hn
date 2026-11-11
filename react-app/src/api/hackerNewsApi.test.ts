@@ -39,6 +39,16 @@ describe('hackerNewsApi', () => {
         expect(story.poll_votes_count).toBe(8);
     });
 
+    it('keeps the item when a poll option fails to load', async () => {
+        mockFetch({
+            'https://node-hnapi.herokuapp.com/item/10': { id: 10, type: 'poll', poll: [{}, {}] },
+            'https://node-hnapi.herokuapp.com/item/11': { points: 3, content: 'a' },
+        });
+        const story = await fetchItemContent(10);
+        expect(story.poll).toEqual([{ points: 3, content: 'a' }, {}]);
+        expect(story.poll_votes_count).toBe(3);
+    });
+
     it('fetches users from HNPWA', async () => {
         mockFetch({ 'https://api.hnpwa.com/v0/user/pg.json': { id: 'pg', karma: 1 } });
         await expect(fetchUser('pg')).resolves.toEqual({ id: 'pg', karma: 1 });

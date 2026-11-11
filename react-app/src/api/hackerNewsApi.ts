@@ -23,9 +23,12 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
     const story = await getJson<Story>(`${HN_API_BASE_URL}/item/${id}`, signal);
     if (story.type === 'poll' && story.poll) {
-        const results = await Promise.all(story.poll.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
-        story.poll = results;
-        story.poll_votes_count = results.reduce((sum, r) => sum + r.points, 0);
+        // Like the Angular service, a failed poll option leaves its entry as-is instead of failing the whole item.
+        const poll = story.poll;
+        const results = await Promise.allSettled(poll.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
+        signal?.throwIfAborted();
+        story.poll = results.map((r, i) => (r.status === 'fulfilled' ? r.value : poll[i]));
+        story.poll_votes_count = results.reduce((sum, r) => sum + (r.status === 'fulfilled' ? r.value.points : 0), 0);
     }
     return story;
 }

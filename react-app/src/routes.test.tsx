@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { routes } from './routes';
 import { SettingsProvider } from './settings';
 
@@ -14,16 +14,29 @@ function renderAt(path: string) {
     return router;
 }
 
+let fetchMock: ReturnType<typeof vi.fn>;
+
+beforeEach(() => {
+    fetchMock = vi.fn(async () => new Response('[]'));
+    vi.stubGlobal('fetch', fetchMock);
+});
+
+afterEach(() => vi.unstubAllGlobals());
+
+const fetchedUrls = () => fetchMock.mock.calls.map(([url]) => url);
+
 describe('routes', () => {
     it('redirects / to /news/1', async () => {
         const router = renderAt('/');
-        expect(await screen.findByTestId('feed-page')).toHaveTextContent('news page 1');
+        await screen.findByTestId('feed-page');
+        expect(fetchedUrls()).toContain('https://node-hnapi.herokuapp.com/news?page=1');
         expect(router.state.location.pathname).toBe('/news/1');
     });
 
     it.each(['news', 'newest', 'show', 'ask', 'jobs'])('serves the %s feed', async (feed) => {
         renderAt(`/${feed}/3`);
-        expect(await screen.findByTestId('feed-page')).toHaveTextContent(`${feed} page 3`);
+        await screen.findByTestId('feed-page');
+        expect(fetchedUrls()).toContain(`https://node-hnapi.herokuapp.com/${feed}?page=3`);
     });
 
     it('lazy-loads the item and user pages', async () => {

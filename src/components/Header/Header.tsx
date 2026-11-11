@@ -1,8 +1,6 @@
 import { NavLink } from 'react-router';
 import { useSettings } from '../../settings';
 import { Settings } from '../Settings/Settings';
-import logo from '../../../../src/assets/images/logo.svg';
-import cog from '../../../../src/assets/images/cog.svg';
 import './Header.scss';
 
 export function Header() {
@@ -12,7 +10,7 @@ export function Header() {
     <div id="header">
       <NavLink className={({ isActive }) => `home-link${isActive ? ' active' : ''}`} to="/news/1" onClick={scrollTop}>
         <div className="logo-inner" />
-        <img className="logo" src={logo} alt="Logo" />
+        <img className="logo" src="/assets/images/logo.svg" alt="Logo" />
       </NavLink>
       <div className="header-text"><div className="left"><span className="header-nav">
         <NavLink to="/newest/1" onClick={scrollTop}>new</NavLink> |{' '}
@@ -21,7 +19,7 @@ export function Header() {
         <NavLink to="/jobs/1" onClick={scrollTop}>jobs</NavLink>
       </span></div></div>
       <div className="info">
-        <img className="settings" src={cog} alt="Settings" role="button" tabIndex={0}
+        <img className="settings" src="/assets/images/cog.svg" alt="Settings" role="button" tabIndex={0}
           aria-expanded={settings.showSettings} aria-controls="popup1" onClick={toggleSettings}
           onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleSettings(); } }} />
       </div>

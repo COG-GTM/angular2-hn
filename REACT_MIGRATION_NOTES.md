@@ -1,12 +1,11 @@
 # React migration foundation
 
-This standalone React 18 app leaves the Angular app and its PWA/deployment configuration unchanged.
+These foundation notes are retained for reference. The React 18 app now lives at the repository root; the original Angular app has been removed.
 
 ## Run
 
-Use Node.js 22.13+ (or 24) and npm:
+Use Node.js 24+ and npm from the repository root:
 ```sh
-cd react-app
 npm ci
 npm run dev
 ```

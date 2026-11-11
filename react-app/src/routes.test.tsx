@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { AppRoutes } from './routes';
 import { SettingsProvider } from './settings';
+
+vi.mock('./pages/FeedPage', () => ({ FeedPage: ({ feedType }: { feedType: string }) => <h2>Feed: {feedType}, page: {useLocation().pathname.split('/')[2]}</h2> }));
 
 function Location() { return <output data-testid="location">{useLocation().pathname}</output>; }
 it.each([

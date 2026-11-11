@@ -54,6 +54,11 @@ describe('hackerNewsApi', () => {
         await expect(fetchUser('pg')).resolves.toEqual({ id: 'pg', karma: 1 });
     });
 
+    it('rejects unknown users, which HNPWA returns as null', async () => {
+        mockFetch({ 'https://api.hnpwa.com/v0/user/nobody.json': null });
+        await expect(fetchUser('nobody')).rejects.toThrow('User not found: nobody');
+    });
+
     it('rejects on a non-OK response', async () => {
         mockFetch({});
         await expect(fetchItemContent(99)).rejects.toThrow('404');

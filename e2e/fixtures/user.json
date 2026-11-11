@@ -1,0 +1,4 @@
+{
+  "id": "alice", "crated_time": 0, "created": "10 years ago", "karma": 1234, "avg": 0,
+  "about": "<b>About Alice</b><p>Building useful things.</p><a href=\"https://example.com/alice\">Website</a><img src=\"x\" onerror=\"window.unsafeAbout = true\"><script>window.unsafeAbout = true</script>"
+}

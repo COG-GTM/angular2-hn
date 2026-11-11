@@ -1,0 +1,23 @@
+{
+  "id": 123,
+  "title": "Deterministic top story",
+  "points": 42,
+  "user": "alice",
+  "time": 0,
+  "time_ago": "1 hour ago",
+  "type": "story",
+  "url": "https://example.com/story",
+  "domain": "example.com",
+  "comments_count": 2,
+  "content": "<p>Story discussion</p>",
+  "comments": [{
+    "id": 201, "level": 0, "user": "parent", "time": 0,
+    "time_ago": "1 hour ago", "content": "<p>Parent comment</p>", "deleted": false,
+    "comments": [{
+      "id": 202, "level": 1, "user": "child", "time": 0,
+      "time_ago": "30 minutes ago", "content": "<b>Nested comment</b>", "deleted": false,
+      "comments": []
+    }]
+  }],
+  "poll": [], "poll_votes_count": 0, "deleted": false, "dead": false
+}

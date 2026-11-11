@@ -15,5 +15,5 @@ export default defineConfig({
       navigateFallback: '/index.html',
     },
   })],
-  test: { environment: 'jsdom', setupFiles: './src/test/setup.ts', restoreMocks: true },
+  test: { include: ['src/**/*.test.{ts,tsx}'], environment: 'jsdom', setupFiles: './src/test/setup.ts', restoreMocks: true },
 });

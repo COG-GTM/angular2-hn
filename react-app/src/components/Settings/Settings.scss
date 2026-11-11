@@ -32,6 +32,11 @@
     margin-bottom: 20px;
   }
   .close {
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    line-height: 1;
     position: absolute;
     top: 12px;
     right: 20px;

@@ -38,13 +38,9 @@ export function Header() {
                     </div>
                 </div>
                 <div className="info">
-                    <img
-                        className="settings"
-                        src="/assets/images/cog.svg"
-                        alt="Settings"
-                        role="button"
-                        onClick={toggleSettings}
-                    />
+                    <button type="button" className="settings-button" aria-label="Settings" onClick={toggleSettings}>
+                        <img className="settings" src="/assets/images/cog.svg" alt="" />
+                    </button>
                 </div>
             </div>
             {settings.showSettings && <SettingsPanel />}

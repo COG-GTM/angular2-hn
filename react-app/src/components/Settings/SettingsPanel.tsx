@@ -15,9 +15,9 @@ export function SettingsPanel() {
             <div className="popup" role="dialog" aria-label="Settings">
                 <h1>Settings</h1>
                 <hr />
-                <span className="close" role="button" aria-label="Close settings" onClick={toggleSettings}>
+                <button type="button" className="close" aria-label="Close settings" onClick={toggleSettings}>
                     &times;
-                </span>
+                </button>
                 <div className="content">
                     <div className="control-section">
                         <h2>Links</h2>

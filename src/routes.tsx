@@ -21,6 +21,7 @@ export const routes: RouteObject[] = [
             })),
             { path: 'item/:id', element: <ItemDetailsPage /> },
             { path: 'user/:id', element: <UserPage /> },
+            { path: '*', loader: () => redirect('/news/1') },
         ],
     },
 ];

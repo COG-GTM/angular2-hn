@@ -64,4 +64,10 @@ describe('routes', () => {
         await screen.findByTestId('feed-page');
         expect(container.firstChild).toHaveClass('night');
     });
+
+    it('redirects unknown paths to /news/1', async () => {
+        const router = renderAt('/foo/bar');
+        await screen.findByTestId('feed-page');
+        expect(router.state.location.pathname).toBe('/news/1');
+    });
 });

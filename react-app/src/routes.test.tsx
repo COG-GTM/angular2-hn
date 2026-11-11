@@ -35,8 +35,14 @@ describe('routes', () => {
     });
 
     it('lazy-loads the item and user pages', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async () =>
+                Response.json({ id: 8863, title: 'Dropbox', url: 'item?id=8863', type: 'link', comments: [] })
+            )
+        );
         renderAt('/item/8863');
-        expect(await screen.findByTestId('item-page')).toHaveTextContent('item 8863');
+        expect((await screen.findAllByRole('link', { name: 'Dropbox' }))[0]).toHaveAttribute('href', '/item/8863');
     });
 
     it('serves the user page', async () => {

@@ -9,7 +9,8 @@ export default defineConfig({
         // Replaces Angular's ngsw: precache the app shell, cache assets, serve index.html for routes.
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'assets/**/*'],
+            // globPatterns already precaches public/ files; adding them again here or as manifest icons duplicates entries.
+            includeManifestIcons: false,
             manifest: {
                 name: 'Angular 2 HN',
                 short_name: 'Angular 2 HN',

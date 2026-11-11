@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Navigate, type RouteObject } from 'react-router-dom';
+import { redirect, type RouteObject } from 'react-router-dom';
 import App from './App';
 import { FEED_TYPES } from './models';
 import FeedPage from './pages/FeedPage';
@@ -13,7 +13,8 @@ export const routes: RouteObject[] = [
         path: '/',
         element: <App />,
         children: [
-            { index: true, element: <Navigate to="/news/1" replace /> },
+            // A loader redirect resolves before render, so `/` never produces its own pageview.
+            { index: true, loader: () => redirect('/news/1') },
             ...FEED_TYPES.map((feedType) => ({
                 path: `${feedType}/:page`,
                 element: <FeedPage key={feedType} feedType={feedType} />,

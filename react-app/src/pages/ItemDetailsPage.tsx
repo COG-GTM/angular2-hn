@@ -20,6 +20,9 @@ export function ItemDetailsPage() {
     const controller = new AbortController();
     window.scrollTo(0, 0);
     fetchItemContent(Number(id), controller.signal).then(item => {
+      if (!item || !Number.isSafeInteger(item.id) || item.id <= 0 || !Array.isArray(item.comments)) {
+        throw new Error('Invalid item response');
+      }
       if (!controller.signal.aborted) setResult({ id, item });
     }).catch(() => {
       if (!controller.signal.aborted) setResult({ id, error: 'Could not load item comments.' });

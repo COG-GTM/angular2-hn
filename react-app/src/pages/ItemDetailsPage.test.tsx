@@ -25,6 +25,20 @@ it('shows the Angular error message on failure', async () => {
   expect(await screen.findByText('Could not load item comments.')).toBeTruthy();
   expect(screen.queryByText('Loading...')).toBeNull();
 });
+it.each([
+  { error: 'Item not found' },
+  null,
+  { ...story, id: undefined },
+  { ...story, id: 0 },
+  { ...story, comments: null },
+  { ...story, comments: {} },
+])('shows an error for an invalid successful API response %#', async response => {
+  vi.mocked(fetchItemContent).mockResolvedValue(response as unknown as Story);
+  const { container } = show();
+  expect(await screen.findByText('Could not load item comments.')).toBeTruthy();
+  expect(screen.queryByText('Loading...')).toBeNull();
+  expect(container.querySelector('.item')).toBeNull();
+});
 it('renders story header, metadata, HTML and new-tab settings', async () => {
   localStorage.setItem('openLinkInNewTab', 'true');
   vi.mocked(fetchItemContent).mockResolvedValue(story);

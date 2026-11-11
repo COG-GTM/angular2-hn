@@ -9,6 +9,9 @@
 
 # dependencies
 /node_modules
+*.tsbuildinfo
+/playwright-report
+/test-results
 
 # profiling files
 chrome-profiler-events.json

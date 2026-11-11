@@ -1,102 +1,121 @@
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">
-    <img alt="Angular 2 HN" title="Angular 2 HN" src="http://i.imgur.com/J303pQ4.png" width="150">
-  </a>
-</p>
+# Hacker News PWA
 
-<p align="center">
-  A progressive Hacker News client built with Angular
-</p>
+A responsive Hacker News client with paginated feeds, nested comments, user profiles,
+and persistent display settings. Built with **React 18**, **TypeScript**, **React Router**,
+and **Vite**. **Workbox**, through `vite-plugin-pwa`, generates the production service
+worker. Profile HTML is sanitized with DOMPurify.
 
-<p align="center">
-  <a href="https://angular2-hn.firebaseapp.com">View App</a>
-</p>
+## Getting started
 
-<p align="center">
-  <a href="/CONTRIBUTING.md"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-  <a href="https://travis-ci.org/housseindjirdeh/angular2-hn"><img alt="Build Status" src="https://travis-ci.org/housseindjirdeh/angular2-hn.svg?branch=master"></a>
-</p>
+Use **Node.js 24 or newer** and npm. Run commands from the repository root:
 
----
+```sh
+npm ci
+npm run dev
+```
 
-:zap: **Fast:** Service Worker App Shell + Dynamic Content model to achieve faster load times with and without a network.
+Open the URL printed by Vite. No Angular CLI or global build tools are required.
 
-:iphone: **Responsive:** Completely responsive UI that can be installed to your mobile home screen to provide a native feel.
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server with hot reload. |
+| `npm run build` | Typecheck and build the production app and service worker into `dist/`. |
+| `npm run preview` | Serve the existing production build locally. |
+| `npm run lint` | Run ESLint. |
+| `npm test` | Run Vitest and React Testing Library tests in jsdom. |
+| `npm run e2e` | Build and serve production, then run Playwright in desktop and mobile Chromium. |
 
-:rocket: **Progressive:** [Lighthouse](https://github.com/GoogleChrome/lighthouse) score of 87/100.
+Install bundled Chromium before running e2e tests:
 
-<p align="center">
-  <img src = "http://i.imgur.com/fzJzLFO.png" width=500>
-</p>
+```sh
+npx playwright install chromium
+npm run e2e
+# Repeat every test three times:
+npx playwright test --repeat-each=3
+```
 
-## Mobile Preview
+Playwright uses port 4173 and manages its own production preview server. API responses
+are mocked from `e2e/fixtures/` so tests do not depend on the live HN API. The HTML report
+is written to `playwright-report/`; failed runs retain traces and screenshots.
 
-<p align="center">
-  <img src = "http://i.imgur.com/ZloA1hn.gif">
-</p>
+## PWA and offline behavior
 
-## Laptop Preview
+The production build generates `sw.js` and registers it automatically. Workbox precaches
+the app shell (HTML, JavaScript, CSS), favicon, `manifest.json`, and public icons/images.
+After an online visit finishes installing the service worker and it controls the page,
+reloads and deep links such as `/news/2`, `/item/123`, and `/user/alice` can load the
+app shell offline through the `/index.html` navigation fallback.
 
-<p align="center">
-  <img src = "http://i.imgur.com/MrKHaln.gif">
-</p>
+**HN API data is not cached**, matching the original Angular app's service-worker
+configuration. Offline pages display a load error while the header/navigation remains
+available; previously viewed stories and profiles are not an offline data store.
+The service worker uses automatic updates. The existing web app manifest and icons
+support installation in compatible browsers.
 
-## Offline Support
+Service workers are not enabled by the development server. To check the actual PWA:
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+```sh
+npm run build
+npm run preview -- --port 4173
+```
 
-## Manifest
+Use localhost (or HTTPS when deployed), wait for service-worker activation/control,
+then test offline reload/navigation. The Playwright suite covers this against the real
+generated worker, removing API mocks before taking the browser offline.
 
-With Chromium based browsers for Android (Chrome, Opera, etc...), Angular 2 HN includes a Web App Manifest that allows you to install to your homescreen.
+## Settings
 
-<p align="center">
-  <img src = "http://i.imgur.com/1RaaNkr.png">
-</p>
+The cog opens controls for Default, Night, and Black (AMOLED) themes, title font size,
+list spacing, and opening external links in a new tab. Settings retain the original
+localStorage keys, including the legacy `amoledblack` theme value. System color-scheme
+changes continue to override and persist the selected theme, as in the original app.
 
-## Themes
+## Project layout
 
-Built in theme engine!
+```text
+src/
+  main.tsx           Router and settings-provider composition
+  routes.tsx         Feed, item, and user routes
+  App.tsx            Shared header/footer layout
+  api/               node-hnapi requests, cancellation, and poll aggregation
+  models/            Shared story, comment, user, feed, and settings contracts
+  pages/             Feed/paging, item/comments, and user-profile views
+  components/        Header, footer, settings, loader, and error display
+  settings/          SettingsProvider and useSettings
+  styles/            Shared SCSS themes and layout
+  utils/             Comment-count formatting
+public/              Original manifest, favicon, icons, and images
+e2e/                 Production-browser specs and deterministic JSON fixtures
+vite.config.ts       React, Vitest, and Workbox/PWA configuration
+playwright.config.ts Desktop/mobile Chromium and production web server
+firebase.json        Hosting rewrites, cache headers, and database rules reference
+```
 
-Current themes:
-* Default
-* Night
-* Black (AMOLED)
+Unit/component tests live beside source files. Shared API requests accept AbortSignals
+and reject HTTP failures. The original API model spelling `User.crated_time` is retained.
 
-More to come!
+## Deployment and CI
 
-## Areas of improvement
+Firebase Hosting serves **`dist/`** with an SPA rewrite to `/index.html`. `sw.js` and
+`index.html` have `Cache-Control: no-cache` headers so browsers can revalidate updates.
+`database.rules.json` and the Firebase project aliases in `.firebaserc` are preserved.
 
- - Realtime updating using the Firebase SDK (may need to add option to settings so service worker can still rely on REST endpoints)
- - Server side rendering
+`.travis.yml` installs dependencies and builds with Node 24 on `master`, then uses its
+existing Firebase CLI deploy step with `FIREBASE_TOKEN`. Deployment credentials belong
+in CI secrets, not source control.
 
-Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
+GitHub Actions (`.github/workflows/ci.yml`) runs on pull requests and pushes to `master`:
 
-## Build process
+- Node 24: `npm ci`, lint, unit tests, and production build.
+- Separate e2e job: install Chromium with OS dependencies, then `npm run e2e`.
+- Upload the Playwright HTML report on failure.
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+## History, contributing, and license
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+Originally **Angular 2 HN**, the Angular PWA by
+[Houssein Djirdeh](https://github.com/hdjirdeh), this project has been migrated to React
+while preserving its routes, themes, public assets, and app-shell offline behavior.
+Thanks to the original contributors and maintainers.
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
-
-## Contributors
-
-A million thanks to some awesome people :)
-
-* [Ashwin Sureshkumar](https://github.com/ashwin-sureshkumar)
-* [Mateusz](https://github.com/mateuszwitkowski)
-* [Jordi Collell](https://github.com/jordic)
-* [Ben Brooks](https://github.com/bbrks)
-* [Zach Berger](https://github.com/zachberger)
-* [blAck PR](https://github.com/blackpr)
-* [Bram Borggreve](https://github.com/beeman)
-* [Antonio Indrianjafy](https://github.com/Antogin)
-* [Addy Osmani](https://github.com/addyosmani)
-* [Majid Hajian](https://github.com/mhadaily)
-* [Jeff Cross](https://github.com/jeffbcross)
-* [Minko Gechev](https://github.com/mgechev)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development and pull-request guidance and
+[LICENSE.md](LICENSE.md) for the license.

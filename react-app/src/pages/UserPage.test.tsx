@@ -63,6 +63,17 @@ describe('UserPage', () => {
         expect(router.state.location.pathname).toBe('/news/1');
     });
 
+    it('goes back from the keyboard', async () => {
+        stubApi({
+            [PG]: { id: 'pg', karma: 1, created: 'today', created_time: 0 },
+            'https://node-hnapi.herokuapp.com/news?page=1': [],
+        });
+        const router = renderAt('/user/pg');
+        (await screen.findByRole('button', { name: 'Back' })).focus();
+        await userEvent.keyboard('{Enter}');
+        expect(router.state.location.pathname).toBe('/news/1');
+    });
+
     it('shows an error for an unknown user', async () => {
         stubApi({});
         renderAt('/user/nobody');

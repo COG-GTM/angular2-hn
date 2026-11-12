@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -72,6 +72,33 @@ describe('UserPage', () => {
         (await screen.findByRole('button', { name: 'Back' })).focus();
         await userEvent.keyboard('{Enter}');
         expect(router.state.location.pathname).toBe('/news/1');
+    });
+
+    it('shows the latest profile when an earlier request resolves late', async () => {
+        let releasePg!: () => void;
+        const pgHeld = new Promise<void>((resolve) => (releasePg = resolve));
+        const signals: AbortSignal[] = [];
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async (url: string, init?: RequestInit) => {
+                if (url === PG) {
+                    signals.push(init!.signal!);
+                    await pgHeld;
+                    return Response.json({ id: 'pg', karma: 1, created: 'today', created_time: 0 });
+                }
+                return Response.json({ id: 'sama', karma: 2, created: 'today', created_time: 0 });
+            })
+        );
+        const router = renderAt('/user/pg');
+        await waitFor(() => expect(signals).toHaveLength(1));
+        await router.navigate('/user/sama');
+        expect(await screen.findByText('Profile: sama')).toBeInTheDocument();
+        expect(signals[0].aborted).toBe(true);
+        releasePg();
+        await pgHeld;
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        expect(screen.getByText('Profile: sama')).toBeInTheDocument();
+        expect(screen.queryByText('Profile: pg')).not.toBeInTheDocument();
     });
 
     it('shows an error for an unknown user', async () => {

@@ -21,6 +21,7 @@ export default function FeedPage({ feedType }: { feedType: FeedType }) {
         const controller = new AbortController();
         fetchFeed(feedType, pageNum, controller.signal).then(
             (items) => {
+                if (controller.signal.aborted) return;
                 setState({ key, items });
                 window.scrollTo(0, 0);
             },

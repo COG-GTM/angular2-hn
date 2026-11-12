@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -70,6 +70,33 @@ describe('FeedPage', () => {
         expect(screen.queryByText('More ›')).not.toBeInTheDocument();
         expect(screen.getByRole('link', { name: '‹ Prev' })).toHaveAttribute('href', '/newest/1');
         expect(fetchMock).toHaveBeenCalledWith('https://node-hnapi.herokuapp.com/newest?page=2', expect.anything());
+
+        await userEvent.click(screen.getByRole('link', { name: '‹ Prev' }));
+        expect(await screen.findByRole('link', { name: 'Story 1' })).toBeInTheDocument();
+        expect(router.state.location.pathname).toBe('/newest/1');
+        expect(screen.getByRole('list')).toHaveAttribute('start', '1');
+        expect(screen.queryByText('‹ Prev')).not.toBeInTheDocument();
+    });
+
+    it('ignores a slower response for a page the user already left', async () => {
+        let releasePage1!: () => void;
+        const page1 = new Promise<void>((resolve) => (releasePage1 = resolve));
+        const fetchMock = stubFeed(async (url) => {
+            if (url.endsWith('page=1')) {
+                await page1;
+                return new Response(JSON.stringify(fullPage(1)));
+            }
+            return new Response(JSON.stringify([story(31)]));
+        });
+        const router = renderAt('/newest/1');
+        await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+        await router.navigate('/newest/2');
+        expect(await screen.findByRole('link', { name: 'Story 31' })).toBeInTheDocument();
+        releasePage1();
+        await page1;
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        expect(screen.getByRole('link', { name: 'Story 31' })).toBeInTheDocument();
+        expect(screen.queryByRole('link', { name: 'Story 1' })).not.toBeInTheDocument();
     });
 
     it('links internal posts to item details and honours open-in-new-tab', async () => {

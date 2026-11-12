@@ -69,12 +69,25 @@ describe('app shell', () => {
     it('sends a GA pageview on each route change', async () => {
         const ga = vi.fn();
         window.ga = ga;
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async (url: string) =>
+                Response.json(
+                    url.endsWith('/item/1')
+                        ? { id: 1, title: 'Tracked story', url: 'item?id=1', type: 'ask', comments: [], comments_count: 0 }
+                        : []
+                )
+            )
+        );
         const { router } = renderAt('/');
         await screen.findByTestId('feed-page');
         await router.navigate('/item/1');
-        await screen.findByTestId('item-page');
+        expect((await screen.findAllByText('Tracked story')).length).toBeGreaterThan(0);
         expect(ga).toHaveBeenCalledWith('set', 'page', '/news/1');
         expect(ga).toHaveBeenCalledWith('set', 'page', '/item/1');
-        expect(ga.mock.calls.filter(([cmd]) => cmd === 'send')).toHaveLength(2);
+        expect(ga.mock.calls.filter(([cmd]) => cmd === 'send')).toEqual([
+            ['send', 'pageview'],
+            ['send', 'pageview'],
+        ]);
     });
 });

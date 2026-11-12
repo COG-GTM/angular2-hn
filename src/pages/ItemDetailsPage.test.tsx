@@ -146,6 +146,22 @@ describe('ItemDetailsPage', () => {
         expect(page.innerHTML).not.toContain('javascript:');
     });
 
+    it('sanitizes poll option HTML from the API', async () => {
+        stubApi({
+            [ITEM]: story({ type: 'poll', url: 'item?id=1', poll: [{}] as Story['poll'] }),
+            'https://node-hnapi.herokuapp.com/item/2': {
+                points: 1,
+                content: '<p>Option</p><img src="x" onerror="alert(4)"><script>alert(5)</script>',
+            },
+        });
+        renderAt('/item/1');
+        await screen.findByText('Option');
+        const page = screen.getByTestId('item-page');
+        expect(page.innerHTML).not.toContain('onerror');
+        expect(page.innerHTML).not.toContain('<script');
+        expect(page.innerHTML).not.toContain('javascript:');
+    });
+
     it('goes back from the mobile back button', async () => {
         stubApi({ [ITEM]: story(), 'https://node-hnapi.herokuapp.com/news?page=1': [] });
         const router = renderAt('/item/1');

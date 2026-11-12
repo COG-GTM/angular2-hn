@@ -17,6 +17,7 @@ export default defineConfig({
             includeManifestIcons: false,
             workbox: {
                 globPatterns: ['**/*.{js,css,html}', 'favicon.ico', 'manifest.json'],
+                globIgnores: ['ngsw-worker.js'],
                 navigateFallback: '/index.html',
                 cleanupOutdatedCaches: true,
                 runtimeCaching: [

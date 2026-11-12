@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+This app uses [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) ([Workbox](https://developer.chrome.com/docs/workbox)) to generate a service worker as part of the build step to load quickly and work offline.
 
 ## Manifest
 
@@ -73,16 +73,16 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app lives in [`react-app/`](react-app) (React 18 + TypeScript + Vite, TanStack Query, React Router, `vite-plugin-pwa`). Use Node 22 / npm 11.
 
- - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `cd react-app && npm ci`
+ - `npm run dev` to start the Vite dev server
+ - `npm run build` to type-check and build to `react-app/dist/` (the Firebase Hosting public dir), including the Workbox service worker
+ - `npm run preview` to serve the production build locally with the service worker enabled
+ - `npm test` for Vitest + React Testing Library unit tests, `npm run e2e` for Playwright end-to-end tests (including an offline check)
+ - `npm run lint` / `npm run typecheck`
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+The original Angular 9 sources under `src/` are kept for side-by-side comparison until cutover is complete.
 
 ## Contributors
 

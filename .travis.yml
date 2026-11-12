@@ -1,23 +1,40 @@
 language: node_js
 node_js:
-  - "6.9"
+  - "22"
 
 branches:
   only:
     - master
 
+cache:
+  npm: true
+  directories:
+    - $HOME/.cache/ms-playwright
+
+before_install:
+  - npm install -g npm@11
+  - cd react-app
+
+install:
+  - npm ci
+
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
+  - npx playwright install --with-deps chromium
 
 script:
+  - npm run lint
+  - npm run typecheck
+  - npm test
   - npm run build
+  - npm run e2e
 
-after_success:
-  - firebase use default
-  - firebase deploy --token $FIREBASE_TOKEN
+before_deploy:
+  - cd ..
+  - npm install -g firebase-tools
 
-notifications:
-  email:
-    on_failure: change
-    on_success: change
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: firebase use default && firebase deploy --only hosting --token $FIREBASE_TOKEN
+  on:
+    branch: master

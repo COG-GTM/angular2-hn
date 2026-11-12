@@ -116,6 +116,8 @@ describe('FeedPage', () => {
         expect(await screen.findByText(/jobs at startups that were funded by Y Combinator/)).toBeInTheDocument();
         expect(screen.queryByText(/points by/)).not.toBeInTheDocument();
         expect(screen.queryByText('discuss')).not.toBeInTheDocument();
+        expect(screen.queryByText(/comment/)).not.toBeInTheDocument();
+        expect(screen.queryByText(/★/)).not.toBeInTheDocument();
     });
 
     it('shows an error message when the feed fails to load', async () => {

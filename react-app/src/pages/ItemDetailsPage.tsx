@@ -43,7 +43,9 @@ export default function ItemDetailsPage() {
         const controller = new AbortController();
         window.scrollTo(0, 0);
         fetchItemContent(id, controller.signal).then(
-            (item) => setState({ id, item }),
+            (item) => {
+                if (!controller.signal.aborted) setState({ id, item });
+            },
             () => {
                 if (!controller.signal.aborted) {
                     setState({ id, error: 'Could not load item comments.' });

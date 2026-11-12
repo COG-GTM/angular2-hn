@@ -48,11 +48,20 @@ export async function fetchItemContent(id: number, signal?: AbortSignal): Promis
 export async function fetchUser(id: string, signal?: AbortSignal): Promise<User> {
     const encoded = encodeURIComponent(id);
     try {
-        return await getJson<User>(`${API_BASE_URL}/user/${encoded}`, signal);
+        return await getUser(`${API_BASE_URL}/user/${encoded}`, signal);
     } catch (err) {
         if (signal?.aborted) {
             throw err;
         }
-        return getJson<User>(`${USER_FALLBACK_BASE_URL}/user/${encoded}.json`, signal);
+        return getUser(`${USER_FALLBACK_BASE_URL}/user/${encoded}.json`, signal);
     }
+}
+
+// Unknown users come back as HTTP 200 with a `null` body.
+async function getUser(url: string, signal?: AbortSignal): Promise<User> {
+    const user = await getJson<User | null>(url, signal);
+    if (!user) {
+        throw new HttpError(404, url);
+    }
+    return user;
 }

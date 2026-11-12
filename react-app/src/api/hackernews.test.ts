@@ -44,4 +44,11 @@ describe('HackerNews API', () => {
         await expect(fetchUser('pg')).resolves.toEqual(user);
         expect(fetchSpy).toHaveBeenLastCalledWith('https://api.hnpwa.com/v0/user/pg.json', expect.anything());
     });
+
+    it('fetchUser rejects when the user does not exist (HNPWA returns 200 null)', async () => {
+        mockFetch((url) =>
+            url.startsWith('https://api.hnpwa.com') ? jsonResponse(null) : new Response('Cannot GET', { status: 404 })
+        );
+        await expect(fetchUser('nobody')).rejects.toBeInstanceOf(HttpError);
+    });
 });

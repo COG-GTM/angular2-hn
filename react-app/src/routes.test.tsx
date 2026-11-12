@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { routes } from './routes';
 import { SettingsProvider } from './settings';
 
@@ -13,6 +13,8 @@ function renderAt(path: string) {
     );
     return router;
 }
+
+afterEach(() => vi.unstubAllGlobals());
 
 describe('routes', () => {
     it('redirects / to /news/1', async () => {
@@ -32,8 +34,12 @@ describe('routes', () => {
     });
 
     it('serves the user page', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(async () => Response.json({ id: 'pg', karma: 1, created: 'today', created_time: 0 }))
+        );
         renderAt('/user/pg');
-        expect(await screen.findByTestId('user-page')).toHaveTextContent('user pg');
+        expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
     });
 
     it('applies the theme class', async () => {

@@ -18,7 +18,9 @@ export default function UserPage() {
     useEffect(() => {
         const controller = new AbortController();
         fetchUser(id, controller.signal).then(
-            (user) => setState({ id, user }),
+            (user) => {
+                if (!controller.signal.aborted) setState({ id, user });
+            },
             () => {
                 if (!controller.signal.aborted) {
                     setState({ id, error: `Could not load user ${id}.` });

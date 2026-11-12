@@ -75,6 +75,9 @@ describe('app shell', () => {
         await screen.findByTestId('item-page');
         expect(ga).toHaveBeenCalledWith('set', 'page', '/news/1');
         expect(ga).toHaveBeenCalledWith('set', 'page', '/item/1');
-        expect(ga.mock.calls.filter(([cmd]) => cmd === 'send')).toHaveLength(2);
+        expect(ga.mock.calls.filter(([cmd]) => cmd === 'send')).toEqual([
+            ['send', 'pageview'],
+            ['send', 'pageview'],
+        ]);
     });
 });

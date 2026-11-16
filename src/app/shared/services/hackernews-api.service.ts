@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { Story } from '../models/story';
 import { User } from '../models/user';
@@ -17,7 +18,8 @@ export class HackerNewsAPIService {
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
-    return lazyFetch(`${this.baseUrl}/${feedType}?page=${page}`);
+    const url = `${this.baseUrl}/${feedType}?page=${page}`;
+    return takePrefetchedFeed<Story[]>(url) || lazyFetch(url);
   }
 
   fetchItemContent(id: number): Observable<Story> {
@@ -64,3 +66,36 @@ function lazyFetch<T>(url, options?) {
   });
 }
 
+// Single-use hand-off of the feed request started by the inline script in index.html.
+// Falls back to a normal fetch if that request failed.
+function takePrefetchedFeed<T>(url: string): Observable<T> | null {
+  const prefetch = (window as any).__hnFeedPrefetch;
+  if (!prefetch || prefetch.url !== url) {
+    return null;
+  }
+  delete (window as any).__hnFeedPrefetch;
+  return new Observable<T>(observer => {
+    let fallback: Subscription;
+    let cancelToken = false;
+    // Promise.resolve adopts the native promise into the Angular zone so change detection runs.
+    Promise.resolve(prefetch.data).then(
+      data => {
+        if (!cancelToken) {
+          observer.next(data);
+          observer.complete();
+        }
+      },
+      () => {
+        if (!cancelToken) {
+          fallback = lazyFetch<T>(url).subscribe(observer);
+        }
+      }
+    );
+    return () => {
+      cancelToken = true;
+      if (fallback) {
+        fallback.unsubscribe();
+      }
+    };
+  });
+}

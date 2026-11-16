@@ -4,6 +4,18 @@
   <meta charset="utf-8">
   <title>Angular 2 HN</title>
   <base href="/">
+  <script>
+    // Start the landing feed request now instead of after the app bundle boots;
+    // HackerNewsAPIService.fetchFeed picks it up (see takePrefetchedFeed).
+    (function () {
+      var m = /^\/(?:(news|newest|show|ask|jobs)\/(\d+)\/?)?$/.exec(location.pathname);
+      if (!m || !window.fetch || !window.Promise) { return; }
+      var url = 'https://node-hnapi.herokuapp.com/' + (m[1] || 'news') + '?page=' + (m[2] ? +m[2] : 1);
+      var data = fetch(url).then(function (res) { return res.json(); });
+      data.catch(function () {});
+      window.__hnFeedPrefetch = { url: url, data: data };
+    })();
+  </script>
 
 	<meta name="description" content="A Hacker News client built with Angular CLI, RxJS and Webpack"/>
 

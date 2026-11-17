@@ -40,8 +40,14 @@ export class HackerNewsAPIService {
     return lazyFetch(`${this.baseUrl}/item/${id}`);
   }
 
+  // node-hnapi dropped /user/:id in 2021, so users come from the HNPWA API
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return lazyFetch<User>(`https://api.hnpwa.com/v0/user/${id}.json`).pipe(map(user => {
+      if (!user) {
+        throw new Error(`User ${id} not found`);
+      }
+      return user;
+    }));
   }
 }
 

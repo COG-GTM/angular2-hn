@@ -43,7 +43,7 @@
 
 ## Offline Support
 
-This app uses [Workbox](https://workboxjs.org/) to generate a service worker as part of the build step to load quickly and work offline.
+Production builds register the [Angular service worker](https://angular.io/guide/service-worker-intro) (configured in `ngsw-config.json`), which precaches the app shell so the app loads quickly and works offline.
 
 ## Manifest
 
@@ -62,7 +62,7 @@ Current themes:
 * Night
 * Black (AMOLED)
 
-More to come!
+If you haven't picked a theme, the app follows your system's light/dark preference.
 
 ## Areas of improvement
 
@@ -71,18 +71,22 @@ More to come!
 
 Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [file an issue](https://github.com/hdjirdeh/angular2-hn/issues/new)! Feature requests are always welcome.
 
+## Architecture
+
+See [docs/architecture.md](docs/architecture.md) for how the app is put together, with a diagram.
+
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+This is an Angular CLI 9 project. Use Node 10 or 12; on Node 17 and later the production build fails while generating ES5 bundles.
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the dev server on http://localhost:4200
+ - `npm run build -- --prod` to build for production into `dist/angular-hnpwa/`
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: The service worker is only registered in production builds. To test service worker changes:
+ - `npm run build -- --prod`
+ - Serve `dist/angular-hnpwa/` with any static file server (for example `cd dist/angular-hnpwa && python3 -m http.server 8080`) and open it in the browser
 
 ## Contributors
 

@@ -1,0 +1,70 @@
+// Architecture of angular2-hn on master (Angular 9 CLI app).
+// Re-render with ./render.sh after editing.
+digraph architecture {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=18, nodesep=0.35, ranksep=0.7, pad=0.3,
+         label="angular2-hn architecture (master)", labelloc=t];
+  node  [shape=box, style="rounded,filled", fillcolor=white, fontname="DejaVu Sans", fontsize=15, margin="0.18,0.08"];
+  edge  [fontname="DejaVu Sans", fontsize=13, color="#555555"];
+
+  subgraph cluster_browser {
+    label="Browser"; style="rounded,filled"; fillcolor="#f4f6fb"; color="#8899bb";
+
+    index [label="src/index.html\n(app shell, manifest links,\nGoogle Analytics snippet)"];
+    main  [label="src/main.ts\nbootstraps AppModule"];
+
+    subgraph cluster_app {
+      label="AppModule (eager bundle)"; style="rounded,filled"; fillcolor="#e8f0fe"; color="#4a6fb5";
+      appc   [label="AppComponent\n(theme wrapper, GA pageview\non NavigationEnd)"];
+      router [label="app.routes.ts\n/ -> /news/1\n/news|newest|show|ask|jobs/:page"];
+      core   [label="CoreModule\nHeader · Footer · Settings"];
+      feed   [label="FeedComponent\n+ ItemComponent rows"];
+      shared [label="SharedComponentsModule\n(Loader, ErrorMessage)\nPipesModule (CommentPipe)"];
+    }
+
+    subgraph cluster_lazy {
+      label="Lazy-loaded chunks"; style="rounded,filled"; fillcolor="#eaf6ec"; color="#4c9a5b";
+      itemmod [label="ItemDetailsModule  /item/:id\nItemDetailsComponent\n+ recursive CommentComponent"];
+      usermod [label="UserModule  /user/:id\nUserComponent"];
+    }
+
+    subgraph cluster_services {
+      label="Root services"; style="rounded,filled"; fillcolor="#fff4e5"; color="#c98a2b";
+      api      [label="HackerNewsAPIService\nunfetch wrapped in an\ncancellable Observable"];
+      settings [label="SettingsService\ntheme, font size, spacing,\nopen-in-new-tab"];
+    }
+
+    storage [label="localStorage\n+ prefers-color-scheme", shape=cylinder, fillcolor="#fff8dc"];
+    sw      [label="Angular service worker\nngsw-worker.js (prod only)\nprecaches app shell + assets\n(ngsw-config.json)", fillcolor="#f3e8fd"];
+  }
+
+  hnapi [label="node-hnapi.herokuapp.com\n/{feed}?page=N · /item/{id}\n/user/{id}", fillcolor="#fde8e8", color="#b92b27"];
+  ga    [label="Google Analytics\n(analytics.js)", fillcolor="#fde8e8", color="#b92b27"];
+
+  subgraph cluster_build {
+    label="Build and hosting"; style="rounded,filled"; fillcolor="#f2f2f2"; color="#888888";
+    ngbuild  [label="ng build --prod\n(AOT, differential ES5/ES2015)\n-> dist/angular-hnpwa/"];
+    travis   [label=".travis.yml\nnpm run build, then\nfirebase deploy (master)"];
+    firebase [label="Firebase Hosting\nfirebase.json: public \"dist\",\nSPA rewrite ** -> /index.html"];
+  }
+
+  index -> main -> appc;
+  appc -> router;
+  appc -> core;
+  router -> feed [label="eager"];
+  router -> itemmod [label="loadChildren"];
+  router -> usermod [label="loadChildren"];
+  feed -> shared; itemmod -> shared; usermod -> shared;
+
+  feed -> api [label="fetchFeed"];
+  itemmod -> api [label="fetchItemContent\n(+ poll options)"];
+  usermod -> api [label="fetchUser"];
+  core -> settings; appc -> settings; itemmod -> settings;
+  settings -> storage;
+
+  api -> hnapi [label="HTTPS GET (JSON)", color="#b92b27"];
+  appc -> ga [label="pageview", style=dashed, color="#b92b27"];
+  sw -> index [label="serves cached shell", style=dashed];
+
+  travis -> ngbuild -> firebase [style=dashed];
+  firebase -> index [label="serves", style=dashed];
+}

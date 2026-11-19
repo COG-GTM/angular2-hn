@@ -1,8 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
-// Placeholder: ported from the Angular 9 app on master by its feature PR.
+import { SettingsService } from '../../shared/services/settings.service';
+import { SettingsComponent } from '../settings/settings.component';
+
 @Component({
     selector: 'app-header',
-    template: `<p class="placeholder">Header: not migrated yet</p>`,
+    imports: [RouterLink, RouterLinkActive, SettingsComponent],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+    private readonly settingsService = inject(SettingsService);
+    readonly settings = this.settingsService.settings;
+
+    toggleSettings(): void {
+        this.settingsService.toggleSettings();
+    }
+
+    scrollTop(): void {
+        window.scrollTo(0, 0);
+    }
+}

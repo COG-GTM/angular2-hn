@@ -1,0 +1,532 @@
+{
+ "id": 50519231,
+ "title": "Garage Door Spam",
+ "points": 158,
+ "user": "harrisonpage",
+ "time": 1794845616,
+ "time_ago": "3 days ago",
+ "type": "link",
+ "url": "https://blog.harrison.page/garage-door-spam/",
+ "domain": "blog.harrison.page",
+ "comments": [
+  {
+   "id": 50558842,
+   "level": 0,
+   "user": "wallst07",
+   "time": 1795088240,
+   "time_ago": "2 hours ago",
+   "content": "<p>Apps for devices that I purchased that show ads is probably one of my biggeset tech pet peeves.<p>I will sell&#x2F;replace&#x2F;throw every device if I see a ad in the ecosystem. Almost every IOT manufacturer does this crap so it gets more difficult. Moving the device to Home Assistant helps a little.<p>Ecobee you&#x27;re next, and I hope you go down in flames having such crap software.",
+   "comments": [
+    {
+     "id": 50560103,
+     "level": 1,
+     "user": "deadnomore",
+     "time": 1795096273,
+     "time_ago": "6 minutes ago",
+     "content": "<p>This is why I see no point paying for streaming services that also insert ads. I\u2019ll gladly pirate and feel zero shame or remorse.",
+     "comments": []
+    },
+    {
+     "id": 50558951,
+     "level": 1,
+     "user": "avaer",
+     "time": 1795089171,
+     "time_ago": "2 hours ago",
+     "content": "<p>It&#x27;s the hijacking of notifications that gets me the most. App store providers should ban any application that puts ads there.<p>Also would be nice to have a law making ads and payment mutually exclusive. Otherwise the future is one where all products evolve to have both.<p>The &quot;free market&quot; cannot solve this in a world where products can be (and are) rugpulled to have ads anytime.",
+     "comments": [
+      {
+       "id": 50559212,
+       "level": 2,
+       "user": "zf00002",
+       "time": 1795091160,
+       "time_ago": "2 hours ago",
+       "content": "<p>My bank sends me emails that are ads for their other services but I guess if they mention my account and claim the email is for account purposes or something they get to claim it&#x27;s not spam and I can&#x27;t unsubscribe.",
+       "comments": [
+        {
+         "id": 50559584,
+         "level": 3,
+         "user": "wilkystyle",
+         "time": 1795093557,
+         "time_ago": "an hour ago",
+         "content": "<p>100%. I heavily leverage Gmail filters for this and it works very well most of the time.",
+         "comments": []
+        }
+       ]
+      },
+      {
+       "id": 50559189,
+       "level": 2,
+       "user": "steve_taylor",
+       "time": 1795091022,
+       "time_ago": "2 hours ago",
+       "content": "<p>Apple used to forbid marketing notifications, but they relaxed their policy a while ago.<p>What&#x27;s really needed is system-wide notification channels, a hard requirement on app developers that marketing notifications go into the marketing channel, per-channel notification permissions, and a global off-switch for marketing channel notifications.<p>Apple needs to break this shitty business model. There&#x27;s no incentive for Apple to keep allowing it.",
+       "comments": [
+        {
+         "id": 50559248,
+         "level": 3,
+         "user": "kalleboo",
+         "time": 1795091414,
+         "time_ago": "an hour ago",
+         "content": "<p>They relaxed their policy because they themselves were doing it and it seemed too hypocritical even for them",
+         "comments": []
+        }
+       ]
+      },
+      {
+       "id": 50559970,
+       "level": 2,
+       "user": "ubermonkey",
+       "time": 1795095636,
+       "time_ago": "17 minutes ago",
+       "content": "<p>&gt;hijacking of notifications<p>This is why I don&#x27;t let DoorDash send notifications. I just have to watch the app for our delivery, bc if I let them ping me it&#x27;s a nonstop stream of advertising.",
+       "comments": []
+      },
+      {
+       "id": 50559518,
+       "level": 2,
+       "user": "jhowar59",
+       "time": 1795093069,
+       "time_ago": "an hour ago",
+       "content": "<p>Add the US Postal serverice and their &#x27;Informed Delivery&#x27; to this list of organizations using notifications of mail that turn out to be ads.",
+       "comments": [
+        {
+         "id": 50559565,
+         "level": 3,
+         "user": "trollbridge",
+         "time": 1795093395,
+         "time_ago": "an hour ago",
+         "content": "<p>Eh, it\u2019s just notifications of mail without alteration of the content of that mail. Not really the same thing.",
+         "comments": [
+          {
+           "id": 50559635,
+           "level": 4,
+           "user": "jhowar59",
+           "time": 1795093900,
+           "time_ago": "an hour ago",
+           "content": "<p>It&#x27;s digital flyers that aren&#x27;t actually part of my physical mail. Just advertising.",
+           "comments": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": 50559110,
+       "level": 2,
+       "user": "euroderf",
+       "time": 1795090428,
+       "time_ago": "2 hours ago",
+       "content": "<p>&gt; Also would be nice to have a law making ads and payment mutually exclusive.<p>Likewise for online content. Hello, New York Times. Et al.",
+       "comments": [
+        {
+         "id": 50559152,
+         "level": 3,
+         "user": "bookofjoe",
+         "time": 1795090698,
+         "time_ago": "2 hours ago",
+         "content": "<p>I pay plenty for a New York Times subscription and the content is riddled with huge ads.<p>Today&#x27;s front page screenshot 3 minutes ago:<p><a href=\"https:&#x2F;&#x2F;imgur.com&#x2F;a&#x2F;1hgKeKf\" rel=\"nofollow\">https:&#x2F;&#x2F;imgur.com&#x2F;a&#x2F;1hgKeKf</a>",
+         "comments": [
+          {
+           "id": 50559506,
+           "level": 4,
+           "user": "MPSimmons",
+           "time": 1795092995,
+           "time_ago": "an hour ago",
+           "content": "<p>To be fair, this isn&#x27;t new. It&#x27;s as old as newspapers themselves.",
+           "comments": [
+            {
+             "id": 50559592,
+             "level": 5,
+             "user": "bookofjoe",
+             "time": 1795093601,
+             "time_ago": "an hour ago",
+             "content": "<p>True, but ads are a LOT less annoying when they&#x27;re printed on paper.",
+             "comments": []
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": 50559960,
+     "level": 1,
+     "user": "ubermonkey",
+     "time": 1795095584,
+     "time_ago": "18 minutes ago",
+     "content": "<p>Years ago, the combination of my forgetfulness and our urban address led to some thefts -- turns out, the garage is far more secure if you remember to close it.<p>I looked around for some kind of device that would close it automatically, which apparently doesn&#x27;t exist -- with good reason, honestly. What I found was a weird little IoT box that functioned as a garage door opener, and which I could configure with an app on my phone to yell at us (via notifications) if we left the door open for more than 5 minutes.<p>An unsought side benefit that nevertheless became handy was that we could now control the garage door with our phones.<p>That app was, initially, pretty straightforward and clean -- but over time, fucking ADS crept in. I was about ready to shift platforms to avoid that crap when we moved across the country. We lived in our new place first in a rental while we house-hunted, so I did nothing there, but I absolutely planned to find an ad-free owner-respecting platform for my garage needs in the new house.<p>Except, well, the house we bought had (has) a pretty dang new opener, and it&#x27;s delightfully almost-silent, and it has the MyQ stuff <i>built in</i> already. So I&#x27;m right back where I started, cursing these craven weasels every time I use the app to get into the garage.<p>Somewhat ironically, though, our need for this tool has flipped. Now we live in a very secure neighborhood -- kids leave their bikes on their front lawns, etc -- so the &quot;yell at me if I leave it open&quot; function isn&#x27;t as important. OTOH, since I haven&#x27;t been able to find a suitable garage door opener that will mount cleanly on my motorcycles, using the phone to get into the garage has become the default.",
+     "comments": []
+    },
+    {
+     "id": 50559391,
+     "level": 1,
+     "user": "tiew9Vii",
+     "time": 1795092342,
+     "time_ago": "an hour ago",
+     "content": "<p>Have a ceiling fan, it also supports smart control via Tuya.<p>It\u2019s disturbing opening Tuya, to control the fan, only to often have to scroll past a big ad for Temu dildos and sex toys!<p>Nothing against dildos and sex toys but I don\u2019t want to see them to use my ceiling fan and the ad profiling must be pretty terrible for a middle aged bloke with no browsing history of dildos and sex toys, trying to turn a fan on, not the misses.<p>Luckily I can mostly use the home assistant integration but still need to use Tuya for the sleep timer functionality.<p>Also waiting for the day the smart control stops working as the app shustdown. Specifically purchased the fan as it\u2019s a dc fan with wall controller and smart controls was supplemental to that so not the end of the world but would it be if I purchased it for the smart controls was.",
+     "comments": [
+      {
+       "id": 50559937,
+       "level": 2,
+       "user": "zzygan",
+       "time": 1795095468,
+       "time_ago": "20 minutes ago",
+       "content": "<p>I have a fan device as well that\u2019s basically the same thing, used Claude to hack local Tuya to make sleep timers and color light dimming work without the cloud integration. Side effect is also that it\u2019s instantaneous rather than super laggy like it was with cloud.",
+       "comments": []
+      }
+     ]
+    },
+    {
+     "id": 50559150,
+     "level": 1,
+     "user": "jareklupinski",
+     "time": 1795090681,
+     "time_ago": "2 hours ago",
+     "content": "<p>the noise i made after setting up my pihole and seeing an ad for some Apple Service Subscription inside the _Settings_ app<p>&quot;it&#x27;s gotten inside the code! run!&quot;",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50560092,
+   "level": 0,
+   "user": "variety8675",
+   "time": 1795096232,
+   "time_ago": "7 minutes ago",
+   "content": "<p>Chamberlain made a new protocol that breaks the ability to do this with their new openers. They\u2019ll get away with it too because there\u2019s not many options for garage door openers and most people just buy whatever the contractor installs",
+   "comments": [
+    {
+     "id": 50560153,
+     "level": 1,
+     "user": "cogman10",
+     "time": 1795096554,
+     "time_ago": "2 minutes ago",
+     "content": "<p>What a horrible horrible company.<p>It&#x27;s a garage door opener it has two modes, opening and closing.  The fact that they have an app you have to sign in to and provide your email to and they are actively stopping integration with the likes of Home assistant to make you use their horrible app is just absurd.<p>I shouldn&#x27;t be getting spam because my garage door is selling my private data.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50559270,
+   "level": 0,
+   "user": "dj68k",
+   "time": 1795091579,
+   "time_ago": "an hour ago",
+   "content": "<p>Chalk me up to another happy user of Ratgdo. I got one of the older ESP8266-based ones whose Homekit firmware has been in &quot;maintenance mode&quot; by the developer due to its board having limited RAM and processing power to do the things they&#x27;re doing with the current boards. That was a bummer to find out since I&#x27;d had the thing for less than a year and I was using the &quot;dry contact&quot; system: manually wired magnetic switches on the door to tell the board whether the door is up, down, or in a state between (opening or closing). It&#x27;s a very, very old garage door opener.<p>Since the code was put in a &quot;best-effort basis&quot; for future updates, it&#x27;s gone from version 2.2 to 2.2.6 with numerous fixes. Most notable was software-configurable &quot;debounce&quot; functionality which finally solved my problem with the door tripping the magnetic reed switches several times quickly when the door comes to a stop and confusing the board about its current up&#x2F;down status.<p>I bring it up because I have tremendous enthusiasm for people who take an idea, a cheap microcontroller, and put together a solution for people who prefer to stick with older, simple appliances but still want some sort of smart functionality. People who &quot;make cool stuff and put it on the internet.&quot; That the creator disclosed that he&#x27;s putting his focus on the newer boards and will maintain&#x2F;fix issues with the older ones on a &quot;best-effort&quot; and then actually does it... it&#x27;s fantastic. Because of this continued support and fixes, I can&#x27;t recommend Ratgdo boards enough.",
+   "comments": [
+    {
+     "id": 50559300,
+     "level": 1,
+     "user": "atonse",
+     "time": 1795091720,
+     "time_ago": "an hour ago",
+     "content": "<p>Had the same issue (the original ratgdo being unstable) and I finally just got the ratgdo32 and it&#x27;s been working beautifully with HomeKit.<p>I wonder if someone will try to use AI to optimize the 8266 version to better handle RAM etc.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50560080,
+   "level": 0,
+   "user": "100percentjake",
+   "time": 1795096182,
+   "time_ago": "8 minutes ago",
+   "content": "<p>For those curious, the apparent character-spam &quot;RATGDO&quot; is actually an acronym for Rage Against The Garage Door Opener.",
+   "comments": []
+  },
+  {
+   "id": 50559855,
+   "level": 0,
+   "user": "MatekCopatek",
+   "time": 1795095104,
+   "time_ago": "26 minutes ago",
+   "content": "<p>We say this about many things in tech, but IoT really seems like an area that&#x27;s long overdue for some kind of open protocol standardization. The device makers can build their services on top of it and run whatever business model they want, but they should at least be forced to give us an escape hatch.",
+   "comments": [
+    {
+     "id": 50560042,
+     "level": 1,
+     "user": "hattar",
+     "time": 1795095986,
+     "time_ago": "11 minutes ago",
+     "content": "<p>Maybe I\u2019m misunderstanding, but isn\u2019t home assistant what you\u2019re describing?<p><a href=\"https:&#x2F;&#x2F;www.home-assistant.io&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.home-assistant.io&#x2F;</a>",
+     "comments": [
+      {
+       "id": 50560145,
+       "level": 2,
+       "user": "AntonyGarand",
+       "time": 1795096484,
+       "time_ago": "3 minutes ago",
+       "content": "<p>Home assistant is a great home that includes all of the various softwares and iot protocols from various vendors, but it&#x27;s not a protocol in itself.<p>What OP is asking for is closer to Matter &#x2F; Zigbee &#x2F; Z-Wave, a protocol in which any hub can control any device: And things are getting closer to a standard with these!<p>That is, as long as device manufacturers actually use them and follow the specs",
+       "comments": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 50559788,
+   "level": 0,
+   "user": "benmorris",
+   "time": 1795094682,
+   "time_ago": "33 minutes ago",
+   "content": "<p>It wouldn&#x27;t bother me one bit if apple&#x2F;google banned advertisements in notifications period.",
+   "comments": []
+  },
+  {
+   "id": 50558972,
+   "level": 0,
+   "user": "ryandrake",
+   "time": 1795089305,
+   "time_ago": "2 hours ago",
+   "content": "<p>Pro Tip: you don\u2019t need to buy one of the very expensive official ratgdo devices, if you are adventurous and can solder. The software is free and for a few bucks and a little time in KiCad you can build yourself a PCB, solder on the ESP32 and some electronics, and you\u2019re off and running.",
+   "comments": [
+    {
+     "id": 50559220,
+     "level": 1,
+     "user": "thedanbob",
+     "time": 1795091234,
+     "time_ago": "2 hours ago",
+     "content": "<p>Don&#x27;t even necessarily need to solder: I upgraded my garage door with a Shelly relay, a reed switch, and ESPHome. Maybe the ratgdo devices are doing a bit more, I&#x27;m not familiar with them, but there&#x27;s probably still much cheaper pre-built boards available that can do the same job.",
+     "comments": [
+      {
+       "id": 50560099,
+       "level": 2,
+       "user": "100percentjake",
+       "time": 1795096268,
+       "time_ago": "6 minutes ago",
+       "content": "<p>On a chamberlain like this the ratgdo is able to give you partial open&#x2F;close, light control, button feedback, etc. Have I ever needed to open my garage door to 48%? No, but I <i>could</i>.",
+       "comments": []
+      }
+     ]
+    },
+    {
+     "id": 50559146,
+     "level": 1,
+     "user": "theoreticalmal",
+     "time": 1795090672,
+     "time_ago": "2 hours ago",
+     "content": "<p>My very first tech project was a relay board, raspberry pi, and learning python. Long before AI. It was very fun",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50559027,
+   "level": 0,
+   "user": "newguytony",
+   "time": 1795089897,
+   "time_ago": "2 hours ago",
+   "content": "<p>Ekyro smart garage door opener on Amazon. $30 and no subscription. 15 minutes to install.",
+   "comments": [
+    {
+     "id": 50560133,
+     "level": 1,
+     "user": "driverdan",
+     "time": 1795096437,
+     "time_ago": "4 minutes ago",
+     "content": "<p>Still requires using a 3rd party service, sending your data to them, and their app. They could sell your data or include ads too.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50559775,
+   "level": 0,
+   "user": "jawns",
+   "time": 1795094614,
+   "time_ago": "34 minutes ago",
+   "content": "<p>I have myQ also, but solved this problem in a different way.<p>I use NextDNS, which allows me to block ads (including a lot of mobile ads) at the DNS level.<p>I disabled all notifications for myQ.<p>And I configured the garage door to auto-close at 9pm.",
+   "comments": []
+  },
+  {
+   "id": 50559557,
+   "level": 0,
+   "user": "pastor_williams",
+   "time": 1795093353,
+   "time_ago": "an hour ago",
+   "content": "<p>I love that ratgdo stands for &quot;rage against the garage door opener&quot;. I bought a pair for my own garage because I wanted home assistant integration and the native garage door app disallowed that. I feel like an element of spite is in there as well. I&#x27;ve already paid for the machine, if you hamstring my use of it I will do what I can to cut you out of my life.",
+   "comments": []
+  },
+  {
+   "id": 50559772,
+   "level": 0,
+   "user": "ricardo81",
+   "time": 1795094595,
+   "time_ago": "34 minutes ago",
+   "content": "<p>Had a similar experience with a niche phone made in the UK from Wileyfox. After they entered administration all the app updates contained some funky &#x27;add ons&#x27;",
+   "comments": []
+  },
+  {
+   "id": 50559663,
+   "level": 0,
+   "user": "otter-in-a-suit",
+   "time": 1795094020,
+   "time_ago": "44 minutes ago",
+   "content": "<p>Blink, the AMZN owned WiFi cameras (which, credit where credit is due, have been running flawlessly without a subscription for 5+ years for me), recently started sending me emails for &quot;troubleshooting&quot; a camera that&#x27;s down. The &quot;troubleshooting&quot; is replacing the batteries. It comes with an ad to buy a specific brand of lithium batteries. On Amazon. They haven&#x27;t had the audacity to send a push notification for this yet.<p>I have a zero tolerance policy for spam - notification permissions get taken away on the first offense, emails get marked as spam. I&#x27;ve had the ratgdo on eternal to-do list for a while, so this post speaks to me.",
+   "comments": []
+  },
+  {
+   "id": 50559637,
+   "level": 0,
+   "user": "mdarens",
+   "time": 1795093906,
+   "time_ago": "an hour ago",
+   "content": "<p>this echoes my own frustrations with the user hostility of chamberlain&#x2F;myq. an added bonus is that in the app they force you to use to control the door instead of integrating with home automation standards, the video banner ads will force whatever audio you might have playing on your device to pause. they&#x27;re testing the limits of hanlon&#x27;s razor over there.<p>i&#x27;ve been meaning set up a dedicated domain&#x2F;website just to collect complaints about this company&#x27;s behavior, alternatives, workarounds for their failures like the one posted here recently [1], and importantly, laws. we need laws.<p>mentioned already in these comments: granular control over notifications between marketing &amp; functional, and no circumvention by intermingling the two.\nhome automation devices may be allowed to traverse wans to offer remote control for non-vpn&#x2F;sd-wan users, but should not have their core functionality _or_ initial setup depend on an internet connection.<p>finally, locked devices produced by companies over a some market cap or another and their subsidiaries should be required to offer a bootloader for user&#x2F;open firmware after some reasonable period of time to mitigate some of the mountains of ewaste we are producing with this stuff.<p>1. <a href=\"https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=50525260\">https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=50525260</a>",
+   "comments": []
+  },
+  {
+   "id": 50560106,
+   "level": 0,
+   "user": "jjtheblunt",
+   "time": 1795096300,
+   "time_ago": "6 minutes ago",
+   "content": "<p>That\u2019s cool and i loathe the myQ ads too.  No idea what idiotic marketing decision drove them, as i eagerly search regularly for alternative lifters.   Like is Chamberlain the only game in Oz and Europe like in the US?",
+   "comments": [
+    {
+     "id": 50560131,
+     "level": 1,
+     "user": "bluGill",
+     "time": 1795096428,
+     "time_ago": "4 minutes ago",
+     "content": "<p>Even in the US they are not the only game.  They are just the biggest, but there are other options if you look for them.  Don&#x27;t let a tech install whatever though, you need to demand something else.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50559123,
+   "level": 0,
+   "user": "anticorporate",
+   "time": 1795090534,
+   "time_ago": "2 hours ago",
+   "content": "<p>I have had a MyQ-enabled garage door opener for about a month now. I wanted a dumb one, but the installer company who replaced the garage door didn&#x27;t offer one. Instead, it&#x27;s just sitting there, denied Bluetooth and WiFi access until I get around to hooking up the z-wave dry contact relay controller (or perhaps ratgo, but I already have a spare relay sitting around).<p>A few weeks ago, I noticed my Apollo-1 Air quality sensor was seeing some strange behavior in the basement. Home Assistant showed an unexplained temperature spike and humidity drop a little before 1am.<p>I managed to figure out from other sensors that nothing was actually awry (no spikes in draw of nearby devices, no telltale gas signatures of the water heater kicking on, no motion or CO2 indicating human or other large animal presence). Was the board malfunctioning? Fortunately the device has an internal temperature sensor and an ambient sensor which are separate. Logging confirms the temperature spike originated on the board, probably from the WiFi chip.<p>But, why?<p>It turns out, after inspecting the signal a bit more, than the MyQ was broadcasting so loudly between the WiFi and BLE, screaming for someone to talk to it, that my air sensor was having to increase its power to still be able to communicate over all the noise. Switching to a different channel for the crappy old downstairs AP fixed it, but still, c&#x27;mon!<p>I&#x27;m a little wary of connecting any sort of ingress&#x2F;egress to my home to the network at all, even locally, but an honest appraisal of the basement is that smashing a window is probably a much bigger threat model than hacking the door opener. Or in other words, <a href=\"https:&#x2F;&#x2F;xkcd.com&#x2F;538&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;xkcd.com&#x2F;538&#x2F;</a>",
+   "comments": [
+    {
+     "id": 50559354,
+     "level": 1,
+     "user": "flexagoon",
+     "time": 1795092114,
+     "time_ago": "an hour ago",
+     "content": "<p>A thief going into your basement by hacking your garage door may not be a realistic scenario, but your garage door being hacked and used in a botnet or intercepting your traffic and injecting malware into it is very much a thing that may happen.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50558803,
+   "level": 0,
+   "user": "wingspar",
+   "time": 1795087932,
+   "time_ago": "2 hours ago",
+   "content": "<p>I went with a Meross MSG100hk garage door interface.\nIt works with HomeKit and I added a HomeKit automation to turn a light on&#x2F;off based on door open status.",
+   "comments": []
+  },
+  {
+   "id": 50559556,
+   "level": 0,
+   "user": "etatester",
+   "time": 1795093352,
+   "time_ago": "an hour ago",
+   "content": "<p>I&#x27;m really, incredibly disappointed that Apple (or Google for that matter) doesn&#x27;t enforce some sort of CANSPAM on notifications.<p>I need your business notifications, I do not need or approve of your advertising&#x2F;product updates.<p>For my mobile OS, all notifications look the same. &quot;AI priority&quot; is the only attempt at this but I don&#x27;t need AI priority if I have a very tight-knit circle of apps that can send notifications.<p>Then one important app sends me spam and I turn it off immediately.",
+   "comments": [
+    {
+     "id": 50559927,
+     "level": 1,
+     "user": "htrp",
+     "time": 1795095429,
+     "time_ago": "20 minutes ago",
+     "content": "<p>those sweet sweet app store fees",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50519232,
+   "level": 0,
+   "user": "harrisonpage",
+   "time": 1794845616,
+   "time_ago": "3 days ago",
+   "content": "<p>In which I bypass myQ for an open source solution",
+   "comments": [
+    {
+     "id": 50559014,
+     "level": 1,
+     "user": "phrotoma",
+     "time": 1795089811,
+     "time_ago": "2 hours ago",
+     "content": "<p>Great post, right to the point. Love it.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50559499,
+   "level": 0,
+   "user": "nticompass",
+   "time": 1795092942,
+   "time_ago": "an hour ago",
+   "content": "<p>I have a Chamberlain&#x2F;myQ garage door opener, but I do not own the house (it&#x27;s a townhouse I am renting).  This probably limits my ability to install&#x2F;use Ratgdo.<p>I also hate the amount of ads the myQ app has, like it&#x27;s pretty much nothing but ads (and reporting this to the Play Store does nothing).<p>Currently, my garage door opener is connected to my WiFi (on its own &quot;IoT VLAN&quot;) because I once had to use myQ to open my garage whilst away to let my friend into the house.<p>Normally, I just use a &quot;normal&quot; garage door opener remote (and my car&#x27;s built-in HomeLink buttons).",
+   "comments": []
+  },
+  {
+   "id": 50558706,
+   "level": 0,
+   "user": "yakshaving_jgt",
+   "time": 1795087263,
+   "time_ago": "3 hours ago",
+   "content": "<p>Ah, this is so cool.<p>When I eventually buy a house with my own garage, I&#x27;m <i>totally</i> adding the garage door to Apple Home so that I can operate it with my voice while inside my helmet on my motorcycle, and not have to take my gloves off and get the remote control out. I hadn&#x27;t thought of that possibility.",
+   "comments": [
+    {
+     "id": 50558902,
+     "level": 1,
+     "user": "afn",
+     "time": 1795088817,
+     "time_ago": "2 hours ago",
+     "content": "<p>They seem to have disappeared, but there was a company called Flash2Pass (later Flash To Open) that made a garage door controller activated by flashing your high beams twice. I have it on my bikes and it makes for a really seamless entry; I don&#x27;t have to take my hands off the controls, and the range is long enough that the door is open by the time I ride up.<p>Another option: <a href=\"https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=d3rfaCfImwE\" rel=\"nofollow\">https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=d3rfaCfImwE</a> :D",
+     "comments": [
+      {
+       "id": 50559105,
+       "level": 2,
+       "user": "vocram",
+       "time": 1795090391,
+       "time_ago": "2 hours ago",
+       "content": "<p>Unluckily they discontinued making that second option.",
+       "comments": []
+      },
+      {
+       "id": 50559134,
+       "level": 2,
+       "user": "yakshaving_jgt",
+       "time": 1795090614,
+       "time_ago": "2 hours ago",
+       "content": "<p>That video caught me off guard!",
+       "comments": []
+      }
+     ]
+    },
+    {
+     "id": 50559092,
+     "level": 1,
+     "user": "HalcyonCowboy",
+     "time": 1795090267,
+     "time_ago": "2 hours ago",
+     "content": "<p>That\u2019s exactly why I setup an open source device on my older garage door. It\u2019s only accessible from my local network, and I have my appletv setup as a HomeKit hub, so I can double tap my off brand cardo to give the voice command to open the garage door on my bike. My only irritation is that each major iOS update changes the settings on condirming the command, so out of nowhere my phone will ask to be unlocked to confirm the command. Then I have to figure out what setting changed on iOS to reconfigure it again.<p>I also have a nodered automation setup that sends a push notification if the garage door is open for more than 30 minutes, so I don\u2019t accidentally leave the garage open overnight. Works great.",
+     "comments": []
+    }
+   ]
+  },
+  {
+   "id": 50558999,
+   "level": 0,
+   "user": "Scene_Cast2",
+   "time": 1795089634,
+   "time_ago": "2 hours ago",
+   "content": "<p>Out of curiosity, how&#x27;s the device doing on FCC certification?<p>Using a pre-certified module doesn&#x27;t let you bypass certification.",
+   "comments": []
+  }
+ ],
+ "comments_count": 55
+}

@@ -1,0 +1,17 @@
+{
+  "name": "angular-hnpwa-parity",
+  "private": true,
+  "description": "Playwright parity suite: the same specs against legacy (Angular 9) and angular21",
+  "scripts": {
+    "test": "playwright test",
+    "test:legacy": "playwright test --project=legacy",
+    "test:angular21": "playwright test --project=angular21",
+    "serve:legacy": "bash scripts/serve-legacy.sh",
+    "serve:angular21": "bash scripts/serve-angular21.sh",
+    "report": "playwright show-report report/html"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@types/node": "^24.19.2"
+  }
+}

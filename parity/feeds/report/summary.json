@@ -1,0 +1,408 @@
+[
+ {
+  "key": "desktop /news/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/news/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    1910
+   ],
+   [
+    1088,
+    1911
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "desktop /news/2",
+  "start": [
+   31,
+   31
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "prev",
+    "\u2039 Prev",
+    "/news/1"
+   ],
+   [
+    "more",
+    "More \u203a",
+    "/news/3"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    1910
+   ],
+   [
+    1088,
+    1911
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "desktop /newest/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/newest/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    1910
+   ],
+   [
+    1088,
+    1911
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "desktop /show/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/show/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    1910
+   ],
+   [
+    1088,
+    1911
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "desktop /ask/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   15,
+   15
+  ],
+  "nav_same": true,
+  "nav": [],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    967
+   ],
+   [
+    1088,
+    968
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "desktop /jobs/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/jobs/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    1088,
+    1970
+   ],
+   [
+    1088,
+    1970
+   ]
+  ],
+  "diff_pct": 3.76
+ },
+ {
+  "key": "mobile /news/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/news/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    3245
+   ],
+   [
+    390,
+    3246
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "mobile /news/2",
+  "start": [
+   31,
+   31
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "prev",
+    "\u2039 Prev",
+    "/news/1"
+   ],
+   [
+    "more",
+    "More \u203a",
+    "/news/3"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    3205
+   ],
+   [
+    390,
+    3206
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "mobile /newest/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/newest/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    3226
+   ],
+   [
+    390,
+    3226
+   ]
+  ],
+  "diff_pct": 6.88
+ },
+ {
+  "key": "mobile /show/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/show/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    3354
+   ],
+   [
+    390,
+    3355
+   ]
+  ],
+  "diff_pct": null
+ },
+ {
+  "key": "mobile /ask/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   15,
+   15
+  ],
+  "nav_same": true,
+  "nav": [],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    1602
+   ],
+   [
+    390,
+    1602
+   ]
+  ],
+  "diff_pct": 8.31
+ },
+ {
+  "key": "mobile /jobs/1",
+  "start": [
+   1,
+   1
+  ],
+  "count": [
+   30,
+   30
+  ],
+  "nav_same": true,
+  "nav": [
+   [
+    "more",
+    "More \u203a",
+    "/jobs/2"
+   ]
+  ],
+  "job_header_same": true,
+  "structure_same": true,
+  "titles_same": true,
+  "items_same": true,
+  "size": [
+   [
+    390,
+    2714
+   ],
+   [
+    390,
+    2715
+   ]
+  ],
+  "diff_pct": null
+ }
+]

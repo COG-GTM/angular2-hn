@@ -47,3 +47,4 @@ Thumbs.db
 
 # Angular cache
 /.angular/cache
+parity/feeds/raw/

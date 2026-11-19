@@ -1,8 +1,8 @@
-export class User {
+export interface User {
     id: string;
-    crated_time: number;
+    created_time: number;
     created: string;
     karma: number;
-    avg: number;
-    about: string;
+    avg?: number;
+    about?: string;
 }

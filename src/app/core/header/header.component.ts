@@ -1,28 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { SettingsService } from '../../shared/services/settings.service';
-import { Settings } from '../../shared/models/settings';
-
+// Placeholder: ported from the Angular 9 app on master by its feature PR.
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    template: `<p class="placeholder">Header: not migrated yet</p>`,
 })
-export class HeaderComponent implements OnInit {
-  settings: Settings;
-
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
-
-  ngOnInit() {
-  }
-
-  toggleSettings() {
-    this._settingsService.toggleSettings();
-  }
-
-  scrollTop() {
-    window.scrollTo(0, 0);
-  }
-}
+export class HeaderComponent {}

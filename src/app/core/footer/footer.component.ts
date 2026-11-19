@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
+// Placeholder: ported from the Angular 9 app on master by its feature PR.
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+    selector: 'app-footer',
+    template: `<p class="placeholder">Footer: not migrated yet</p>`,
 })
-export class FooterComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class FooterComponent {}

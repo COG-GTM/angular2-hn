@@ -1,89 +1,51 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import { Settings } from '../models/settings';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SettingsService {
-  settings: Settings = {
-    showSettings : false,
-    openLinkInNewTab: localStorage.getItem("openLinkInNewTab") ? JSON.parse(localStorage.getItem("openLinkInNewTab")) : false,
-    theme: 'default',
-    titleFontSize: localStorage.getItem("titleFontSize") ? localStorage.getItem("titleFontSize") : '16',
-    listSpacing: localStorage.getItem("listSpacing") ? localStorage.getItem("listSpacing") : '0',
-  };
+    private readonly darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    private readonly state = signal<Settings>({
+        showSettings: false,
+        openLinkInNewTab: JSON.parse(localStorage.getItem('openLinkInNewTab') ?? 'false'),
+        theme: localStorage.getItem('theme') ?? (this.darkColorSchemeMedia.matches ? 'night' : 'default'),
+        titleFontSize: localStorage.getItem('titleFontSize') ?? '16',
+        listSpacing: localStorage.getItem('listSpacing') ?? '0',
+    });
 
-  darkColorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  constructor() {
-    this.subscribeToSystemPreferredColorScheme();
-    this.initTheme();
-  }
-  
-  ngOnDestroy() {
-    this.unSubscribeToSystemPrefferedColorScheme();
-  }
+    readonly settings = this.state.asReadonly();
 
-  handleSystemPreferredColorSchemeChange(event: MediaQueryListEvent) {
-    let theme;
-    if (event.matches) {
-      theme = 'night';
-    } else {
-      theme = 'default';
+    constructor() {
+        this.darkColorSchemeMedia.addEventListener('change', (event) =>
+            this.setTheme(event.matches ? 'night' : 'default')
+        );
     }
-    this.setTheme(theme);
-  }
-  
-  subscribeToSystemPreferredColorScheme() {
-    this.darkColorSchemeMedia.addEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
-  }
 
-  initTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      this.settings.theme = savedTheme;
-    } else {
-      this.darkColorSchemeMedia.dispatchEvent(
-        new MediaQueryListEvent('change', {
-          media: this.darkColorSchemeMedia.media,
-          matches: this.darkColorSchemeMedia.matches
-        })
-      );
+    toggleSettings(): void {
+        this.state.update((s) => ({ ...s, showSettings: !s.showSettings }));
     }
-  }
 
-  unSubscribeToSystemPrefferedColorScheme() {
-    this.darkColorSchemeMedia.removeEventListener(
-      'change',
-      this.handleSystemPreferredColorSchemeChange.bind(this)
-    );
-  }
+    toggleOpenLinksInNewTab(): void {
+        this.update('openLinkInNewTab', !this.state().openLinkInNewTab);
+        localStorage.setItem('openLinkInNewTab', JSON.stringify(this.state().openLinkInNewTab));
+    }
 
-  toggleSettings() {
-    this.settings.showSettings = !this.settings.showSettings;
-  }
+    setTheme(theme: string): void {
+        this.update('theme', theme);
+        localStorage.setItem('theme', theme);
+    }
 
-  toggleOpenLinksInNewTab() {
-    this.settings.openLinkInNewTab = !this.settings.openLinkInNewTab;
-    localStorage.setItem("openLinkInNewTab", JSON.stringify(this.settings.openLinkInNewTab));
-  }
+    setFont(fontSize: string): void {
+        this.update('titleFontSize', fontSize);
+        localStorage.setItem('titleFontSize', fontSize);
+    }
 
-  setTheme(theme) {
-    this.settings.theme = theme;
-    localStorage.setItem("theme", this.settings.theme);
-  }
+    setSpacing(listSpacing: string): void {
+        this.update('listSpacing', listSpacing);
+        localStorage.setItem('listSpacing', listSpacing);
+    }
 
-  setFont(fontSize){
-    this.settings.titleFontSize = fontSize;
-    localStorage.setItem("titleFontSize", this.settings.titleFontSize);
-  }
-
-  setSpacing(listSpace){
-    this.settings.listSpacing = listSpace;
-    localStorage.setItem("listSpacing", this.settings.listSpacing);
-  }
+    private update<K extends keyof Settings>(key: K, value: Settings[K]): void {
+        this.state.update((s) => ({ ...s, [key]: value }));
+    }
 }

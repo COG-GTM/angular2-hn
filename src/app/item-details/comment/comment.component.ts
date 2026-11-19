@@ -1,19 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { Comment } from '../../shared/models/comment';
 
 @Component({
-  selector: 'app-comment',
-  templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+    selector: 'app-comment',
+    imports: [RouterLink, RouterLinkActive],
+    templateUrl: './comment.component.html',
+    styleUrl: './comment.component.scss',
 })
-export class CommentComponent implements OnInit {
-  @Input() comment: Comment;
-  collapse: boolean;
+export class CommentComponent {
+    readonly comment = input.required<Comment>();
+    readonly collapse = signal(false);
 
-  constructor() {}
-
-  ngOnInit() {
-    this.collapse = false;
-  }
+    toggleCollapse(): void {
+        this.collapse.update((collapse) => !collapse);
+    }
 }

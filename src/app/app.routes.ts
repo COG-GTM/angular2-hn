@@ -1,43 +1,22 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { FeedComponent } from './feeds/feed/feed.component';
+import { FeedType } from './shared/models/feed-type.type';
 
-const feedRoutes = [{
-  path: ':page',
-  component: FeedComponent
-}];
+const feedTypes: FeedType[] = ['news', 'newest', 'show', 'ask', 'jobs'];
 
-const routes: Routes = [
-  {path: '', redirectTo: 'news/1', pathMatch: 'full'},
-  {
-    path: 'news',
-    children: feedRoutes,
-    data: {feedType: 'news'}
-  },
-  {
-    path: 'newest',
-    children: feedRoutes,
-    data: {feedType: 'newest'}
-  },
-  {
-    path: 'show',
-    children: feedRoutes,
-    data: {feedType: 'show'}
-  },
-  {
-    path: 'ask',
-    children: feedRoutes,
-    data: {feedType: 'ask'}
-  },
-  {
-    path: 'jobs',
-    children: feedRoutes,
-    data: {feedType: 'jobs'}
-  },
-  {path: 'item', loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule)},
-  {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}
+export const routes: Routes = [
+    { path: '', redirectTo: 'news/1', pathMatch: 'full' },
+    ...feedTypes.map((feedType) => ({
+        path: `${feedType}/:page`,
+        data: { feedType },
+        loadComponent: () => import('./feeds/feed/feed.component').then((m) => m.FeedComponent),
+    })),
+    {
+        path: 'item/:id',
+        loadComponent: () => import('./item-details/item-details.component').then((m) => m.ItemDetailsComponent),
+    },
+    {
+        path: 'user/:id',
+        loadComponent: () => import('./user/user.component').then((m) => m.UserComponent),
+    },
 ];
-
-
-// - Updated Export
-export const routing = RouterModule.forRoot(routes);

@@ -1,40 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { SettingsService } from '../../shared/services/settings.service';
-import { Settings } from '../../shared/models/settings';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrl: './settings.component.scss',
 })
-export class SettingsComponent implements OnInit {
-  settings: Settings;
+export class SettingsComponent {
+    private readonly settingsService = inject(SettingsService);
+    readonly settings = this.settingsService.settings;
+    readonly themes = [
+        { value: 'default', label: 'Default' },
+        { value: 'night', label: 'Night' },
+        { value: 'amoledblack', label: 'Black (AMOLED)' },
+    ];
 
-  constructor(private _settingsService: SettingsService) {
-    this.settings = this._settingsService.settings;
-  }
+    closeSettings(): void {
+        this.settingsService.toggleSettings();
+    }
 
-  ngOnInit() {
-  }
+    toggleOpenLinksInNewTab(): void {
+        this.settingsService.toggleOpenLinksInNewTab();
+    }
 
-  closeSettings() {
-    this._settingsService.toggleSettings();
-  }
+    selectTheme(theme: string): void {
+        this.settingsService.setTheme(theme);
+    }
 
-  toggleOpenLinksInNewTab() {
-    this._settingsService.toggleOpenLinksInNewTab();
-  }
+    changeTitleFont(value: string): void {
+        this.settingsService.setFont(value);
+    }
 
-  selectTheme(theme) {
-    this._settingsService.setTheme(theme);
-  }
-
-  changeTitleFont(val){
-    this._settingsService.setFont(val);
-  }
-
-  changeSpacing(val){
-    this._settingsService.setSpacing(val);
-  }
+    changeSpacing(value: string): void {
+        this.settingsService.setSpacing(value);
+    }
 }

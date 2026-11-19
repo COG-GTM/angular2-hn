@@ -1,21 +1,22 @@
 import { Comment } from './comment';
-import { FeedType } from './feed-type.type';
+import { ItemType } from './feed-type.type';
 import { PollResult } from './poll-result';
 
-export class Story {
+export interface Story {
     id: number;
     title: string;
-    points: number;
-    user: string;
+    points: number | null;
+    user: string | null;
     time: number;
-    time_ago: number;
-    type: FeedType;
+    time_ago: string;
+    type: ItemType;
     url: string;
-    domain: string;
+    domain?: string;
+    content?: string;
     comments: Comment[];
     comments_count: number;
-    poll: PollResult[];
-    poll_votes_count: number;
-    deleted: boolean;
-    dead: boolean;
+    poll?: PollResult[];
+    poll_votes_count?: number;
+    deleted?: boolean;
+    dead?: boolean;
 }

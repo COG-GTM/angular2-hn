@@ -6,73 +6,52 @@
         <div class="content">
             <div class="control-section">
                 <h2>Links</h2>
-                <input 
-                    type="checkbox" 
-                    [checked]="settings.openLinkInNewTab" 
+                <input
+                    type="checkbox"
+                    [checked]="settings().openLinkInNewTab"
                     (change)="toggleOpenLinksInNewTab()" />
                     Open links in a new tab
             </div>
             <div class="theme-controls">
                 <div class="control-section">
                     <h2>Select a theme</h2>
-                    <div>
-                        <label>
-                        <input #default 
-                            name="theme" 
-                            type="radio" 
-                            value="default" 
-                            [checked]="settings.theme === default.value"
-                            (click)="selectTheme(default.value)" />
-                            Default
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                        <input #night 
-                            name="theme" 
-                            type="radio" 
-                            value="night" 
-                            [checked]="settings.theme === night.value" 
-                            (click)="selectTheme(night.value)" />
-                            Night
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                        <input 
-                            #amoledblack 
-                            name="theme" 
-                            type="radio" 
-                            value="amoledblack" 
-                            [checked]="settings.theme === amoledblack.value"
-                            (click)="selectTheme(amoledblack.value)" />
-                            Black (AMOLED)
-                        </label>
-                    </div>
+                    @for (theme of themes; track theme.value) {
+                        <div>
+                            <label>
+                            <input
+                                name="theme"
+                                type="radio"
+                                [value]="theme.value"
+                                [checked]="settings().theme === theme.value"
+                                (click)="selectTheme(theme.value)" />
+                                {{ theme.label }}
+                            </label>
+                        </div>
+                    }
                 </div>
                 <div class="control-section">
                     <h2>Change Font</h2>
                     <div>
                         <label>
                         Font size:
-                        <input 
-                            #titleFont 
-                            min="1" 
-                            [value]="settings.titleFontSize" 
-                            name="theme" 
-                            type="number" 
+                        <input
+                            #titleFont
+                            min="1"
+                            [value]="settings().titleFontSize"
+                            name="theme"
+                            type="number"
                             (keyup)="changeTitleFont(titleFont.value)" />
                         </label>
                     </div>
                     <div>
                         <label>
                         List spacing:
-                        <input 
-                            #listSpacing 
-                            min="0" 
-                            [value]="settings.listSpacing" 
-                            name="theme" 
-                            type="number" 
+                        <input
+                            #listSpacing
+                            min="0"
+                            [value]="settings().listSpacing"
+                            name="theme"
+                            type="number"
                             (keyup)="changeSpacing(listSpacing.value)" />
                         </label>
                     </div>

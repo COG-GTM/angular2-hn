@@ -1,0 +1,83 @@
+<div class="main-content">
+  @if (!item() && !errorMessage()) {
+    <app-loader />
+  }
+  @if (!item() && errorMessage() !== '') {
+    <app-error-message [message]="errorMessage()" />
+  }
+
+  @if (item(); as item) {
+    <div class="item">
+      <div class="mobile item-header">
+        <p class="title-block">
+          <span class="back-button" (click)="goBack()"></span>
+          @if (hasUrl()) {
+            <a class="title" [href]="item.url" [attr.target]="settings().openLinkInNewTab ? '_blank' : null" [attr.rel]="settings().openLinkInNewTab ? 'noopener' : null">
+              {{item.title}}
+            </a>
+          } @else {
+            <a class="title" [routerLink]="['/item', item.id]"
+              routerLinkActive="active">
+              {{item.title}}
+            </a>
+          }
+        </p>
+      </div>
+      <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'">
+        @if (hasUrl()) {
+          <p>
+            <a class="title" [href]="item.url" [attr.target]="settings().openLinkInNewTab ? '_blank' : null" [attr.rel]="settings().openLinkInNewTab ? 'noopener' : null">
+            {{item.title}}
+            </a>
+            @if (item.domain) {
+              <span class="domain">({{item.domain}})</span>
+            }
+          </p>
+        } @else {
+          <p>
+            <a class="title" [routerLink]="['/item', item.id]" routerLinkActive="active">
+            {{item.title}}
+            </a>
+          </p>
+        }
+        <div class="subtext">
+          @if (item.type !== 'job') {
+            <span>
+            {{item.points}} points by
+              <a [routerLink]="['/user', item.user]" routerLinkActive="active">{{item.user}}</a>
+            </span>
+          }
+          <span [class.item-details]="item.type !== 'job'">
+            {{item.time_ago}}
+            @if (item.type !== 'job') {
+              <span> |
+                <a [routerLink]="['/item', item.id]" routerLinkActive="active">
+                 {{item.comments_count | comment }}
+                </a>
+              </span>
+            }
+          </span>
+        </div>
+      </div>
+      @if (item.type === 'poll') {
+        <div class="pollResults">
+          @for (pollResult of item.poll; track $index) {
+            <div class="pollContent">
+              <div [innerHTML]="pollResult.content"></div>
+              <div class="subtext">{{pollResult.points}} points</div>
+              <div class="pollBar" [style.width.%]="pollResult.points / item.poll_votes_count! * 100"></div>
+            </div>
+          }
+        </div>
+      }
+      <p class="subject" [innerHTML]="item.content"></p>
+      <ul class="comment-list">
+        @for (comment of item.comments; track comment.id) {
+          <li>
+            <app-comment [comment]="comment" />
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

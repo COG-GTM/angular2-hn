@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,12 +6,16 @@ import { HackerNewsAPIService } from '../../shared/services/hackernews-api.servi
 import { Story } from '../../shared/models/story';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+    selector: 'app-feed',
+    templateUrl: './feed.component.html',
+    styleUrls: ['./feed.component.scss'],
+    standalone: false
 })
 
 export class FeedComponent implements OnInit {
+  private _hackerNewsAPIService = inject(HackerNewsAPIService);
+  private route = inject(ActivatedRoute);
+
   typeSub: Subscription;
   pageSub: Subscription;
   items: Story[];
@@ -21,29 +24,24 @@ export class FeedComponent implements OnInit {
   listStart: number;
   errorMessage = '';
 
-  constructor(
-    private _hackerNewsAPIService: HackerNewsAPIService,
-    private route: ActivatedRoute
-  ) { }
-
   ngOnInit() {
     this.typeSub = this.route
       .data
       .subscribe(data => {
-        this.feedType = (data as any).feedType;
+        this.feedType = data['feedType'];
       });
 
     this.pageSub = this.route.params.subscribe(params => {
       this.pageNum = params['page'] ? +params['page'] : 1;
       this._hackerNewsAPIService.fetchFeed(this.feedType, this.pageNum)
-        .subscribe(
-          items => this.items = items,
-          error => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
-          () => {
+        .subscribe({
+          next: items => this.items = items,
+          error: () => this.errorMessage = 'Could not load ' + this.feedType + ' stories.',
+          complete: () => {
             this.listStart = ((this.pageNum - 1) * 30) + 1;
             window.scrollTo(0, 0);
           }
-        );
+        });
     });
   }
 }

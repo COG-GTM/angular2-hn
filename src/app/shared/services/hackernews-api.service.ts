@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import fetch from 'unfetch';
-import {map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Story } from '../models/story';
 import { User } from '../models/user';
@@ -11,9 +10,12 @@ import { PollResult } from '../models/poll-result';
 @Injectable()
 export class HackerNewsAPIService {
   baseUrl: string;
+  userBaseUrl: string;
 
   constructor() {
     this.baseUrl = 'https://node-hnapi.herokuapp.com';
+    // node-hnapi no longer serves /user/:id; api.hnpwa.com returns the same shape
+    this.userBaseUrl = 'https://api.hnpwa.com/v0';
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
@@ -23,7 +25,7 @@ export class HackerNewsAPIService {
   fetchItemContent(id: number): Observable<Story> {
     return lazyFetch(`${this.baseUrl}/item/${id}`).pipe(map((story: Story) => {
       if (story.type === 'poll') {
-        let numberOfPollOptions = story.poll.length;
+        const numberOfPollOptions = story.poll.length;
         story.poll_votes_count = 0;
         for (let i = 1; i <= numberOfPollOptions; i++) {
           this.fetchPollContent(story.id + i).subscribe(pollResults => {
@@ -41,7 +43,7 @@ export class HackerNewsAPIService {
   }
 
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return lazyFetch(`${this.userBaseUrl}/user/${id}.json`);
   }
 }
 

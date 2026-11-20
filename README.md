@@ -73,16 +73,17 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+Requires Node.js 20.19+ or 22.12+ (Angular 21).
 
  - Clone or download the repo
  - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `npm start` to run the application with `ng serve` at http://localhost:4200
+ - `npm run build` to create a production build in `dist/angular-hnpwa/browser`
+ - `npm test` to run the Karma/Jasmine unit tests
+ - `npm run lint` to run ESLint (angular-eslint)
+ - `npm run e2e` to run the Playwright parity suite in `parity/` (run `npm --prefix parity install` once first)
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+Note: The service worker (`ngsw-worker.js`, configured by `ngsw-config.json`) is only registered in production builds. To test it locally, run `npm run build` and serve `dist/angular-hnpwa/browser` with any static server (e.g. `npx http-server dist/angular-hnpwa/browser`).
 
 ## Contributors
 

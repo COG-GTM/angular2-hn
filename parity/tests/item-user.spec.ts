@@ -6,8 +6,8 @@ test.beforeEach(async ({ page }) => useFixtures(page));
 test('item details show the story and its comment thread', async ({ page }, testInfo) => {
   const item = fixture('item-8863.json');
   await page.goto('/item/8863');
-  await expect(page.locator('.item-details a.title, .item-details .title').first()).toContainText(item.title);
-  await expect(page.getByText(`${item.points} points by`).first()).toBeVisible();
+  await expect(page.locator('.laptop a.title')).toContainText(item.title);
+  await expect(page.locator('.laptop .subtext')).toContainText(`${item.points} points by`);
   await expect(page.locator('app-comment').first()).toBeVisible();
   await expect(page.locator('app-comment').first()).toContainText(item.comments[0].user);
   await snap(page, testInfo, 'item-8863');

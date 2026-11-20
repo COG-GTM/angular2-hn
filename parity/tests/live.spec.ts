@@ -13,7 +13,7 @@ test.describe('live API', () => {
 
   test('item details load', async ({ page }) => {
     await page.goto('/item/8863');
-    await expect(page.getByText('My YC app: Dropbox').first()).toBeVisible({ timeout: 20_000 });
+    await expect(page.locator('.laptop a.title')).toContainText('My YC app: Dropbox', { timeout: 20_000 });
     await expect(page.locator('app-comment').first()).toBeVisible();
   });
 

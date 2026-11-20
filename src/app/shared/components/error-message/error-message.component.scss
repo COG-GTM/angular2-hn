@@ -1,6 +1,6 @@
 @use 'sass:math';
-@import "../../scss/media";
-@import "../../scss/theme_variables";
+@use "../../scss/media" as *;
+@use "../../scss/theme_variables" as *;
 
 .error-section {
   height: 300px;

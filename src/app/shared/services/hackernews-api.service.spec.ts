@@ -11,7 +11,7 @@ describe('HackerNewsAPIService', () => {
     originalOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function (method: string, url: string) {
       requestedUrls.push(url);
-    } as any;
+    } as typeof XMLHttpRequest.prototype.open;
     spyOn(XMLHttpRequest.prototype, 'send');
   });
 

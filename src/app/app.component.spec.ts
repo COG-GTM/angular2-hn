@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
-    (window as any).ga = jasmine.createSpy('ga');
+    (window as unknown as { ga: unknown }).ga = jasmine.createSpy('ga');
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent],

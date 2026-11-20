@@ -11,9 +11,12 @@ import { PollResult } from '../models/poll-result';
 @Injectable()
 export class HackerNewsAPIService {
   baseUrl: string;
+  userBaseUrl: string;
 
   constructor() {
     this.baseUrl = 'https://node-hnapi.herokuapp.com';
+    // node-hnapi no longer serves /user/:id; api.hnpwa.com returns the same shape
+    this.userBaseUrl = 'https://api.hnpwa.com/v0';
   }
 
   fetchFeed(feedType: string, page: number): Observable<Story[]> {
@@ -41,7 +44,7 @@ export class HackerNewsAPIService {
   }
 
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return lazyFetch(`${this.userBaseUrl}/user/${id}.json`);
   }
 }
 

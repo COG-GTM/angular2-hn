@@ -3,20 +3,14 @@ import { HackerNewsAPIService } from './hackernews-api.service';
 describe('HackerNewsAPIService', () => {
   let service: HackerNewsAPIService;
   let requestedUrls: string[];
-  let originalOpen: typeof XMLHttpRequest.prototype.open;
 
   beforeEach(() => {
     service = new HackerNewsAPIService();
     requestedUrls = [];
-    originalOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function (method: string, url: string) {
-      requestedUrls.push(url);
-    } as typeof XMLHttpRequest.prototype.open;
-    spyOn(XMLHttpRequest.prototype, 'send');
-  });
-
-  afterEach(() => {
-    XMLHttpRequest.prototype.open = originalOpen;
+    spyOn(window, 'fetch').and.callFake((url: RequestInfo | URL) => {
+      requestedUrls.push(String(url));
+      return new Promise<Response>(() => undefined);
+    });
   });
 
   it('requests a feed page lazily, on subscribe', () => {

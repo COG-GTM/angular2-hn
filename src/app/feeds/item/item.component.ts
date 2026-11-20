@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Story } from '../../shared/models/story';
 
 import { SettingsService } from '../../shared/services/settings.service';
@@ -12,10 +12,12 @@ import { Settings } from '../../shared/models/settings';
     standalone: false
 })
 export class ItemComponent {
+  private _settingsService = inject(SettingsService);
+
   @Input() item: Story;
   settings: Settings;
 
-  constructor(private _settingsService: SettingsService) {
+  constructor() {
     this.settings = this._settingsService.settings;
   }
 

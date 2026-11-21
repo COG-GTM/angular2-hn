@@ -35,6 +35,7 @@ const routes: Routes = [
     data: {feedType: 'jobs'}
   },
   {path: 'item', loadChildren: () => import('./item-details/item-details.module').then(m => m.ItemDetailsModule)},
+  {path: 'saved', loadChildren: () => import('./saved/saved.module').then(m => m.SavedModule)},
   {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)}
 ];
 

@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="bookmark-button"
+  [class.saved]="saved"
+  [attr.aria-label]="label"
+  [attr.aria-pressed]="saved"
+  [attr.title]="label"
+  (click)="toggle($event)">
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+    <path d="M6 3.5h12a.5.5 0 0 1 .5.5v16.6l-6.5-4.3-6.5 4.3V4a.5.5 0 0 1 .5-.5z"
+      [attr.fill]="saved ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+</button>

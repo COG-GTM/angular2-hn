@@ -12,6 +12,12 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+    files: [
+      { pattern: 'src/assets/**/*', watched: false, included: false, served: true }
+    ],
+    proxies: {
+      '/assets/': '/base/src/assets/'
+    },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -26,6 +32,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true
   });

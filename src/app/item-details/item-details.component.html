@@ -3,9 +3,11 @@
   <app-error-message [message]="errorMessage" *ngIf="!item && errorMessage !== ''"></app-error-message>
 
   <div *ngIf="item" class="item">
+    <p *ngIf="showingCachedCopy" class="offline-notice">You're offline. Showing your saved copy of this story.</p>
     <div class="mobile item-header">
       <p class="title-block">
         <span class="back-button" (click)="goBack()"></span>
+        <app-bookmark-button class="mobile-bookmark" [story]="item"></app-bookmark-button>
         <a *ngIf="hasUrl" class="title" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
           {{item.title}}
         </a>
@@ -16,6 +18,7 @@
       </p>
     </div>
     <div class="laptop" [class.item-header]="item.comments_count > 0 || item.type === 'job'" [class.head-margin]="item.text">
+      <app-bookmark-button class="laptop-bookmark" [story]="item"></app-bookmark-button>
       <p *ngIf="hasUrl">
         <a class="title" href="{{item.url}}" [attr.target]="settings.openLinkInNewTab ? '_blank' : null" [attr.rel]="settings.openLinkInNewTab ? 'noopener' : null">
         {{item.title}}

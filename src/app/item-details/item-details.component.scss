@@ -149,3 +149,25 @@ ul {
 li {
   display: list-item;
 }
+
+.laptop-bookmark {
+  float: right;
+  margin-left: 12px;
+}
+
+.mobile-bookmark {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.offline-notice {
+  font-size: 13px;
+  font-style: italic;
+  margin-bottom: 10px;
+
+  @media #{$mobile-only} {
+    margin-top: 10px;
+  }
+}

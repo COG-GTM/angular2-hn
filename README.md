@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React (migrated from Angular)
 </p>
 
 <p align="center">

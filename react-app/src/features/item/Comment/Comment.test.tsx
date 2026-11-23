@@ -37,6 +37,18 @@ describe('Comment', () => {
     expect(container.querySelector('.comment-text')).toBeVisible();
   });
 
+  it('toggles from the keyboard', async () => {
+    const { container } = renderComment(root);
+    const toggle = screen.getAllByRole('button')[0];
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    toggle.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(toggle).toHaveTextContent('[+]');
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.keyboard(' ');
+    expect(container.querySelector('.comment-text')).toBeVisible();
+  });
+
   it('collapsing a reply leaves its parent expanded', async () => {
     const { container } = renderComment(root);
     const [, replyToggle] = container.querySelectorAll<HTMLElement>('.collapse');

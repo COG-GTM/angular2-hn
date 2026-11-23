@@ -5,6 +5,7 @@ import './Comment.scss';
 
 export function Comment({ comment }: { comment: CommentModel }) {
   const [collapse, setCollapse] = useState(false);
+  const toggle = () => setCollapse(!collapse);
 
   if (comment.deleted) {
     return (
@@ -19,7 +20,19 @@ export function Comment({ comment }: { comment: CommentModel }) {
   return (
     <div className="hn-comment">
       <div className={collapse ? 'meta meta-collapse' : 'meta'}>
-        <span className="collapse" onClick={() => setCollapse(!collapse)}>{`[${collapse ? '+' : '-'}]`}</span>
+        <span
+          className="collapse"
+          role="button"
+          tabIndex={0}
+          aria-expanded={!collapse}
+          onClick={toggle}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              toggle();
+            }
+          }}
+        >{`[${collapse ? '+' : '-'}]`}</span>
         <NavLink to={`/user/${comment.user}`}>{comment.user}</NavLink>
         <span className="time">{comment.time_ago}</span>
       </div>

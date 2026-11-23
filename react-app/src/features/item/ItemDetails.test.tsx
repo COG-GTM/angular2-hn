@@ -107,4 +107,12 @@ describe('ItemDetails', () => {
     await userEvent.click(container.querySelector('.mobile.item-header .back-button') as HTMLElement);
     expect(await screen.findByText('news page')).toBeInTheDocument();
   });
+
+  it('the mobile back button works from the keyboard', async () => {
+    renderAt(story, ['/news/1', '/item/42']);
+    await screen.findAllByText('A story');
+    screen.getByRole('button', { name: 'Back' }).focus();
+    await userEvent.keyboard('{Enter}');
+    expect(await screen.findByText('news page')).toBeInTheDocument();
+  });
 });

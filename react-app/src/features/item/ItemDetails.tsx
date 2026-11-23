@@ -53,7 +53,19 @@ function Item({ item, openLinkInNewTab, goBack }: { item: Story; openLinkInNewTa
     <div className="item">
       <div className="mobile item-header">
         <p className="title-block">
-          <span className="back-button" onClick={goBack}></span>
+          <span
+            className="back-button"
+            role="button"
+            tabIndex={0}
+            aria-label="Back"
+            onClick={goBack}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                goBack();
+              }
+            }}
+          ></span>
           {title}
         </p>
       </div>

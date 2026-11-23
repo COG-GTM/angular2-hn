@@ -8,7 +8,7 @@ Even if you have little to no experience with React, I'll be more than happy to 
 1. Fork the repo
 2. Clone your fork
 3. Make a branch for your feature or bug fix
-4. `cd react-app && npm install` (Node 20)
+4. `cd react-app && npm install` (Node 24)
 5. Run `npm run dev` and open `localhost:4200` in a browser
 6. Work your magic
 7. Run `npm run lint`, `npm test` and `npm run build` to make sure nothing is broken

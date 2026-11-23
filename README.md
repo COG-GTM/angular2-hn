@@ -73,7 +73,7 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-The app is a React 18 + Vite app in `react-app/` (Node 20). Firebase serves `react-app/dist`.
+The app is a React 18 + Vite app in `react-app/` (Node 24). Firebase serves `react-app/dist`.
 
  - Clone or download the repo
  - `cd react-app && npm install`

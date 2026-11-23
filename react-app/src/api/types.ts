@@ -14,6 +14,8 @@ export interface Comment {
 export interface PollResult {
   points: number;
   content: string;
+  /** Option text in the poll's own feed entry, before the option item is loaded. */
+  item?: string;
 }
 
 export interface Story {
@@ -30,7 +32,6 @@ export interface Story {
   comments: Comment[];
   comments_count: number;
   poll?: PollResult[];
-  poll_votes_count?: number;
   deleted?: boolean;
   dead?: boolean;
 }

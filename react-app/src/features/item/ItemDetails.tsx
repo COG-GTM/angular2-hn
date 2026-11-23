@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { fetchItemContent } from '../../api/hn';
+import { fetchItemContent, fetchPollResults, pollVotes } from '../../api/hn';
 import { useAsync } from '../../api/useAsync';
-import type { Story } from '../../api/types';
+import type { PollResult, Story } from '../../api/types';
 import { useSettings } from '../../settings/useSettings';
 import { Loader } from '../../shared/Loader/Loader';
 import { ErrorMessage } from '../../shared/ErrorMessage/ErrorMessage';
@@ -18,6 +18,11 @@ export default function ItemDetails() {
   const navigate = useNavigate();
   const { openLinkInNewTab } = useSettings();
   const { data: item, error } = useAsync((signal) => fetchItemContent(id, signal), [id]);
+  // Like Angular, the discussion renders right away and poll options fill in as they load.
+  const { data: poll } = useAsync(
+    (signal) => (item?.poll ? fetchPollResults(item, signal) : Promise.resolve(null)),
+    [item]
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,13 +33,24 @@ export default function ItemDetails() {
       <div className="main-content">
         {!item && !error && <Loader />}
         {!item && error && <ErrorMessage message="Could not load item comments." />}
-        {item && <Item item={item} openLinkInNewTab={openLinkInNewTab} goBack={() => navigate(-1)} />}
+        {item && <Item item={item} poll={poll ?? item.poll ?? []} openLinkInNewTab={openLinkInNewTab} goBack={() => navigate(-1)} />}
       </div>
     </div>
   );
 }
 
-function Item({ item, openLinkInNewTab, goBack }: { item: Story; openLinkInNewTab: boolean; goBack: () => void }) {
+function Item({
+  item,
+  poll,
+  openLinkInNewTab,
+  goBack,
+}: {
+  item: Story;
+  poll: PollResult[];
+  openLinkInNewTab: boolean;
+  goBack: () => void;
+}) {
+  const votes = pollVotes(poll);
   const external = hasUrl(item.url);
   const linkProps = externalLinkProps(openLinkInNewTab);
   const title = external ? (
@@ -95,11 +111,11 @@ function Item({ item, openLinkInNewTab, goBack }: { item: Story; openLinkInNewTa
       </div>
       {item.type === 'poll' && (
         <div className="pollResults">
-          {item.poll?.map((pollResult, i) => (
+          {poll.map((pollResult, i) => (
             <div key={i} className="pollContent">
               <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
               <div className="subtext">{pollResult.points} points</div>
-              <div className="pollBar" style={{ width: (pollResult.points / item.poll_votes_count!) * 100 + '%' }}></div>
+              <div className="pollBar" style={{ width: (pollResult.points / votes) * 100 + '%' }}></div>
             </div>
           ))}
         </div>

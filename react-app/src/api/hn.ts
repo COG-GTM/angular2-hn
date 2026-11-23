@@ -22,9 +22,12 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
   const story = await getJson<Story>(`${HN_API_URL}/item/${id}`, signal);
   if (story.type === 'poll' && story.poll) {
-    const options = await Promise.all(story.poll.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
-    story.poll = options;
-    story.poll_votes_count = options.reduce((total, option) => total + option.points, 0);
+    // Like Angular, an option that fails to load keeps its feed entry and doesn't fail the story.
+    const results = await Promise.allSettled(story.poll.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
+    signal?.throwIfAborted();
+    const loaded = results.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []));
+    story.poll = results.map((result, i) => (result.status === 'fulfilled' ? result.value : story.poll![i]));
+    story.poll_votes_count = loaded.reduce((total, option) => total + option.points, 0);
   }
   return story;
 }

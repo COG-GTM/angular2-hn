@@ -29,6 +29,16 @@ describe('hn api', () => {
     expect(item.poll_votes_count).toBe(10);
   });
 
+  it('keeps the story when a poll option fails, like Angular', async () => {
+    mockFetch({
+      [`${HN_API_URL}/item/10`]: { id: 10, type: 'poll', poll: [{ points: 0, content: 'feed a' }, { points: 0, content: 'feed b' }] },
+      [`${HN_API_URL}/item/12`]: { points: 7, content: 'b' },
+    });
+    const item = await fetchItemContent(10);
+    expect(item.poll).toEqual([{ points: 0, content: 'feed a' }, { points: 7, content: 'b' }]);
+    expect(item.poll_votes_count).toBe(7);
+  });
+
   it('fetches users from HNPWA', async () => {
     mockFetch({ [`${HNPWA_API_URL}/user/pg.json`]: { id: 'pg', karma: 1 } });
     await expect(fetchUser('pg')).resolves.toMatchObject({ id: 'pg' });

@@ -105,7 +105,7 @@ function Item({ item, openLinkInNewTab, goBack }: { item: Story; openLinkInNewTa
       )}
       <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
       <ul className="comment-list">
-        {item.comments.map((comment) => (
+        {(item.comments ?? []).map((comment) => (
           <li key={comment.id}>
             <Comment comment={comment} />
           </li>

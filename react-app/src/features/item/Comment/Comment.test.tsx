@@ -59,6 +59,11 @@ describe('Comment', () => {
     expect(screen.getByText('reply text')).not.toBeVisible();
   });
 
+  it('renders a comment whose replies are missing', () => {
+    const { container } = renderComment({ ...root, comments: null as unknown as CommentModel[] });
+    expect(container.querySelector('.subtree')).toBeEmptyDOMElement();
+  });
+
   it('shows a placeholder for deleted comments', () => {
     const { container } = renderComment({ ...root, deleted: true });
     expect(container.querySelector('.deleted-meta')).toHaveTextContent('[deleted] | Comment Deleted');

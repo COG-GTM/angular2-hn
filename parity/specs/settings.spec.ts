@@ -30,6 +30,7 @@ for (const [label, theme, bg] of [
     await page.locator('.popup .close').click();
     await page.reload();
     await expect.poll(() => headerBg(page)).toBe(bg);
+    await expect(page.locator('li.post').first()).toBeVisible();
     await snap(page, testInfo, `feed-news-1-${theme}`);
     await page.goto('/item/50614249');
     await expect(page.locator('.comment-list .meta').first()).toBeVisible();

@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
-import { Navigate, type RouteObject } from 'react-router-dom';
+import { type RouteObject } from 'react-router-dom';
 import { FEED_TYPES } from './api/types';
 import { AppShell } from './core/AppShell';
+import { HomeRedirect } from './core/HomeRedirect';
 import { Feed } from './features/feeds/Feed';
 import { lazyWithReload } from './utils/lazyWithReload';
 
@@ -12,7 +13,7 @@ export const routes: RouteObject[] = [
   {
     element: <AppShell />,
     children: [
-      { index: true, element: <Navigate to="/news/1" replace /> },
+      { index: true, element: <HomeRedirect /> },
       ...FEED_TYPES.map((feedType) => ({
         path: `${feedType}/:page`,
         element: <Feed key={feedType} feedType={feedType} />,

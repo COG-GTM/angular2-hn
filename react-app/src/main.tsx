@@ -8,7 +8,7 @@ import { routes } from './routes';
 
 const router = createBrowserRouter(routes);
 
-// When /sw.js replaces the old Angular worker before ngsw-worker.js retires it, ngsw's caches are left behind.
+// Caches left by the old Angular service worker (see public/ngsw-worker.js).
 if ('caches' in window) {
   caches.keys().then((keys) => keys.filter((key) => key.startsWith('ngsw:')).forEach((key) => caches.delete(key)));
 }

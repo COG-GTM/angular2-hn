@@ -8,6 +8,7 @@ import { Loader } from '../../shared/Loader/Loader';
 import { ErrorMessage } from '../../shared/ErrorMessage/ErrorMessage';
 import { commentLabel } from '../../utils/commentLabel';
 import { hasUrl } from '../../utils/hasUrl';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import { externalLinkProps } from '../../utils/linkProps';
 import { Comment } from './Comment/Comment';
 import './ItemDetails.scss';
@@ -96,14 +97,14 @@ function Item({ item, openLinkInNewTab, goBack }: { item: Story; openLinkInNewTa
         <div className="pollResults">
           {item.poll?.map((pollResult, i) => (
             <div key={i} className="pollContent">
-              <div dangerouslySetInnerHTML={{ __html: pollResult.content }}></div>
+              <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(pollResult.content) }}></div>
               <div className="subtext">{pollResult.points} points</div>
               <div className="pollBar" style={{ width: (pollResult.points / item.poll_votes_count!) * 100 + '%' }}></div>
             </div>
           ))}
         </div>
       )}
-      <p className="subject" dangerouslySetInnerHTML={{ __html: item.content ?? '' }}></p>
+      <p className="subject" dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content ?? '') }}></p>
       <ul className="comment-list">
         {(item.comments ?? []).map((comment) => (
           <li key={comment.id}>

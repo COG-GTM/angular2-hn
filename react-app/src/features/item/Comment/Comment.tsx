@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import type { Comment as CommentModel } from '../../../api/types';
+import { sanitizeHtml } from '../../../utils/sanitizeHtml';
 import './Comment.scss';
 
 export function Comment({ comment }: { comment: CommentModel }) {
@@ -38,7 +39,7 @@ export function Comment({ comment }: { comment: CommentModel }) {
       </div>
       <div className="comment-tree">
         <div hidden={collapse}>
-          <p className="comment-text" dangerouslySetInnerHTML={{ __html: comment.content }}></p>
+          <p className="comment-text" dangerouslySetInnerHTML={{ __html: sanitizeHtml(comment.content) }}></p>
           <ul className="subtree">
             {(comment.comments ?? []).map((subComment) => (
               <li key={subComment.id}>

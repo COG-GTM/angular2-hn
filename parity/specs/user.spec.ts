@@ -26,13 +26,14 @@ test('unknown user shows the error message', async ({ page }) => {
 });
 
 test('feed author link opens the profile', async ({ page }) => {
-  await page.route(/(node-hnapi\.herokuapp\.com|api\.hnpwa\.com).*\/user\/[^/]+/, (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(fixture('user-pg')) })
+  const author: string = fixture('news-1')[0].user;
+  await page.route(new RegExp(`^https://(node-hnapi\\.herokuapp\\.com|api\\.hnpwa\\.com)/(v0/)?user/${author}(\\.json)?$`), (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ...fixture('user-pg'), id: author }) })
   );
   await page.goto('/news/1');
   await page.locator('li.post .subtext-laptop a').first().click();
-  await expect(page).toHaveURL(/\/user\/[^/]+$/);
-  await expect(page.locator('.main-details .name')).toHaveText('pg');
+  await expect(page).toHaveURL(new RegExp(`/user/${author}$`));
+  await expect(page.locator('.main-details .name')).toHaveText(author);
 });
 
 test('mobile profile bar and back button', async ({ page }, testInfo) => {

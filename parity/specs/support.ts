@@ -12,6 +12,7 @@ export function fixture<T = any>(name: string): T {
 }
 
 function fixtureBody(name: string): string | null {
+  if (!/^[\w-]+$/.test(name)) return null;
   const file = join(fixturesDir, `${name}.json`);
   return existsSync(file) ? readFileSync(file, 'utf8') : null;
 }
@@ -25,7 +26,7 @@ export async function mockHnApi(page: Page, overrides: Overrides = {}) {
     const url = new URL(route.request().url());
     let key: string | null = null;
     let m: RegExpMatchArray | null;
-    if ((m = url.pathname.match(/^\/(news|newest|show|ask|jobs)$/))) key = `${m[1]}-${url.searchParams.get('page') ?? 1}`;
+    if ((m = url.pathname.match(/^\/(news|newest|show|ask|jobs)$/))) key = `${m[1]}-${Number(url.searchParams.get('page') ?? 1)}`;
     else if ((m = url.pathname.match(/^\/(?:v0\/)?(news|newest|show|ask|jobs)\/(\d+)\.json$/))) key = `${m[1]}-${m[2]}`;
     else if ((m = url.pathname.match(/^\/(?:v0\/)?item\/(\d+)(?:\.json)?$/))) key = `item-${m[1]}`;
     else if ((m = url.pathname.match(/^\/(?:v0\/)?user\/([^/]+?)(?:\.json)?$/))) key = `user-${m[1]}`;
@@ -36,8 +37,8 @@ export async function mockHnApi(page: Page, overrides: Overrides = {}) {
     if (body === null) return route.fulfill({ status: 404, contentType: 'text/html', body: '<pre>Cannot GET</pre>' });
     return route.fulfill({ status: 200, contentType: 'application/json', body });
   };
-  await page.route(/node-hnapi\.herokuapp\.com/, handler);
-  await page.route(/api\.hnpwa\.com/, handler);
+  await page.route(/^https:\/\/node-hnapi\.herokuapp\.com\//, handler);
+  await page.route(/^https:\/\/api\.hnpwa\.com\//, handler);
 }
 
 export async function snap(page: Page, testInfo: TestInfo, name: string) {

@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ['**/*.{html,js,css,ico}'],
-        globIgnores: ['ngsw-worker.js'],
+        globIgnores: ['ngsw-worker.js', 'service-worker.js'],
         skipWaiting: true,
         navigateFallback: '/index.html',
         runtimeCaching: [
@@ -28,6 +28,17 @@ export default defineConfig({
             options: {
               cacheName: 'hn-api',
               networkTimeoutSeconds: 5,
+              // node-hnapi answers a missing item with 200 `{"error": …}` and HNPWA a missing user with 200
+              // `null`; don't let those replace a good cached copy.
+              plugins: [
+                {
+                  cacheWillUpdate: async ({ response }) => {
+                    if (response.status !== 200) return null;
+                    const body = (await response.clone().text()).trimStart();
+                    return body === 'null' || body.startsWith('{"error"') ? null : response;
+                  },
+                },
+              ],
               expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 },
             },
           },

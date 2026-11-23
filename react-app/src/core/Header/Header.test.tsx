@@ -55,12 +55,13 @@ describe('Header', () => {
     expect(window.scrollTo).toHaveBeenCalledTimes(2);
   });
 
-  it('toggles the settings popup with the cog', async () => {
+  it('opens the settings popup with the cog and closes it with ×', async () => {
     const { container } = renderHeader();
     expect(container.querySelector('.popup')).toBeNull();
     await userEvent.click(screen.getByAltText('Settings'));
     expect(container.querySelector('.popup h1')).toHaveTextContent('Settings');
-    await userEvent.click(screen.getByAltText('Settings'));
+    // As in Angular, the open popup's .overlay covers the cog, so × is the in-browser way to close it.
+    await userEvent.click(container.querySelector('.popup .close')!);
     expect(container.querySelector('.popup')).toBeNull();
   });
 });

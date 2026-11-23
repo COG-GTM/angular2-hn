@@ -75,10 +75,10 @@ describe('Comment', () => {
 it('sanitizes comment HTML like Angular [innerHTML]', () => {
   const { container } = renderComment({
     ...root, comments: [],
-    content: '<p>ok</p><img src="x" onerror="alert(1)"><script>alert(2)</script><a href="javascript:alert(3)">x</a>',
+    content: '<p style="position:fixed">ok</p><style>body{display:none}</style><img src="x" onerror="alert(1)"><script>alert(2)</script><a href="javascript:alert(3)">x</a>',
   });
   const text = container.querySelector('.comment-text')!;
-  expect(text.querySelector('script')).toBeNull();
+  expect(text.querySelector('script, style, [style]')).toBeNull();
   expect(text.querySelector('img')!.getAttribute('onerror')).toBeNull();
   expect(text.querySelector('a')!.getAttribute('href')).toBeNull();
   expect(text).toHaveTextContent('ok');

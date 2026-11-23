@@ -71,6 +71,8 @@ test('poll item shows every option with points and a proportional bar', async ({
   await expect(page.locator('.laptop a.title')).toHaveText(poll.title);
   const rows = page.locator('.pollResults .pollContent');
   await expect(rows).toHaveCount(3);
+  // Option items carry <p> markup; wait for them so the screenshot isn't of the poll's own feed entries.
+  await expect(rows.locator('p')).toHaveCount(3);
   for (const [i, o] of opts.entries()) {
     await expect(rows.nth(i).locator('.subtext')).toHaveText(`${o.points} points`);
     const style = await rows.nth(i).locator('.pollBar').getAttribute('style');

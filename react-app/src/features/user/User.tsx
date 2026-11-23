@@ -3,10 +3,16 @@ import { fetchUser } from '../../api/hn';
 import { useAsync } from '../../api/useAsync';
 import { ErrorMessage } from '../../shared/ErrorMessage/ErrorMessage';
 import { Loader } from '../../shared/Loader/Loader';
+import { sanitizeHtml } from '../../utils/sanitizeHtml';
 import './User.scss';
 
 export default function User() {
   const { id = '' } = useParams();
+  // Remount per id so a previous profile (or its error) never renders under the new id.
+  return <UserProfile key={id} id={id} />;
+}
+
+function UserProfile({ id }: { id: string }) {
   const navigate = useNavigate();
   const { data: user, error } = useAsync(
     (signal) =>
@@ -51,7 +57,7 @@ export default function User() {
           </div>
           {user.about && (
             <div className="other-details">
-              <p dangerouslySetInnerHTML={{ __html: user.about }}></p>
+              <p dangerouslySetInnerHTML={{ __html: sanitizeHtml(user.about) }}></p>
             </div>
           )}
         </div>

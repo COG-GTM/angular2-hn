@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import type { User as HnUser } from '../../api/types';
 import { fetchUser } from '../../api/hn';
 import User from './User';
@@ -15,6 +15,11 @@ const pg: HnUser = {
   karma: 157316,
   about: 'Bug fixer. <a href="https://example.com">site</a><pre>code</pre>',
 };
+
+function GoTo({ to }: { to: string }) {
+  const navigate = useNavigate();
+  return <button onClick={() => navigate(to)}>go</button>;
+}
 
 function renderAt(path: string, initialEntries: string[] = [path]) {
   return render(
@@ -90,5 +95,36 @@ describe('User', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Back' }));
     expect(await screen.findByText('Profile: pg')).toBeInTheDocument();
     expect(mockFetchUser).toHaveBeenLastCalledWith('pg', expect.any(AbortSignal));
+  });
+
+  it('aborts a pending request and ignores its late response when the id changes', async () => {
+    let resolvePg: (u: HnUser) => void = () => {};
+    mockFetchUser.mockImplementation((id) =>
+      id === 'pg' ? new Promise<HnUser>((resolve) => (resolvePg = resolve)) : Promise.resolve({ ...pg, id })
+    );
+    const { container } = render(
+      <MemoryRouter initialEntries={['/user/pg']}>
+        <Routes>
+          <Route path="/user/:id" element={<><GoTo to="/user/dang" /><User /></>} />
+        </Routes>
+      </MemoryRouter>
+    );
+    expect(container.querySelector('.loader')).toBeInTheDocument();
+    const pgSignal = mockFetchUser.mock.calls[0][1] as AbortSignal;
+    await userEvent.click(screen.getByRole('button', { name: 'go' }));
+    expect(await screen.findByText('Profile: dang')).toBeInTheDocument();
+    expect(pgSignal.aborted).toBe(true);
+    await act(async () => resolvePg(pg));
+    expect(screen.getByText('Profile: dang')).toBeInTheDocument();
+    expect(screen.queryByText('Profile: pg')).not.toBeInTheDocument();
+  });
+
+  it('strips unsafe markup from about', async () => {
+    mockFetchUser.mockResolvedValue({ ...pg, about: '<img src="x" onerror="alert(1)">ok<script>alert(2)</script>' });
+    const { container } = renderAt('/user/pg');
+    await screen.findByText('157316 ★');
+    const about = container.querySelector('.other-details p')!;
+    expect(about.innerHTML).not.toMatch(/onerror|<script/);
+    expect(about).toHaveTextContent('ok');
   });
 });

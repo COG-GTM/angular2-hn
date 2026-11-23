@@ -13,6 +13,9 @@ export default defineConfig({
       manifest: false,
       workbox: {
         globPatterns: ['**/*.{html,js,css,ico}'],
+        globIgnores: ['ngsw-worker.js'],
+        clientsClaim: true,
+        skipWaiting: true,
         navigateFallback: '/index.html',
         runtimeCaching: [
           {

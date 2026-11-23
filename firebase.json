@@ -12,7 +12,7 @@
     ],
     "headers": [
       {
-        "source": "/sw.js",
+        "source": "/@(sw|ngsw-worker).js",
         "headers": [
           {
             "key": "Cache-Control",

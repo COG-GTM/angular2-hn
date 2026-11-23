@@ -6,7 +6,7 @@ Both HN APIs are served from `fixtures/` (recorded from node-hnapi and HNPWA), s
 ```bash
 # baseline: Angular 9 needs Node 12 to build
 git worktree add ../angular2-hn-baseline origin/master
-(cd ../angular2-hn-baseline && npm ci && nvm exec 12 npx ng build --prod)
+(cd ../angular2-hn-baseline && nvm exec 12 npm install && nvm exec 12 npx ng build --prod)   # master has no lockfile
 node parity/serve.mjs ../angular2-hn-baseline/dist/angular-hnpwa 4000
 
 # react

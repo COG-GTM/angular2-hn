@@ -3,14 +3,12 @@
 
 .hn-comment {
 
-// Angular compiles `:host >>> { a {...} }` to `[_nghost] > a[_ngcontent]`, which matches no element.
-& {
-  > a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+// Angular's `:host >>> a` is a deep selector: every link in the comment, including its HTML content.
+a {
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
 

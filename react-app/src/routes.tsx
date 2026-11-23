@@ -1,11 +1,12 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Navigate, type RouteObject } from 'react-router-dom';
 import { FEED_TYPES } from './api/types';
 import { AppShell } from './core/AppShell';
 import { Feed } from './features/feeds/Feed';
+import { lazyWithReload } from './utils/lazyWithReload';
 
-const ItemDetails = lazy(() => import('./features/item/ItemDetails'));
-const User = lazy(() => import('./features/user/User'));
+const ItemDetails = lazyWithReload(() => import('./features/item/ItemDetails'));
+const User = lazyWithReload(() => import('./features/user/User'));
 
 export const routes: RouteObject[] = [
   {

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  A progressive Hacker News client built with Angular
+  A progressive Hacker News client built with React (migrated from Angular)
 </p>
 
 <p align="center">
@@ -73,16 +73,16 @@ Feel free to send me feedback on [twitter](https://twitter.com/hdjirdeh) or [fil
 
 ## Build process
 
-Note: This project has been ejected (with AOT + production settings) in order to customize Webpack configurations.
+The app is a React 18 + Vite app in `react-app/` (Node 24). Firebase serves `react-app/dist`.
 
  - Clone or download the repo
- - `npm install`
- - `npm start` to run the application with webpack-dev-server or `npm build` to kick off a fresh build and update the output directory (`dist/`)
+ - `cd react-app && npm install`
+ - `npm run dev` to run the application on `localhost:4200`
+ - `npm run lint` and `npm test` for ESLint and the Vitest unit tests
+ - `npm run build` to create a production build in `react-app/dist/`, including the service worker
+ - `npm run preview` to serve that build and test the service worker locally
 
-Note: Any Service Worker changes will not be reflected when you run the application locally in development. To test service worker changes:
- - `npm build`
- - `npm run precache` to generate the service worker file
- - `npm run static-serve` to load the application along with the service worker asset using [live-server](https://github.com/tapio/live-server)
+`parity/` holds Playwright specs that run against both the React app and the previous Angular app (`src/`); see [parity/README.md](parity/README.md).
 
 ## Contributors
 

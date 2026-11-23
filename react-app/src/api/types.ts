@@ -1,0 +1,50 @@
+export type ItemType = 'story' | 'job' | 'poll' | 'link' | 'ask' | 'comment' | 'pollopt';
+
+export interface Comment {
+  id: number;
+  level: number;
+  user: string;
+  time: number;
+  time_ago: string;
+  content: string;
+  deleted?: boolean;
+  comments: Comment[];
+}
+
+export interface PollResult {
+  points: number;
+  content: string;
+  /** Option text in the poll's own feed entry, before the option item is loaded. */
+  item?: string;
+}
+
+export interface Story {
+  id: number;
+  title: string;
+  points: number;
+  user: string;
+  time: number;
+  time_ago: string;
+  type: ItemType;
+  url: string;
+  domain?: string;
+  content?: string;
+  comments: Comment[];
+  comments_count: number;
+  poll?: PollResult[];
+  deleted?: boolean;
+  dead?: boolean;
+}
+
+export interface User {
+  id: string;
+  created_time: number;
+  created: string;
+  karma: number;
+  avg?: number;
+  about?: string;
+}
+
+export type FeedType = 'news' | 'newest' | 'show' | 'ask' | 'jobs';
+
+export const FEED_TYPES: FeedType[] = ['news', 'newest', 'show', 'ask', 'jobs'];

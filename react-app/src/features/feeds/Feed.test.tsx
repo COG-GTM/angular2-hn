@@ -36,7 +36,7 @@ describe('Feed', () => {
     expect(container.querySelector('.job-header')).toBeNull();
     expect(container.querySelector('.nav .prev')).toBeNull();
     expect(container.querySelector('.nav .more')).toHaveAttribute('href', '/news/2');
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
+    await waitFor(() => expect(window.scrollTo).toHaveBeenCalledWith(0, 0));
   });
 
   it('pages with More and Prev', async () => {

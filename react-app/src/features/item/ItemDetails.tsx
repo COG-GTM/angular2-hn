@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { fetchItemContent, fetchPollResults, pollVotes } from '../../api/hn';
+import { fetchItemContent, fetchPollContent, pollVotes } from '../../api/hn';
 import { useAsync } from '../../api/useAsync';
 import type { PollResult, Story } from '../../api/types';
 import { useSettings } from '../../settings/useSettings';
@@ -18,11 +18,22 @@ export default function ItemDetails() {
   const navigate = useNavigate();
   const { openLinkInNewTab } = useSettings();
   const { data: item, error } = useAsync((signal) => fetchItemContent(id, signal), [id]);
-  // Like Angular, the discussion renders right away and poll options fill in as they load.
-  const { data: poll } = useAsync(
-    (signal) => (item?.poll ? fetchPollResults(item, signal) : Promise.resolve(null)),
-    [item]
-  );
+  const [poll, setPoll] = useState<PollResult[] | null>(null);
+
+  // Like Angular, the discussion renders right away and each poll option replaces its feed entry as it loads;
+  // an option that fails keeps its feed entry.
+  useEffect(() => {
+    setPoll(item?.poll ?? null);
+    if (!item?.poll) return;
+    const controller = new AbortController();
+    item.poll.forEach((_, i) => {
+      fetchPollContent(item.id + i + 1, controller.signal).then(
+        (option) => !controller.signal.aborted && setPoll((prev) => prev && prev.map((o, j) => (j === i ? option : o))),
+        () => {}
+      );
+    });
+    return () => controller.abort();
+  }, [item]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

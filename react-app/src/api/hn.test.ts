@@ -1,4 +1,4 @@
-import { fetchFeed, fetchItemContent, fetchPollResults, fetchUser, HN_API_URL, HNPWA_API_URL, pollVotes } from './hn';
+import { fetchFeed, fetchItemContent, fetchUser, HN_API_URL, HNPWA_API_URL, pollVotes } from './hn';
 
 function mockFetch(responses: Record<string, unknown>) {
   const fn = vi.fn(async (url: string) => {
@@ -18,27 +18,13 @@ describe('hn api', () => {
     expect(fn).toHaveBeenCalledWith(`${HN_API_URL}/show?page=2`, expect.anything());
   });
 
-  it('fills poll options from the feed entry, then loads each option', async () => {
+  it('fills poll options from the poll feed entry', async () => {
     mockFetch({
       [`${HN_API_URL}/item/10`]: { id: 10, type: 'poll', poll: [{ item: 'feed a', points: 2 }, { item: 'feed b', points: 6 }] },
-      [`${HN_API_URL}/item/11`]: { points: 3, content: 'a' },
-      [`${HN_API_URL}/item/12`]: { points: 7, content: 'b' },
     });
     const item = await fetchItemContent(10);
     expect(item.poll).toEqual([{ points: 2, content: 'feed a' }, { points: 6, content: 'feed b' }]);
-    const poll = await fetchPollResults(item);
-    expect(poll).toEqual([{ points: 3, content: 'a' }, { points: 7, content: 'b' }]);
-    expect(pollVotes(poll)).toBe(10);
-  });
-
-  it('keeps the feed entry when a poll option fails, like Angular', async () => {
-    mockFetch({
-      [`${HN_API_URL}/item/10`]: { id: 10, type: 'poll', poll: [{ item: 'feed a', points: 2 }, { item: 'feed b', points: 6 }] },
-      [`${HN_API_URL}/item/12`]: { points: 7, content: 'b' },
-    });
-    const poll = await fetchPollResults(await fetchItemContent(10));
-    expect(poll).toEqual([{ points: 2, content: 'feed a' }, { points: 7, content: 'b' }]);
-    expect(pollVotes(poll)).toBe(9);
+    expect(pollVotes(item.poll!)).toBe(8);
   });
 
   it('fetches users from HNPWA', async () => {

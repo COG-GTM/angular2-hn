@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { fetchItemContent, fetchPollResults } from '../../api/hn';
+import { fetchItemContent, fetchPollContent } from '../../api/hn';
 import type { Story } from '../../api/types';
 import { SettingsProvider } from '../../settings/SettingsContext';
 import ItemDetails from './ItemDetails';
@@ -9,10 +9,10 @@ import ItemDetails from './ItemDetails';
 vi.mock('../../api/hn', async (importOriginal) => ({
   ...(await importOriginal<typeof import('../../api/hn')>()),
   fetchItemContent: vi.fn(),
-  fetchPollResults: vi.fn(),
+  fetchPollContent: vi.fn(),
 }));
 const fetchItem = vi.mocked(fetchItemContent);
-const fetchPoll = vi.mocked(fetchPollResults);
+const fetchPoll = vi.mocked(fetchPollContent);
 
 const story: Story = {
   id: 42, title: 'A story', points: 100, user: 'pg', time: 0, time_ago: '3 hours ago', type: 'link',
@@ -89,7 +89,7 @@ describe('ItemDetails', () => {
   });
 
   it('draws poll options with bars proportional to their votes', async () => {
-    fetchPoll.mockResolvedValue([{ points: 30, content: 'Yes' }, { points: 10, content: 'No' }]);
+    fetchPoll.mockImplementation(async (id) => (id === 43 ? { points: 30, content: 'Yes' } : { points: 10, content: 'No' }));
     const { container } = renderAt({ ...story, type: 'poll', poll: [{ points: 30, content: 'Yes' }, { points: 10, content: 'No' }] });
     await screen.findAllByText('A story');
     const rows = container.querySelectorAll<HTMLElement>('.pollResults .pollContent');
@@ -99,14 +99,17 @@ describe('ItemDetails', () => {
     expect(rows[1].querySelector('.pollBar')).toHaveStyle({ width: '25%' });
   });
 
-  it('shows the discussion with the feed poll entries while options load, then the loaded options', async () => {
-    let resolvePoll!: (poll: { points: number; content: string }[]) => void;
-    fetchPoll.mockReturnValue(new Promise((resolve) => (resolvePoll = resolve)));
+  it('shows the discussion with the feed poll entries, then each option as it loads', async () => {
+    let resolveFirst!: (option: { points: number; content: string }) => void;
+    fetchPoll.mockImplementation((id) =>
+      id === 43 ? new Promise((resolve) => (resolveFirst = resolve)) : Promise.reject(new Error('stalled option'))
+    );
     const { container } = renderAt({ ...story, type: 'poll', poll: [{ points: 1, content: 'feed yes' }, { points: 1, content: 'feed no' }] });
     await screen.findByText('first');
     expect(container.querySelector('.pollResults')).toHaveTextContent('feed yes1 points');
-    resolvePoll([{ points: 3, content: 'Yes' }, { points: 1, content: 'No' }]);
+    resolveFirst({ points: 3, content: 'Yes' });
     expect(await screen.findByText('Yes')).toBeInTheDocument();
+    expect(container.querySelector('.pollResults')).toHaveTextContent('feed no1 points');
     expect(container.querySelector('.pollBar')).toHaveStyle({ width: '75%' });
   });
 

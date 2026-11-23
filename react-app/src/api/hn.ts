@@ -21,18 +21,11 @@ export function fetchPollContent(id: number, signal?: AbortSignal): Promise<Poll
   return getJson<PollResult>(`${HN_API_URL}/item/${id}`, signal);
 }
 
-/** Fetches an item. Poll options start from the feed entry (`item` text, points) until `fetchPollResults` loads them. */
+/** Fetches an item. Poll options start from the feed entry (`item` text, points) until `fetchPollContent` loads each one. */
 export async function fetchItemContent(id: number, signal?: AbortSignal): Promise<Story> {
   const story = await getJson<Story>(`${HN_API_URL}/item/${id}`, signal);
   if (story.poll) story.poll = story.poll.map(({ points, content, item }) => ({ points, content: content ?? item ?? '' }));
   return story;
-}
-
-/** Loads each poll option (ids follow the poll id); like Angular, an option that fails keeps its feed entry. */
-export async function fetchPollResults(story: Story, signal?: AbortSignal): Promise<PollResult[]> {
-  const poll = story.poll ?? [];
-  const results = await Promise.allSettled(poll.map((_, i) => fetchPollContent(story.id + i + 1, signal)));
-  return results.map((result, i) => (result.status === 'fulfilled' ? result.value : poll[i]));
 }
 
 export function pollVotes(poll: PollResult[]): number {

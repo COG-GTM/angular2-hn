@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 import { SettingsService } from './shared/services/settings.service';
 import { Settings } from './shared/models/settings';
@@ -10,7 +13,7 @@ declare let ga: Function;
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [HeaderComponent, RouterOutlet, FooterComponent]
 })
 
 export class AppComponent {

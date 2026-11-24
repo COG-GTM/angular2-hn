@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import fetch from 'unfetch';
 import {map } from 'rxjs/operators';
 
@@ -41,7 +41,7 @@ export class HackerNewsAPIService {
   }
 
   fetchUser(id: string): Observable<User> {
-    return lazyFetch(`${this.baseUrl}/user/${id}`);
+    return lazyFetch(`https://api.hnpwa.com/v0/user/${id}.json`);
   }
 }
 

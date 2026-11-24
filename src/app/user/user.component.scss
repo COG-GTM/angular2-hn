@@ -1,10 +1,6 @@
 @import "../shared/scss/media";
 @import "../shared/scss/theme_variables";
 
-:host >>> pre {
-  white-space: pre-wrap;
-}
-
 .profile {
   padding: 30px;
 }

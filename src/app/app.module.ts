@@ -4,11 +4,10 @@ import { NgModule } from '@angular/core';
 import { routing } from './app.routes';
 
 import { AppComponent } from './app.component';
-
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { FeedComponent } from './feeds/feed/feed.component';
 import { ItemComponent } from './feeds/item/item.component';
-
-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HackerNewsAPIService } from './shared/services/hackernews-api.service';
@@ -17,13 +16,16 @@ import { SettingsService } from './shared/services/settings.service';
 @NgModule({
     declarations: [AppComponent],
     imports: [
-    BrowserModule,
-    routing,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.production,
-    }),
-    FeedComponent, ItemComponent,
-],
+        BrowserModule,
+        routing,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        }),
+        HeaderComponent,
+        FooterComponent,
+        FeedComponent,
+        ItemComponent,
+    ],
     providers: [HackerNewsAPIService, SettingsService],
     bootstrap: [AppComponent],
 })

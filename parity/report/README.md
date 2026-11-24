@@ -28,7 +28,7 @@ Same Playwright specs run against the baseline (`:4000`) and the upgraded app (`
 | settings.spec.ts › "Open links in a new tab" sets target=_blank on story links | pass | pass |
 | user.spec.ts › author link opens the user profile | pass | pass |
 | user.spec.ts › profile page renders directly by URL | pass | pass |
-| user.spec.ts › unknown user shows nothing broken (empty API response) | pass | pass |
+| user.spec.ts › unknown user shows the error message (non-JSON API response, as served live) | pass | pass |
 
 ## Screenshots (baseline left, upgraded right)
 

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ItemDetailsComponent } from './item-details.component';
 import { CommentComponent } from './comment/comment.component';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
-import { PipesModule } from '../shared/pipes/pipes.module';
+
+
 
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [SharedComponentsModule, CommonModule, RouterModule, PipesModule, RouterModule.forChild(routes), ItemDetailsComponent, CommentComponent],
+    imports: [CommonModule, RouterModule, RouterModule.forChild(routes), ItemDetailsComponent, CommentComponent],
     exports: [ItemDetailsComponent, RouterModule]
 })
 export class ItemDetailsModule {}

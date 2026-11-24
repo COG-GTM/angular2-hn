@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user.component';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
+
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
 
 
 @NgModule({
-    imports: [CommonModule, SharedComponentsModule, RouterModule.forChild(routes), UserComponent],
+    imports: [CommonModule, RouterModule.forChild(routes), UserComponent],
     exports: [UserComponent, RouterModule]
 })
 export class UserModule {}

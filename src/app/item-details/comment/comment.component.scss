@@ -1,16 +1,6 @@
 @import "../../shared/scss/media";
 @import "../../shared/scss/theme_variables";
 
-:host ::ng-deep {
-  a {
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 .meta {
   font-size: 13px;
   color: #696969;

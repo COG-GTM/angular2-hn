@@ -29,18 +29,28 @@ test('comments link opens the story with its comment tree', async ({ page }, tes
 test('collapsing a comment hides its text and replies', async ({ page }) => {
   const story = fixture<any>(`item-${STORY}`);
   await page.goto(`/item/${STORY}`);
-  const first = page.locator('.comment-list > li').first().locator('app-comment').first();
-  const toggle = first.locator('.meta .collapse').first();
-  const text = first.locator('.comment-text').first();
+  const index = story.comments.findIndex((c: any) => c.comments.length > 0);
+  expect(index).toBeGreaterThanOrEqual(0);
+  const parent = story.comments[index];
+  const comment = page.locator('.comment-list > li').nth(index).locator('app-comment').first();
+  const toggle = comment.locator('.meta .collapse').first();
+  const text = comment.locator('.comment-text').first();
+  const replies = comment.locator('.subtree > li');
+  const firstReply = replies.first().locator('.meta a').first();
+  await expect(comment.locator('.meta a').first()).toHaveText(parent.user);
   await expect(toggle).toHaveText('[-]');
   await expect(text).toBeVisible();
+  await expect(replies).toHaveCount(parent.comments.length);
+  await expect(firstReply).toHaveText(parent.comments[0].user);
+  await expect(firstReply).toBeVisible();
   await toggle.click();
   await expect(toggle).toHaveText('[+]');
   await expect(text).toBeHidden();
+  await expect(firstReply).toBeHidden();
   await toggle.click();
   await expect(toggle).toHaveText('[-]');
   await expect(text).toBeVisible();
-  expect(story.comments[0].user).toBeTruthy();
+  await expect(firstReply).toBeVisible();
 });
 
 test('ask item without external url links to itself and shows its text', async ({ page }, testInfo) => {

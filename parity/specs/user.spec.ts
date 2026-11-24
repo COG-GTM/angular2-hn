@@ -27,6 +27,10 @@ test('profile page renders directly by URL', async ({ page }, testInfo) => {
 
 test('unknown user shows nothing broken (empty API response)', async ({ page }) => {
   await page.goto('/user/zz-no-such-user-zz');
-  await expect(page.locator('app-loader, .profile, app-error-message').first()).toBeAttached();
+  await expect(page.locator('.profile')).toBeVisible();
+  await expect(page.locator('.main-details .name')).toHaveText('');
+  await expect(page.locator('app-loader')).toHaveCount(0);
+  await expect(page.locator('app-error-message')).toHaveCount(0);
+  await expect(page.locator('.other-details')).toHaveCount(0);
   await expect(page.locator('#footer')).toContainText('Show this project some');
 });

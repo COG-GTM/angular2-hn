@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { User } from '../shared/models/user';
@@ -18,18 +18,23 @@ export class UserComponent implements OnInit {
   private _hackerNewsAPIService = inject(HackerNewsAPIService);
   private route = inject(ActivatedRoute);
   private _location = inject(Location);
+  private destroyRef = inject(DestroyRef);
 
-  sub: Subscription;
-  user: User;
-  errorMessage = '';
+  readonly user = signal<User | undefined>(undefined);
+  readonly errorMessage = signal('');
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let userID = params['id'];
-      this._hackerNewsAPIService.fetchUser(userID).subscribe(data => {
-        this.user = data;
-      }, error => this.errorMessage = 'Could not load user ' + userID + '.');
-    });
+    this.route.params
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(params => {
+        const userID = params['id'];
+        this._hackerNewsAPIService.fetchUser(userID)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: data => this.user.set(data),
+            error: () => this.errorMessage.set('Could not load user ' + userID + '.')
+          });
+      });
   }
 
   goBack() {

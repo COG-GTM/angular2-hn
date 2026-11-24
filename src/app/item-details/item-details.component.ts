@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 import { Location, NgStyle } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
 
 import { HackerNewsAPIService } from '../shared/services/hackernews-api.service';
 import { SettingsService } from '../shared/services/settings.service';
@@ -25,9 +25,11 @@ export class ItemDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private _location = inject(Location);
 
-  sub: Subscription;
-  item: Story;
-  errorMessage = '';
+  private destroyRef = inject(DestroyRef);
+
+  readonly item = signal<Story | undefined>(undefined);
+  readonly errorMessage = signal('');
+  readonly hasUrl = computed(() => this.item()?.url.indexOf('http') === 0);
   settings: Settings;
 
   constructor() {
@@ -35,21 +37,22 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      let itemID = +params['id'];
-      this._hackerNewsAPIService.fetchItemContent(itemID).subscribe(item => {
-        this.item = item;
-      }, error => this.errorMessage = 'Could not load item comments.');
-    });
+    this.route.params
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(params => {
+        const itemID = +params['id'];
+        this._hackerNewsAPIService.fetchItemContent(itemID)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: item => this.item.set(item),
+            error: () => this.errorMessage.set('Could not load item comments.')
+          });
+      });
     window.scrollTo(0, 0);
   }
 
   goBack() {
     this._location.back();
-  }
-
-  get hasUrl(): boolean {
-    return this.item.url.indexOf('http') === 0;
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EMPTY } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 
 import { HackerNewsAPIService } from '../../shared/services/hackernews-api.service';
@@ -33,20 +35,22 @@ export class FeedComponent implements OnInit {
       .subscribe(data => this.feedType.set((data as any).feedType));
 
     this.route.params
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(params => {
-        const pageNum = params['page'] ? +params['page'] : 1;
-        this.pageNum.set(pageNum);
-        this._hackerNewsAPIService.fetchFeed(this.feedType(), pageNum)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe({
-            next: items => this.items.set(items),
-            error: () => this.errorMessage.set('Could not load ' + this.feedType() + ' stories.'),
-            complete: () => {
-              this.listStart.set(((pageNum - 1) * 30) + 1);
-              window.scrollTo(0, 0);
-            }
-          });
+      .pipe(
+        map(params => params['page'] ? +params['page'] : 1),
+        tap(pageNum => this.pageNum.set(pageNum)),
+        switchMap(pageNum => this._hackerNewsAPIService.fetchFeed(this.feedType(), pageNum).pipe(
+          map(items => ({ pageNum, items })),
+          catchError(() => {
+            this.errorMessage.set('Could not load ' + this.feedType() + ' stories.');
+            return EMPTY;
+          })
+        )),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(({ pageNum, items }) => {
+        this.items.set(items);
+        this.listStart.set(((pageNum - 1) * 30) + 1);
+        window.scrollTo(0, 0);
       });
   }
 }

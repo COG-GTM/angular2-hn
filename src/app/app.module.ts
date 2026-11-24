@@ -15,7 +15,7 @@ import { HackerNewsAPIService } from './shared/services/hackernews-api.service';
 import { SettingsService } from './shared/services/settings.service';
 
 @NgModule({
-    declarations: [AppComponent, FeedComponent, ItemComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         routing,
@@ -25,6 +25,7 @@ import { SettingsService } from './shared/services/settings.service';
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
         }),
+        FeedComponent, ItemComponent,
     ],
     providers: [HackerNewsAPIService, SettingsService],
     bootstrap: [AppComponent],

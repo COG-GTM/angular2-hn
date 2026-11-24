@@ -9,7 +9,7 @@
     "report": "node report.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.1",
+    "@playwright/test": "^1.65.1",
     "pixelmatch": "5.3.0",
     "pngjs": "7.0.0"
   }

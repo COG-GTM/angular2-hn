@@ -3,7 +3,7 @@ import { Story } from '../../shared/models/story';
 
 import { SettingsService } from '../../shared/services/settings.service';
 import { Settings } from '../../shared/models/settings';
-import { NgStyle, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { CommentPipe } from '../../shared/pipes/comment.pipe';
 
@@ -11,7 +11,7 @@ import { CommentPipe } from '../../shared/pipes/comment.pipe';
     selector: 'item',
     templateUrl: './item.component.html',
     styleUrls: ['./item.component.scss'],
-    imports: [NgStyle, NgIf, RouterLinkActive, RouterLink, CommentPipe]
+    imports: [NgStyle, RouterLinkActive, RouterLink, CommentPipe]
 })
 export class ItemComponent implements OnInit {
   @Input() item: Story;

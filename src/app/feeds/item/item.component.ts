@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { Story } from '../../shared/models/story';
 
 import { SettingsService } from '../../shared/services/settings.service';
@@ -16,7 +16,7 @@ import { CommentPipe } from '../../shared/pipes/comment.pipe';
 export class ItemComponent implements OnInit {
   private _settingsService = inject(SettingsService);
 
-  @Input() item: Story;
+  readonly item = input.required<Story>();
   settings: Settings;
 
   constructor() {
@@ -26,7 +26,7 @@ export class ItemComponent implements OnInit {
   ngOnInit() {}
 
   get hasUrl(): boolean {
-    return this.item.url.indexOf('http') === 0;
+    return this.item().url.indexOf('http') === 0;
   }
 
 }

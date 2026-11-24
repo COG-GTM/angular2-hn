@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 
 import { Comment } from '../../shared/models/comment';
 
@@ -11,7 +11,7 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
     imports: [RouterLinkActive, RouterLink]
 })
 export class CommentComponent implements OnInit {
-  @Input() comment: Comment;
+  readonly comment = input.required<Comment>();
   collapse: boolean;
 
   constructor() {}

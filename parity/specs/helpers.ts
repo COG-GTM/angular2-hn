@@ -25,6 +25,15 @@ export async function mockApi(page: Page, opts: { fail?: boolean } = {}) {
     else if (item) name = `item-${item[1]}`;
     else if (user) name = `user-${user[1]}`;
     const file = name && path.join(FIXTURES, `${name}.json`);
+    if (user && (!file || !fs.existsSync(file))) {
+      // api.hnpwa.com answers unknown users with a non-JSON 200 body.
+      return route.fulfill({
+        status: 200,
+        contentType: 'text/html; charset=utf-8',
+        headers: { 'access-control-allow-origin': '*' },
+        body: "Cannot read property 'apply' of undefined",
+      });
+    }
     if (!file || !fs.existsSync(file)) {
       return route.fulfill({ status: 404, contentType: 'application/json', body: '{}' });
     }

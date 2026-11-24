@@ -35,7 +35,7 @@ test('collapsing a comment hides its text and replies', async ({ page }) => {
   const comment = page.locator('.comment-list > li').nth(index).locator('app-comment').first();
   const toggle = comment.locator('.meta .collapse').first();
   const text = comment.locator('.comment-text').first();
-  const replies = comment.locator('.subtree > li');
+  const replies = comment.locator('.subtree').first().locator(':scope > li');
   const firstReply = replies.first().locator('.meta a').first();
   await expect(comment.locator('.meta a').first()).toHaveText(parent.user);
   await expect(toggle).toHaveText('[-]');

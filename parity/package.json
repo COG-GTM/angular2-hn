@@ -2,7 +2,7 @@
   "name": "angular2-hn-parity",
   "private": true,
   "scripts": {
-    "pretest": "node -e \"fs.rmSync('report/screens',{recursive:true,force:true});fs.rmSync('report/side-by-side',{recursive:true,force:true})\"",
+    "pretest": "node -e \"fs.rmSync('report/screens',{recursive:true,force:true})\"",
     "test": "playwright test",
     "test:baseline": "playwright test --project=baseline",
     "test:upgraded": "playwright test --project=upgraded",

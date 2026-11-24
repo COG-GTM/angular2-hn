@@ -8,6 +8,7 @@ import pixelmatch from 'pixelmatch';
 const root = path.join(path.dirname(new URL(import.meta.url).pathname), 'report');
 const screens = path.join(root, 'screens');
 const outDir = path.join(root, 'side-by-side');
+fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 
 function pad(img, w, h) {
